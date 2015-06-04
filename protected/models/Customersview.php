@@ -152,22 +152,22 @@ class Customersview extends GActiveRecord
         {
         
         $criteria = new CDbCriteria;
-      /*  $criteria->addSearchCondition('ID_CLIENTE',$this->ID_CLIENTE,true);*/
-        $criteria->addSearchCondition('NOMBRE',$this->NOMBRE,true,'OR');   
-        /*$criteria->addSearchCondition('CARTERA_90_DIAS', $this->CARTERA_90_DIAS,true,'or');  */
-      /*    $criteria->compare('NOMBRE_DE_EMPRESA',$this->NOMBRE_DE_EMPRESA,true,'OR');
+        // $criteria->compare('ID_CLIENTE',$this->ID_CLIENTE,true);
+        $criteria->compare('NOMBRE',$this->NOMBRE,true);   
+      /*$criteria->compare('NOMBRE_DE_EMPRESA',$this->NOMBRE_DE_EMPRESA,true,'OR');
         $criteria->compare('CARTERA_30_DIAS',$this->CARTERA_30_DIAS,true,'or');
         $criteria->compare('CARTERA_60_DIAS', $this->CARTERA_60_DIAS,true,'or');
         $criteria->compare('CARTERA_90_DIAS', $this->CARTERA_90_DIAS,true,'or');  
         $criteria->compare('CARTERA_120_DIAS', $this->CARTERA_120_DIAS,true,'or');  */
-     /*   $criteria->order = 'CARTERA_90_DIAS DESC, CARTERA_90_DIAS DESC';*/
-        $criteria->limit = 10;
-        $criteria->offset = 10;
-       
+        $criteria->order = 'CARTERA_90_DIAS DESC, CARTERA_90_DIAS DESC';
+        $criteria->limit = 20;
+        $criteria->offset = 0;
         return new CActiveDataProvider($this, array(
-                        'criteria'=>$criteria,     
-                'pagination' => array('pageSize' => 5),
-      'totalItemCount'=>'10'
+                        'criteria'=> $criteria,     
+                        'pagination' => array('pageSize' => 5),
+                        /** seems this is not needed
+                        'totalItemCount'=>'10'
+                        */
         ));
          
      }
