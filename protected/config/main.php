@@ -137,16 +137,16 @@ return array(
                                        'levels' => 'trace, info, error, warning, vardump,log',
                                               //  'levels'=>'profile',
                                           'categories' => 'system.db.CDbCommand',
-        'logFile' => 'db.log',
-            'enabled'=>true,
-				),
+			        'logFile' => 'db.log',
+					'enabled'=>true,
+					),
              array(
-            'class' => 'CWebLogRoute',
-            'enabled' => YII_DEBUG,
-            'levels' => 'error, warning, trace, notice',
-            'categories' => 'application',
-            'showInFireBug' => false,
-        ),
+	            'class' => 'CWebLogRoute',
+	            'levels' => 'error, warning, trace, notice',
+	            'categories' => 'application',
+	            'showInFireBug' => false,
+	            'enabled'=>true,
+        	),
 				// uncomment the following to show log messages on web pages
 				/*
 				array(
