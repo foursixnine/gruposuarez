@@ -48,6 +48,7 @@ $this->widget('booster.widgets.TbGridView',array(
 'columns'=>array(
                 'ID_CLIENTE',
 		'NOMBRE',
+    'CARTERA_90_DIAS',
 	
 array(
 'class'=>'booster.widgets.TbButtonColumn',

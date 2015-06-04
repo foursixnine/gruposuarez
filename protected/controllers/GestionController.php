@@ -183,7 +183,7 @@ public function actions()
 	 */
 	public function actionAdmin()
 	{
-                $model=new Customersview('noventadias');
+                $model= new Customersview('noventadias');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Gestion']))
 			$model->attributes=$_GET['Gestion'];

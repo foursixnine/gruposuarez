@@ -60,7 +60,7 @@ $this->widget('zii.widgets.grid.CGridView',array(
 'filter'=>$cliente,
    // 'limit' => 5, 
 'columns'=>array(
-                'ID_CLIENTE',
+             //   'ID_CLIENTE',
 		'NOMBRE',
                 /*'APELLIDO',
                 'ID_PROYECTO',

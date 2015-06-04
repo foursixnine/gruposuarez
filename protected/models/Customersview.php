@@ -35,7 +35,7 @@ class Customersview extends GActiveRecord
         public function rules()
 	{
 		return array(
-                    array('NOMBRE', 'safe'),
+                    //    array('NOMBRE', 'safe'),
 			array('ID_CLIENTE,NOMBRE, APELLIDO, STATUS, PROYECTO, CARTERA_30_DIAS,CARTERA_60_DIAS,CARTERA_90_DIAS', 'safe', 'on'=>'search'),
 		);
 	}
@@ -128,7 +128,7 @@ class Customersview extends GActiveRecord
 		));
 	}
         
-        public function agendagestion()
+     /*   public function agendagestion()
         {
         
         $criteria = new CDbCriteria;
@@ -146,22 +146,24 @@ class Customersview extends GActiveRecord
                         'pagination' => array('pageSize' => 5),
         ));
          
-     }
+     }*/
      
         public function noventadias()
         {
         
         $criteria = new CDbCriteria;
-        $criteria->compare('ID_CLIENTE',$this->ID_CLIENTE,true);
-        $criteria->compare('NOMBRE',$this->NOMBRE,true);   
+      /*  $criteria->addSearchCondition('ID_CLIENTE',$this->ID_CLIENTE,true);*/
+        $criteria->addSearchCondition('NOMBRE',$this->NOMBRE,true,'OR');   
+        /*$criteria->addSearchCondition('CARTERA_90_DIAS', $this->CARTERA_90_DIAS,true,'or');  */
       /*    $criteria->compare('NOMBRE_DE_EMPRESA',$this->NOMBRE_DE_EMPRESA,true,'OR');
         $criteria->compare('CARTERA_30_DIAS',$this->CARTERA_30_DIAS,true,'or');
         $criteria->compare('CARTERA_60_DIAS', $this->CARTERA_60_DIAS,true,'or');
         $criteria->compare('CARTERA_90_DIAS', $this->CARTERA_90_DIAS,true,'or');  
         $criteria->compare('CARTERA_120_DIAS', $this->CARTERA_120_DIAS,true,'or');  */
-        $criteria->order = 'CARTERA_90_DIAS DESC, CARTERA_90_DIAS DESC';
+     /*   $criteria->order = 'CARTERA_90_DIAS DESC, CARTERA_90_DIAS DESC';*/
         $criteria->limit = 10;
         $criteria->offset = 10;
+       
         return new CActiveDataProvider($this, array(
                         'criteria'=>$criteria,     
                 'pagination' => array('pageSize' => 5),
