@@ -134,8 +134,10 @@ return array(
 				array(
 					'class'=>'CFileLogRoute',
 					//'levels'=>'error, warning',
-                                       'levels' => 'trace, info, error, warning, vardump',
+                                       'levels' => 'trace, info, error, warning, vardump,log',
                                               //  'levels'=>'profile',
+                                          'categories' => 'system.db.CDbCommand',
+        'logFile' => 'db.log',
             'enabled'=>true,
 				),
              array(

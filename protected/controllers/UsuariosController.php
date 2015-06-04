@@ -177,12 +177,14 @@ $mail->SMTPSecure = true; */
 $mail->SetFrom('gilarreta@valorca.com', 'Departamento de Cobros');
 $mail->Subject = 'Departamento de Cobros - Grupo Suarez';
 $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-$mail->MsgHTML('<h3>Le informamos que según nuestro registro usted tiene tres letras vencidas con fecha (insertar fecha). '
+$mail->MsgHTML('<p>Estimada Oly Soto! <br/><br/><h2>Le informamos que según nuestro registro usted tiene tres letras vencidas con fecha (insertar fecha). '
         . 'Le agradecemos contactarse con nosotros en los teléfonos (insertar teléfonos) a más tardar el día (insertar día) '
         . 'ya que sus pagos han pasado el plazo de los 90 días y según los términos del contrato tendremos que retirarlo del '
         . 'proyecto por incumplimiento. Nuestra intención es tener la mejor relación comercial con usted, para esto le '
-        . 'solicitamos ponerse en contacto con nosotros lo más pronto posible.!</h3>');
-$mail->AddAddress('gilarreta@valorca.com', 'Gabriela Ilarreta');
+        . 'solicitamos ponerse en contacto con nosotros lo más pronto posible.!</p><br/><br/><br/>Esperamos que tenga un buen día.'
+        . '<br/><br/>Atentamente,<br/><br/>Departamento de Cobros<br/><br/>Grupo Suárez');
+$mail->AddAddress('osoto@valorca.com', 'Oly Soto');
+$mail->AddCC('gilarreta@valorca.com','Gabriela Ilarreta');
 $mail->Send();
      //   Yii::app()->user->setFlash('contact','Thank you for... as possible.');
        //  $this->refresh();

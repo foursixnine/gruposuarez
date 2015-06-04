@@ -32,7 +32,13 @@ class Customersview extends GActiveRecord
 	{
 		return 'enx_suarez.customers_view';
 	}
-        
+        public function rules()
+	{
+		return array(
+                    array('NOMBRE', 'safe'),
+			array('ID_CLIENTE,NOMBRE, APELLIDO, STATUS, PROYECTO, CARTERA_30_DIAS,CARTERA_60_DIAS,CARTERA_90_DIAS', 'safe', 'on'=>'search'),
+		);
+	}
         public function attributeLabels()
         {
             return array(                   
@@ -146,9 +152,9 @@ class Customersview extends GActiveRecord
         {
         
         $criteria = new CDbCriteria;
-        $criteria->compare('ID_CLIENTE',$this->ID_CLIENTE, false, 'OR');
-      $criteria->compare('NOMBRE',$this->NOMBRE, false, 'OR');   
-      /*    $criteria->compare('NOMBRE_DE_EMPRESA',$this->NOMBRE_DE_EMPRESA,true,'or');
+        $criteria->compare('ID_CLIENTE',$this->ID_CLIENTE,true);
+        $criteria->compare('NOMBRE',$this->NOMBRE,true);   
+      /*    $criteria->compare('NOMBRE_DE_EMPRESA',$this->NOMBRE_DE_EMPRESA,true,'OR');
         $criteria->compare('CARTERA_30_DIAS',$this->CARTERA_30_DIAS,true,'or');
         $criteria->compare('CARTERA_60_DIAS', $this->CARTERA_60_DIAS,true,'or');
         $criteria->compare('CARTERA_90_DIAS', $this->CARTERA_90_DIAS,true,'or');  

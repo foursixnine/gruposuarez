@@ -58,7 +58,7 @@ $this->widget('zii.widgets.grid.CGridView',array(
 'id'=>'masbuscados-grid',
 'dataProvider'=>$cliente->noventadias(),
 'filter'=>$cliente,
-   // 'limit' => 5,
+   // 'limit' => 5, 
 'columns'=>array(
                 'ID_CLIENTE',
 		'NOMBRE',

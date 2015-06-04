@@ -38,7 +38,25 @@ return false;
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('booster.widgets.TbGridView',array(
+<?php 
+
+
+$this->widget('booster.widgets.TbGridView',array(
+'id'=>'gestion-grid',
+'dataProvider'=>$model->noventadias(),
+'filter'=>$model,
+'columns'=>array(
+                'ID_CLIENTE',
+		'NOMBRE',
+	
+array(
+'class'=>'booster.widgets.TbButtonColumn',
+),
+),
+));
+
+
+/*$this->widget('booster.widgets.TbGridView',array(
 'id'=>'gestion-grid',
 'dataProvider'=>$model->search(),
 'filter'=>$model,
@@ -49,11 +67,9 @@ return false;
 		'llamada_voz',
 		'id_acuerdo_cobros',
 		'fecha_acuerdo',
-		/*
-		'id_gestion_llamada',
-		*/
+	
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),
 ),
-)); ?>
+)); */?>

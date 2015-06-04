@@ -163,15 +163,15 @@ public function actions()
 	{
 	
                 $cliente = new Customersview('noventadias');
-                $model = new Gestion ('agendagestion');
+               // $model = new Gestion ('agendagestion');
                // $model=new Gestion('search');
-                
-		$model->unsetAttributes();  // clear any default values
+                $cliente->unsetAttributes();
+		//$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Gestion']))
-			$model->attributes=$_GET['Gestion'];
+			echo $cliente->attributes=$_GET['Gestion'];
    
 		$this->render('index',array(
-			'model'=>$model,
+		//	'model'=>$model,
                         'cliente'=>$cliente,
 		));
              
@@ -183,14 +183,23 @@ public function actions()
 	 */
 	public function actionAdmin()
 	{
-		$model=new Gestion('search');
+                $model=new Customersview('noventadias');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Gestion']))
 			$model->attributes=$_GET['Gestion'];
 
 		$this->render('admin',array(
 			'model'=>$model,
-		));
+                ));   
+                
+		/*$model=new Gestion('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Gestion']))
+			$model->attributes=$_GET['Gestion'];
+
+		$this->render('admin',array(
+			'model'=>$model,
+		));*/
 	}
 
 	/**
