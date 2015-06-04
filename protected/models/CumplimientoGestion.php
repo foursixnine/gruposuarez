@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property Gestion[] $gestions
  */
-class CumplimientoGestion extends CActiveRecord
+class CumplimientoGestion extends GActiveRecord
 {
 	/**
 	 * @return string the associated database table name

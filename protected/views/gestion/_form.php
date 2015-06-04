@@ -6,27 +6,32 @@
  
 <script>
 $(function(){
-    $('select#llamada_voz').prop('disabled', true);
-    $('select#contactado_llamada').click(function () {
-        document.getElementById('contactado_llamada').value;
-        $valor=(document.getElementById('contactado_llamada').value);
-        //alert($valor);
+        $('select#Gestion_llamada_voz').prop('disabled', true);
+    $('select#Gestion_contactado_llamada').change(function () {
+        
+        alert("Entre a la funcion");
+        
+       // document.getElementById('Gestion_contactado_llamada').value;
+        $valor=(document.getElementById('Gestion_contactado_llamada').value);
+         alert($valor);
         if($valor==2){
-          //  alert("Es NO");
-            $('select#llamada_voz').prop('disabled', false);
-        }
-        if(valor==1){
-                 alert("Es SIIIIIIIIIIIII");
-            $('select#llamada_voz').prop('disabled', true); 
+$('select#Gestion_llamada_voz').attr("disabled", false);
+            //$('select#Gestion_llamada_voz').prop('disabled', false);
+        }else{
+       $('select#Gestion_llamada_voz').attr("disabled", true);
+           // $('select#Gestion_llamada_voz').prop('disabled', true); 
+        
         }
         
     });
-    $('select#Cartera_id_cartera').click(function () {
-       
-       // alert("HOLAAA :*");
-       document.getElementById('Cartera_id_cartera').value;
-        $valor=(document.getElementById('Cartera_id_cartera').value);
     
+        
+    $('select#Gestion_id_gestion_llamadas').click(function () {
+       
+       
+       document.getElementById('Gestion_id_gestion_llamadas').value;
+        $valor=(document.getElementById('Gestion_id_gestion_llamadas').value);
+     alert( $valor);
            if($valor==1){
                 document.getElementById('treinta').style.display='block';
            }else{
@@ -54,7 +59,7 @@ $(function(){
 
 });
 </script>     
- <?php  $id=$cliente->id_cliente; ?>
+ <?php  $id=$cliente->ID_CLIENTE; ?>
    <?php  $model->id_cliente=$id; ?>
 <div class="panel-group" id="accordion">
   <!--<div class="panel panel-default">-->
@@ -62,11 +67,11 @@ $(function(){
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          #ID<?php echo $id; ?> - <?php echo $cliente->nom_cliente;?> - 
+          #ID<?php echo $id; ?> - <?php echo $cliente->NOMBRE;?> - 
              <?php 
          
-                        if ($cliente->idProyecto->titulo!=""){
-                                echo $cliente->idProyecto->titulo; 
+                        if ($cliente->PROYECTO!=""){
+                                echo $cliente->PROYECTO; 
                         }
 	
 																		?>
@@ -85,6 +90,25 @@ $(function(){
   <b><?php echo $form->labelEx($model, 'Contactado');?></b><br />
   
       <?php
+          
+           $this->widget(
+            'booster.widgets.TbSelect2',
+                         array(
+      'model'=>$model,
+  'attribute'=>'contactado_llamada',
+                           
+  'data'=>array(
+    1=>'Si',
+    2=>'No',
+  ),
+              'htmlOptions' => array(
+                    'placeholder' => "----",
+                            
+            
+                ),
+                             )
+); 
+      /*
         $this->widget(
             'booster.widgets.TbSelect2',
             array(
@@ -98,15 +122,34 @@ $(function(){
                    // 'id' => 'contacto_llamada'
                 ),
             )
-        );
+        );*/
      ?>
    <br />
        <b><?php echo $form->labelEx($model, 'Mensaje de voz');?></b>
         <br />
       <?php
+           $this->widget(
+            'booster.widgets.TbSelect2',
+                         array(
+      'model'=>$model,
+  'attribute'=>'llamada_voz',
+                            
+  'data'=>array(
+    1=>'Si',
+    2=>'No',
+  ),
+              'htmlOptions' => array(
+                    'placeholder' => "----",
+                            
+            
+                ),
+                             )
+); 
+ /*
         $this->widget(
             'booster.widgets.TbSelect2',
             array(
+                  'model' => $model,
                 'name' => 'llamada_voz',
                 'id' => 'llamada_voz',
                 'data' => array(1 => 'SI', 2 => 'NO'),
@@ -116,7 +159,7 @@ $(function(){
             
                 ),
             )
-        );
+        );*/
      ?>
     <br />
     <b><?php echo $form->labelEx($model, 'Acuerdo');?></b>
@@ -157,12 +200,12 @@ $(function(){
 	
                     $this->widget(
                       'booster.widgets.TbSelect2', array(
-                      'model' => $cartera,
+                      'model' => $model,
                 //      'id'=>'id_cartera',                            
-                      'attribute' => 'id_cartera',
-                      'data' => CHtml::listData(Cartera::model()->findAll(), 'id_cartera', 'descripcion'),
+                      'attribute' => 'id_gestion_llamadas',
+                      'data' => CHtml::listData(Gestionllamadas::model()->findAll(), 'id_gestion_llamadas', 'descripcion'),
                       'options' => array(
-                        'placeholder' => "Cartera",
+                        'placeholder' => "Gestión Llamadas",
                        /* 'allowClear'=>true,
                         'minimumInputLength'=>2,*/
                       ),
@@ -179,7 +222,7 @@ $(function(){
             <div class="panel panel-info"><p>
                     <strong>1.1 SALUDAR </strong><br/>
                     Buenos días - tardes!<br/>
-                    Señor(a) <strong><?php echo $cliente->nom_cliente; ?><br/></strong>
+                    Señor(a) <strong><?php echo $cliente->NOMBRE; ?><br/></strong>
                     Gusto en saludarle.<br/>
                     <strong>1.2. PRESENTARSE </strong>
                     Le saluda -----,<br/> de parte de Grupo Suárez.<br/>
@@ -205,7 +248,7 @@ $(function(){
             <div class="panel panel-info"><p>
                     <strong>1.1 SALUDAR </strong><br/>
                     Buenos días - tardes!<br/>
-                    Señor(a) <strong><?php echo $cliente->nom_cliente; ?><br/></strong>
+                    Señor(a) <strong><?php echo $cliente->NOMBRE; ?><br/></strong>
                     Gusto en saludarle.<br/>
                     <strong>1.2. PRESENTARSE </strong>
                     Le saluda -----,<br/> de parte de Grupo Suárez.<br/>
@@ -227,7 +270,30 @@ $(function(){
         
         <div id="noventa" style="display:none;">
             <p>90 D&iacute;as</p>
-                <p><input type="text" name="otro" class="input" value="90" /></p>
+                      <br/>
+            <p><strong style="color:blue">SCRIPT PARA 90 D&Iacute;AS</strong></p>
+            
+            <div class="panel panel-info"><p>
+                    <strong>1.1 SALUDAR </strong><br/>
+                    Buenos días - tardes!<br/>
+                    Señor(a) <strong><?php echo $cliente->NOMBRE; ?><br/></strong>
+                    Gusto en saludarle.<br/>
+                    <strong>1.2. PRESENTARSE </strong>
+                    Le saluda -----,<br/> de parte de Grupo Suárez.<br/>
+                    El motivo de mi llamada es para notificarle que su letra con 
+                    monto correspondiente a ------ ha vencido el día -----. Su pago ha pasado el 
+                    plazo de los 60 días por lo que tiene dos incumplimientos de pago de letra. 
+                    Quisiera confirmar la fecha efectiva del pago para actualizar el estado de su 
+                    cartera y evitar un posible retiro del proyecto. Sin embargo, me gustaría
+                    conocer si ha tenido alguna situación 
+                    especial por la cual no ha podido realizar sus pagos a tiempo. <br/>
+
+                    <strong>3.3. SOLICITAR RAZON DE DEMORA </strong><br/>
+                    
+                    Entiendo su situación, tiene alguna propuesta de pago en mente para que pueda 
+                    establecer un  acuerdo con usted y no nos veamos perjudicados?<br/>
+                </p></div>
+        
         </div>
         
         <div id="cientoveinte" style="display:none;">
@@ -280,7 +346,7 @@ $(function(){
         //Nombre Cliente
         echo $form->textFieldGroup(
 			$cliente,
-			'nom_cliente',
+			'NOMBRE',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -293,7 +359,7 @@ $(function(){
         //Apellido Cliente
         echo $form->textFieldGroup(
 			$cliente,
-			'ape_cliente',
+			'APELLIDO',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -307,7 +373,7 @@ $(function(){
         //RUC
         echo $form->textFieldGroup(
 			$cliente,
-			'ruc',
+			'CEDULA',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -320,7 +386,7 @@ $(function(){
         //Nombre Nacionalidad
         echo $form->textFieldGroup(
 			$cliente,
-			'nacionalidad',
+			'NACIONALIDAD',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -334,7 +400,7 @@ $(function(){
         //Sexo
         echo $form->textFieldGroup(
 			$cliente,
-			'sexo',
+			'SEXO',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -346,10 +412,10 @@ $(function(){
 		);
       
         //Si posse proyecto muetro etiqueta
-        if ($cliente->idProyecto->titulo!=""){
+        if ($cliente->PROYECTO!=""){
                     echo $form->textFieldGroup(
-			$cliente->idProyecto,
-			'titulo',
+			$cliente,
+			'PROYECTO',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -380,54 +446,81 @@ $(function(){
       <div class="panel-body">
 	    <?php 
 	    //Si posse proyecto muetro etiqueta
-        if ($cliente->correo!=""){
-           echo $form->textFieldGroup($cliente,'correo',
-							array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5'))));
-            
-                     
+                
+            echo $form->textFieldGroup(
+			$cliente,
+			'CORREO',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'widgetOptions' => array(
+					'htmlOptions' => array('disabled' => true)
+				)
+			)
+		);                     
             
             $this->widget(
-    'booster.widgets.TbBadge',
-    array(
-        'context' => 'info',
-        // 'default', 'success', 'info', 'warning', 'danger'
-        'label' => 'Email',
-    )
-);
+                    'booster.widgets.TbBadge',
+                    array(
+                        'context' => 'info',
+                        // 'default', 'success', 'info', 'warning', 'danger'
+                        'label' => 'Email',
+                    )
+            );
 
            $this->widget(
-    'booster.widgets.TbBadge',
-    array(
-        'context' => 'success',
-        // 'default', 'success', 'info', 'warning', 'danger'
-        'label' => 'SMS',
-    )
-);
- }else{
-	  echo '<p>"No pose email"</p>';
-	  $this->widget(
-    'booster.widgets.TbBadge',
-    array(
-        'context' => 'success',
-        // 'default', 'success', 'info', 'warning', 'danger'
-        'label' => 'SMS',
-    )
-);
-	 
- } 
-    ?>
-          <br/>
-            <?php echo CHtml::label('Telef. Casa:   ', '????'); ?><br/>
-           
-         
+                   'booster.widgets.TbBadge',
+                    array(
+                        'context' => 'success',
+                        // 'default', 'success', 'info', 'warning', 'danger'
+                        'label' => 'SMS',
+                    )
+            );
+  
+        
+            echo $form->textFieldGroup(
+			$cliente,
+			'NUMERO_CASA',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'widgetOptions' => array(
+					'htmlOptions' => array('disabled' => true)
+				)
+			)
+		);
       
+            echo $form->textFieldGroup(
+			$cliente,
+			'NUMERO_CELULAR',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'widgetOptions' => array(
+					'htmlOptions' => array('disabled' => true)
+				)
+			)
+		);
+         
             
-            
-           <?php echo CHtml::label('Telefono Celular', '????'); ?><br/>
-            
-            <?php echo CHtml::label('Otro', '????'); ?></br>
-            
-            <?php //echo $form->textFieldGroup($cliente,'telefono',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+            echo $form->textFieldGroup(
+			$cliente,
+			'NUMERO_ADICIONAL',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'widgetOptions' => array(
+					'htmlOptions' => array('disabled' => true)
+				)
+			)
+		);
+         ?>
+          
+        <?php //echo $form->textFieldGroup($cliente,'telefono',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
       </div>
     </div>
   </div>
@@ -444,14 +537,49 @@ $(function(){
       <div class="panel-body">
        
       <?php 
-       if ($cliente->referencia!=""){
+       if ($cliente->REFERENCIA_1!=""){
            
                      //Parentesco
-             
-          
+                echo $form->textFieldGroup(
+			$cliente,
+			'REFERENCIA_1',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'widgetOptions' => array(
+					'htmlOptions' => array('disabled' => true)
+				)
+			)
+		); 
+                
+              echo $form->textFieldGroup(
+			$cliente,
+			'RELACION_REF_1',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'widgetOptions' => array(
+					'htmlOptions' => array('disabled' => true)
+				)
+			)
+		);   
+                  echo $form->textFieldGroup(
+			$cliente,
+			'TELEFONO_REF_1',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'widgetOptions' => array(
+					'htmlOptions' => array('disabled' => true)
+				)
+			)
+		);
         echo $form->textFieldGroup(
 			$cliente,
-			'parentesco',
+			'REFERENCIA_2',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -464,7 +592,7 @@ $(function(){
         
         echo $form->textFieldGroup(
 			$cliente,
-			'referencia',
+			'RELACION_REF_2',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -477,7 +605,7 @@ $(function(){
         
         echo $form->textFieldGroup(
 			$cliente,
-			'telef_referecia',
+			'TELEFONO_REF_2',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -541,7 +669,7 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php  echo "---";  ?></td>
+                        <td><?php  echo $cliente->MONTO_ULTIMO_PAGO;  ?></td>
                     </tr>    
                     <!--Fecha Ingreos Tramite -->
                     <tr>
@@ -551,7 +679,7 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php echo "---";  ?></td>
+                        <td><?php echo $cliente->FECHA_ULTIMO_PAGO;  ?></td>
                     </tr>
                     
                                 
@@ -562,50 +690,50 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->TOTAL; ?></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Cantidad Cuotas Abono','',array('size'=>12)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CANTIDAD_DE_QUOTAS; ?></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Fecha Pago Abono','',array('size'=>8));  ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->FECHA_DE_PAGO_ABONO; ?></td>
                     </tr>  
                     
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Monto Mejoras','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->MONTO_MEJORAS; ?></td>
                     </tr> 
                     
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Cantidad Cuotas Mejoras ','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CANTIDAD_DE_QUOTAS_MEJORAS; ?></td>
                     </tr> 
                     
-                    
+                    <!--OJOOO-->
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Fecha pago mejoras','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->FECHA_DE_PAGO_ABONO; ?></td>
                     </tr>
                     
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Monto Mensualidad Abono','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->MONTO_QUOTA_ABONO; ?></td>
                     </tr> 
   
                   
@@ -614,14 +742,14 @@ $(function(){
                         <td><?php            
                            echo CHtml::label('Monto Mensualidad Mejoras','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->MONTO_CUOTA_MEJORAS; ?></td>
                     </tr> 
-                    
+            
                     <tr>
                         <td><?php            
                            echo CHtml::label('0-30','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CARTERA_30_DIAS; ?></td>
                     </tr> 
                     
                     
@@ -629,14 +757,20 @@ $(function(){
                         <td><?php            
                            echo CHtml::label('31-60','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CARTERA_60_DIAS; ?></td>
                     </tr> 
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('61-90','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CARTERA_90_DIAS; ?></td>
+                    </tr> 
+                        <tr>
+                        <td><?php            
+                           echo CHtml::label('91-120','',array('size'=>8)); ?>
+                        </td>            
+                        <td><?php echo $cliente->CARTERA_120_DIAS; ?></td>
                     </tr> 
                   </div>
                 </tbody>

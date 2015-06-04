@@ -1,9 +1,15 @@
-
-
 <head>
     <?php
     /* @var $this SiteController */
-    $this->pageTitle=Yii::app()->name;?>
+    $this->pageTitle=Yii::app()->name;
+$cs = Yii::app()->clientScript;
+$cs->scriptMap = array(
+'jquery.js' => Yii::app()->request->baseUrl.'/js/jquery.js',
+'jquery.yii.js' => Yii::app()->request->baseUrl.'/js/jquery.min.js',
+);
+$cs->registerCoreScript('jquery');
+$cs->registerCoreScript('jquery.ui');    
+?>
     <!-- blueprint CSS framework -->
     
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -11,11 +17,13 @@
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
     <![endif]-->
-    
+    <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
     <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/gacela.ico">
     <p><h3><?php echo CHtml::encode(Yii::app()->name); ?></p></h3>                
+
+
 </head>
 
 
@@ -27,8 +35,8 @@
 </ul>
 
 <!--.row-->
-<?php echo Yii::app()->request->baseUrl; ?>
 <?php //echo CHtml::image(Yii::app()->getBaseUrl() . '/images/logo.png');?>
+
 <table align="center">
 <tr>
 	<td>
@@ -82,8 +90,22 @@ $this->widget(
 </div>
     </td>
         
-	<td>
-    
+    <td>
+        <div class="form-actions">
+    <?php
+ 
+$this->widget(
+    'booster.widgets.TbButton',
+    array(
+        'buttonType'=>'link',
+        'label' => 'METAS',
+        'size' => 'large',
+        'url'=>$this->createUrl('/metas'),
+        'context' => 'success',
+    )
+); echo ' ';
+        ?>
+</div>
     </td>
 
 

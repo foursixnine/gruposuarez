@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property Roles $idRol
  */
-class Usuarios extends CActiveRecord
+class Usuarios extends GActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -58,7 +58,7 @@ class Usuarios extends CActiveRecord
 	{
 		return array(
 			'id_usuario' => 'Id Usuario',
-			'nombre' => 'Nombre',
+			'nombre' => 'Responsable',
 			'apellido' => 'Apellido',
 			'cedula' => 'Cedula',
 			'id_rol' => 'Id Rol',

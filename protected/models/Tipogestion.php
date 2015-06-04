@@ -11,7 +11,7 @@
  * @property Gestionllamadas[] $gestionllamadases
  * @property Gestioncorreos[] $gestioncorreoses
  */
-class Tipogestion extends CActiveRecord
+class Tipogestion extends GActiveRecord
 {
 	/**
 	 * @return string the associated database table name

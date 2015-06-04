@@ -24,8 +24,6 @@ $(function(){
   })
 })
 </script>
-
-
 <div class="row">
     <!--<div class="col-sm-6" style="background-color:lavender;">-->
     <div class="col-sm-6" style="background-color:#dff0d8;">
@@ -42,18 +40,10 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php  echo $cliente->nom_cliente;  ?></td>
+                        <td><?php  echo $cliente->NOMBRE_DE_EMPRESA;  ?></td>
                     </tr>    
                     <!--Fecha Ingreos Tramite -->
-                    <tr>
-                        <td>
-                            <?php            
-                                echo CHtml::label('Apellido:   ', '????');
-                            ?>
-                        </td>
-
-                        <td><?php  echo $cliente->ape_cliente;  ?></td>
-                    </tr>
+                  
                     
                                 
                     <tr>
@@ -63,21 +53,17 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php echo $cliente->idProyecto->titulo; ?></td>
+                        <td><?php echo $cliente->PROYECTO; ?></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Lote', '????'); ?>
                         </td>            
-                        <td><?php echo $cliente->idProyecto->lote; ?></td>
+                        <td><?php echo $cliente->NUMERO_DE_LOTE; ?></td>
                     </tr>
                     
-                                   <tr>
-                        <td><?php            
-                          // echo CHtml::label('Lote', '????'); ?>
-                        </td>            
-                        <td><?php //echo $cliente->idProyecto->lote; ?></td>
+               
                     </tr>    
                 </tbody>
             </table>
@@ -99,7 +85,7 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php  echo $cliente->direccion;  ?></td>
+                        <td><?php  echo $cliente->DIRECCION;  ?></td>
                     </tr>    
                     <!--Fecha Ingreos Tramite -->
                     <tr>
@@ -109,7 +95,7 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php  echo $cliente->correo;  ?></td>
+                        <td><?php echo $cliente->CORREO;  ?></td>
                     </tr>
                     
                                 
@@ -120,21 +106,21 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php echo $cliente->telefono; ?></td>
+                        <td><?php echo $cliente->NUMERO_CASA; ?></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Telefono Celular', '????');?>
                         </td>            
-                        <td><?php echo $cliente->telefono2; ?></td>
+                        <td><?php echo $cliente->NUMERO_CELULAR; ?></td>
                     </tr>
                     
                      <tr>
                         <td><?php            
                           echo CHtml::label('Otro', '????');?>
                         </td>            
-                        <td><?php echo $cliente->telefono2; ?></td>
+                        <td><?php echo $cliente->NUMERO_ADICIONAL; ?></td>
                     </tr>                  
                 </tbody>
             </table>
@@ -160,7 +146,7 @@ $(function(){
             <strong>DATOS COBROS</strong>
         </a>    
          
-            <table class="list-group-item">
+              <table class="list-group-item">
                 <tbody>
                     <tr>
                         <td>
@@ -169,13 +155,7 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php  if ($cobros ==""){
-                                        echo "--";
-                                    }else{
-                                        echo $cobros->monto_ultimo_pago; 
-                                    }
-                                ?>
-                        </td>
+                        <td><?php  echo $cliente->MONTO_ULTIMO_PAGO;  ?></td>
                     </tr>    
                     <!--Fecha Ingreos Tramite -->
                     <tr>
@@ -185,19 +165,7 @@ $(function(){
                             ?>
                         </td>
 
-                        <td>
-                            <?php
-                        
-                                if ($cobros ==""){
-                                        echo "--";
-                                    }else{
-                                        echo $cobros->fecha_cobro; 
-                                }
-                                    
-                                 ?>    
-                        
-                        
-                        </td>
+                        <td><?php echo $cliente->FECHA_ULTIMO_PAGO;  ?></td>
                     </tr>
                     
                                 
@@ -208,50 +176,50 @@ $(function(){
                             ?>
                         </td>
 
-                        <td><?php "---"; ?></td>
+                        <td><?php echo $cliente->TOTAL; ?></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Cantidad Cuotas Abono','',array('size'=>12)); ?>
                         </td>            
-                        <td><?php echo "--"; ?></td>
+                        <td><?php echo $cliente->CANTIDAD_DE_QUOTAS; ?></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Fecha Pago Abono','',array('size'=>8));  ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->FECHA_DE_PAGO_ABONO; ?></td>
                     </tr>  
                     
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Monto Mejoras','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->MONTO_MEJORAS; ?></td>
                     </tr> 
                     
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Cantidad Cuotas Mejoras ','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CANTIDAD_DE_QUOTAS_MEJORAS; ?></td>
                     </tr> 
                     
-                    
+                    <!--OJOOO-->
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Fecha pago mejoras','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->FECHA_DE_PAGO_ABONO; ?></td>
                     </tr>
                     
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Monto Mensualidad Abono','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->MONTO_QUOTA_ABONO; ?></td>
                     </tr> 
   
                   
@@ -260,14 +228,14 @@ $(function(){
                         <td><?php            
                            echo CHtml::label('Monto Mensualidad Mejoras','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->MONTO_CUOTA_MEJORAS; ?></td>
                     </tr> 
-                    
+            
                     <tr>
                         <td><?php            
                            echo CHtml::label('0-30','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CARTERA_30_DIAS; ?></td>
                     </tr> 
                     
                     
@@ -275,18 +243,24 @@ $(function(){
                         <td><?php            
                            echo CHtml::label('31-60','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CARTERA_60_DIAS; ?></td>
                     </tr> 
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('61-90','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo "---"; ?></td>
+                        <td><?php echo $cliente->CARTERA_90_DIAS; ?></td>
+                    </tr> 
+                        <tr>
+                        <td><?php            
+                           echo CHtml::label('91-120','',array('size'=>8)); ?>
+                        </td>            
+                        <td><?php echo $cliente->CARTERA_120_DIAS; ?></td>
                     </tr> 
                   </div>
                 </tbody>
-            </table>            
+            </table>                 
         </div>
     </div>
   <!-----------***********************  TRAMITES ************************--->  
@@ -310,7 +284,7 @@ $(function(){
                              echo CHtml::label('Monto Liquidacion','',array('size'=>8)); ?>
                         </td>
 
-                        <td>2500$<?php //echo ?></td>
+                        <td><?php echo $cliente->MONTO_LIQUIDACION?></td>
                     </tr>    
                     <!--Fecha Ingreos Tramite -->
                     <tr>

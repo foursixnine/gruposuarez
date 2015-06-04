@@ -7,7 +7,7 @@
  * @property integer $id_cartera
  * @property string $descripcion
  */
-class Cartera extends CActiveRecord
+class Cartera extends GActiveRecord
 {
 	/**
 	 * @return string the associated database table name

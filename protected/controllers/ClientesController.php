@@ -50,16 +50,18 @@ public function accessRules()
 */
 public function actionView($id)
 {
+    
     $this->render('view',array(
     'model'=>$this->loadModel($id),
     ));
 }
 
 public function actionDetalle(){
-      $model=new Clientes('search');
+    $model=new Customersview ('buscarproyecto');
     $model->unsetAttributes();  // clear any default values
-    if(isset($_GET['Clientes']))
-      $model->attributes=$_GET['Clientes'];
+    //var_dump($model); die;
+    if(isset($_GET['Customersview']))
+      $model->attributes=$_GET['Customersview'];
     
     $this->render('detalle',array(
      'model'=>$model,
@@ -67,19 +69,28 @@ public function actionDetalle(){
 }
 
 public function actionPerfilcliente($id){
-    	$cliente=new Clientes();
+    
+       // var_dump($id);die;
+    
+     
+    //$customersview = Customersview::model()->findAll();
+     
+    $cliente=Customersview::model()->find('ID_CLIENTE=:ID_CLIENTE',
+                               array(':ID_CLIENTE'=>$id));
+  // var_dump($cliente);die;
+    /*	$cliente=new Clientes();
         $cliente=Clientes::model()->find('id_cliente=:id_cliente',
-                               array(':id_cliente'=>$id));
+                               array(':id_cliente'=>$id));*/
                                
-        $cobros=Cobros::model()->find('id_cliente=:id_cliente',
-        array(':id_cliente'=>$id));
+  
         //$model=$this->loadModel($id);
      //  var_dump($cobros->fecha_cobro);
     //   die;
                                
         $this->render('perfilcliente',array(
                           'cliente'=>$cliente,
-                           'cobros'=>$cobros,
+                          // 'cobros'=>$cobros,
+                          //  'customersview'=>$customersview,
 ));
     
 } 
@@ -202,7 +213,9 @@ public function actionDelete($id)
 */
 public function actionIndex()
 {
-    $dataProvider=new CActiveDataProvider('Clientes');
+
+ 
+    $dataProvider=new CActiveDataProvider('Customersview');
     $this->render('index',array(
     'dataProvider'=>$dataProvider,
     ));
@@ -213,14 +226,21 @@ public function actionIndex()
 */
 public function actionAdmin()
 {
-    $model=new Clientes('buscarproyecto');
-    $model->unsetAttributes();  // clear any default values
-    if(isset($_GET['Clientes']))
-      $model->attributes=$_GET['Clientes'];
+   //$model=new Clientes('buscarproyecto');
+  // $model=new Customersview('buscarproyecto');
     
+    $model = Customersview::model()->findAll();
+   //var_dump($model);die;
+    
+   // $model->unsetAttributes();  // clear any default values
+  //  if(isset($_GET['Clientes']))
+   //   $model->attributes=$_GET['Clientes'];
+    
+  //  $model= new CActiveDataProvider('Customersview');
     $this->render('admin',array(
-     'model'=>$model,
-));
+    'model'=>$model,
+    ));
+ 
 }
 
 
@@ -231,8 +251,10 @@ public function actionAdmin()
 */
 public function loadModel($id)
 {
-    $model=Clientes::model()->findByPk($id);
-    
+    //$model=Clientes::model()->findByPk($id);
+    $model=  Customersview::model()->find('ID_CLIENTE=:ID_CLIENTE',
+                               array(':ID_CLIENTE'=>$id));
+    var_dump($model);die;
     if($model===null)
     
          throw new CHttpException(404,'The requested page does not exist.');

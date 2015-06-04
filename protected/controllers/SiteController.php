@@ -27,8 +27,28 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
+	 Yii::import('application.extensions.phpmailer.JPhpMailer');
+        $mail = new JPhpMailer;
+            // renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+$datetime1 = new DateTime("now");
+$datetime2 = new DateTime('2015-05-18'); //Fecha Carta Promesa
+$interval = date_diff($datetime2,$datetime1 );
+$fe_diff= $interval->format('%R%a');
+//echo $fe_diff;
+if ($fe_diff >= 15){
+   // var_dump("SIIIII");die;
+        $mail->Username = 'gilarreta@valorca.com';
+        $mail->Password = 'IRGA2785';
+        $mail->SetFrom('gilarreta@valorca.com', 'Gaby');
+        $mail->Subject = 'PRUEBA DE ENVIO DE CARTA PROMESA';
+        $mail->AltBody = 'Hola Oly! Esto es una prueba 02-05-2015 :D!';
+        $mail->MsgHTML('<h1>PRUEBA DE GRUPO SUAREZ!</h1>');
+        $mail->AddAddress('gilarreta@valorca.com', 'GAby HOLAAA HHAHA');
+        $mail->Send();
+}
+//var_dump("NO :D");die;
+
 		$this->render('index');
 	}
 
@@ -106,4 +126,15 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+        
+        
+        public function actionCartaPromesa() {
+            
+         
+$datetime1 = new DateTime('2009-10-11');
+$datetime2 = new DateTime('2009-10-13');
+$interval = $datetime1->diff($datetime2);
+echo $interval->format('%R%a días');
+        
+        }
 }

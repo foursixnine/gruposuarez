@@ -39,9 +39,10 @@
  * @property Gestion[] $gestions
  * @property Cobros[] $cobroses
  */
-class Clientes extends CActiveRecord
-{
-	/**
+
+class Clientes extends GActiveRecord
+{  
+        /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
@@ -217,4 +218,7 @@ class Clientes extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        	
+         
 }

@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/gruposuarez/protected/views/tablero/expediente.php</file>
-            <file>file:/var/www/gruposuarez/protected/views/tablero/anillos.php</file>
-            <file>file:/var/www/gruposuarez/protected/views/gestion/index.php</file>
-            <file>file:/var/www/gruposuarez/protected/controllers/TableroController.php</file>
-            <file>file:/var/www/gruposuarez/protected/models/AcuerdoCobros.php</file>
-            <file>file:/var/www/gruposuarez/protected/models/Proyecto.php</file>
-            <file>file:/var/www/gruposuarez/protected/views/tablero/metascobranzas.php</file>
-            <file>file:/var/www/gruposuarez/protected/views/tablero/recuperacioncartera.php</file>
-            <file>file:/var/www/gruposuarez/protected/views/tablero/acuerdos.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

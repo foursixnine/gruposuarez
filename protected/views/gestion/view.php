@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 
 
-<h1>View Gestion #<?php echo $model->id_gestion; ?></h1>
+<h1>Detalle de la Gesti&oacute;n #<?php echo $model->id_gestion; ?></h1>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
@@ -18,8 +18,12 @@ $this->breadcrumbs=array(
 		'id_cliente',
 		'contactado_llamada',
 		'llamada_voz',
-		'id_acuerdo_cobros',
+               
+    
+    
+		'idAcuerdoCobros.descripcion',
 		'fecha_acuerdo',
-		'id_gestion_llamada',
+		'idGestionLlamadas.descripcion',
+                'observaciones',
 ),
 )); ?>

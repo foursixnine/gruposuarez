@@ -19,7 +19,7 @@
  * @property Clientes[] $clientes
  * @property Agente $idAgente
  */
-class Proyecto extends CActiveRecord
+class Proyecto extends GActiveRecord
 {
 	/**
 	 * @return string the associated database table name

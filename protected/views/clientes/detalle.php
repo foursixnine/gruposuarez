@@ -33,19 +33,15 @@ Yii::app()->clientScript->registerScript('search', "
 'filter'=>$model,
 'columns'=>
         array(
-		'nom_cliente',
-		'ape_cliente',
-		'direccion',
-'treinta',
-            'sesenta',
-            'noventa',
-      //      'cientoveinte',
-        array(
-        'name'=>'id_proyecto',
-        'header'=>'Proyecto',
-        'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
-        'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'titulo'),
-        ),
+		'NOMBRE',
+		'APELLIDO',
+		'PROYECTO',
+                'CARTERA_30_DIAS',
+                'CARTERA_60_DIAS',
+                'CARTERA_90_DIAS',
+                'CARTERA_120_DIAS',
+            'TOTAL_VENCIDO',
+        
                  
 'buttons' => 
    array(
@@ -54,7 +50,7 @@ Yii::app()->clientScript->registerScript('search', "
                         'buttons' => array(
                              'iniciar_gestion' => array(
                                     'label'=>'Iniciar Gestion',
-                                    'url'=>'Yii::app()->createUrl("/gestion/create/",array("id"=>$data["id_cliente"]))',
+                                    'url'=>'Yii::app()->createUrl("/gestion/create/",array("id"=>$data["ID_CLIENTE"]))',
                                     
                        ) )
             ), 

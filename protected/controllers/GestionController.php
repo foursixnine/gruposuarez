@@ -74,8 +74,10 @@ public function actions()
 		$model = new Gestion;
                 $cartera = new Cartera;
 
-        $cliente = Clientes::model()->find('id_cliente=:id_cliente',
-                               array(':id_cliente'=>$id)); //Buscamos el cliente segun el parametro recibido
+     /*   $cliente = Clientes::model()->find('id_cliente=:id_cliente',
+                               array(':id_cliente'=>$id)); //Buscamos el cliente segun el parametro recibido*/
+        $cliente=Customersview::model()->find('ID_CLIENTE=:ID_CLIENTE',
+                               array(':ID_CLIENTE'=>$id)); //Buscamos el cliente segun el parametro recibido
         
         $gestion_old = $model->find('id_cliente=:id_cliente',
                                array(':id_cliente'=>$id)); //Buscamos los ultimos contactos*/
@@ -93,14 +95,11 @@ public function actions()
 		if(isset($_POST['Gestion']))
 		{
 			$model->attributes=$_POST['Gestion'];
+                        //var_dump($model);die;
                         if($model->save())
 			$this->redirect(array('view','id'=>$model->id_gestion));
 		}
-                
-$model->contactado_llamada=1;
-$model->llamada_voz=1;
-$model->id_acuerdo_cobros=1;
-      
+ 
 		$this->render('create',array(
 			'model'=>$model,
                         'cliente'=>$cliente,
@@ -162,15 +161,9 @@ $model->id_acuerdo_cobros=1;
 	 */
 	public function actionIndex()
 	{
-		/*$dataProvider = new CActiveDataProvider('Gestion');
-     	
-$model=new Gestion('agendagestion');
-		$this->render('index',array(
-			  'dataProvider'=>$dataProvider,
-            	'model'=>$model,
-		));*/
-             
-                $model=new Gestion('agendagestion');
+	
+                $cliente = new Customersview('noventadias');
+                $model = new Gestion ('agendagestion');
                // $model=new Gestion('search');
                 
 		$model->unsetAttributes();  // clear any default values
@@ -179,6 +172,7 @@ $model=new Gestion('agendagestion');
    
 		$this->render('index',array(
 			'model'=>$model,
+                        'cliente'=>$cliente,
 		));
              
         

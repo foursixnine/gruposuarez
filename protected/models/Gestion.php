@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'gestion':
  * @property integer $id_gestion
- * @property integer $id_cliente
  * @property integer $contactado_llamada
  * @property integer $llamada_voz
  * @property integer $id_acuerdo_cobros
@@ -13,12 +12,16 @@
  * @property integer $id_gestion_llamadas
  * @property string $observaciones
  * @property integer $id_cumplimiento
+ * @property integer $id_proyecto
+ * @property string $id_cliente
+ * 
  * The followings are the available model relations:
  * @property AcuerdoCobros $idAcuerdoCobros
- * @property Clientes $idCliente
  * @property Gestionllamadas $idGestionLlamadas
+ * @property CumplimientoGestion $idCumplimiento
+ * @property Proyecto $idProyecto
  */
-class Gestion extends CActiveRecord
+class Gestion extends GActiveRecord
 {
      
 	/**
@@ -39,8 +42,8 @@ class Gestion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_cliente, contactado_llamada, llamada_voz, id_acuerdo_cobros, id_gestion_llamadas', 'numerical', 'integerOnly'=>true),
-			array('fecha_acuerdo, observaciones', 'safe'),
+			array('contactado_llamada, llamada_voz, id_acuerdo_cobros, id_gestion_llamadas', 'numerical', 'integerOnly'=>true),
+			array('fecha_acuerdo, observaciones,id_cliente', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_gestion,clinom, id_cliente, contactado_llamada, llamada_voz, id_acuerdo_cobros, fecha_acuerdo, id_gestion_llamadas, observaciones, id_cumplimiento','safe', 'on'=>'search'),
@@ -56,8 +59,7 @@ class Gestion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idAcuerdoCobros' => array(self::BELONGS_TO, 'AcuerdoCobros', 'id_acuerdo_cobros'),
-			'idCliente' => array(self::BELONGS_TO, 'Clientes', 'id_cliente'),
+			'idAcuerdoCobros' => array(self::BELONGS_TO, 'AcuerdoCobros', 'id_acuerdo_cobros'),		
 			'idGestionLlamadas' => array(self::BELONGS_TO, 'Gestionllamadas', 'id_gestion_llamadas'),
                         'idCumplimiento' => array(self::BELONGS_TO, 'CumplimientoGestion', 'id_cumplimiento'),	
                 );
@@ -72,14 +74,24 @@ class Gestion extends CActiveRecord
 			'id_gestion' => 'Id Gestion',
 			'id_cliente' => 'Id Cliente',
 			'contactado_llamada' => 'Lista desplegable de si o no.',
-			'llamada_voz' => 'Gestione si o no',
+			'llamada_voz' => 'Gestión de llamada (Si) o (No)',
 			'id_acuerdo_cobros' => 'Id Acuerdo Cobros',
 			'fecha_acuerdo' => 'Fecha Acuerdo',
-			'id_gestion_llamadas' => 'Id Gestion Llamadas',
+			'id_gestion_llamadas' => 'Gestion Llamadas',
 			'observaciones' => 'Observaciones',
 		);
 	}
-
+        
+        public static function getActiveGestionLlamada()
+	{
+		return $this->id_gestion_llamadas==1?"Si":"No";
+	}
+        
+        public static function getListProyecto()
+	{
+		return CHtml::listData(Proyecto::model()->findAll(),'id_proyecto','titulo');
+	}
+      
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -123,9 +135,11 @@ class Gestion extends CActiveRecord
      
         $criteria->compare('id_gestion',$this->id_gestion);
         $criteria->compare('id_cliente',$this->id_cliente);
-$criteria->compare('id_gestion_llamadas',$this->id_gestion_llamadas);
-$criteria->compare('fecha_acuerdo',$this->fecha_acuerdo);
-$criteria->compare('id_acuerdo_cobros',$this->id_acuerdo_cobros);
+        $criteria->compare('id_gestion_llamadas',$this->id_gestion_llamadas);
+        $criteria->compare('fecha_acuerdo',$this->fecha_acuerdo);
+        $criteria->compare('id_acuerdo_cobros',$this->id_acuerdo_cobros);
+        $criteria->order = 'id_gestion ASC, id_gestion ASC';
+//$criteria->compare('id_cumplimiento', 1);
    //$criteria->compare('idCliente.nom_cliente', $this->clinom);
    
    //$criteria->order = 'fecha_acuerdo DESC';
@@ -135,10 +149,7 @@ return new CActiveDataProvider($this, array(
                         'criteria'=>$criteria,
                         
                         'pagination' => array('pageSize' => 5),
-));
-
-   
-               
+));           
      }
 
 	/**

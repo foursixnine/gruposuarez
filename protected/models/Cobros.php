@@ -19,7 +19,7 @@
  * @property Clientes $idCliente
  * @property TipoCobro $idTipoCobro
  */
-class Cobros extends CActiveRecord
+class Cobros extends GActiveRecord
 {
 	/**
 	 * @return string the associated database table name

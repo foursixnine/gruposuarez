@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property Tipogestion $idTipoGestion
  */
-class Gestioncorreos extends CActiveRecord
+class Gestioncorreos extends GActiveRecord
 {
 	/**
 	 * @return string the associated database table name

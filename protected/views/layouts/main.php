@@ -50,6 +50,13 @@ $this->widget(
                                 'label' => 'Roles',
                                 'url' => '#'
                             ),
+                              '---',
+                            array('label' => '** Metas **'),
+                            array('label' => 'Table de Referecnia - Bono', 'url' => '/gruposuarez/tipoCartera'),
+                            array(
+                                'label' => 'Plan de Remuneración',
+                                'url' => '/gruposuarez/pagoRemuneracion'
+                            ),
                         )
                     ),
                 ),

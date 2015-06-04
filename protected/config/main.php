@@ -7,7 +7,7 @@ Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Grupo Suarez',
+	'name'=>'** Antares **',
     'language'=>'es',
     'charset'=>'utf-8',
     'sourceLanguage'=>'en',
@@ -23,6 +23,8 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.extensions.*',
+            'ext.ECompositeUniqueValidator',
+                'ext.YiiConditionalValidator',
         //Gabriela 23-04-2015 11:20am
         'bootstrap.behaviors.*',
         'bootstrap.helpers.*',
@@ -57,36 +59,62 @@ return array(
 
 
 		// uncomment the following to enable URLs in path-format
-		'urlManager'=>array(
+   
+                        //'<controller:\w+>/<id:[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}+>'=>'<controller>/view,delete,update',
+                        //        '<controller:\w+>/<action:\w+>/<id:[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}]+>'=>'<controller>/<action>',
+                       //                  '<controller:\w+>/<id:\d+>'=>'<controller>/view,delete,update',
+                        //                '<controller:\w+>/<action:\w+>/<id:\d+>/<id2>/<id3:\w*[a-zA-z0-9\-]*>'=>'<controller>/<action>',
+                        //                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                         //               '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+	/*	'urlManager'=>array(
                                     'urlFormat'=>'path',
                                     'showScriptName'=>false,
-                                    'caseSensitive'=>true,
+                                    'caseSensitive'=>false,//true
                                     'rules'=>array(
-                                        '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                                        '<controller:\w+>/<id:\d+>'=>'<controller>/view',                                      
                                         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                                         '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
                                     ),
-                ),
-	/*	'urlManager'=>array(
+                ),*/
+		/*'urlManager'=>array(
 			'urlFormat'=>'path',
-            //'showScriptName'=>false,
+                        'showScriptName'=>false,
+                        'caseSensitive'=>false,//true
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),*/
-		
+		'urlManager'=>array(
+			//'class'=>'application.components.MyCUrlManager',
+			'urlFormat'=>'path',
+			'showScriptName'=>false,
+			#'urlSuffix'=>'.asp',
+			'rules'=>array(
+				#'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+				#'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>/<id>/<title>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>/<id>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				#'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+			),
+		),
 
 		// database settings are configured in database.php*/
-	/*	'db'=>require(dirname(__FILE__).'/database.php'),*/
-    /*    'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+        'db'=>array(
+                'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+        ),
+        'dbconix'=>array(
+                        'class' => 'CDbConnection',
+			'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez',
+            	//        'connectionString' => 'mysql:host=192.168.0.159;dbname=enx_suarez',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'suarez',
+			'password' => '!suarez2015!',
 			'charset' => 'utf8',
-		),*/
+			'enableProfiling'=>true,
+		),
         
        	'db'=>array(
 			'connectionString' => 'pgsql:host=localhost;dbname=gruposuarez',

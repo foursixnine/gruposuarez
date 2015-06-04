@@ -31,11 +31,11 @@ return false;
 	or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.-->
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
+<?php /*echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
 	<?php $this->renderPartial('_search',array(
 	'model'=>$model,
-)); ?>
+)); */?>
 </div><!-- search-form -->
 
 <?php 
@@ -55,9 +55,9 @@ return false;
         'name'=>'id_proyecto',
         'header'=>'Proyecto',
         'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'titulo'),
-        ),*/
+        ),
 		
-	/*	'telefono',
+		'telefono',
 		'celular',
 		'correo',
 		'telefono2',
@@ -71,28 +71,24 @@ return false;
 		'nacionalidad',
 		'sexo',
 		'lugar_trabajo',
-		'id_proyecto',*/
-/*		
+		'id_proyecto',
+		
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),
 ),
-)); */
+)); 
+
 $this->widget('booster.widgets.TbGridView',array(
 'id'=>'clientes-grid',
-'dataProvider'=>$model->buscarproyecto(),
+'dataProvider'=>$model,
 'filter'=>$model,
 'columns'=>
         array(
-		'nom_cliente',
-		'ape_cliente',
-		'direccion',
-        array(
-        'name'=>'id_proyecto',
-        'header'=>'Proyecto',
-        'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
-        'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'titulo'),
-        ),
+		'NOMBRE',
+		'APELLIDO',
+		
+       
 
 'buttons' => 
    array(
@@ -101,7 +97,7 @@ $this->widget('booster.widgets.TbGridView',array(
                         'buttons' => array(
                              'iniciar_gestion' => array(
                                     'label'=>'Detalle Cliente',
-                                    'url'=>'Yii::app()->createUrl("/clientes/perfilcliente/",array("id"=>$data["id_cliente"]))',
+                                 //   'url'=>'Yii::app()->createUrl("/clientes/perfilcliente/",array("id"=>$data["ID_CLIENTE"]))',
                                     
                        ) )
             ), 
@@ -113,4 +109,26 @@ array(
 ),
 ));
 
+?>
+
+*/
+
+
+ echo "<table BORDER='1'>";
+    
+foreach($model as $data)
+{
+  //echo '*****************<br>'.$data->id_cliente.'<br>';
+    
+  echo "<tr>";
+   echo "<td>".$data->NOMBRE_DE_EMPRESA."</td>";
+    
+      echo "<td><a href='/gruposuarez/clientes/perfilcliente/$data->ID_CLIENTE'>".$data->ID_CLIENTE ."</a></td>";
+       $num = (int)$data->CEDULA; 
+      echo "<td>".$num."</td>";
+     echo "</tr>";
+}
+
+  
+    echo "</table>";
 ?>
