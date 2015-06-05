@@ -87,6 +87,25 @@ $this->widget('booster.widgets.TbDateRangePicker', array(
             )
 ));
 ?>
+
+<script>
+   
+ var tArray= <?php echo json_encode(array($treinta) ); ?>;
+alert(tArray);
+var sArray= <?php echo json_encode(array($sesenta) ); ?>;
+alert(sArray);
+var nArray= <?php echo json_encode(array($noventa) ); ?>;
+alert(nArray);
+var cArray= <?php echo json_encode(array($cientoveinte) ); ?>;
+alert(cArray);
+ // for(var i=0;i<12;i++){
+      //alert(jArray[i]);
+       //[1,2,3,4,5,6,7,8,9,10,11,12]
+ // }
+  
+
+
+</script>
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 <script>

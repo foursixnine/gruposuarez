@@ -197,7 +197,7 @@ $(function () {
                 },
                 yAxis: {
                     title: {
-                        text: 'Total percent market share'
+                        text: 'Totaaaaaaaal percent market share'
                     }
                 },
                 legend: {

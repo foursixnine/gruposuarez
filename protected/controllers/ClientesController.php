@@ -77,7 +77,8 @@ public function actionPerfilcliente($id){
      
     $cliente=Customersview::model()->find('ID_CLIENTE=:ID_CLIENTE',
                                array(':ID_CLIENTE'=>$id));
-  // var_dump($cliente);die;
+  
+   
     /*	$cliente=new Clientes();
         $cliente=Clientes::model()->find('id_cliente=:id_cliente',
                                array(':id_cliente'=>$id));*/

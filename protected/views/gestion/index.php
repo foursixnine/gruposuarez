@@ -62,6 +62,7 @@ $this->widget('zii.widgets.grid.CGridView',array(
 'columns'=>array(
              //   'ID_CLIENTE',
 		'NOMBRE',
+    'CARTERA_90_DIAS',
                 /*'APELLIDO',
                 'ID_PROYECTO',
                 'CARTERA_30_DIAS',

@@ -10,16 +10,16 @@ array('label'=>'Create Gestion','url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-$('.search-form').toggle();
-return false;
-});
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('gestion-grid', {
-data: $(this).serialize()
-});
-return false;
-});
+        $('.search-button').click(function(){
+            $('.search-form').toggle();
+            return false;
+        });
+        $('.search-form form').submit(function(){
+            $.fn.yiiGridView.update('gestion-grid', {
+            data: $(this).serialize()
+        });
+             return false;
+        });
 ");
 ?>
 

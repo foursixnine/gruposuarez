@@ -52,65 +52,202 @@ public function accessRules()
         
 public function actionEstatuscartera(){
         $proyecto=new Proyecto();
-        $proyecto=Proyecto::model()->findAll(); 
-      // var_dump($proyecto);die;
+        $proyecto=Proyecto::model()->findAll();
         
-        
+        $id='PROJ0001';
+        $cliente=Customersview::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
+                               array(':ID_PROYECTO'=>$id));     
+
+        $treinta = array();
+        $sesenta = array();
+        $noventa = array();
+        $cientoveinte = array();
+        foreach( $cliente as $rowt )
+        {
+             $treinta[] = $rowt['CARTERA_30_DIAS'];
+        }
+        //60 dias
+        foreach( $cliente as $rows )
+        {
+             $sesenta[] = $rows['CARTERA_60_DIAS'];
+        }
+        //90 dias
+        foreach( $cliente as $rown )
+        {
+             $noventa[] = $rown['CARTERA_90_DIAS'];
+        }
+        //120 dias
+        foreach( $cliente as $rowv )
+        {
+             //$sumveinte[$id]+=$value;
+             $cientoveinte[]= $rowv['CARTERA_120_DIAS'];
+        }
+        var_dump($noventa);die;
+
+             $nom_proyecto=array(
+            "VERDE REAL",
+            "ALTOS DEL TECAL ETAPAS  5 ABC",
+            "ALTOS DEL TECAL ETAPA 6 Y 7",
+            "TORRES DE VENECIA TORRE 1",
+            "TORRES DE TOSCANA TORRE 4",
+            "ALTOS DEL TECAL  COROTU ETAPA 13 Y 14 DERECHO",
+            "NEW WEST FASE I",
+            "SENDEROS FASE I",
+            "ALTOS DEL TECAL COROTU ETAPA 13 Y 14 IZQUIERDO",
+            "NEW WEST FASE II",
+            "TORRES DE TOSCANA TORRE 3",
+            "TORRES DE VENECIA - TORRE I",
+            );
+
          $this->render('estatuscartera',array(
                           'proyecto'=>$proyecto,
+                          'cliente'=>$cliente,
+                          'nom_proyecto'=>$nom_proyecto,
+                          'treinta'=>$treinta,
+                          'sesenta'=>$sesenta,
+                          'noventa'=>$noventa,
+                          'cientoveinte'=>$cientoveinte,
                       ));    
 } 
 
 public function actionMetasCobranzas(){
         $proyecto=new Proyecto();
         $proyecto=Proyecto::model()->findAll(); 
+ 
+        $id='PROJ0001';
+        $cliente=Customersview::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
+                               array(':ID_PROYECTO'=>$id));     
+//          var_dump($cliente);die;
+$treinta = array();
+$sesenta = array();
+$noventa = array();
+$cientoveinte = array();
+foreach( $cliente as $rowt )
+{
+     $treinta[] = $rowt['CARTERA_30_DIAS'];
+}
+
+foreach( $cliente as $rows )
+{
+     $sesenta[] = $rows['CARTERA_60_DIAS'];
+}
+foreach( $cliente as $rown )
+{
+     $noventa[] = $rown['CARTERA_90_DIAS'];
+}
+foreach( $cliente as $rowv )
+{
+     $cientoveinte[] = $rowv['CARTERA_120_DIAS'];
+}
       // var_dump($proyecto);die;
         
         
-         $this->render('metascobranzas');    
+         $this->render('metascobranzas',array(
+                          'treinta'=>$treinta,
+                          'sesenta'=>$sesenta,
+                          'noventa'=>$noventa,
+                          'cientoveinte'=>$cientoveinte,
+                      ));     
 } 
 
 public function actionRecuperacioncartera(){
         $proyecto=new Proyecto();
         $proyecto=Proyecto::model()->findAll(); 
+    $id='PROJ0001';
+        $cliente=Customersview::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
+                               array(':ID_PROYECTO'=>$id));     
+//          var_dump($cliente);die;
+$treinta = array();
+$sesenta = array();
+$noventa = array();
+$cientoveinte = array();
+foreach( $cliente as $rowt )
+{
+     $treinta[] = $rowt['CARTERA_30_DIAS'];
+}
+
+foreach( $cliente as $rows )
+{
+     $sesenta[] = $rows['CARTERA_60_DIAS'];
+}
+foreach( $cliente as $rown )
+{
+     $noventa[] = $rown['CARTERA_90_DIAS'];
+}
+foreach( $cliente as $rowv )
+{
+     $cientoveinte[] = $rowv['CARTERA_120_DIAS'];
+}
       // var_dump($proyecto);die;
         
         
-         $this->render('recuperacioncartera');    
+         $this->render('recuperacioncartera',array(
+                          'treinta'=>$treinta,
+                          'sesenta'=>$sesenta,
+                          'noventa'=>$noventa,
+                          'cientoveinte'=>$cientoveinte,
+                      ));         
 } 
 
 public function actionAnillos(){
-       $proyecto=new Proyecto();
-       
-      // $nom_proyecto=Proyecto::getListProyecto();
-       
-       //$nom_proyecto = Proyecto::model()->nombreproyectos();
-   $nom_proyecto=array(
-        "VERDE REAL",
-"ALTOS DEL TECAL ETAPAS  5 ABC",
-"ALTOS DEL TECAL ETAPA 6 Y 7",
-"TORRES DE VENECIA TORRE 1",
-"TORRES DE TOSCANA TORRE 4",
-"ALTOS DEL TECAL  COROTU ETAPA 13 Y 14 DERECHO",
-"NEW WEST FASE I",
-"SENDEROS FASE I",
-"ALTOS DEL TECAL COROTU ETAPA 13 Y 14 IZQUIERDO",
-"NEW WEST FASE II",
-"TORRES DE TOSCANA TORRE 3",
-"TORRES DE VENECIA - TORRE I",
-
-        
-    );
     
         $gestion=new Gestion();
         $gestion=Gestion::model()->findAll();
-      // var_dump($nom_proyecto);die;
         
+        $proyecto=new Proyecto();
+      
+        $nom_proyecto=array(
+            "VERDE REAL",
+            "ALTOS DEL TECAL ETAPAS  5 ABC",
+            "ALTOS DEL TECAL ETAPA 6 Y 7",
+            "TORRES DE VENECIA TORRE 1",
+            "TORRES DE TOSCANA TORRE 4",
+            "ALTOS DEL TECAL  COROTU ETAPA 13 Y 14 DERECHO",
+            "NEW WEST FASE I",
+            "SENDEROS FASE I",
+            "ALTOS DEL TECAL COROTU ETAPA 13 Y 14 IZQUIERDO",
+            "NEW WEST FASE II",
+            "TORRES DE TOSCANA TORRE 3",
+            "TORRES DE VENECIA - TORRE I",
+        );
+   
+        $id='PROJ0001';
+        $cliente=Customersview::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
+                               array(':ID_PROYECTO'=>$id));     
+
+        $treinta = array();
+        $sesenta = array();
+        $noventa = array();
+        $cientoveinte = array();
+        foreach( $cliente as $rowt )
+        {
+             $treinta[] = $rowt['CARTERA_30_DIAS'];
+        }
+        //60 dias
+        foreach( $cliente as $rows )
+        {
+             $sesenta[] = $rows['CARTERA_60_DIAS'];
+        }
+        //90 dias
+        foreach( $cliente as $rown )
+        {
+             $noventa[] = $rown['CARTERA_90_DIAS'];
+        }
+        //120 dias
+        foreach( $cliente as $rowv )
+        {
+             $cientoveinte[] = $rowv['CARTERA_120_DIAS'];
+        }
+      // var_dump($proyecto);die;
         
             $this->render('anillos',array(
                           'proyecto'=>$proyecto,
                           'gestion'=>$gestion,
                           'nom_proyecto'=>$nom_proyecto,
+                          'treinta'=>$treinta,
+                          'sesenta'=>$sesenta,
+                          'noventa'=>$noventa,
+                          'cientoveinte'=>$cientoveinte,
                       )    
                  );   
 }

@@ -67,11 +67,29 @@ $this->widget('booster.widgets.TbDateRangePicker', array(
             )
 ));
 ?>
+
+<?php
+array_merge($nom_proyecto);
+?>
+
+<script>   
+ var jArray= <?php echo json_encode(array($nom_proyecto) ); ?>;
+ var tArray= <?php echo json_encode(array($treinta) ); ?>;
+
+var sArray= <?php echo json_encode(array($sesenta) ); ?>;
+
+var nArray= <?php echo json_encode(array($noventa) ); ?>;
+
+var cArray= <?php echo json_encode(array($cientoveinte) ); ?>;
+
+</script>
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
 
 <script>
+    
+
 $(function () {
     $('#container').highcharts({
         chart: {
@@ -82,6 +100,7 @@ $(function () {
         },
         xAxis: {
             categories: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE']
+          //  categories: [tArray]
         },
         yAxis: {
             min: 0,
@@ -128,16 +147,16 @@ $(function () {
         },
         series: [{
             name: '0-30',
-            data: [6, 3, 4, 7, 2,5,1,8,9,1,4,5]
+            data: [tArray]
         }, {
             name: '31-60',
-            data: [2, 2, 3, 2, 1,2,1,5,8,7,5,1]
+            data: [tArray]
         }, {
             name: '61-90',
-            data: [2, 3, 3, 2, 1,3,2, 2, 3, 2, 1,2]
+            data: [tArray]
         },{
             name: '91-120',
-            data: [2, 3, 3, 2, 1,3,3, 3, 2, 1,7,8]
+            data: [0.00]
         }]
     });
 });
