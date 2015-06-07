@@ -90,21 +90,40 @@ $this->widget('booster.widgets.TbDateRangePicker', array(
 
 <script>
    
- var tArray= <?php echo json_encode(array($treinta) ); ?>;
+ var tArray= <?php echo json_encode($treinta); ?>;
 alert(tArray);
-var sArray= <?php echo json_encode(array($sesenta) ); ?>;
+var sArray= <?php echo json_encode($sesenta) ; ?>;
 alert(sArray);
-var nArray= <?php echo json_encode(array($noventa) ); ?>;
+var nArray= <?php echo json_encode($noventa); ?>;
 alert(nArray);
-var cArray= <?php echo json_encode(array($cientoveinte) ); ?>;
+var cArray= <?php echo json_encode($cientoveinte); ?>;
 alert(cArray);
  // for(var i=0;i<12;i++){
       //alert(jArray[i]);
        //[1,2,3,4,5,6,7,8,9,10,11,12]
  // }
-  
+var totalt = 0;
+for (var i = 0; i < tArray.length; i++) {
+    totalt += tArray[i] << 0;
+}
+alert(totalt);
+var totals = 0;
+for (var i = 0; i < sArray.length; i++) {
+    totals += sArray[i] << 0;
+}
+alert(totals);
 
+var totaln = 0;
+for (var i = 0; i < nArray.length; i++) {
+    totaln += nArray[i] << 0;
+}
+alert(totaln);
 
+var totalc = 0;
+for (var i = 0; i < cArray.length; i++) {
+    totalc += cArray[i] << 0;
+}
+alert(totalc);
 </script>
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
@@ -152,7 +171,7 @@ $(function () {
         series: [ {
             name: 'Cumplido',
             color: 'rgba(248,161,63,1)',
-            data: [183.6, 178.8, 198.5,15],
+            data: [totalt, totals, totaln,totalc],
             tooltip: {
                 valuePrefix: '$',
                 valueSuffix: ' M'

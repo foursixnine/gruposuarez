@@ -107,8 +107,9 @@ return array(
         ),
         'dbconix'=>array(
                         'class' => 'CDbConnection',
-			'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez',
-            	//        'connectionString' => 'mysql:host=192.168.0.159;dbname=enx_suarez',
+			'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez_dev',
+                        'enableProfiling' => YII_DEBUG_PROFILING,
+            	//        'connectionString' => 'mysql:host=192.168.0.159;dbname=enx_suarez_dev',
 			'emulatePrepare' => true,
 			'username' => 'suarez',
 			'password' => '!suarez2015!',
@@ -119,6 +120,8 @@ return array(
        	'db'=>array(
 			'connectionString' => 'pgsql:host=localhost;dbname=gruposuarez',
 			'emulatePrepare' => true,
+                        'enableProfiling' => YII_DEBUG_PROFILING,
+
 			'username' => 'postgres',
 			'password' => '123456',
 			'charset' => 'utf8',
@@ -131,22 +134,23 @@ return array(
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
+                            array(
+                                    'class' => 'CWebLogRoute',
+                                    'levels' => 'error, warning, trace, notice',
+                                    'categories' => 'application',
+                                    'showInFireBug' => false,
+                                    'enabled'=>true,
+                                ),
 				array(
-					'class'=>'CFileLogRoute',
-					//'levels'=>'error, warning',
-                                       'levels' => 'trace, info, error, warning, vardump,log',
-                                              //  'levels'=>'profile',
-                                          'categories' => 'system.db.CDbCommand',
-			        'logFile' => 'db.log',
-					'enabled'=>true,
+                                    'class'=>'CFileLogRoute',
+                                    //'levels'=>'error, warning',
+                                    'levels' => 'trace, info, error, warning, vardump,log',
+                                          //  'levels'=>'profile',
+                                    'categories' => 'system.db.CDbCommand',
+                                    'logFile' => 'db.log',
+                                    'enabled'=>true,
 					),
-             array(
-	            'class' => 'CWebLogRoute',
-	            'levels' => 'error, warning, trace, notice',
-	            'categories' => 'application',
-	            'showInFireBug' => false,
-	            'enabled'=>true,
-        	),
+             
 				// uncomment the following to show log messages on web pages
 				/*
 				array(

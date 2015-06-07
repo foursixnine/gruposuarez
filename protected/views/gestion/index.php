@@ -45,24 +45,18 @@ Yii::app()->clientScript->registerScript('search', "
 
 <span class="label label-success">M&Aacute;S BUSCADOS</span>
 <div class="well">
-<?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); 
 
-//'filter'=>CHtml::activeTextField($dataprovider, 'mailTemplate'),?>
-    
     
     
 <?php 
  //$this->widget('zii.widgets.grid.CGridView',array(
-$this->widget('zii.widgets.grid.CGridView',array(
-//$this->widget('booster.widgets.TbGridView',array(
+$this->widget('booster.widgets.TbGridView',array(
 'id'=>'masbuscados-grid',
-'dataProvider'=>$cliente->noventadias(),
-'filter'=>$cliente,
-   // 'limit' => 5, 
+'dataProvider'=>$cliente->search(),
+'filter'=> $cliente, 
 'columns'=>array(
-             //   'ID_CLIENTE',
 		'NOMBRE',
-    'CARTERA_90_DIAS',
+                'CARTERA_90_DIAS',
                 /*'APELLIDO',
                 'ID_PROYECTO',
                 'CARTERA_30_DIAS',

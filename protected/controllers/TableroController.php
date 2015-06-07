@@ -47,12 +47,21 @@ public function accessRules()
 	
 	public function actionIndex()
 	{
-		$this->render('index');
+                    $cobrador= new Usuarios();
+        $cobrador=  Usuarios::model()->findAll();
+		$this->render('index',array(
+                           'cobrador'=>$cobrador,
+                               )
+                               );
 	}
         
 public function actionEstatuscartera(){
+        //Buscamos el proyecto
         $proyecto=new Proyecto();
         $proyecto=Proyecto::model()->findAll();
+        //Buscamos los cobradores
+        $cobrador=new Usuarios();
+        $cobrador=  Usuarios::model()->findAll();  
         
         $id='PROJ0001';
         $cliente=Customersview::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
@@ -82,7 +91,7 @@ public function actionEstatuscartera(){
              //$sumveinte[$id]+=$value;
              $cientoveinte[]= $rowv['CARTERA_120_DIAS'];
         }
-        var_dump($noventa);die;
+        //var_dump($noventa);die;
 
              $nom_proyecto=array(
             "VERDE REAL",
@@ -102,6 +111,7 @@ public function actionEstatuscartera(){
          $this->render('estatuscartera',array(
                           'proyecto'=>$proyecto,
                           'cliente'=>$cliente,
+                          'cobrador'=>$cobrador, 
                           'nom_proyecto'=>$nom_proyecto,
                           'treinta'=>$treinta,
                           'sesenta'=>$sesenta,
@@ -189,11 +199,18 @@ foreach( $cliente as $rowv )
                       ));         
 } 
 
-public function actionAnillos(){
+public function actionAnillos($idproyecto=null,$idfecha=null,$cobradora=null){
     
+    
+  /*  var_dump($idproyecto);
+    var_dump($idfecha);
+    var_dump($cobradora);*/
         $gestion=new Gestion();
         $gestion=Gestion::model()->findAll();
         
+        $cobrador= new Usuarios();
+        $cobrador=  Usuarios::model()->findAll();
+ 
         $proyecto=new Proyecto();
       
         $nom_proyecto=array(
@@ -244,6 +261,7 @@ public function actionAnillos(){
                           'proyecto'=>$proyecto,
                           'gestion'=>$gestion,
                           'nom_proyecto'=>$nom_proyecto,
+                          'cobrador'=>$cobrador,
                           'treinta'=>$treinta,
                           'sesenta'=>$sesenta,
                           'noventa'=>$noventa,

@@ -27,7 +27,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-	 Yii::import('application.extensions.phpmailer.JPhpMailer');
+/*	 Yii::import('application.extensions.phpmailer.JPhpMailer');
         $mail = new JPhpMailer;
             // renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
@@ -46,7 +46,7 @@ if ($fe_diff >= 15){
         $mail->MsgHTML('<h1>PRUEBA DE GRUPO SUAREZ!</h1>');
         $mail->AddAddress('gilarreta@valorca.com', 'GAby HOLAAA HHAHA');
         $mail->Send();
-}
+}*/
 //var_dump("NO :D");die;
 
 		$this->render('index');

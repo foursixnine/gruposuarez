@@ -162,14 +162,18 @@ public function actions()
 	public function actionIndex()
 	{
 	
-                $cliente = new Customersview('noventadias');
+                $cliente = new Customersview('search');
                // $model = new Gestion ('agendagestion');
                // $model=new Gestion('search');
                 $cliente->unsetAttributes();
 		//$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Gestion']))
-			echo $cliente->attributes=$_GET['Gestion'];
-   
+	if(isset($_GET['Customersview'])){
+			$cliente->attributes=$_GET['Customersview'];
+        }
+			//print_r($_GET['Customersview']);
+		
+                     
+                
 		$this->render('index',array(
 		//	'model'=>$model,
                         'cliente'=>$cliente,

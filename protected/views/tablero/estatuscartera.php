@@ -9,44 +9,41 @@ $this->breadcrumbs=array(
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <p><strong>Proyecto</strong><br/>
-     <!-- Auto Completar Acuerdo de Cobros -->     
-     <?php
-           $this->widget(
-            'booster.widgets.TbSelect2',
-            array(
-                'name' => 'llamada_voz',
-                'id' => 'llamada_voz',
-                'data' => array(1 => 'VERDE REAL', 2 => 'ALTOS DEL TECAL ETAPAS  5 ABC',
-                    3=>'ALTOS DEL TECAL ETAPA 6 Y 7',
-                    4=>'TORRES DE VENECIA TORRE 1'),
-                'htmlOptions' => array(
-                    'placeholder' => "----",
-                            
-            
-                ),
-            )
-        );
-     ?>
+     <!-- Proyecto -->   
+
+        <?php/*
+                    $this->widget(
+                        'booster.widgets.TbSelect2', array(
+                      'model' => $proyecto,
+                      'attribute' => 'id_proyecto',
+                      'data' => CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'titulo'),
+                      'options' => array(
+                        'placeholder' => "PROYECTO",
+               
+                      ),
+                      'htmlOptions'=>array(
+                        'style'=>'width:380px',
+                      ),
+                    ));
+        */?>
 <br/>
 <p><strong>Cobrador</strong><br/>
      <!-- Auto Completar Acuerdo de Cobros -->     
-     <?php
-           $this->widget(
-            'booster.widgets.TbSelect2',
-            array(
-                'name' => 'cobradora',
-                'id' => 'cobradora',
-                'data' => array(1 => 'JUANA', 2 => 'PETRA',
-                    3=>'ANDRES',
-                    4=>'FABIANA'),
-                'htmlOptions' => array(
-                    'placeholder' => "----",
-                            
-            
-                ),
-            )
-        );
-     ?>
+        <?php/*
+                    $this->widget(
+                        'booster.widgets.TbSelect2', array(
+                      'model' => $cobrador,
+                      'attribute' => 'id_usuario',
+                      'data' => CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                      'options' => array(
+                        'placeholder' => "COBRADOR",
+                  
+                      ),
+                      'htmlOptions'=>array(
+                        'style'=>'width:380px',
+                      ),
+                    ));
+       */ ?>
 <br/>
 
 <p><strong>Fecha</strong></p>
@@ -68,19 +65,17 @@ $this->widget('booster.widgets.TbDateRangePicker', array(
 ));
 ?>
 
-<?php
-array_merge($nom_proyecto);
-?>
+
 
 <script>   
- var jArray= <?php echo json_encode(array($nom_proyecto) ); ?>;
- var tArray= <?php echo json_encode(array($treinta) ); ?>;
+ var jArray= <?php echo json_encode($nom_proyecto) ; ?>;
+ var tArray= <?php echo json_encode($treinta); ?>;
 
-var sArray= <?php echo json_encode(array($sesenta) ); ?>;
+var sArray= <?php echo json_encode($sesenta); ?>;
 
-var nArray= <?php echo json_encode(array($noventa) ); ?>;
+var nArray= <?php echo json_encode($noventa); ?>;
 
-var cArray= <?php echo json_encode(array($cientoveinte) ); ?>;
+var cArray= <?php echo json_encode($cientoveinte); ?>;
 
 </script>
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -99,8 +94,8 @@ $(function () {
             text: 'Estatus Cartera'
         },
         xAxis: {
-            categories: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE']
-          //  categories: [tArray]
+            categories: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE','13','14','15','16']
+           // categories: nArray
         },
         yAxis: {
             min: 0,
@@ -147,16 +142,16 @@ $(function () {
         },
         series: [{
             name: '0-30',
-            data: [tArray]
+            data: [nArray]
         }, {
             name: '31-60',
-            data: [tArray]
+            data: [nArray]
         }, {
             name: '61-90',
-            data: [tArray]
+            data: [nArray]
         },{
             name: '91-120',
-            data: [0.00]
+            data: [nArray]
         }]
     });
 });

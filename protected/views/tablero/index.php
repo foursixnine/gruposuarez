@@ -18,8 +18,6 @@ array('label'=>'Volver','url'=>array('index')),
 
 
 
-
-
 <span class="label label-success">Operativos</span>
 <div class="well">
     
