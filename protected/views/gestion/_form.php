@@ -100,7 +100,7 @@ $(function(){
   <b><?php echo $form->labelEx($model, 'Contactado');?></b><br />
   
       <?php
-          
+            
            $this->widget(
             'booster.widgets.TbSelect2',
                          array(
