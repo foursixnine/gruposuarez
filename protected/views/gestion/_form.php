@@ -457,7 +457,25 @@ Esperaré su pago el día ----- con $ ----- (Monto).
 				)
 			)
 		);
+
+       //Si posse proyecto muetro etiqueta
+        if ($cliente->numero_de_lote!=""){
+                    echo $form->textFieldGroup(
+      $cliente,
+      'numero_de_lote',
+      array(
+        'wrapperHtmlOptions' => array(
+          'class' => 'col-sm-5',
+        ),
+        'widgetOptions' => array(
+          'htmlOptions' => array('disabled' => true)
+        )
+      )
+      );
+      }
+    
       
+
         //Si posse proyecto muetro etiqueta
         if ($cliente->proyecto!=""){
                     echo $form->textFieldGroup(

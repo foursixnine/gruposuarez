@@ -4,12 +4,14 @@ $this->breadcrumbs=array(
 	$model->id_gestion,
 );
 
-
+$this->menu=array(
+array('label'=>'Volver','url'=>array('cliente/detalle')),
+);
 ?>
 
 
+<button type="button" class="btn btn-warning">Detalle de la Gesti&oacute;n #<?php echo $model->id_gestion; ?></button>
 
-<h1>Detalle de la Gesti&oacute;n #<?php echo $model->id_gestion; ?></h1>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
@@ -18,9 +20,6 @@ $this->breadcrumbs=array(
 		'id_cliente',
 		'contactado_llamada',
 		'llamada_voz',
-               
-    
-    
 		'idAcuerdoCobros.descripcion',
 		'fecha_acuerdo',
 		'idGestionLlamadas.descripcion',
