@@ -35,12 +35,12 @@ class calculoRemuneracion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('resultado, cumplimiento, peso', 'required'),
+			array('resultado, cumplimiento, peso, peso1, resultadov', 'required'),
 			array('id_usuario, id_pago_remuneracion', 'numerical', 'integerOnly'=>true),
-			array('peso1, resultadov', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_calculo_remuneracion, id_usuario, resultado, id_pago_remuneracion, cumplimiento, peso, peso1, resultadov', 'safe', 'on'=>'search'),
+			//array('id_calculo_remuneracion, id_usuario, resultado, id_pago_remuneracion, cumplimiento, peso, peso1, resultadov', 'safe', 'on'=>'search'),
+//array('peso1', 'compare', 'compareAttribute'=>'peso', 'compareValue'=>'100', 'operator'=>'>=', 'message'=>'Debe repetir la clave exactamente igual'),
 		);
 	}
 
@@ -60,7 +60,7 @@ class calculoRemuneracion extends CActiveRecord
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
+		public function attributeLabels()
 	{
 		return array(
 			'id_calculo_remuneracion' => 'Calculo Remuneracion',
@@ -68,8 +68,8 @@ class calculoRemuneracion extends CActiveRecord
 			'resultado' => 'Resultado Cartera Corriente',
 			'id_pago_remuneracion' => 'Id Pago Remuneracion',
 			'cumplimiento' => 'Cumplimiento Total',
-			'peso' => 'Peso',
-			'peso1' => 'Peso1',
+			'peso' => 'Peso Cartera Corriente',
+			'peso1' => 'Peso Cartera Vencidad',
 			'resultadov' => 'Resultado Cartera Vencida',
 		);
 	}

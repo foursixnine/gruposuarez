@@ -4,8 +4,7 @@
  * This is the model class for table "proyecto".
  *
  * The followings are the available columns in table 'proyecto':
- * @property integer $id_proyecto
- * @property string $id_crm
+ * @property string $id_crm_proyecto
  * @property string $titulo
  * @property string $fecha
  * @property string $fecha_inicio
@@ -13,13 +12,15 @@
  * @property integer $id_status
  * @property string $comentario
  * @property integer $id_agente
- * @property string $lote
+ * @property string $porcentaje
  *
  * The followings are the available model relations:
- * @property Clientes[] $clientes
+ * @property Gestion[] $gestions
  * @property Agente $idAgente
+ * @property Metas[] $metases
+ * @property Tableros[] $tableroses
  */
-class Proyecto extends GActiveRecord
+class Proyecto extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -37,11 +38,12 @@ class Proyecto extends GActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('id_crm_proyecto', 'required'),
 			array('id_status, id_agente', 'numerical', 'integerOnly'=>true),
-			array('id_crm, titulo, fecha, fecha_inicio, fecha_fin, comentario, lote', 'safe'),
+			array('titulo, fecha, fecha_inicio, fecha_fin, comentario, porcentaje', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_proyecto, id_crm, titulo, fecha, fecha_inicio, fecha_fin, id_status, comentario, id_agente, lote', 'safe', 'on'=>'search'),
+			array('id_crm_proyecto, titulo, fecha, fecha_inicio, fecha_fin, id_status, comentario, id_agente, porcentaje', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,8 +55,10 @@ class Proyecto extends GActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'clientes' => array(self::HAS_MANY, 'Clientes', 'id_proyecto'),
+			'gestions' => array(self::HAS_MANY, 'Gestion', 'id_crm_proyecto'),
 			'idAgente' => array(self::BELONGS_TO, 'Agente', 'id_agente'),
+			'metases' => array(self::HAS_MANY, 'Metas', 'id_crm_proyecto'),
+			'tableroses' => array(self::HAS_MANY, 'Tableros', 'id_crm_proyecto'),
 		);
 	}
 
@@ -64,16 +68,15 @@ class Proyecto extends GActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_proyecto' => 'Id Proyecto',
-			'id_crm' => 'Id Crm',
-			'titulo' => 'Proyecto',
+			'id_crm_proyecto' => 'Id Proyecto',
+			'titulo' => 'Titulo',
 			'fecha' => 'Fecha',
 			'fecha_inicio' => 'Fecha Inicio',
 			'fecha_fin' => 'Fecha Fin',
 			'id_status' => 'Id Status',
 			'comentario' => 'Comentario',
 			'id_agente' => 'Id Agente',
-			'lote' => 'Lote',
+			'porcentaje' => 'Porcentaje',
 		);
 	}
 
@@ -95,8 +98,7 @@ class Proyecto extends GActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_proyecto',$this->id_proyecto);
-		$criteria->compare('id_crm',$this->id_crm,true);
+		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 		$criteria->compare('titulo',$this->titulo,true);
 		$criteria->compare('fecha',$this->fecha,true);
 		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
@@ -104,29 +106,13 @@ class Proyecto extends GActiveRecord
 		$criteria->compare('id_status',$this->id_status);
 		$criteria->compare('comentario',$this->comentario,true);
 		$criteria->compare('id_agente',$this->id_agente);
-		$criteria->compare('lote',$this->lote,true);
+		$criteria->compare('porcentaje',$this->porcentaje,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-        public function nombreproyectos()
-        {
-            $sql = "SELECT titulo FROM proyecto";            
-            
-            $connection = Yii::app()->db;
-            $command = $connection->createCommand($sql);
-            $dataReader = $command->queryAll();
-            return array_filter($dataReader) ;
-            
 
-        }
-        
-        
-        public static function getListProyecto()
-        {
-            return CHtml::listData(Proyecto::model()->findAll(),'id_proyecto','titulo');
-        }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

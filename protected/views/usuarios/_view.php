@@ -20,5 +20,19 @@
 	<?php echo CHtml::encode($data->id_rol); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('username')); ?>:</b>
+	<?php echo CHtml::encode($data->username); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('password')); ?>:</b>
+	<?php echo CHtml::encode($data->password); ?>
+	<br />
+
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('session')); ?>:</b>
+	<?php echo CHtml::encode($data->session); ?>
+	<br />
+
+	*/ ?>
 
 </div>

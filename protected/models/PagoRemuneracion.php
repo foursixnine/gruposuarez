@@ -5,14 +5,14 @@
  *
  * The followings are the available columns in table 'pago_remuneracion':
  * @property integer $id_pago_remuneracion
- * @property integer $id_tipo_cartera
  * @property string $porcentaje
  * @property string $dinero
+ * @property string $bono
  *
  * The followings are the available model relations:
- * @property TipoCartera $idTipoCartera
+ * @property CalculoRemuneracion[] $calculoRemuneracions
  */
-class PagoRemuneracion extends GActiveRecord
+class PagoRemuneracion extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -30,11 +30,11 @@ class PagoRemuneracion extends GActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_tipo_cartera, porcentaje, dinero', 'required'),
-			array('id_tipo_cartera', 'numerical', 'integerOnly'=>true),
+			array('porcentaje, dinero', 'required'),
+			array('bono', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_pago_remuneracion, id_tipo_cartera, porcentaje, dinero', 'safe', 'on'=>'search'),
+			array('id_pago_remuneracion, porcentaje, dinero, bono', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +46,7 @@ class PagoRemuneracion extends GActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idTipoCartera' => array(self::BELONGS_TO, 'TipoCartera', 'id_tipo_cartera'),
+			'calculoRemuneracions' => array(self::HAS_MANY, 'CalculoRemuneracion', 'id_pago_remuneracion'),
 		);
 	}
 
@@ -57,9 +57,9 @@ class PagoRemuneracion extends GActiveRecord
 	{
 		return array(
 			'id_pago_remuneracion' => 'Id Pago Remuneracion',
-			'id_tipo_cartera' => 'Id Tipo Cartera',
 			'porcentaje' => 'Porcentaje',
 			'dinero' => 'Dinero',
+			'bono' => 'Bono',
 		);
 	}
 
@@ -82,9 +82,9 @@ class PagoRemuneracion extends GActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id_pago_remuneracion',$this->id_pago_remuneracion);
-		$criteria->compare('id_tipo_cartera',$this->id_tipo_cartera);
 		$criteria->compare('porcentaje',$this->porcentaje,true);
 		$criteria->compare('dinero',$this->dinero,true);
+		$criteria->compare('bono',$this->bono,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Gestions'=>array('index'),
-	'Create',
+	'Gestion'=>array('index'),
+	'Crear',
 );
 
 $this->menu=array(
@@ -14,6 +14,8 @@ array('label'=>'Volver','url'=>'../index'),
     <p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>
 <?php echo $this->renderPartial('_form', array('model'=>$model,
                                                'cliente'=>$cliente,
-                                               'fecha_acuerdo'=>$fecha_acuerdo,
+                                            //   'fecha_acuerdo'=>$fecha_acuerdo,
                                                'cartera'=>$cartera, 
+    'gestion_old'=>$gestion_old,
+    'totalabonadof'=>$totalabonadof,
 )); ?>

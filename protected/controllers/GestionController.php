@@ -69,45 +69,58 @@ public function actions()
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id)
-	{
-		$model = new Gestion;
-                $cartera = new Cartera;
+public function actionCreate($id){
+            
+	$model = new Gestion;
+        $cartera = new Cartera;
+        // Uncomment the following line if AJAX validation is needed
+        $this->performAjaxValidation($model);
+        $fecha="";
+        
+        //Para ver el total abonado
+        $totalabonadof =  Yii::app()->dbconix->createCommand()
+                                ->select('SUM(monto)')
+                                ->from('payments')
+                                ->where('Cliente='."'".$id."'")
+                                ->queryScalar();
+        
+        //Buscamos el cliente segun el parametro recibido para traerme sus datos.
+        $cliente = Cliente::model()->find('id_cliente=:id_cliente',
+                              array(':id_cliente'=>$id)); 
 
-     /*   $cliente = Clientes::model()->find('id_cliente=:id_cliente',
-                               array(':id_cliente'=>$id)); //Buscamos el cliente segun el parametro recibido*/
-        $cliente=Customersview::model()->find('ID_CLIENTE=:ID_CLIENTE',
-                               array(':ID_CLIENTE'=>$id)); //Buscamos el cliente segun el parametro recibido
+                                 
+
+       //Buscamos las ultimas Gestiones Realizadas
+        $gestion_old = $model->findAll('id_cliente=:id_cliente',
+                              array(':id_cliente'=>$id)); 
         
-        $gestion_old = $model->find('id_cliente=:id_cliente',
-                               array(':id_cliente'=>$id)); //Buscamos los ultimos contactos*/
-        
-        
-        
-        
-        if($gestion_old==""){
-            // var_dump($gestion_old);die;    
-             $fecha_acuerdo='';
-        }else{
-            $fecha_acuerdo=$gestion_old->fecha_acuerdo;                
-        }        
-//var_dump($fecha_acuerdo);//die;
-		if(isset($_POST['Gestion']))
-		{
-			$model->attributes=$_POST['Gestion'];
-                        //var_dump($model);die;
-                        if($model->save())
-			$this->redirect(array('view','id'=>$model->id_gestion));
-		}
+        if(isset($_POST['Gestion']))
+        {
+            
+        $fecha_actual = date('Y-m-d');         
+        $model->attributes=$_POST['Gestion'];
+        $model->fecha_creacion=$fecha_actual;
+        if(empty($_POST['Gestion']['fecha_acuerdo'])){               
+               $model->fecha_acuerdo=NULL;
+        }
+    
+            
  
-		$this->render('create',array(
-			'model'=>$model,
+        if($model->save()){
+            $clienteupdate = Cliente::model()->updateByPk($cliente->id_cliente_gs,array('gestion' => 1));
+            $this->redirect(array('view','id'=>$model->id_gestion));
+        }    
+        }
+
+        $this->render('create',array(
+                        'model'=>$model,
                         'cliente'=>$cliente,
-                        'fecha_acuerdo'=>$fecha_acuerdo,
                         'cartera'=>$cartera,
-		));
-		
-	}
+                        'gestion_old'=>$gestion_old,
+                        'totalabonadof'=>$totalabonadof,
+                      //  'tramite'=>$tramite,
+        ));
+}
 
 	/**
 	 * Updates a particular model.
@@ -116,8 +129,8 @@ public function actions()
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
-        $cliente=Clientes::model()->find('id_cliente=:id_cliente',
+	$model=$this->loadModel($id);
+        $cliente=Cliente::model()->find('id_cliente=:id_cliente',
                                array(':id_cliente'=>$id)); //Buscamos el cliente segun el parametro recibido
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -161,22 +174,43 @@ public function actions()
 	 */
 	public function actionIndex()
 	{
-	
-                $cliente = new Customersview('search');
-               // $model = new Gestion ('agendagestion');
-               // $model=new Gestion('search');
-                $cliente->unsetAttributes();
-		//$model->unsetAttributes();  // clear any default values
-	if(isset($_GET['Customersview'])){
-			$cliente->attributes=$_GET['Customersview'];
-        }
-			//print_r($_GET['Customersview']);
+            
+            //Mas Buscados - Clientes con 90 dias
+            $cliente = new Cliente('search90');
+            
+            $cliente->unsetAttributes();
+            
+           // $retiro= new Cliente('search120');
+            //Aviso de retiro - Clientes con 120 dias
+            $retiro= new Cliente('search120');
+            $retiro->unsetAttributes();
+            
+            $model=new Gestion('search');  
+            $model->unsetAttributes();
+     
+            if(isset($_GET['Cliente'])){
+                            $cliente->attributes=$_GET['Cliente'];
+                            $retiro->attributes=$_GET['Cliente'];
+                        // print_r($_GET['Customers']);
+            }
+            
+            if(isset($_GET['Cliente'])){
+                         
+                            $retiro->attributes=$_GET['Cliente'];
+                        // print_r($_GET['Customers']);
+            }
+         
+            if(isset($_GET['Gestion'])){
+                            $model->attributes=$_GET['Gestion'];
+                        // print_r($_GET['Customers']);
+            }		
 		
                      
                 
 		$this->render('index',array(
-		//	'model'=>$model,
-                        'cliente'=>$cliente,
+                    'model'=>$model,
+                    'cliente'=>$cliente,
+                   'retiro'=>$retiro                  
 		));
              
         
@@ -187,23 +221,14 @@ public function actions()
 	 */
 	public function actionAdmin()
 	{
-                $model= new Customersview('noventadias');
+                $model= new CustomersView('noventadias');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Gestion']))
-			$model->attributes=$_GET['Gestion'];
+		if(isset($_GET['CustomersView']))
+			$model->attributes=$_GET['CustomersView'];
 
 		$this->render('admin',array(
 			'model'=>$model,
                 ));   
-                
-		/*$model=new Gestion('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Gestion']))
-			$model->attributes=$_GET['Gestion'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));*/
 	}
 
 	/**

@@ -24,7 +24,7 @@ class UniqueAttributesValidator extends CValidator {
 		$conditionParams = array();
 		$params = array();
 		foreach ($with as $attribute) {
-			$conditionParams[] = "`{$attribute}`=:{$attribute}";
+			$conditionParams[] = "{$attribute}=:{$attribute}";
 			$params[":{$attribute}"] = $object->$attribute;
 		}
 		$condition = implode(" AND ", $conditionParams);

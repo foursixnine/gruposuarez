@@ -4,18 +4,6 @@
 	<?php echo CHtml::link(CHtml::encode($data->id_meta),array('view','id'=>$data->id_meta)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_proyecto')); ?>:</b>
-	<?php echo CHtml::encode($data->id_proyecto); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_inicio')); ?>:</b>
-	<?php echo CHtml::encode($data->fecha_inicio); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_fin')); ?>:</b>
-	<?php echo CHtml::encode($data->fecha_fin); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('monto')); ?>:</b>
 	<?php echo CHtml::encode($data->monto); ?>
 	<br />
@@ -28,5 +16,23 @@
 	<?php echo CHtml::encode($data->monto_mes_proyecto); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('idUsuario.nombre')); ?>:</b>
+	<?php echo CHtml::encode($data->idUsuario["nombre"]); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('idCrmProyecto.titulo')); ?>:</b>
+	<?php echo CHtml::encode($data->idCrmProyecto["titulo"]); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('mes')); ?>:</b>
+	<?php echo CHtml::encode($data->mes0["descripcion"]); ?>
+	<br />
+
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_tipo_meta')); ?>:</b>
+	<?php echo CHtml::encode($data->id_tipo_meta); ?>
+	<br />
+
+	*/ ?>
 
 </div>

@@ -13,6 +13,6 @@ $this->breadcrumbs=array(
 	);
 	?>
 
-	<h1>Actualizar Metas <?php echo $model->id_meta; ?></h1>
+	<h1>Update Metas <?php echo $model->id_meta; ?></h1>
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

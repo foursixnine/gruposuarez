@@ -67,8 +67,8 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm',array(
                $this->widget(
                  'booster.widgets.TbSelect2', array(            
                  'model' => $model,
-                 'attribute' => 'id_proyecto',
-                 'data' => CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'titulo'),
+                 'attribute' => 'id_crm_proyecto',
+                 'data' => CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
                  'options' => array(
                    'placeholder' => "Proyecto",
                   //     'id' => "proyecto",

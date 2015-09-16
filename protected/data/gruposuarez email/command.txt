@@ -1,0 +1,1 @@
+c:\direccionphp.exe -f "direccion del script\email.php"

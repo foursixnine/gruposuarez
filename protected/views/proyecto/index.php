@@ -5,7 +5,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 array('label'=>'Create Proyecto','url'=>array('create')),
+array('label'=>'Asignar Porcentaje Masivo','url'=>array('updateall')),
 array('label'=>'Manage Proyecto','url'=>array('admin')),
+
+    
 );
 ?>
 

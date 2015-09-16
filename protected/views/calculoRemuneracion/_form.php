@@ -3,208 +3,173 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-<?php if($metas == null){ ?>
-    <?php $this->redirect('/gruposuarez/metas/'); ?>
-<?php }else{ ?> 
-<?php
-
-$sum=0;
-$sumcorriente=0;
-$cobradoc=0;
-$cobradov=0;
-
-?> 
-
-  <div class="col-sm-6" style="background-color:#dff0d8;">
+ 
+<div class="row">
+    <!--<div class="col-sm-6" style="background-color:lavender;">-->
+    <div class="col-sm-6" style="background-color:#dff0d8;">
         <div class="list-group">
         <a href="#" class="list-group-item list-group-item-info">
-            <strong>CARTERA CORRIENTE</strong>
+            <strong>CARTERA CORRIENTE - <?php echo $meta_corriente->idCrmProyecto->titulo;?></strong>
         </a>
  
- 
+<!--****************************CARTERA CORRIENTE***************************-->
           
-            
-            
- <?php  foreach($metas as $data){ ?>
-           
-       <?php if($data->cartera==1){ ?>        
-           <table class="list-group-item">
+  <?php if($meta_corriente->id_tipo_meta == 2){ ?>        
+         <table class="list-group-item">
                 <tbody>
                     <tr>
                         <td>
                             <?php            
-                                echo CHtml::label('Meta:   ', '????');
+                                echo CHtml::label('Vencido Inicio de Mes:   ', '????');
                             ?>
                         </td>
 
-                        <td><?php  echo $data->monto_mes_proyecto;  ?></td>
-                    </tr>  
-                    
-                    <tr>
-                        <td>
-                            <?php            
-                                echo CHtml::label('Cobrado:   ', '????');
-                            ?>
-                        </td>
-
-                        <td><?php  echo $data->monto;  ?></td>
-                    </tr>                
-                    <tr>
-                        <td>
-                            <?php            
-                                echo CHtml::label('Proyecto', '????');
-                            ?>
-                        </td>
-
-                        <td><?php echo $data->idProyecto->titulo; 
-
-                    
-                        ?></td>
-                    </tr>
-                    <tr>
-                        <td><?php  $sumcorriente+=$data->monto_mes_proyecto; ?></td>
-                        <td><?php  $cobradoc+=$data->monto; ?></td>
-                    </tr>    
-           </table>
- <?php }} ?>        
-
-        </div>
-  </div>   
-
- <div class="col-sm-6" style="background-color:#dff0d8;">
-        <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-info">
-            <strong>CARTERA VENCIDA</strong>
-        </a>
-<?php
-   
-
-  foreach($metas as $data1){ ?>
-           
-       <?php if($data1->cartera==2){ ?>        
-           <table class="list-group-item">
-                <tbody>
-                    <tr>
-                        <td>
-                            <?php            
-                                echo CHtml::label('Meta:   ', '????');
-                            ?>
-                        </td>
-
-                        <td><?php  echo $data1->monto_mes_proyecto;  ?></td>
-                    </tr>  
-                    
-                    <tr>
-                        <td>
-                            <?php            
-                                echo CHtml::label('Cobrado:   ', '????');
-                            ?>
-                        </td>
-
-                        <td><?php  echo $data1->monto;   ?></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            <?php            
-                                echo CHtml::label('Proyecto', '????');
-                            ?>
-                        </td>
-
-                        <td><?php echo $data1->idProyecto->titulo; 
-
-                    
-                        ?></td>
-                    </tr>
-                    
-                    
-                    <tr>
+                        <td><?php  //echo $meta_corriente->monto_mes_proyecto;
                         
+                          echo $pivote_inicio_mes->monto;
+                              ?></td>
+                    </tr>  
+                    
+                    <tr>
+                        <td>
+                            <?php            
+                                echo CHtml::label('Vencido Final de Mes:   ', '????');
+                            ?>
+                        </td>
 
-                        <td><?php   $sum+=$data1->monto_mes_proyecto; 
-                                    $cobradov+=$data1->monto; 
+                        <td><?php  echo $pivote_final_mes->monto; ?></td>
+                    </tr>
+                    
+                            
+                    <tr>
+                        <td>
+                            <?php            
+                                echo CHtml::label('Meta Corriente', '????');
+                            ?>
+                        </td>
+
+                        <td><?php echo $metas->monto_mes_proyecto; 
+
                     
                         ?></td>
                     </tr>
+                    
+                       <tr>
+                        <td>
+                            <?php            
+                                echo CHtml::label('Diferencia de Cartera:', '????');
+                            ?>
+                        </td>
+
+                        <td><?php  echo $resta = (($pivote_final_mes->monto) - ($pivote_inicio_mes->monto));
+
+                    
+                        ?></td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td>
+                            <?php            
+                                echo CHtml::label('Cumplimiento', '????');
+                            ?>
+                        </td>
+
+                        <td>
+                               <strong bgcolor="#FF3333"> <p style="color: #6600CC; background-color: #ffffff"><?php 
+                               //var_dump((int) ($pivote_inicio_mes->monto - 7)); die;
+                                       
+                                        //El resultado de inicio mes he inicio fin lo divido entre meta corriente de BD META 
+                                        
+                                        $porcentajec = $resta / $metas->monto_mes_proyecto  ;
+                                        echo number_format($porcentajec, 2, '.', '');?>   %</p></strong>
+                            
+                        </td>
+                    </tr>
+                    
+                </tbody>     
            </table>
-       <?php } ?>        
-    <?php if($data1->cartera==2){ ?>
- 
-         <?php   
-            
+     
+        </div>
+  </div>  
+         
+    <?php 
         }
- 
-        } 
-        ?>
-        </div>
-  </div>
 
-
-  <div class="col-sm-6" style="background-color:#dff0d8;">
-        <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-info">
-            <strong>TOTAL CORRIENTE</strong>
-        </a>
-
-           <table class="list-group-item">
-                <tbody>                                    
-                    <tr>
-                           <td>Total Meta:</td>
-                        <td><strong><?php echo $sumcorriente;?></strong>
-                        </td>
-                         <td>Total Cobrado:</td>
-                        <td>  <strong><?php echo $cobradoc=7000;?> </strong>
-
-                       <td>Cumplimiento:</td>
-                        <td><strong><?php  $porcentajec= $cobradoc / $sumcorriente *100;?>
-                        <?php //echo "$cobradoc es el " . porcentaje($totaaal, $cobradoc, 2) . "% de $totaaal <br>";?>
-                      <?php echo number_format($porcentajec, 2, '.', '');?>   %</strong></td>
-                    </tr>
-                       
-           </table>
-     
-        </div>
-  </div> 
-
-  <div class="col-sm-6" style="background-color:#dff0d8;">
-        <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-info">
-            <strong>TOTAL VENCIDA</strong>
-        </a>
-
+     ?>            
        
-           <table class="list-group-item">
-                <tbody>                                    
-                    <tr>
-                        
-                         <td>Total Meta:</td>
-                        <td>  <strong><?php echo $sum;?> </strong></td>
-                        <td>Total Cobrado:</td>
-                        <td><strong><?php echo $cobradov=40000;?></strong></td>
-                               <td>Cumplimiento:</td>
-                        <td><strong><?php $porcentajev= $cobradov / $sum *100;?>
-                                     <?php echo number_format($porcentajev, 2, '.', '');?>   %</strong></td>
-                    </tr>
-                       
-           </table>
-     
-        </div>
-  </div> 
   
-
-<br/>
 <br/>
 
+    <!--<div class="col-sm-6" style="background-color:lavender;">-->
+    <div class="col-sm-6" style="background-color:#dff0d8;">
+        <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-info">
+            <strong>CARTERA VENCIDAD - <?php echo $meta_corriente->idCrmProyecto->titulo;?></strong>
+        </a>
+ 
+<!--****************************CARTERA VENCIDAD***************************-->
+          
+  <?php if($metas->id_tipo_meta == 1){ ?>        
+                       <table class="list-group-item">
+                <tbody>
+                    <tr>
+                        <td>
+                            <?php            
+                                echo CHtml::label('Meta:   ', '????');
+                            ?>
+                        </td>
+
+                        <td><?php  //echo $meta_corriente->monto_mes_proyecto;
+                        
+                          echo $metas->monto_mes_proyecto;
+                              ?></td>
+                    </tr>  
+                    
+                    <tr>
+                        <td>
+                            <?php            
+                                echo CHtml::label('Cobrado:   ', '????');
+                            ?>
+                        </td>
+
+                        <td><?php  echo $cobrado;   ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <?php            
+                                echo CHtml::label('Cumplido', '????');
+                            ?>
+                        </td>
+
+                        <td>
+                               <strong><?php $porcentajev = $cobrado / $metas->monto_mes_proyecto ;?>
+                                     <?php echo number_format($porcentajev, 2, '.', '');?>   %</strong>
+                            
+                        </td>
+                    </tr>
+                    
+   
+                    
+           </table>
+        
+    <?php 
+        }
+        
+     ?>            
+         </div>           
+  </div>
+</div>
 <br/>
-<h1>Datos del C&aacute;lculo</h1>
+<br/>
+<h2>Datos para el Calculo</h2>
 
 
-<br/>
-<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldGroup($usuarios,'nombre',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+	<?php //echo $form->textFieldGroup($usuarios,'nombre',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
 	<?php echo $form->textFieldGroup($model,'resultado',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
@@ -306,9 +271,13 @@ $cobradov=0;
 
 <?php $this->endWidget(); ?>
 <br/>
+</table>
+   
+</div>
+
 <fieldset>
     <legend align= "center">Tabla de Remuneraci&oacute;n</legend>
-<?php $this->widget('booster.widgets.TbGridView',array(
+<?php /*$this->widget('booster.widgets.TbGridView',array(
 'id'=>'pago-remuneracion-grid',
 'dataProvider'=>$tablar->search(),
 'columns'=>array(
@@ -316,19 +285,31 @@ $cobradov=0;
 		'porcentaje',
 		'dinero',
 ),
-)); ?>
+));*/ ?>
 </fieldset>
+   
+
+
+
+<br/>
+<br/>
+<div>
+<br/>
+<h1>Datos del C&aacute;lculo</h1>
+
+
+<br/>
+
+
 
 <script type="text/javascript">
         $(document).ready(function(){
  var porc = "<?php echo $porcentajec; ?>" ;
  var porv = "<?php echo $porcentajev; ?>" ;
-
 $('#calculoRemuneracion_peso').select2().on('change', function() {
  
   
  var porcentaje = $('#calculoRemuneracion_peso').val(); 
-
  var porc = "<?php echo $porcentajec; ?>" ;
   
   //alert(porv);
@@ -336,17 +317,11 @@ $('#calculoRemuneracion_peso').select2().on('change', function() {
  $("#calculoRemuneracion_resultado").val(porcentaje * porc/100);
  
 }).trigger('change');
-
-
 ////vencida
-
-
-
 $('#calculoRemuneracion_peso1').select2().on('change', function() {
  
   
  var porcentaje =$('#calculoRemuneracion_peso1').val(); 
-
  var porv = "<?php echo $porcentajev; ?>" ;
   
   //alert(porv);
@@ -361,11 +336,5 @@ $('#calculoRemuneracion_peso1').select2().on('change', function() {
 total = total.toFixed(2);
  $("#calculoRemuneracion_cumplimiento").val(total);
 }).trigger('change');
-
-
 });
-
-</script>
-
-
-<?php }?>
+</script>   

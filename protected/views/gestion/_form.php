@@ -6,19 +6,19 @@
  
 <script>
 $(function(){
-        $('select#Gestion_llamada_voz').prop('disabled', true);
+    $('select#Gestion_llamada_voz').prop('disabled', true);
     $('select#Gestion_contactado_llamada').change(function () {
         
-        alert("Entre a la funcion");
+        //alert("Entre a la funcion");
         
        // document.getElementById('Gestion_contactado_llamada').value;
         $valor=(document.getElementById('Gestion_contactado_llamada').value);
-         alert($valor);
+      //alert($valor);
         if($valor==2){
-$('select#Gestion_llamada_voz').attr("disabled", false);
+    $('select#Gestion_llamada_voz').attr("disabled", false);
             //$('select#Gestion_llamada_voz').prop('disabled', false);
         }else{
-       $('select#Gestion_llamada_voz').attr("disabled", true);
+    $('select#Gestion_llamada_voz').attr("disabled", true);
            // $('select#Gestion_llamada_voz').prop('disabled', true); 
         
         }
@@ -31,7 +31,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
        
        document.getElementById('Gestion_id_gestion_llamadas').value;
         $valor=(document.getElementById('Gestion_id_gestion_llamadas').value);
-     alert( $valor);
+    // alert( $valor);
            if($valor==1){
                 document.getElementById('treinta').style.display='block';
            }else{
@@ -50,7 +50,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                 document.getElementById('noventa').style.display='none';
            }
            
-           if($valor==4){
+           if($valor==5){
                 document.getElementById('cientoveinte').style.display='block';
            }else{
                 document.getElementById('cientoveinte').style.display='none';
@@ -59,34 +59,44 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
 
 });
 </script>     
- <?php  $id=$cliente->ID_CLIENTE; ?>
+ <?php  $id=$cliente->id_cliente; ?>
+ <?php  $idgs=$cliente->id_cliente_gs; ?>
+ <?php   $crm_proyecto=$cliente->id_proyecto; ?>
+<?php  $model->id_crm_proyecto=$crm_proyecto; ?>
    <?php  $model->id_cliente=$id; ?>
+ <?php   $model->id_cliente_gs=$idgs; ?>
 <div class="panel-group" id="accordion">
   <!--<div class="panel panel-default">-->
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          #ID<?php echo $id; ?> - <?php echo $cliente->NOMBRE;?> - 
+          #ID<?php echo $id; ?> - <?php echo $cliente->nombre;?> - 
              <?php 
          
-                        if ($cliente->PROYECTO!=""){
-                                echo $cliente->PROYECTO; 
+                        if ($cliente->proyecto!=""){
+                                echo $cliente->proyecto; 
                         }
 	
-																		?>
+	     ?>
         </a>
     
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
+      
+<div id="collapseOne" class="panel-collapse collapse in">
       
 <?php $form->errorSummary($model); ?>
 
-		<?php echo $form->hiddenField($model,'id_cliente', array('class'=>'span5')) ?>
-
-  
-  
+		<?php //echo $form->hiddenField($model,'id_cliente', array('class'=>'span5')) ?>
+        
+                <?php echo $form->hiddenField($model,'id_crm_proyecto', array('class'=>'span5')) ?>
+                <?php //echo $form->hiddenField($model,'id_cliente_gs', array('class'=>'span5')) ?>
+ 
+   <?php //$model->fecha_creacion='2015-07-14';?>
+              <?php echo $form->hiddenField($model,'fecha_creacion', array('class'=>'span5')) ?>
+   <?php echo $form->hiddenField($model,'id_cliente', array('class'=>'span5')) ?>
+        <?php echo $form->hiddenField($model,'id_cliente_gs', array('class'=>'span5')) ?>
   <b><?php echo $form->labelEx($model, 'Contactado');?></b><br />
   
       <?php
@@ -108,21 +118,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                 ),
                              )
 ); 
-      /*
-        $this->widget(
-            'booster.widgets.TbSelect2',
-            array(
-                'name' => 'contactado_llamada',
-                'id' => 'contactado_llamada',
-                'data' => array('1' => 'SI', '2' => 'NO'),
-                'htmlOptions' => array(
-                    'placeholder' => "----",
-                    
-                    
-                   // 'id' => 'contacto_llamada'
-                ),
-            )
-        );*/
+     
      ?>
    <br />
        <b><?php echo $form->labelEx($model, 'Mensaje de voz');?></b>
@@ -167,12 +163,12 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         <!-- Auto Completar Acuerdo de Cobros -->     
         <?php
                     $this->widget(
-                        'booster.widgets.TbSelect2', array(
+                      'booster.widgets.TbSelect2', array(
                       'model' => $model,
                       'attribute' => 'id_acuerdo_cobros',
                       'data' => CHtml::listData(AcuerdoCobros::model()->findAll(), 'id_acuerdo_cobros', 'descripcion'),
                       'options' => array(
-                        'placeholder' => "ACUERDO",
+                      'placeholder' => "ACUERDO",
                        /* 'allowClear'=>true,
                         'minimumInputLength'=>2,*/
                       ),
@@ -200,12 +196,11 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
 	
                     $this->widget(
                       'booster.widgets.TbSelect2', array(
-                      'model' => $model,
-                //      'id'=>'id_cartera',                            
+                      'model' => $model,                                          
                       'attribute' => 'id_gestion_llamadas',
                       'data' => CHtml::listData(Gestionllamadas::model()->findAll(), 'id_gestion_llamadas', 'descripcion'),
                       'options' => array(
-                        'placeholder' => "Gestión Llamadas",
+                       'placeholder' => "Gestión Llamadas",
                        /* 'allowClear'=>true,
                         'minimumInputLength'=>2,*/
                       ),
@@ -217,12 +212,12 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         ?>
         <div id="treinta" style="display:none;">
             <br/>
-            <p><strong style="color:blue">SCRIPT PARA 30 D&Iacute;AS</strong></p>
+            <p><strong style="color:blue">Llamada para cuando la letra esté entre 30 d&iacute;as</strong></p>
             
             <div class="panel panel-info"><p>
                     <strong>1.1 SALUDAR </strong><br/>
                     Buenos días - tardes!<br/>
-                    Señor(a) <strong><?php echo $cliente->NOMBRE; ?><br/></strong>
+                    Señor(a) <strong><?php echo $cliente->nombre; ?><br/></strong>
                     Gusto en saludarle.<br/>
                     <strong>1.2. PRESENTARSE </strong>
                     Le saluda -----,<br/> de parte de Grupo Suárez.<br/>
@@ -243,42 +238,38 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         <div id="sesenta" style="display:none;">
             
                   <br/>
-            <p><strong style="color:blue">SCRIPT PARA 60 D&Iacute;AS</strong></p>
+                  <p><strong style="color:blue">2. Llamada para cuando la letra esté en 60 d&iacute;as</strong></p>
             
             <div class="panel panel-info"><p>
-                    <strong>1.1 SALUDAR </strong><br/>
+                    <strong>2.1 SALUDAR </strong><br/>
                     Buenos días - tardes!<br/>
-                    Señor(a) <strong><?php echo $cliente->NOMBRE; ?><br/></strong>
+                    Señor(a) <strong><?php echo $cliente->nombre; ?><br/></strong>
                     Gusto en saludarle.<br/>
-                    <strong>1.2. PRESENTARSE </strong>
-                    Le saluda -----,<br/> de parte de Grupo Suárez.<br/>
-                    El motivo de mi llamada es para notificarle que su letra con 
-                    monto correspondiente a ------ ha vencido el día -----. Su pago ha pasado el 
-                    plazo de los 60 días por lo que tiene dos incumplimientos de pago de letra. 
-                    Quisiera confirmar la fecha efectiva del pago para actualizar el estado de su 
-                    cartera y evitar un posible retiro del proyecto. Sin embargo, me gustaría
-                    conocer si ha tenido alguna situación 
-                    especial por la cual no ha podido realizar sus pagos a tiempo. <br/>
+                    <strong>2.2. PRESENTARSE </strong><br/>
+                    Le saluda <?php echo Yii::app()->user->isGuest; ?>,<br/> de parte de Grupo Suárez.<br/>
+                    El motivo de mi llamada es para notificarle que su 
+                    letra con monto correspondiente a ------ ha vencido el día -----. Su pago ha pasado el plazo de los 30 días y está 
+                    generando un incumplimiento en su cuenta. Para poder resolver esto puede venir personalmente a pagar en nuestras oficinas 
+                    en Vía España,Edificio los Toneles Planta Baja o realizar una transferencia a cuenta directa. 
+                    Me gustaría confirmar la fecha en la que realizará el pago de esta 
+                    letra, con el fin de evitar que caiga en un segundo incumplimiento. <br/>
+                    <strong>2.3 DESPEDIRSE Y AGRADECER</strong>
 
-                    <strong>3.3. SOLICITAR RAZON DE DEMORA </strong><br/>
-                    
-                    Entiendo su situación, tiene alguna propuesta de pago en mente para que pueda 
-                    establecer un  acuerdo con usted y no nos veamos perjudicados?<br/>
                 </p></div>
         
         </div>
         
         <div id="noventa" style="display:none;">
-            <p>90 D&iacute;as</p>
+            
                       <br/>
-            <p><strong style="color:blue">SCRIPT PARA 90 D&Iacute;AS</strong></p>
+                      <p><strong style="color:blue">3. Llamada para cuando la letra esté entre 61-90 d&iacute;as:</strong></p>
             
             <div class="panel panel-info"><p>
-                    <strong>1.1 SALUDAR </strong><br/>
+                    <strong>3.1 SALUDAR </strong><br/>
                     Buenos días - tardes!<br/>
-                    Señor(a) <strong><?php echo $cliente->NOMBRE; ?><br/></strong>
+                    Señor(a) <strong><?php echo $cliente->nombre; ?><br/></strong>
                     Gusto en saludarle.<br/>
-                    <strong>1.2. PRESENTARSE </strong>
+                    <strong>3.2. PRESENTARSE </strong>
                     Le saluda -----,<br/> de parte de Grupo Suárez.<br/>
                     El motivo de mi llamada es para notificarle que su letra con 
                     monto correspondiente a ------ ha vencido el día -----. Su pago ha pasado el 
@@ -292,13 +283,69 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                     
                     Entiendo su situación, tiene alguna propuesta de pago en mente para que pueda 
                     establecer un  acuerdo con usted y no nos veamos perjudicados?<br/>
-                </p></div>
+                    
+                    <strong>3.4. PAUSA DE 3 SEGUNDOS PARA VER SI CLIENTE PROPONE EL PAGO DEL MONTO PENDIENTE</strong><br/>
+                    <p>Si la respuesta es negativa: </p>
+                    <br/>
+                    <p>
+                    Entiendo su situación, tiene alguna propuesta de pago en mente para que pueda 
+                    establecer un  acuerdo con usted y no nos veamos perjudicados?<br/>
+                    Ante su negativo no tenemos más opción que establecer como fecha de pago el ---- (fecha). Le reitero que mi 
+                    intención no es perjudicarlo sino tener la mejor relación comercial con usted, por esto esperamos su colaboración con 
+                    el pago oportuno de su deuda.
+                    </p>
+                    <br/>
+                    <p>Si la respuesta es positiva: </p><br/>
+                    <p>Esperaré su pago el día ----- con $ ----- (Monto).</p><br/>
+                    <strong>3..5. DESPEDIRSE Y AGRADECER</strong>
+            </div>
         
         </div>
         
         <div id="cientoveinte" style="display:none;">
-            <p>120 D&iacute;as</p>
-            <p><input type="text" name="otro" class="input" value="120" /></p>
+            
+            <p><strong style="color:blue">4. Llamada para cuando la letra esté entre 91-120 d&iacute;as:</strong><br/>
+                    <div class="panel panel-info">
+                        <p>
+                
+4.1 SALUDAR 
+
+Buenos días - tardes!
+
+Señor(a) --------- (Nombre de la Persona)
+
+Gusto en saludarle.
+
+4.2. PRESENTARSE 
+
+Le saluda -----, de parte de Grupo Suárez. El motivo de mi llamada es para notificarle que su letra con 
+monto correspondiente a ------ ha vencido el día -----. Su pago ha pasado el plazo de los 90 días por lo 
+que tiene tres incumplimientos de pago de letra. Tiene alguna propuesta de pago en mente para que pueda 
+establecer un acuerdo con usted y no vernos perjudicados? 
+
+4.3. PAUSA DE 3 SEGUNDOS PARA VER SI CLIENTE PROPONE EL PAGO DEL MONTO PENDIENTE. 
+
+Si la respuesta es negativa: 
+Ante su negativo no tengo más opción que establecer como fecha límite de pago el ---- (fecha). 
+Le reitero que mi intención no es perjudicarlo sino tener la mejor relación comercial con usted, 
+pero al haberse vencido el plazo de los 90 días, me veré en la obligación de pasar su caso a Ventas para ser 
+analizado y evaluar los pasos a seguir con su cuenta con la posibilidad de que sea retirado del proyecto. Una vez más, 
+le reitero que me gustaría evitar esta situación, por lo que respetuosamente le solicito realizar su pago antes del día ---- 
+del mes-----. Tenga en cuenta que esta es la última fecha establecida para su pago 
+antes de enviar su caso al comité como le acabo de especificar. 
+
+Si la respuesta es positiva: 
+
+Esperaré su pago el día ----- con $ ----- (Monto).
+
+4.4. DESPEDIRSE Y AGRADECER
+                
+                            
+                        </p>    
+                    </div>
+
+                
+            </p>
         </div>
         
         <br/><br/>
@@ -314,13 +361,13 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
 				)
 			)
 		); ?>
-<br />
-<br />
+<br/>
+<br/>
 
 	<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'context'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+			'label'=>$model->isNewRecord ? 'Crear Gestión' : 'Save',
 		)); ?>
 
     </div>
@@ -346,7 +393,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         //Nombre Cliente
         echo $form->textFieldGroup(
 			$cliente,
-			'NOMBRE',
+			'nombre',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -359,7 +406,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         //Apellido Cliente
         echo $form->textFieldGroup(
 			$cliente,
-			'APELLIDO',
+			'apellido',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -373,7 +420,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         //RUC
         echo $form->textFieldGroup(
 			$cliente,
-			'CEDULA',
+			'cedula',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -386,7 +433,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         //Nombre Nacionalidad
         echo $form->textFieldGroup(
 			$cliente,
-			'NACIONALIDAD',
+			'nacionalidad',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -400,7 +447,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         //Sexo
         echo $form->textFieldGroup(
 			$cliente,
-			'SEXO',
+			'sexo',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -412,10 +459,10 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
 		);
       
         //Si posse proyecto muetro etiqueta
-        if ($cliente->PROYECTO!=""){
+        if ($cliente->proyecto!=""){
                     echo $form->textFieldGroup(
 			$cliente,
-			'PROYECTO',
+			'proyecto',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -449,7 +496,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                 
             echo $form->textFieldGroup(
 			$cliente,
-			'CORREO',
+			'correo',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -481,7 +528,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         
             echo $form->textFieldGroup(
 			$cliente,
-			'NUMERO_CASA',
+			'numero_casa',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -494,7 +541,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
       
             echo $form->textFieldGroup(
 			$cliente,
-			'NUMERO_CELULAR',
+			'numero_celular',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -508,7 +555,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
             
             echo $form->textFieldGroup(
 			$cliente,
-			'NUMERO_ADICIONAL',
+			'numero_adicional',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -537,12 +584,12 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
       <div class="panel-body">
        
       <?php 
-       if ($cliente->REFERENCIA_1!=""){
+       if ($cliente->referencia_1!=""){
            
                      //Parentesco
                 echo $form->textFieldGroup(
 			$cliente,
-			'REFERENCIA_1',
+			'referencia_1',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -555,7 +602,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                 
               echo $form->textFieldGroup(
 			$cliente,
-			'RELACION_REF_1',
+			'relacion_ref_1',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -567,7 +614,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
 		);   
                   echo $form->textFieldGroup(
 			$cliente,
-			'TELEFONO_REF_1',
+			'telefono_ref_1',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -579,7 +626,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
 		);
         echo $form->textFieldGroup(
 			$cliente,
-			'REFERENCIA_2',
+			'referencia_2',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -592,7 +639,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         
         echo $form->textFieldGroup(
 			$cliente,
-			'RELACION_REF_2',
+			'relacion_ref_2',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -605,7 +652,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
         
         echo $form->textFieldGroup(
 			$cliente,
-			'TELEFONO_REF_2',
+			'telefono_ref_2',
 			array(
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-5',
@@ -635,16 +682,27 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
     <div id="collapseFive" class="panel-collapse collapse">
       <div class="panel-body">
         <?php 
-        
-       if ($fecha_acuerdo!=""){
-             '<br/>';  echo $fecha_acuerdo;'<br/>';
-       '<br/>';    '<br/>';    echo "   -   Tipo Contacto: Mensaje de Voz";   '<br/>';  
-              '<br/>';  
-              ?>
-       <br/><br/><?php   echo "2015-03-10";'<br/>'; echo "   -   Tipo Contacto: Llamada de Voz";   '<br/>';  
-	   }
-      
-      ?>  
+         //     var_dump($gestion_old);die;
+          foreach ($gestion_old as $row) {
+
+            echo $message = "<table><tr>
+                            <td><strong>Fecha de Acuerdo:</strong></td>
+                            <td style='border: 1px solid #E2E2E2; height:30px; padding-left:5px; padding-right: 5px;'> ".$row['fecha_acuerdo']."</td>
+                            </tr>
+                            <tr>
+                            <td><strong>Observaciones:</strong></td>
+                            <td style='border: 1px solid #E2E2E2; height:30px; padding-left:5px; padding-right: 5px;'> ".$row['observaciones']."</td>
+                            </tr>
+                            <tr>
+                             <td><strong>Tipo de Contacto:</strong></td>
+                             <td style='border: 1px solid #E2E2E2; height:30px; padding-left:5px; padding-right: 5px;'>
+                             
+                             </td><br/>
+                            
+                        </tr></table>";
+        }
+
+        ?>  
       </div>
     </div>
   </div>
@@ -660,8 +718,9 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
     <div id="collapseSix" class="panel-collapse collapse">
       <div class="panel-body">
    
-            <table class="list-group-item">
+            <table width="100%" height="100%" cellpadding="0" cellspacing="0">
                 <tbody>
+                        
                     <tr>
                         <td>
                             <?php            
@@ -669,7 +728,7 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                             ?>
                         </td>
 
-                        <td><?php  echo $cliente->MONTO_ULTIMO_PAGO;  ?></td>
+                        <td colspan="2"><strong>$<font color="blue"><?php  echo $cliente->monto_ultimo_pago;  ?></font> </strong></td>
                     </tr>    
                     <!--Fecha Ingreos Tramite -->
                     <tr>
@@ -679,77 +738,74 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                             ?>
                         </td>
 
-                        <td><?php echo $cliente->FECHA_ULTIMO_PAGO;  ?></td>
+                        <td colspan="2"><?php echo $cliente->fecha_ultimo_pago;  ?></td>
                     </tr>
                     
                                 
                     <tr>
                         <td>
                             <?php            
-                                echo CHtml::label('Monto Abono','',array('size'=>12));
+                                echo CHtml::label('Monto Cuota Abono','',array('size'=>12));
                             ?>
                         </td>
 
-                        <td><?php echo $cliente->TOTAL; ?></td>
+                        <td colspan="2"><strong><font color="blue">$ <?php echo $cliente->total; ?></font> </strong></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Cantidad Cuotas Abono','',array('size'=>12)); ?>
                         </td>            
-                        <td><?php echo $cliente->CANTIDAD_DE_QUOTAS; ?></td>
+                        <td colspan="2"><?php echo $cliente->cantidad_de_quotas; ?></td>
                     </tr>
                     
-                    <tr>
+        
+                      <tr>
                         <td><?php            
-                           echo CHtml::label('Fecha Pago Abono','',array('size'=>8));  ?>
+                           echo CHtml::label('Día de Pago','',array('size'=>8));  ?>
                         </td>            
-                        <td><?php echo $cliente->FECHA_DE_PAGO_ABONO; ?></td>
+                        <td colspan="2"><?php echo date("d", strtotime($cliente->fecha_de_pago_abono));  ?> </td>
                     </tr>  
-                    
-                                <tr>
-                        <td><?php            
-                           echo CHtml::label('Monto Mejoras','',array('size'=>8)); ?>
-                        </td>            
-                        <td><?php echo $cliente->MONTO_MEJORAS; ?></td>
-                    </tr> 
-                    
                                 <tr>
                         <td><?php            
                            echo CHtml::label('Cantidad Cuotas Mejoras ','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo $cliente->CANTIDAD_DE_QUOTAS_MEJORAS; ?></td>
+                        <td colspan="2"><?php echo $cliente->cantidad_de_quotas_mejoras; ?></td>
                     </tr> 
                     
                     <!--OJOOO-->
-                                <tr>
+                    <tr>
                         <td><?php            
                            echo CHtml::label('Fecha pago mejoras','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo $cliente->FECHA_DE_PAGO_ABONO; ?></td>
+                        <td colspan="2"><?php echo $cliente->fecha_de_pago_abono; ?></td>
                     </tr>
                     
-                                <tr>
+                    <tr>
                         <td><?php            
                            echo CHtml::label('Monto Mensualidad Abono','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo $cliente->MONTO_QUOTA_ABONO; ?></td>
+                        <td colspan="2"><strong><font color="blue">$ <?php echo $cliente->monto_quota_abono; ?> </font> </strong></td>
                     </tr> 
   
                   
-                <div id="demo" class="collapse">   
+     
                     <tr>
                         <td><?php            
                            echo CHtml::label('Monto Mensualidad Mejoras','',array('size'=>8)); ?>
-                        </td>            
-                        <td><?php echo $cliente->MONTO_CUOTA_MEJORAS; ?></td>
+                        </td>      
+                        <?php if ($cliente->monto_cuota_mejoras!=""){?>
+                        <td><strong><font color="blue">$ <?php echo $cliente->monto_cuota_mejoras; ?></font> </strong></td>
+                        <?php } ?>
+                        <td><strong><font color="blue"><?php echo $cliente->monto_cuota_mejoras; ?></td>
                     </tr> 
             
                     <tr>
                         <td><?php            
                            echo CHtml::label('0-30','',array('size'=>8)); ?>
-                        </td>            
-                        <td><?php echo $cliente->CARTERA_30_DIAS; ?></td>
+                        </td>           
+                 
+                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_30_dias; ?></font> </strong></td>
                     </tr> 
                     
                     
@@ -757,22 +813,35 @@ $('select#Gestion_llamada_voz').attr("disabled", false);
                         <td><?php            
                            echo CHtml::label('31-60','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo $cliente->CARTERA_60_DIAS; ?></td>
+                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_60_dias; ?></font> </strong></td>
                     </tr> 
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('61-90','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo $cliente->CARTERA_90_DIAS; ?></td>
-                    </tr> 
-                        <tr>
+                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_90_dias; ?></font> </strong></td>
+                    </tr>
+                    
+                    <tr>
                         <td><?php            
                            echo CHtml::label('91-120','',array('size'=>8)); ?>
                         </td>            
-                        <td><?php echo $cliente->CARTERA_120_DIAS; ?></td>
+                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_120_dias; ?></font> </strong></td>
                     </tr> 
-                  </div>
+                  
+                    <tr>
+                        <td><?php            
+                           echo CHtml::label('Total Vencido','',array('size'=>8)); ?>
+                        </td>            
+                        <td><strong><font color="blue">$ <?php echo $cliente->total_vencido; ?></font> </strong></td>
+                    </tr>
+                     <tr>
+                        <td><?php            
+                           echo CHtml::label('Total Abonado','',array('size'=>8)); ?>
+                        </td>            
+                        <td><strong><font color="blue">$ <?php echo $totalabonadof; ?></font> </strong></td>
+                    </tr>                 
                 </tbody>
             </table>     
       </div>

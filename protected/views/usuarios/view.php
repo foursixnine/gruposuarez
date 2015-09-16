@@ -23,5 +23,8 @@ array('label'=>'Manage Usuarios','url'=>array('admin')),
 		'apellido',
 		'cedula',
 		'id_rol',
+		'username',
+		'password',
+		'session',
 ),
 )); ?>

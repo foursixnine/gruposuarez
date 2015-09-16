@@ -1,17 +1,17 @@
 <?php
 $this->breadcrumbs=array(
-	'Metas',
+	'Metases',
 );
 
 $this->menu=array(
-array('label'=>'Create Metas','url'=>array('create')),
-array('label'=>'Manage Metas','url'=>array('admin')),
+array('label'=>'Crear Metas','url'=>array('create')),
+array('label'=>'Administrar Metas','url'=>array('admin')),
 );
 ?>
 
-<h1>METAS</h1>
+<h1>Metas</h1>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,
-'itemView'=>'carteravencida',
+'itemView'=>'_view',
 )); ?>

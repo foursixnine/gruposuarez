@@ -125,7 +125,7 @@ public function actionMetasCobranzas(){
         $proyecto=Proyecto::model()->findAll(); 
  
         $id='PROJ0001';
-        $cliente=Customersview::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
+        $cliente=  CustomersView::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
                                array(':ID_PROYECTO'=>$id));     
 //          var_dump($cliente);die;
 $treinta = array();
@@ -199,65 +199,101 @@ foreach( $cliente as $rowv )
                       ));         
 } 
 
-public function actionAnillos($idproyecto=null,$idfecha=null,$cobradora=null){
+public function actionAnillos(){
     
-    
-  /*  var_dump($idproyecto);
-    var_dump($idfecha);
-    var_dump($cobradora);*/
-        $gestion=new Gestion();
-        $gestion=Gestion::model()->findAll();
-        
-        $cobrador= new Usuarios();
-        $cobrador=  Usuarios::model()->findAll();
- 
-        $proyecto=new Proyecto();
-      
-        $nom_proyecto=array(
-            "VERDE REAL",
-            "ALTOS DEL TECAL ETAPAS  5 ABC",
-            "ALTOS DEL TECAL ETAPA 6 Y 7",
-            "TORRES DE VENECIA TORRE 1",
-            "TORRES DE TOSCANA TORRE 4",
-            "ALTOS DEL TECAL  COROTU ETAPA 13 Y 14 DERECHO",
-            "NEW WEST FASE I",
-            "SENDEROS FASE I",
-            "ALTOS DEL TECAL COROTU ETAPA 13 Y 14 IZQUIERDO",
-            "NEW WEST FASE II",
-            "TORRES DE TOSCANA TORRE 3",
-            "TORRES DE VENECIA - TORRE I",
-        );
-   
-        $id='PROJ0001';
-        $cliente=Customersview::model()->findAll('ID_PROYECTO=:ID_PROYECTO',
-                               array(':ID_PROYECTO'=>$id));     
+    $contactado_si=1;
+    $contactado_no=2;
+          
 
-        $treinta = array();
-        $sesenta = array();
-        $noventa = array();
-        $cientoveinte = array();
-        foreach( $cliente as $rowt )
-        {
-             $treinta[] = $rowt['CARTERA_30_DIAS'];
-        }
-        //60 dias
-        foreach( $cliente as $rows )
-        {
-             $sesenta[] = $rows['CARTERA_60_DIAS'];
-        }
-        //90 dias
-        foreach( $cliente as $rown )
-        {
-             $noventa[] = $rown['CARTERA_90_DIAS'];
-        }
-        //120 dias
-        foreach( $cliente as $rowv )
-        {
-             $cientoveinte[] = $rowv['CARTERA_120_DIAS'];
-        }
-      // var_dump($proyecto);die;
-        
-            $this->render('anillos',array(
+            //Cuento cant de SI "PROJ0002";"ALTOS DEL TECAL ETAPAS  5 ABC"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=2 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+        /*    
+            //Cuento cant de SI "PROJ0003";"ALTOS DEL TECAL ETAPA 6 Y 7"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=3 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0004";"TORRES DE VENECIA TORRE 1"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=4 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0005";"TORRES DE TOSCANA TORRE 4"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=5 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0006";"ALTOS DEL TECAL  COROTU ETAPA 13 Y 14 DERECHO"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=6 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0007";"NEW WEST FASE I"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=7 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI PROJ0009";"SENDEROS FASE I"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=8 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0011";"ALTOS DEL TECAL COROTU ETAPA 13 Y 14 IZQUIERDO"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=9 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0002";"ALTOS DEL TECAL ETAPAS  5 ABC"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=2 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0002";"ALTOS DEL TECAL ETAPAS  5 ABC"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=2 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            
+            //Cuento cant de SI "PROJ0002";"ALTOS DEL TECAL ETAPAS  5 ABC"
+            $totalsi=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('id_proyecto=2 and contactado_llamada = '.$contactado_si)
+            ->queryScalar();
+            */
+            //Cuento cant de NO
+            $totalno=  Yii::app()->db->createCommand()
+            ->select('COUNT(*)')
+            ->from('gestion')
+            ->where('contactado_llamada = '.$contactado_no)
+            ->queryScalar();
+
+        $this->render('anillos',array(
+            'totalno'=>$totalno,
+            'totalsi'=>$totalsi,
+        ));
+          /*  $this->render('anillos',array(
                           'proyecto'=>$proyecto,
                           'gestion'=>$gestion,
                           'nom_proyecto'=>$nom_proyecto,
@@ -267,7 +303,7 @@ public function actionAnillos($idproyecto=null,$idfecha=null,$cobradora=null){
                           'noventa'=>$noventa,
                           'cientoveinte'=>$cientoveinte,
                       )    
-                 );   
+                 );  */ 
 }
 
 public function actionExpediente(){

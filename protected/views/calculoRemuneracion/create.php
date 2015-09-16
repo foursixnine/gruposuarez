@@ -5,17 +5,17 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List calculoRemuneracion','url'=>array('index')),
-array('label'=>'Manage calculoRemuneracion','url'=>array('admin')),
+        array('label'=>'List calculoRemuneracion','url'=>array('index')),
+        array('label'=>'Manage calculoRemuneracion','url'=>array('admin')),
 );
 ?>
 
-
-<br/>
-<h1>Calculo de Remuneraci&oacute;n</h1>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model, 
                     'metas'=>$metas,
-                    'usuarios'=>$usuarios,
+                    'cobrado'=>$cobrado,
                     'tablar'=>$tablar,
-                    )); ?>
+                    'pivote_inicio_mes'=> $pivote_inicio_mes,
+                    'pivote_final_mes'=>$pivote_final_mes,
+                    'meta_corriente'=>$meta_corriente,
+                    )); 
+?>

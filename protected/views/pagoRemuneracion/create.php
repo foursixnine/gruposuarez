@@ -5,12 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'Listar Plan de Remuneracion','url'=>array('index')),
-array('label'=>'Administrar Plan de Remuneracion','url'=>array('admin')),
+array('label'=>'List PagoRemuneracion','url'=>array('index')),
+array('label'=>'Manage PagoRemuneracion','url'=>array('admin')),
 );
 ?>
 
-<h1>Crear - Plan de Remuneraci&oacute;n</h1>
+<h1>Crear Plan de Bono</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,
-                                                'pago_remuneracion'=>$pago_remuneracion)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

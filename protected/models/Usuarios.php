@@ -9,11 +9,19 @@
  * @property string $apellido
  * @property integer $cedula
  * @property integer $id_rol
+ * @property string $username
+ * @property string $password
+ * @property string $session
  *
  * The followings are the available model relations:
+ * @property Gestion[] $gestions
  * @property Roles $idRol
+ * @property Metas[] $metases
+ * @property CalculoRemuneracion[] $calculoRemuneracions
+ * @property Tableros[] $tableroses
+ * @property Tramite[] $tramites
  */
-class Usuarios extends GActiveRecord
+class Usuarios extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -32,10 +40,11 @@ class Usuarios extends GActiveRecord
 		// will receive user inputs.
 		return array(
 			array('cedula, id_rol', 'numerical', 'integerOnly'=>true),
-			array('nombre, apellido', 'safe'),
+			array('username, password', 'length', 'max'=>255),
+			array('nombre, apellido, session', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_usuario, nombre, apellido, cedula, id_rol', 'safe', 'on'=>'search'),
+			array('id_usuario, nombre, apellido, cedula, id_rol, username, password, session', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,7 +56,12 @@ class Usuarios extends GActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'gestions' => array(self::HAS_MANY, 'Gestion', 'id_usuario'),
 			'idRol' => array(self::BELONGS_TO, 'Roles', 'id_rol'),
+			'metases' => array(self::HAS_MANY, 'Metas', 'id_usuario'),
+			'calculoRemuneracions' => array(self::HAS_MANY, 'CalculoRemuneracion', 'id_usuario'),
+			'tableroses' => array(self::HAS_MANY, 'Tableros', 'id_usuario'),
+			'tramites' => array(self::HAS_MANY, 'Tramite', 'id_usuario'),
 		);
 	}
 
@@ -58,10 +72,13 @@ class Usuarios extends GActiveRecord
 	{
 		return array(
 			'id_usuario' => 'Id Usuario',
-			'nombre' => 'Responsable',
+			'nombre' => 'Nombre',
 			'apellido' => 'Apellido',
 			'cedula' => 'Cedula',
 			'id_rol' => 'Id Rol',
+			'username' => 'Username',
+			'password' => 'Password',
+			'session' => 'Session',
 		);
 	}
 
@@ -88,10 +105,39 @@ class Usuarios extends GActiveRecord
 		$criteria->compare('apellido',$this->apellido,true);
 		$criteria->compare('cedula',$this->cedula);
 		$criteria->compare('id_rol',$this->id_rol);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('password',$this->password,true);
+		$criteria->compare('session',$this->session,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function validatePassword($password)
+	{
+		return $this->hashPassword($password,$this->session)==$this->password;
+	}
+
+	/**
+	 * Generates the password hash.
+	 * @param string password
+	 * @param string salt
+	 * @return string hash
+	 */
+	public function hashPassword($password,$salt)
+	{
+		//return md5($salt.$password);
+		return $password;
+	}
+
+	/**
+	 * Generates a salt that can be used to generate a password hash.
+	 * @return string the salt
+	 */
+	public function generateSalt()
+	{
+		return uniqid('',true);
 	}
 
 	/**

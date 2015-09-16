@@ -44,9 +44,9 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'id_pago_remuneracion',
-		'id_tipo_cartera',
 		'porcentaje',
 		'dinero',
+		'bono',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

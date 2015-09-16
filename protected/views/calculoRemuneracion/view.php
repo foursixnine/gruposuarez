@@ -5,23 +5,62 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List calculoRemuneracion','url'=>array('index')),
-array('label'=>'Create calculoRemuneracion','url'=>array('create')),
-array('label'=>'Update calculoRemuneracion','url'=>array('update','id'=>$model->id_calculo_remuneracion)),
-array('label'=>'Delete calculoRemuneracion','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_calculo_remuneracion),'confirm'=>'Are you sure you want to delete this item?')),
-array('label'=>'Manage calculoRemuneracion','url'=>array('admin')),
+array('label'=>'Listar Remuneraciones','url'=>array('index')),
+//array('label'=>'Calcular Bono','url'=>array('calculoRemuneracion/calcularbono','id'=>$model->id_meta)),
+
 );
 ?>
-
-<h1>View calculoRemuneracion #<?php echo $model->id_calculo_remuneracion; ?></h1>
+<br/>
+<h2 class="titulo">C&aacute;lculo Remuneraci&oacute;n #<?php echo $model->id_calculo_remuneracion; ?></h2>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
-		'id_calculo_remuneracion',
-		'id_usuario',
+	
+		'idUsuario.nombre',
 		'resultado',
-		'id_pago_remuneracion',
+                'resultadov',
+		'peso',
+                'peso1',
 		'cumplimiento',
 ),
 )); ?>
+
+<br/>
+<h2 class="titulo">Bono a Pagar</h2>
+ <?php
+
+         //     var_dump($gestion_old);die;
+          foreach ($tablar as $row) {
+           $cumplimiento=(int)$model->cumplimiento;
+            $pagar=(int)$row['porcentaje']; //echo (int)$model->cumplimiento;die;
+       
+              
+                if (($cumplimiento) >= ($pagar)) { 
+                    ?>    
+                    <div>
+                                <div class='list-group'>
+                                
+                            <table>
+                                <tr>                     
+                                        <td>
+                                            
+                                            <img src='<?php echo Yii:: app() ->baseUrl.'/images/bonos.png' ?>' alt='Bono a Pagar' height='42' width='42' />                
+                                           
+                                        
+                                            
+                                            <strong><?php echo $row['porcentaje']; ?></strong>
+                                       
+                                        </td>
+                                </tr> 
+                            </table>
+                        </div>
+                        </div>
+<?php
+                   break;
+
+                }
+         
+          }
+
+        ?>

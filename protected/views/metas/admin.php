@@ -1,12 +1,13 @@
 <?php
 $this->breadcrumbs=array(
-	'Metases'=>array('index'),
-	'Manage',
+	'Metas'=>array('index'),
+	'Administrar',
 );
 
 $this->menu=array(
-array('label'=>'List Metas','url'=>array('index')),
-array('label'=>'Create Metas','url'=>array('create')),
+array('label'=>'Listar Metas','url'=>array('index')),
+array('label'=>'Crear Metas','url'=>array('create')),
+array('label'=>'Calcular Remuneración de la Cobradora','url'=>array('calculoRemuneracion/calculoremunecacioncobradora')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -22,20 +23,15 @@ return false;
 });
 ");
 ?>
+<br/>
+<h1>Administrar Meta</h1>
 
-<h1>Manage Metases</h1>
-
-<p>
-	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-		&lt;&gt;</b>
-	or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
+<div>
+<?php /*echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
 	<?php $this->renderPartial('_search',array(
 	'model'=>$model,
-)); ?>
+)); */?>
 </div><!-- search-form -->
 
 <?php $this->widget('booster.widgets.TbGridView',array(
@@ -44,16 +40,61 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'id_meta',
-		'id_proyecto',
-		'fecha_inicio',
-		'fecha_fin',
 		'monto',
 		'porcentaje_meta',
-		/*
 		'monto_mes_proyecto',
-		*/
-array(
+	//	'idTipoMeta.descripcion',
+	//	'idCrmProyecto.titulo',
+                 'mes0.descripcion',
+	      array(
+                    'name'=>'id_crm_proyecto',
+                    'header'=>'Proyecto',
+                    'value'=> 'CHtml::encode($data->idCrmProyecto["titulo"])',
+                    'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
+               ), 
+               array(
+                    'name'=>'id_tipo_meta',
+                    'header'=>'Tipo Meta',
+                    'value'=> 'CHtml::encode($data->idTipoMeta["descripcion"])',
+                    'filter'=>CHtml::listData(TipoMeta::model()->findAll(), 'id_tipo_meta', 'descripcion'),
+               ), 
+            array(
+    'class' => 'bootstrap.widgets.TbEditableColumn',
+    'name' => 'id_usuario',
+    'editable' => array(
+        'type' => 'select',
+          'model'     => $model,
+           'attribute' => 'id_usuario',
+        'url' => $this->createUrl('actualizar'),
+       // 'source'=>editable::source( CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre')),
+    'source' =>  CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                     
+        )   
+    ),
+/*array(
 'class'=>'booster.widgets.TbButtonColumn',
-),
+),*/
+      array(
+            'class'=>'CButtonColumn',
+            'template'=>'{ver}{delete}',
+            'buttons'=>array
+        (
+        'ver' => array
+        (
+            'label'=>'Ver Meta',
+            'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
+            'url'=>'Yii::app()->createUrl("metas/view", array("id"=>$data->id_meta))',
+        ),
+                  'delete' => array
+        (
+            'label'=>'Eliminar Proyecto',
+            'imageUrl'=>Yii::app()->request->baseUrl.'/images/delete.png',
+            'url'=>'Yii::app()->createUrl("metas/delete", array("id"=>$data->id_meta))',
+        ),
+                            
+                
+                
+     ),
+        ),
 ),
 )); ?>

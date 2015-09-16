@@ -80,7 +80,7 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
                             ?>
                         </td>
 
-                        <td><?php echo $data->idProyecto->titulo; 
+                        <td><?php echo $data->idCrmProyecto->titulo; 
 
                     
                         ?></td>
@@ -134,7 +134,7 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
                             ?>
                         </td>
 
-                        <td><?php echo $data->idProyecto->titulo; 
+                        <td><?php echo $data->idCrmProyecto->titulo; 
 
                     
                         ?></td>

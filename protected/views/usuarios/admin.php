@@ -48,6 +48,11 @@ return false;
 		'apellido',
 		'cedula',
 		'id_rol',
+		'username',
+		/*
+		'password',
+		'session',
+		*/
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

@@ -8,18 +8,18 @@
  * @property string $fecha_pago
  * @property integer $id_proyecto
  * @property integer $monto_total
- * @property integer $id_cliente
  * @property integer $id_tipo_cobro
  * @property string $trienta
  * @property string $sesenta
  * @property string $noventa
  * @property string $cientoveiente
+ * @property integer $id_cliente_gs
  *
  * The followings are the available model relations:
- * @property Clientes $idCliente
  * @property TipoCobro $idTipoCobro
+ * @property Cliente $idClienteGs
  */
-class Pago extends GActiveRecord
+class Pago extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -37,11 +37,11 @@ class Pago extends GActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_proyecto, monto_total, id_cliente, id_tipo_cobro', 'numerical', 'integerOnly'=>true),
+			array('id_proyecto, monto_total, id_tipo_cobro, id_cliente_gs', 'numerical', 'integerOnly'=>true),
 			array('fecha_pago, trienta, sesenta, noventa, cientoveiente', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_pago, fecha_pago, id_proyecto, monto_total, id_cliente, id_tipo_cobro, trienta, sesenta, noventa, cientoveiente', 'safe', 'on'=>'search'),
+			array('id_pago, fecha_pago, id_proyecto, monto_total, id_tipo_cobro, trienta, sesenta, noventa, cientoveiente, id_cliente_gs', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,8 +53,8 @@ class Pago extends GActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idCliente' => array(self::BELONGS_TO, 'Clientes', 'id_cliente'),
 			'idTipoCobro' => array(self::BELONGS_TO, 'TipoCobro', 'id_tipo_cobro'),
+			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
 		);
 	}
 
@@ -68,12 +68,12 @@ class Pago extends GActiveRecord
 			'fecha_pago' => 'Fecha Pago',
 			'id_proyecto' => 'Id Proyecto',
 			'monto_total' => 'Monto Total',
-			'id_cliente' => 'Id Cliente',
 			'id_tipo_cobro' => 'Id Tipo Cobro',
 			'trienta' => 'Trienta',
 			'sesenta' => 'Sesenta',
 			'noventa' => 'Noventa',
 			'cientoveiente' => 'Cientoveiente',
+			'id_cliente_gs' => 'Id Cliente Gs',
 		);
 	}
 
@@ -99,12 +99,12 @@ class Pago extends GActiveRecord
 		$criteria->compare('fecha_pago',$this->fecha_pago,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto);
 		$criteria->compare('monto_total',$this->monto_total);
-		$criteria->compare('id_cliente',$this->id_cliente);
 		$criteria->compare('id_tipo_cobro',$this->id_tipo_cobro);
 		$criteria->compare('trienta',$this->trienta,true);
 		$criteria->compare('sesenta',$this->sesenta,true);
 		$criteria->compare('noventa',$this->noventa,true);
 		$criteria->compare('cientoveiente',$this->cientoveiente,true);
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

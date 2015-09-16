@@ -5,10 +5,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List Gestion','url'=>array('index')),
-array('label'=>'Create Gestion','url'=>array('create')),
+array('label'=>'Listar Gestion','url'=>array('index')),
+array('label'=>'Detalle de Cliente','url'=>array('cliente/detalle')),
 );
-
+/*
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -20,169 +20,53 @@ Yii::app()->clientScript->registerScript('search', "
     });
         return false;
     });
-");
+");*/
 ?>
-
-<span class="label label-success">CUMPLIMIENTO A LAS METAS</span>
-<div class="well">
- 
-</div>
-
-<span class="label label-success">INICIAR GESTI&Oacute;N DE COBROS</span>
-<div class="well">
-   <?php
-          $this->widget('zii.widgets.CMenu', array(
-            'items'=>array(
-                    array(
-                            'label'=>CHtml::image(Yii::app()->request->baseUrl."/images/gestioncobros.png").'',
-                            'url'=>array('/clientes/detalle'),
-                    ),
-            ),
-            'encodeLabel' => false,
-        ));
-        ?>
-</div>
-
-<span class="label label-success">M&Aacute;S BUSCADOS</span>
-<div class="well">
-
-    
-    
-<?php 
- //$this->widget('zii.widgets.grid.CGridView',array(
-$this->widget('booster.widgets.TbGridView',array(
-'id'=>'masbuscados-grid',
-'dataProvider'=>$cliente->search(),
-'filter'=> $cliente, 
-'columns'=>array(
-		'NOMBRE',
-                'CARTERA_90_DIAS',
-                /*'APELLIDO',
-                'ID_PROYECTO',
-                'CARTERA_30_DIAS',
-                'CARTERA_60_DIAS',
-                'CARTERA_90_DIAS',
-                'CARTERA_120_DIAS',
-
-
-		array(
-		'name'=>'ID_PROYECTO',
-		'value'=>'$data->PROYECTO',
-		'filter'=>  Gestion::getListProyecto(),
-		),*/
-array
-(
-    'class'=>'CButtonColumn',
-    'template'=>'{crear}{ver}',
-    'buttons'=>array
-    (
-        'crear' => array
-        (
-            'label'=>'Iniciar Gestion',
-        //    'imageUrl'=>Yii::app()->request->baseUrl.'/images/email2.png',
-            'url'=>'Yii::app()->createUrl("gestion/create", array("id"=>$data->ID_CLIENTE))',
-        ),
-            'ver' => array
-        (
-            'label'=>'Iniciar Gestion',
-            'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
-           // 'url'=>'Yii::app()->createUrl("gestion",  array($data->id_gestion))',
-        ),
-        
-    ),
-),
-),
-)); ?>
-</div>
-
-
-<!--------------------PERFIL CLIENTE--------------------------------------->
-
-
-<span class="label label-success">PERFIL DE CLIENTE</span>
-<div class="well">
-   <?php
-          $this->widget('zii.widgets.CMenu', array(
-            'items'=>array(
-                    array(
-                            'label'=>CHtml::image(Yii::app()->request->baseUrl."/images/perfil.png").'',
-                            'url'=>array('clientes/admin'),
-                    ),
-            ),
-            'encodeLabel' => false,
-        ));
-        ?>
-</div>
-
-
-<!--------------------AVISO DE RETIRO --------------------------------------->
-
- 
-<span class="label label-success">AVISO DE RETIRO</span>
-<a href="<?php echo Yii::app()->createUrl("usuarios/email");?>"><span class="label label-info">Email</span></a>    
-
-<div class="well">
-    
-<?php 
-/*
- $this->widget('zii.widgets.grid.CGridView',array(
-//$this->widget('booster.widgets.TbGridView',array(
-'id'=>'avisoretiro-grid',
-'dataProvider'=>$model->agendagestion(),
-'filter'=>$model,   
-'columns'=>array(
-                array(
-                'name'=>'id_cliente',
-                'type'=>'raw',
-                'header'=>'id_cliente',
-                'value'=>'CHtml::link("clientes/perfilcliente/",array($data->id_cliente, $data->id_cliente))',
-                ),    
-               'fecha_acuerdo',
-           array(
-        'name'=>'id_acuerdo_cobros',
-        'header'=>'Acuerdo',
-        'value'=> 'CHtml::encode($data->idAcuerdoCobros["descripcion"])',
-        'filter'=>CHtml::listData(AcuerdoCobros::model()->findAll(), 'id_acuerdo_cobros', 'descripcion'),
-        ),
-            
-  array(
-    'class' => 'bootstrap.widgets.TbToggleColumn',
-    'toggleAction' => 'gestion/toggle',
-    'name' => 'id_cumplimiento',
-    'header' => 'Cumplimiento',
-                  'filter'=>false,
-    ),  
-    
-    
-        
-),
-    
-    
-    
-        
-)); 
- */
- ?>
-
-
-</div>
-
-
+<br/><br/>
 <!--------------------AGENDA DE GESTION --------------------------------------->
 
-<span class="label label-success">AGENDA DE GESTI&Oacute;N</span>
-<a href="#"><span class="label label-danger"></span></a>
-<div class="well">
+
+<br/>
+<!--<span>INICIAR GESTI&Oacute;N DE COBROS</span>-->
+<div class="">
+       <!-- Remuneracion -->
+    <a href="<?php echo Yii::app()->createUrl('cliente/detalle'); ?>">
+  
+        <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/gestioncobros.png' ?> " />
+        <button type="button" class="btn btn-warning">INICIAR GESTION DE COBROS</button>
+     
+    </a>      
+    <!-- Tramites -->
+    <a href="<?php echo Yii::app()->createUrl('cliente/admin'); ?>">
+        <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/perfil.png' ?> "  />
+        <button type="button" class="btn btn-warning">PERFIL CLIENTE</button>
+            
+    </a>
+</div>
+<br/>
+
+
+<button type="button" class="btn btn-warning">AGENDA DE GESTI&Oacute;N</button>
+
+<div>
 <?php 
-/*
-$this->widget('zii.widgets.grid.CGridView',array(
-'id'=>'avisoretiro-grid',
+$this->widget('booster.widgets.TbGridView',array(
+//$this->widget('zii.widgets.grid.CGridView',array(
+'id'=>'agendagestion-grid',
 'dataProvider'=>$model->agendagestion(),
 'filter'=>$model,   
 'columns'=>
         array(
-               'id_cliente',
-               'fecha_acuerdo',
+            'idClienteGs.nombre_de_empresa',
+            'idClienteGs.cedula',
+            'fecha_creacion',
+            	'idClienteGs.numero_de_lote',
+        array(
+        'name'=>'fecha_acuerdo',
+        'header'=>'Fecha de Acuerdo',
+        'filter'=>false,
+        ),     
+               
         array(
         'name'=>'id_acuerdo_cobros',
         'header'=>'Acuerdo',
@@ -204,19 +88,121 @@ $this->widget('zii.widgets.grid.CGridView',array(
         'ver' => array
         (
             'label'=>'Ver Cliente',
-           // 'imageUrl'=>Yii::app()->request->baseUrl.'/images/email.png',
-            'url'=>'Yii::app()->createUrl("clientes/perfilcliente", array("id"=>$data->id_cliente))',
+            'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
+            'url'=>'Yii::app()->createUrl("cliente/perfilcliente", array("id"=>$data->id_cliente))',
         ),
      ),
         ),
 ),
     
     
-    
+         
         
-)); 
- */
+));
+ 
  ?>
 
 
 </div>
+
+
+<br/>
+<button type="button" class="btn btn-warning">MAS B&Uacute;SCADOS</button>
+
+<div class="">
+
+ <?php 
+ //$this->widget('zii.widgets.grid.CGridView',array(
+$this->widget('booster.widgets.TbGridView',array(
+'id'=>'masbuscados-grid',
+'dataProvider'=>$cliente->search90(),
+'filter'=> $cliente, 
+'columns'=>array(
+        'nombre_de_empresa',
+        'cedula',
+        'cartera_30_dias',
+        'cartera_60_dias',
+        'cartera_90_dias',
+    	'numero_de_lote',
+     array(
+        'name'=>'id_proyecto',
+        'header'=>'Proyecto',
+        'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
+        'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
+        ), 
+      
+    array
+    (
+        'class'=>'CButtonColumn',
+        'template'=>'{crear}',
+        'buttons'=>array
+        (
+            'crear' => array
+            (
+                'label'=>'Iniciar Gestion',
+            //    'imageUrl'=>Yii::app()->request->baseUrl.'/images/email2.png',
+                'url'=>'Yii::app()->createUrl("gestion/create", array("id"=>$data->id_cliente))',
+            ),
+               
+
+        ),
+    ),
+),
+)); 
+
+?>   
+ 
+</div>
+
+<br/>
+
+<!--<a href="<?php echo Yii::app()->createUrl("usuarios/email");?>"><span class="label label-info">Email</span></a>
+-->
+<br/>
+<button type="button" class="btn btn-warning">AVISO DE RETIRO</button>
+
+<a href="<?php echo Yii::app()->createUrl("cliente/retiro");?>"><span class="label label-info">Email</span></a>
+<div class="">
+
+ <?php 
+ //$this->widget('zii.widgets.grid.CGridView',array(
+$this->widget('booster.widgets.TbGridView',array(
+'id'=>'avisoretiro-grid',
+'dataProvider'=>$retiro->search120(),
+'filter'=> $retiro, 
+'columns'=>array(
+      //  'nombre',
+        'nombre_de_empresa',       
+        'cartera_30_dias',
+        'cartera_60_dias',
+        'cartera_90_dias',
+        'cartera_120_dias',
+    	'numero_de_lote',
+       array(
+        'name'=>'id_proyecto',
+        'header'=>'Proyecto',
+        'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
+        'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
+        ), 
+      
+    array
+    (
+        'class'=>'CButtonColumn',
+        'template'=>'{crear}',
+        'buttons'=>array
+        (
+            'crear' => array
+            (
+                'label'=>'Iniciar Gestion',
+            //    'imageUrl'=>Yii::app()->request->baseUrl.'/images/email2.png',
+                'url'=>'Yii::app()->createUrl("gestion/create", array("id"=>$data->id_cliente))',
+            ),
+        ),
+    ),
+),
+)); 
+
+?>   
+ 
+</div>
+

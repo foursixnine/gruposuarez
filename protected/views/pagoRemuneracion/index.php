@@ -4,12 +4,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'Crear - Plan de Remuneracion','url'=>array('create')),
-array('label'=>'Administrar - Plan de Remuneracion','url'=>array('admin')),
+array('label'=>'Create PagoRemuneracion','url'=>array('create')),
+array('label'=>'Manage PagoRemuneracion','url'=>array('admin')),
 );
 ?>
 
-<h1>Pago de Remuneraci&oacute;n</h1>
+<h1>Pago Remuneracions</h1>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

@@ -43,17 +43,17 @@ return false;
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
-		'id_proyecto',
-		'id_crm',
+		'id_crm_proyecto',
 		'titulo',
 		'fecha',
 		'fecha_inicio',
 		'fecha_fin',
+                'porcentaje',
+		//'id_status',
 		/*
-		'id_status',
 		'comentario',
 		'id_agente',
-		'lote',
+		'porcentaje',
 		*/
 array(
 'class'=>'booster.widgets.TbButtonColumn',

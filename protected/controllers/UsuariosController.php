@@ -13,9 +13,9 @@ public $layout='//layouts/column2';
 */
 public function filters()
 {
-return array(
-'accessControl', // perform access control for CRUD operations
-);
+    return array(
+         'accessControl', // perform access control for CRUD operations
+    );
 }
 
 /**
@@ -25,23 +25,25 @@ return array(
 */
 public function accessRules()
 {
-return array(
-array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view','listarusuarioremuneracion','email'),
-'users'=>array('*'),
-),
-array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update','listarusuarioremuneracion','email'),
-'users'=>array('@'),
-),
-array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete'),
-'users'=>array('admin'),
-),
-array('deny',  // deny all users
-'users'=>array('*'),
-),
-);
+    return array(
+    array('allow',  // allow all users to perform 'index' and 'view' actions
+        'actions'=>array('index','view','listarusuarioremuneracion','email','inicio'),
+        'users'=>array('*'),
+        //'roles'=>array('admin'),
+    ),
+    array('allow', // allow authenticated user to perform 'create' and 'update' actions
+        'actions'=>array('create','update','listarusuarioremuneracion','email','inicio'),
+        'users'=>array('*'),
+    ),
+    array('allow', // allow admin user to perform 'admin' and 'delete' actions
+        'actions'=>array('admin','delete'),
+        'users'=>array('*'),
+       // 'roles'=>array('admin'),
+    ),
+    array('deny',  // deny all users
+        'users'=>array('*'),
+    ),
+    );
 }
 
 /**
@@ -50,9 +52,9 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+    $this->render('view',array(
+        'model'=>$this->loadModel($id),
+    ));
 }
 
 /**
@@ -66,17 +68,19 @@ $model=new Usuarios;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Usuarios']))
-{
-$model->attributes=$_POST['Usuarios'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_usuario));
-}
+	if(isset($_POST['Usuarios']))
+	{
+		$model->attributes=$_POST['Usuarios'];
+		$model->password=$model->hashPassword($_POST['Usuarios']['password'],$session=$model->generateSalt());
+		$model->session=$session;
+		if($model->save())
+			$this->redirect(array('view','id'=>$model->id_usuario));
+		}
 
-$this->render('create',array(
-'model'=>$model,
-));
-}
+		$this->render('create',array(
+		'model'=>$model,
+		));
+	}
 
 /**
 * Updates a particular model.
@@ -92,14 +96,16 @@ $model=$this->loadModel($id);
 
 if(isset($_POST['Usuarios']))
 {
-$model->attributes=$_POST['Usuarios'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_usuario));
-}
+	$model->attributes=$_POST['Usuarios'];
+				$model->password=$model->hashPassword($_POST['Usuarios']['password'],$session=$model->generateSalt());
+				$model->session=$session;
+	if($model->save())
+		$this->redirect(array('view','id'=>$model->id_usuario));
+	}
 
-$this->render('update',array(
-'model'=>$model,
-));
+	$this->render('update',array(
+		'model'=>$model,
+	));
 }
 
 /**
@@ -127,11 +133,32 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {   
-    $dataProvider=new CActiveDataProvider('Usuarios');
+if (Yii::app()->user->checkAccess("admin"))
+    {
+        echo 'HOLA';
+    } else {
+        echo 'ADIOS';
+    }
+   /* Yii::app()->authManager->createRole("admin");
+    Yii::app()->authManager->assign("admin",1);*/
+ 
+        $dataProvider = new CActiveDataProvider('Usuarios');
     $this->render('index',array(
     'dataProvider'=>$dataProvider,
     ));
 }
+
+/**
+* Lists all models.
+*/
+public function actionInicio()
+{   
+
+ 
+       //$this->redirect('../gestion');
+            $this->render('inicio',array());
+}
+
 
 /**
 * Manages all models.
@@ -159,50 +186,63 @@ public function actionListarusuarioremuneracion()
         'model'=>$model,
     ));
 }
-public function actionEmail() {
-        Yii::import('application.extensions.phpmailer.JPhpMailer');
-        $mail = new JPhpMailer;
-     /*
-$mail->IsSMTP();
-$mail->SMTPSecure = "ssl";  
-$mail->Host = 'smtp.gmail.com'; 
-$mail->SMTPAuth = true; 
-$mail->SMTPSecure = true; */
-      
-        $mail->Username = 'gilarreta@valorca.com';
-     //   $mail->Port = '465'; 
-        $mail->Password = 'IRGA2785';
+	public function actionEmail() {
+		Yii::import('application.extensions.phpmailer.JPhpMailer');
+		$mail = new JPhpMailer;
+	     /*
+	$mail->IsSMTP();
+	$mail->SMTPSecure = "ssl";  
+	$mail->Host = 'smtp.gmail.com'; 
+	$mail->SMTPAuth = true; 
+	$mail->SMTPSecure = true; */
+	      
+		$mail->Username = 'gilarreta@valorca.com';
+	     //   $mail->Port = '465'; 
+		$mail->Password = 'IRGA2785';
 
 
-$mail->SetFrom('gilarreta@valorca.com', 'Departamento de Cobros');
-$mail->Subject = 'Departamento de Cobros - Grupo Suarez';
-$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-$mail->MsgHTML('<p>Estimada Oly Soto! <br/><br/><h2>Le informamos que según nuestro registro usted tiene tres letras vencidas con fecha (insertar fecha). '
-        . 'Le agradecemos contactarse con nosotros en los teléfonos (insertar teléfonos) a más tardar el día (insertar día) '
-        . 'ya que sus pagos han pasado el plazo de los 90 días y según los términos del contrato tendremos que retirarlo del '
-        . 'proyecto por incumplimiento. Nuestra intención es tener la mejor relación comercial con usted, para esto le '
-        . 'solicitamos ponerse en contacto con nosotros lo más pronto posible.!</p><br/><br/><br/>Esperamos que tenga un buen día.'
-        . '<br/><br/>Atentamente,<br/><br/>Departamento de Cobros<br/><br/>Grupo Suárez');
-$mail->AddAddress('osoto@valorca.com', 'Oly Soto');
-$mail->AddCC('gilarreta@valorca.com','Gabriela Ilarreta');
-$mail->Send();
-     //   Yii::app()->user->setFlash('contact','Thank you for... as possible.');
-       //  $this->refresh();
-       
-        $this->redirect('../gestion');
+	$mail->SetFrom('gilarreta@valorca.com', 'Departamento de Cobros');
+	$mail->Subject = 'Departamento de Cobros - Clientes que deben ser Retirados';
+	$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+	$mail->MsgHTML('<p>Estimada Oly Soto! <br/><br/><h2>Le informamos que los siguientes clientes: '
+		. 'DANDOLE PROYECTO TORRES DE TOSCANA TORRE 4 MONTO XXXX'
+		. 'KELVIN PROYECTO VERDE REAL MONTO XXXX'
+		. 'deben ser retiros. Pus cumplieron el <br/><br/>'
+		. ''
+		. 'Grupo Suárez'
+		. ''
+		. ''
+		. 'Nota: Tambien se le enviara al cliente');
+	$mail->AddAddress('jtorres@gsuarez.com', 'Jessica Torres');
+	$mail->AddCC('gilarreta@valorca.com','Gabriela Ilarreta');
+	$mail->Send();
+	     //   Yii::app()->user->setFlash('contact','Thank you for... as possible.');
+	       //  $this->refresh();
+	       
+		$this->redirect('../gestion');
 }        
 /**
 * Returns the data model based on the primary key given in the GET variable.
 * If the data model is not found, an HTTP exception will be raised.
 * @param integer the ID of the model to be loaded
 */
-public function loadModel($id)
-{
-$model=Usuarios::model()->findByPk($id);
-if($model===null)
-throw new CHttpException(404,'The requested page does not exist.');
-return $model;
-}
+	public function loadModel($id)
+	{
+		$model=Usuarios::model()->findByPk($id);
+		if($model===null)
+		throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	public function validatePassword($password)
+	{
+		return CPasswordHelper::verifyPassword($password,$this->password);
+	}
+
+	public function hashPassword($password)
+	{
+		return CPasswordHelper::hashPassword($password);
+	}
 
 /**
 * Performs the AJAX validation.

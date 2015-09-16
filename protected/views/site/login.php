@@ -3,17 +3,29 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
+$this->pageTitle=Yii::app()->name . ' - Inicio';
+/*
 $this->breadcrumbs=array(
 	'Login',
-);
+);*/
 ?>
 
-<h1>Login</h1>
 
-<p>Please fill out the following form with your login credentials:</p>
 
 <div class="form">
+<!--<div class="logininicio" align="center">-->
+    <br/><br/>
+<?php //echo Yii::app()->params['empresa']; 
+	  //echo CHtml::image(Yii::app()->theme->baseUrl."/images/demo/logo1.png");
+       //echo Yii::app()->request->baseUrl."images/logo.png";
+         ?>
+   <!-- <img src='<?php //echo Yii::app()->theme->baseUrl.'/images/demo/logo1.png' ?>' height='200' width='200' />                
+       -->                                    
+                                        
+                                           
+       <h2 class="titulo">Bienvenido al sistema "ANTARES"</h2>
+    
+    <br/>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -22,15 +34,15 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p>Fields with <span class="required">*</span> are required.</p>
 
-	<div class="row">
+	<div class="">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username'); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
-	<div class="row">
+	<div class="">
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
@@ -45,9 +57,10 @@ $this->breadcrumbs=array(
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
 
-	<div class="row buttons">
+<br/><br/>
+	<div class="">
 		<?php echo CHtml::submitButton('Login'); ?>
 	</div>
-
+<br/><br/><br/><br/><br/><br/><br/><br/>
 <?php $this->endWidget(); ?>
 </div><!-- form -->

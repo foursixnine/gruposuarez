@@ -27,8 +27,12 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-/*	 Yii::import('application.extensions.phpmailer.JPhpMailer');
-        $mail = new JPhpMailer;
+	
+		$this->render('index');
+                
+                /*
+      $mail = new JPhpMailer;
+        $cliente = new Cliente('search120');
             // renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 $datetime1 = new DateTime("now");
@@ -42,14 +46,17 @@ if ($fe_diff >= 15){
         $mail->Password = 'IRGA2785';
         $mail->SetFrom('gilarreta@valorca.com', 'Gaby');
         $mail->Subject = 'PRUEBA DE ENVIO DE CARTA PROMESA';
-        $mail->AltBody = 'Hola Oly! Esto es una prueba 02-05-2015 :D!';
+        $mail->AltBody = 'Por la presente le informamos que según nuestro registro tiene letra pr&oacute;xima a vencer con monto correspondiente '
+                . 'a (insertar monto) para el día (insertar día). Recuerde que para realizar su pago puede acercarse a nuestras oficinas '
+                . 'en V&iacute;a España, Edificio los Toneles, Planta Baja &oacute; realizar un dep&oacute;sito directo a la siguiente '
+                . 'cuenta (ingresar detalles de cuenta). '
+                . 'No olvide enviar su correo de aviso de pago si decide abonar directamente a los '
+                . 'siguientes correos obonilla@gsuarez.com, orodriguez@gsuarez.com<br/><br/>'
+                . 'Esperamos que tenga un excelente día<br/>Atentamente,<br/>Departamento de Cobros<br/>Grupo Su&aacute;rez';
         $mail->MsgHTML('<h1>PRUEBA DE GRUPO SUAREZ!</h1>');
         $mail->AddAddress('gilarreta@valorca.com', 'GAby HOLAAA HHAHA');
         $mail->Send();
-}*/
-//var_dump("NO :D");die;
-
-		$this->render('index');
+                 *                  */
 	}
 
 	/**
@@ -137,4 +144,6 @@ $interval = $datetime1->diff($datetime2);
 echo $interval->format('%R%a días');
         
         }
+        
+      
 }

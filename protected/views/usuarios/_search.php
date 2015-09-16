@@ -13,6 +13,10 @@
 
 		<?php echo $form->textFieldGroup($model,'id_rol',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
+		<?php echo $form->textFieldGroup($model,'username',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
+			<?php echo $form->textAreaGroup($model,'session', array('widgetOptions'=>array('htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'span8')))); ?>
+
 	<div class="form-actions">
 		<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType' => 'submit',

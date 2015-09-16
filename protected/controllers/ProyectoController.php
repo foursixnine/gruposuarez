@@ -26,18 +26,18 @@ return array(
 public function accessRules()
 {
 return array(
-array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view'),
-'users'=>array('*'),
-),
-array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update'),
-'users'=>array('@'),
-),
-array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete'),
-'users'=>array('admin'),
-),
+    array('allow',  // allow all users to perform 'index' and 'view' actions
+        'actions'=>array('index','view'),
+        'users'=>array('*'),
+    ),
+    array('allow', // allow authenticated user to perform 'create' and 'update' actions
+        'actions'=>array('create','update','updateall'),
+        'users'=>array('@'),
+    ),
+    array('allow', // allow admin user to perform 'admin' and 'delete' actions
+        'actions'=>array('admin','delete'),
+        'users'=>array('admin'),
+    ),
 array('deny',  // deny all users
 'users'=>array('*'),
 ),
@@ -66,16 +66,16 @@ $model=new Proyecto;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if(isset($_POST['Proyecto']))
-        {
-            $model->attributes=$_POST['Proyecto'];
-            if($model->save())
-            $this->redirect(array('view','id'=>$model->id_proyecto));
-        }
+if(isset($_POST['Proyecto']))
+{
+$model->attributes=$_POST['Proyecto'];
+if($model->save())
+$this->redirect(array('view','id'=>$model->id_crm_proyecto));
+}
 
-        $this->render('create',array(
-            'model'=>$model,
-        ));
+$this->render('create',array(
+'model'=>$model,
+));
 }
 
 /**
@@ -85,22 +85,51 @@ $model=new Proyecto;
 */
 public function actionUpdate($id)
 {
-$model=$this->loadModel($id);
+    $model=$this->loadModel($id);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+    // Uncomment the following line if AJAX validation is needed
+    // $this->performAjaxValidation($model);
 
-if(isset($_POST['Proyecto']))
+    if(isset($_POST['Proyecto']))
+    {
+    $model->attributes=$_POST['Proyecto'];
+        if($model->save())
+             $this->redirect(array('view','id'=>$model->id_crm_proyecto));
+    }
+
+    $this->render('update',array(
+         'model'=>$model,
+    ));
+}
+
+
+
+public function actionUpdateAll()
 {
-$model->attributes=$_POST['Proyecto'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_proyecto));
+    $model=new Proyecto;
+
+
+    // Uncomment the following line if AJAX validation is needed
+    // $this->performAjaxValidation($model);
+
+    if(isset($_POST['Proyecto']))
+    {
+    $model->attributes=$_POST['Proyecto'];
+    
+    Proyecto::model()->updateAll(array( 'porcentaje' => $model->porcentaje) );
+       // if($model->save())
+            
+            Proyecto::model()->updateAll(array( 'id_status' => 1 ), 'porcentaje = 20 ' );
+      //  die;
+             $this->redirect(array('index'));
+    }
+
+    $this->render('updateall',array(
+         'model'=>$model,
+    ));
 }
 
-$this->render('update',array(
-'model'=>$model,
-));
-}
+          
 
 /**
 * Deletes a particular model.
@@ -115,11 +144,11 @@ if(Yii::app()->request->isPostRequest)
 $this->loadModel($id)->delete();
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-if(!isset($_GET['ajax']))
-$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-}
-else
-throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+    if(!isset($_GET['ajax']))
+          $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+    }
+    else
+          throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 }
 
 /**
@@ -138,13 +167,13 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new Proyecto('search');
-$model->unsetAttributes();  // clear any default values
-if(isset($_GET['Proyecto']))
-$model->attributes=$_GET['Proyecto'];
+    $model=new Proyecto('search');
+    $model->unsetAttributes();  // clear any default values
+    if(isset($_GET['Proyecto']))
+         $model->attributes=$_GET['Proyecto'];
 
-$this->render('admin',array(
-'model'=>$model,
+    $this->render('admin',array(
+    'model'=>$model,
 ));
 }
 

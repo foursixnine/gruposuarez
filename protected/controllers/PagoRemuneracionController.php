@@ -61,26 +61,22 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
-        $model=new PagoRemuneracion;
-        $pago_remuneracion=new PagoRemuneracion('search');
+$model=new PagoRemuneracion;
+
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
- 
-        $pago_remuneracion->unsetAttributes();  // clear any default values
-   
-    if(isset($_POST['PagoRemuneracion']))
-    {
-        $model->attributes=$_POST['PagoRemuneracion'];
-        if($model->save())
-          //$this->redirect(array('view','id'=>$model->id_pago_remuneracion));
-            $this->redirect('create');
-        }
 
-        $this->render('create',array(
-           'model'=>$model,
-           'pago_remuneracion'=>$pago_remuneracion,
-        ));
-    }
+if(isset($_POST['PagoRemuneracion']))
+{
+$model->attributes=$_POST['PagoRemuneracion'];
+if($model->save())
+$this->redirect(array('view','id'=>$model->id_pago_remuneracion));
+}
+
+$this->render('create',array(
+'model'=>$model,
+));
+}
 
 /**
 * Updates a particular model.
@@ -96,14 +92,14 @@ $model=$this->loadModel($id);
 
 if(isset($_POST['PagoRemuneracion']))
 {
-    $model->attributes=$_POST['PagoRemuneracion'];
-    if($model->save())
-        $this->redirect(array('view','id'=>$model->id_pago_remuneracion));
-    }
+$model->attributes=$_POST['PagoRemuneracion'];
+if($model->save())
+$this->redirect(array('view','id'=>$model->id_pago_remuneracion));
+}
 
-    $this->render('update',array(
-         'model'=>$model,
-    ));
+$this->render('update',array(
+'model'=>$model,
+));
 }
 
 /**
@@ -142,14 +138,14 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-    $model=new PagoRemuneracion('search');
-    $model->unsetAttributes();  // clear any default values
-    if(isset($_GET['PagoRemuneracion']))
-         $model->attributes=$_GET['PagoRemuneracion'];
+$model=new PagoRemuneracion('search');
+$model->unsetAttributes();  // clear any default values
+if(isset($_GET['PagoRemuneracion']))
+$model->attributes=$_GET['PagoRemuneracion'];
 
-    $this->render('admin',array(
-         'model'=>$model,
-    ));
+$this->render('admin',array(
+'model'=>$model,
+));
 }
 
 /**

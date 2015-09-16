@@ -7,7 +7,7 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldGroup($model,'id_crm',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+	<?php echo $form->textFieldGroup($model,'id_crm_proyecto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
 	<?php echo $form->textFieldGroup($model,'titulo',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
@@ -23,7 +23,7 @@
 
 	<?php echo $form->textFieldGroup($model,'id_agente',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
-	<?php echo $form->textFieldGroup($model,'lote',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+	<?php echo $form->textFieldGroup($model,'porcentaje',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
 <div class="form-actions">
 	<?php $this->widget('booster.widgets.TbButton', array(

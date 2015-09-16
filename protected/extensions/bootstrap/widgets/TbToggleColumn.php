@@ -161,10 +161,10 @@ class TbToggleColumn extends TbDataColumn {
 	protected function initButton()
 	{
 		if ($this->checkedButtonLabel === null) {
-			$this->checkedButtonLabel = Yii::t('zii', 'SI CUMPLIO');
+			$this->checkedButtonLabel = Yii::t('zii', 'SI ');
 		}
 		if ($this->uncheckedButtonLabel === null) {
-			$this->uncheckedButtonLabel = Yii::t('zii', 'NO CUMPLIO');
+			$this->uncheckedButtonLabel = Yii::t('zii', 'NO ');
 		}
 		if ($this->emptyButtonLabel === null) {
 			$this->emptyButtonLabel = Yii::t('zii', 'Not set');

@@ -9,17 +9,17 @@
  * @property integer $id_proyecto
  * @property integer $monto_total
  * @property integer $monto_abonado
- * @property integer $id_cliente
+ * @property integer $id_cliente_gs
  * @property integer $id_tipo_cobro
  * @property string $id_cartera
  * @property string $monto_liquidacion
  * @property string $monto_ultimo_pago
  *
  * The followings are the available model relations:
- * @property Clientes $idCliente
  * @property TipoCobro $idTipoCobro
+ * @property Cliente $idClienteGs
  */
-class Cobros extends GActiveRecord
+class Cobros extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -37,11 +37,11 @@ class Cobros extends GActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_proyecto, monto_total, monto_abonado, id_cliente, id_tipo_cobro', 'numerical', 'integerOnly'=>true),
+			array('id_proyecto, monto_total, monto_abonado, id_cliente_gs, id_tipo_cobro', 'numerical', 'integerOnly'=>true),
 			array('fecha_cobro, id_cartera, monto_liquidacion, monto_ultimo_pago', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_cobros, fecha_cobro, id_proyecto, monto_total, monto_abonado, id_cliente, id_tipo_cobro, id_cartera, monto_liquidacion, monto_ultimo_pago', 'safe', 'on'=>'search'),
+			array('id_cobros, fecha_cobro, id_proyecto, monto_total, monto_abonado, id_cliente_gs, id_tipo_cobro, id_cartera, monto_liquidacion, monto_ultimo_pago', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,8 +53,8 @@ class Cobros extends GActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idCliente' => array(self::BELONGS_TO, 'Clientes', 'id_cliente'),
 			'idTipoCobro' => array(self::BELONGS_TO, 'TipoCobro', 'id_tipo_cobro'),
+			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
 		);
 	}
 
@@ -69,7 +69,7 @@ class Cobros extends GActiveRecord
 			'id_proyecto' => 'Id Proyecto',
 			'monto_total' => 'Monto Total',
 			'monto_abonado' => 'Monto Abonado',
-			'id_cliente' => 'Id Cliente',
+			'id_cliente_gs' => 'Id Cliente Gs',
 			'id_tipo_cobro' => 'Id Tipo Cobro',
 			'id_cartera' => 'Id Cartera',
 			'monto_liquidacion' => 'Monto Liquidacion',
@@ -100,7 +100,7 @@ class Cobros extends GActiveRecord
 		$criteria->compare('id_proyecto',$this->id_proyecto);
 		$criteria->compare('monto_total',$this->monto_total);
 		$criteria->compare('monto_abonado',$this->monto_abonado);
-		$criteria->compare('id_cliente',$this->id_cliente);
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('id_tipo_cobro',$this->id_tipo_cobro);
 		$criteria->compare('id_cartera',$this->id_cartera,true);
 		$criteria->compare('monto_liquidacion',$this->monto_liquidacion,true);

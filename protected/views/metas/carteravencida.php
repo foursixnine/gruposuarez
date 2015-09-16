@@ -10,43 +10,28 @@ array('label'=>'Meta Corriente','url'=>array('carteracorriente')),
 array('label'=>'Meta Vencida','url'=>array('carteravencida')),   
 array('label'=>'Calcular Remuneracion','url'=>array('/usuarios/listarusuarioremuneracion')),     
 );
-
+echo $proyecto->porcentaje;
+echo $porcentaje=$proyecto->porcentaje;
 ?>
 
 <script type="text/javascript">
         $(document).ready(function(){
 
-
-$('#Metas_id_proyecto').select2().on('change', function() {
+$('#Metas_id_crm_proyecto').select2().on('change', function() {
   // alert($('#Metas_id_proyecto').select2().val);
-    var valor = $('#Metas_id_proyecto').val(); 
-    //alert(valor);
-    if(valor == 2){
-        //$('#monto').textFieldGroup().val()=200;
-      $('select#monto_mes_proyecto').prop('disabled', true); 
-      $("#Metas_monto").val(valor + 10);
-    }
-    if(valor == 3){
-        //$('#monto').textFieldGroup().val()=200;
-      $('select#monto_mes_proyecto').prop('disabled', true); 
-      $("#Metas_monto").val(valor + 100);
-    }
-    if(valor == 4){
-        //$('#monto').textFieldGroup().val()=200;
-      $('select#monto_mes_proyecto').prop('disabled', true); 
-      $("#Metas_monto").val(valor + 700);
-    }
-}).trigger('change');
+        var valor = $('#Metas_id_crm_proyecto').val(); 
+  //alert(valor);
+      //$('select#monto_mes_proyecto').prop('disabled', true); 
+        
+        $("#Metas_monto").val(700);
+        var cantidad = $("#Metas_monto").val();
+        var porcentaje = "<?php echo $porcentaje; ?>";
+        $('#Metas_porcentaje_meta').val(porcentaje);
+        $("#Metas_monto_mes_proyecto").val(cantidad * porcentaje/100);
 
-$('#Metas_porcentaje_meta').select2().on('change', function() {
  
- var cantidad = $('#Metas_monto').val(); 
- var porcentaje = $('#Metas_porcentaje_meta').val(); 
-  
- //var resultado = cantidad + porcentaje /100;
- $("#Metas_monto_mes_proyecto").val(cantidad * porcentaje/100);
-
 }).trigger('change');
+
 
 });
 
@@ -69,8 +54,8 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm',array(
                $this->widget(
                  'booster.widgets.TbSelect2', array(            
                  'model' => $model,
-                 'attribute' => 'id_proyecto',
-                 'data' => CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'titulo'),
+                 'attribute' => 'id_crm_proyecto',
+                 'data' => CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
                  'options' => array(
                    'placeholder' => "Proyecto",
                   //     'id' => "proyecto",
@@ -138,48 +123,18 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm',array(
 			)
 		); 
 ?>
-<?php
-               $this->widget(
-                 'booster.widgets.TbSelect2', array(            
-                 'model' => $model,
-                 'attribute' => 'porcentaje_meta',
-                 'data' => array(
-                    '5' => '5',
-                    '10' => '10',
-                    '15' => '15',
-                    '20' => '20',
-                    '25' => '25',
-                    '30' => '30',
-                    '35' => '35',
-                    '40' => '40',
-                    '45' => '45',
-                    '50' => '50',
-                    '55' => '55',
-                    '60' => '60',
-                    '65' => '65',
-                    '70' => '70',
-                    '75' => '75',
-                    '80' => '80',
-                    '85' => '85',
-                    '90' => '90',
-                    '95' => '95',
-                    '100' => '100'),
-                     
-                     
-                 'options' => array(
-                   'placeholder' => "%",
-                  //     'id' => "proyecto",
-                  /* 'allowClear'=>true,
-                   'minimumInputLength'=>2,*/
-                 ),
-                     
-                     // array('empty'=>'','id'=>'area_type','style'=>'width:100%',),
-                 'htmlOptions'=>array(
-                   'style'=>'width:380px',
-                     
-                 ),
-               ));
-   ?>
+
+<?php echo $form->textFieldGroup(
+			$model,
+			'porcentaje_meta',
+			array(
+				'wrapperHtmlOptions' => array(
+					'class' => 'col-sm-5',
+				),
+				'append' => '%'
+			)
+		); 
+?>
 
 <?php echo $form->hiddenField($model,'cartera',array('type'=>"hidden",'size'=>2,'value'=>2)); ?>
 <?php echo $form->textFieldGroup($model,'monto_mes_proyecto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
