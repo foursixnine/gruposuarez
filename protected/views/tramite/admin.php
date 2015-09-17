@@ -15,7 +15,7 @@ $this->breadcrumbs=array(
 //'<br/>';
 $this->menu=array(
 array('label'=>'Listar Tramites','url'=>array('listar')),
-//array('label'=>'Create Tramite','url'=>array('create')),
+array('label'=>'Tramites en Transito','url'=>array('continuartramites')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -44,7 +44,14 @@ $this->widget('booster.widgets.TbGridView',array(
 'filter'=>$cliente,
 'columns'=>array(
                 'nombre_de_empresa',
-                'status_de_lote',                             
+                'status_de_lote', 
+                'numero_de_lote',
+                array(
+                    'name'=>'id_proyecto',
+                    'header'=>'Proyecto',
+                    'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
+                    'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),                   
+                ),                         
                 'buttons' => 
    array(
             'class'=>'CButtonColumn',
@@ -123,72 +130,3 @@ $this->widget('booster.widgets.TbGridView',array(
     );
 
 ?>
-
-<br/><br/>
-
-<button type="button" class="btn btn-warning">TRAMITES EN CURSO</button>
-
-
-<?php $this->widget('booster.widgets.TbGridView',array(
-'id'=>'tramite-grid',
-'dataProvider'=>$model->tramitadora(),
-//'filter'=>$model,
-'columns'=>array(
-                'fecha_inicio',
-    
-    	             array(
-                    'name'=>'id_pasos',
-                    'header'=>'Paso',
-                    'value'=> 'CHtml::encode($data->idPasos["descripcion"])',
-                    'filter'=>CHtml::listData(Paso::model()->findAll(), 'id_paso', 'descripcion'),
-          
-                        /*        array(
-            'header' => 'Pasos',
-            'value' => function($data)
-            {
-                Controller::widget('bootstrap.widgets.TbProgress', array(
-                  //  'percent' => ($data->cartera_120_dias +1 )/ $data->cartera_90_dias * 100,
-                      'percent' => dias_transcurridos($data->fecha_inicio,'2015-09-14'),
-                    ));
-            },
-            'htmlOptions' => array (
-                'style' => ''
-            ),
-        ),*/
-               ), 
-     array(
-            'header' => 'Porcentaje',
-            'value' => function($data)
-            {
-                Controller::widget('bootstrap.widgets.TbProgress', array(
-                  //  'percent' => ($data->cartera_120_dias +1 )/ $data->cartera_90_dias * 100,
-                      'percent' => dias_transcurridos($data->fecha_inicio,'2015-08-01'),
-                     'striped' => true,
-        'animated' => true,
-                    ));
-            },
-            'htmlOptions' => array (
-                'style' => ''
-            ),
-        ),
-    
-    
-    
-        
-'buttons' => 
-   array(
-            'class'=>'CButtonColumn',
-                        'template' => '{continuar_tramite} ',
-                        'buttons' => array(
-                             'continuar_tramite' => array(
-                                    'label'=>'Continuar Tramite',
-                                    'url'=>'Yii::app()->createUrl("/tramitePasos/tramite/",array("id"=>$data["id_tramite"]))',
-                                    
-                       ) )
-            ), 
-    
-
-
-)
-)
-    );?>

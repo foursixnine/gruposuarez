@@ -122,7 +122,7 @@ $(function(){
                                                 'class' => 'col-sm-5',
                                         ),
                                         'widgetOptions' => array(
-                                                'data' => array('Seleccione ...', 
+                                                'data' => array(
                                                     1=>'SOLICITUD DE MINUTA DE CANCELACIÓN A BANCO INTERINO Y FIRMA DE MINUTA',
                                                     2=>'CONFECCIONAR MINUTA DE VENTA'),
                                                 'htmlOptions' => array(),

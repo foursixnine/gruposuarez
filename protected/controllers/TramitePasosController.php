@@ -315,8 +315,9 @@ public function actionTramite($id)
             
             
             }else{
-               
-            //Pongo las fecha en NULL
+//********************************Pongo las fecha en NULL*******************************************************************************************************
+                 
+            
             if($model->firma_cliente ==""){
                 $model->firma_cliente=null;
             }
@@ -330,8 +331,9 @@ public function actionTramite($id)
                 $model->fecha_recibido=null;
             }
             
-            //Si es paso 1 y le da cerrar paso. Actualizo y Pongo la Fecha de Cierre es de decir fecha de Paso
-            
+            /**Si es paso 1 y le doya cerrar paso. Actualizo y 
+            Pongo la Fecha de Cierre es de decir fecha de Paso
+            **/
             if($_POST['TramitePasos']['id_paso']==1){
                 
                 //Actualizo la Tabla Tramite

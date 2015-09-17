@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar'),
+        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites'),
         'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array('create','update','actualizarcobradora','actualizar','listar'),
+        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites'),
         //'users'=>array('@'),
          'users'=>array('*'),
     ),
@@ -118,21 +118,21 @@ $this->render('create',array(
 */
 public function actionUpdate($id)
 {
-$model=$this->loadModel($id);
+        $model=$this->loadModel($id);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-if(isset($_POST['Tramite']))
-{
-$model->attributes=$_POST['Tramite'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_tramite));
-}
+        if(isset($_POST['Tramite']))
+        {
+        $model->attributes=$_POST['Tramite'];
+                if($model->save())
+                $this->redirect(array('view','id'=>$model->id_tramite));
+        }
 
-$this->render('update',array(
-'model'=>$model,
-));
+        $this->render('update',array(
+                'model'=>$model,
+        ));
 }
 
 /**
@@ -142,17 +142,17 @@ $this->render('update',array(
 */
 public function actionDelete($id)
 {
-if(Yii::app()->request->isPostRequest)
-{
-// we only allow deletion via POST request
-$this->loadModel($id)->delete();
+        if(Yii::app()->request->isPostRequest)
+        {
+        // we only allow deletion via POST request
+                  $this->loadModel($id)->delete();
 
-// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-if(!isset($_GET['ajax']))
-$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-}
-else
-throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if(!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
+        else
+                 throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 }
 
 /**
@@ -182,11 +182,20 @@ public function actionAdmin()
     $model = new Tramite('search');
     $tramitadora = new Tramite('search');
     $cliente = new Cliente('clientestramites');
+
     $model->unsetAttributes();  // clear any default values
     $tramitadora->unsetAttributes();  // clear any default values
-   
-    if(isset($_GET['Tramite']))
-            $model->attributes=$_GET['Tramite'];
+    $cliente->unsetAttributes();  // clear any default values
+
+    if(isset($_GET['Cliente'])){
+                            $cliente->attributes=$_GET['Cliente'];
+                        // print_r($_GET['Customers']);
+    }
+            
+    if(isset($_GET['Tramite'])){            
+                            $tramitadora->attributes=$_GET['Tramite'];
+                        // print_r($_GET['Customers']);
+    }
 
     $this->render('admin',array(
             'model'=>$model,
@@ -194,6 +203,27 @@ public function actionAdmin()
             'cliente'=>$cliente,
     ));
 }
+/**
+*
+*/
+
+public function actionContinuarTramites(){
+            
+            $model = new Tramite('search');
+            $tramitadora = new Tramite('search');
+            $tramitadora->unsetAttributes();  // clear any default values
+
+            if(isset($_GET['Tramite']))
+            $tramitadora->attributes=$_GET['Tramite'];
+
+            $this->render('continuartramites',array(
+                    'model'=>$model,
+                    'tramitadora'=>$tramitadora,   
+                    
+            ));
+
+}
+
 
 /**
 * Returns the data model based on the primary key given in the GET variable.

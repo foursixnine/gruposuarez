@@ -401,9 +401,9 @@ class Cliente extends CActiveRecord
                
 		$criteria=new CDbCriteria;
               //  $criteria->condition = 'pazysalvo = 0';
-                $criteria->condition = 'pazysalvo = 0 AND status_de_lote =  '."'TRAMITE'".' ';
+        $criteria->condition = 'pazysalvo = 0 AND status_de_lote =  '."'TRAMITE'".' ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
-		$criteria->compare('nombre_de_empresa',$this->nombre_de_empresa,true);
+		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('apellido',$this->apellido,true);
 		$criteria->compare('status',$this->status,true);
