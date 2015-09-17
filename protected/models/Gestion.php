@@ -78,18 +78,18 @@ class Gestion extends CActiveRecord
 	{
 		return array(
 			'id_gestion' => 'Id Gestion',
-			'contactado_llamada' => 'Lista desplegable de si o no.',
-			'llamada_voz' => 'En caso de ser no en el contacto llamada (lista desplegable) si o no',
+			'contactado_llamada' => 'Llama de Voz',
+			'llamada_voz' => 'Mensaje de Voz',
 			'id_acuerdo_cobros' => 'Id Acuerdo Cobros',
-			'fecha_acuerdo' => 'Fecha Acuerdo',
+			'fecha_acuerdo' => 'Fecha de Acuerdo Gestión',
 			'id_gestion_llamadas' => 'Id Gestion Llamadas',
 			'observaciones' => 'Observaciones',
-			'id_cumplimiento' => 'Id Cumplimiento',
+			'id_cumplimiento' => 'Cumplimiento',
 			'id_cliente' => 'Id Cliente',
 			'id_crm_proyecto' => 'Id Crm Proyecto',
 			'id_usuario' => 'Id Usuario',
 			'id_cliente_gs' => 'Id Cliente Gs',
-                        'fecha_creacion'=> 'Fecha Gestión',
+            'fecha_creacion'=> 'Fecha Gestión',
 		);
 	}
 

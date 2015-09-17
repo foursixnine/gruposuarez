@@ -193,7 +193,7 @@ $(function(){
         <br />
         <b><?php echo $form->labelEx($model, 'Script para llamadas');?></b><br/>
 	<?php
-	
+	$model->id_gestion_llamadas=3;
                     $this->widget(
                       'booster.widgets.TbSelect2', array(
                       'model' => $model,                                          
@@ -201,8 +201,6 @@ $(function(){
                       'data' => CHtml::listData(Gestionllamadas::model()->findAll(), 'id_gestion_llamadas', 'descripcion'),
                       'options' => array(
                        'placeholder' => "Gestión Llamadas",
-                       /* 'allowClear'=>true,
-                        'minimumInputLength'=>2,*/
                       ),
                       'htmlOptions'=>array(
                         'style'=>'width:380px',
@@ -259,7 +257,7 @@ $(function(){
         
         </div>
         
-        <div id="noventa" style="display:none;">
+        <div id="noventa" style="display:block;">
             
                       <br/>
                       <p><strong style="color:blue">3. Llamada para cuando la letra esté entre 61-90 d&iacute;as:</strong></p>
