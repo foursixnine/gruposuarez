@@ -1,0 +1,189 @@
+   //*********************************************************************************************************
+            //*********************************************************************************************************
+            //***************************************CERRAR PASO*************************************************
+            //*********************************************************************************************************
+            //*********************************************************************************************************
+            
+            
+            }else{
+
+              //********************************Pongo las fecha en NULL*******************************************************************************************************
+                 
+      
+           
+            /**Si es paso 1 y le doya cerrar paso. Actualizo y 
+            Pongo la Fecha de Cierre es de decir fecha de Paso
+            **/
+            if($_POST['TramitePasos']['id_paso']==1){
+      var_dump("HOLA");die;          
+                //Actualizo la Tabla Tramite
+                $tramiteupdate = Tramite::model()->updateAll(array( 
+                                                'id_pasos'    =>$tramite->id_pasos,
+                                                'id_estado'   =>$model->id_estado,                                        
+                                                'fecha_inicio'   =>$hoy,
+                                                'fecha_paso'   =>null,
+                                                'inicio'   =>1,
+                                                'id_razones_estado' => $model->id_razones_estado                                            
+                                                                  ),
+                                                                    'id_tramite ='.$id
+                                                            );        
+                //Actualizo la Tabla Tramite Paso
+                $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                             //   'id_pasos'    =>1,
+                                                'id_estado'   =>$model->id_estado,                                        
+                                                'fecha_solicitud'=>$model->fecha_solicitud,
+                                                'fecha_recibido'=>$model->fecha_recibido,
+                                                'firma_promotora'=>$model->firma_promotora,
+                                                'firma_cliente'=>$model->firma_cliente,
+                                                'fecha_paso'   =>$hoy,                                                
+                                                'id_razones_estado' => $model->id_razones_estado
+                                              
+                                                                  ),
+                                                                  'id_paso=1 and id_tramite ='.$id 
+                                                            );
+                                                $this->redirect(array('tramite','id'=>$id));
+            //Si al dar CERRAR PASO es 2(PASO 2)                                    
+            }elseif($_POST['TramitePasos']['id_paso']==2){  
+      
+                   
+                    //Actualizo la Tabla Tramite
+                    $tramiteupdate = Tramite::model()->updateAll(array( 
+                                                                    'id_pasos' =>$model->id_paso,
+                                                                    'inicio'   =>1,               
+                                                                  ),
+                                                                    'id_tramite ='.$id
+                                                            ); 
+                   
+                    $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                                'id_pasos'    =>2,
+                                                'id_estado'   =>$model->id_estado,                                        
+                                                'fecha_solicitud'=>$model->fecha_solicitud,
+                                                'fecha_recibido'=>$model->fecha_recibido,
+                                                'firma_promotora'=>$model->firma_promotora,
+                                                'firma_cliente'=>$model->firma_cliente,
+                                                'fecha_paso'   =>$hoy,     
+                                                'id_razones_estado' => $model->id_razones_estado                                              
+                                                                  ),                    
+                                                                    'id_paso=2 and id_tramite ='.$id                                                                   
+                                                            );
+   
+                    $model->fecha_inicio=$tramite->fecha_inicio;  
+                    $model->id_tramite=$id; 
+                    $model->id_cliente_gs=$tramite->id_cliente_gs; 
+                    $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
+                    $model->id_expediente_fisico=$tramite->id_expediente_fisico;
+                    $model->id_usuario=$tramite->id_usuario;
+                    $pasoactual=$tramite->id_pasos;
+                    $model->id_paso=$pasoactual+1;
+                    $tramite_actividad->id_paso=$tramite->id_pasos;
+                    $tramite_actividad->id_tramite=$id;
+            
+                    //Guardo el tramite    
+                    $model->save();
+                    
+                    //Guardo la Activudad
+                    $tramite_actividad->save();                      
+            
+                    if($model->save()){
+                                $tramiteupdate = Tramite::model()->updateAll(array( 
+                                        'id_pasos' => $model->id_paso,                                                                       
+                                       // 'id_estado'   =>$model->id_estado,
+                                         //$model->fecha_paso=
+
+                                        'fecha_paso'=>null,
+                                        'id_razones_estado' => null
+
+                                                              ),
+                                                                'id_tramite ='.$id
+                                                        ); 
+
+                        $this->redirect(array('tramite','id'=>$model->id_tramite));
+                    }else{
+                                //echo "epaa";    die;
+                            Yii::app()->user->setFlash('error', "Datos Invalidos por favor verifique!");   
+                    }
+             
+            
+          
+            }elseif($tramite->id_pasos==11){
+                                       //echo "HolA ES 11 FIIn";die;       
+                   $tramiteupdate = Tramite::model()->updateAll(array( 
+                                        'id_pasos' => 11,                                                                                                              
+                                        'fecha_paso'=>$hoy,
+
+                                                              ),
+                                                                'id_tramite ='.$id
+                                                        );     
+            $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                                'id_pasos'    =>11,
+                                                'id_estado'   =>$model->id_estado,                                        
+                                                'fecha_solicitud'=>$model->fecha_solicitud,
+                                                'fecha_recibido'=>$model->fecha_recibido,
+                                                'firma_promotora'=>$model->firma_promotora,
+                                                'firma_cliente'=>$model->firma_cliente,
+                                                'fecha_paso'   =>$hoy,
+                                                'id_razones_estado' => $model->id_razones_estado
+                                              
+                                                                  ),
+                                                                    'id_tramite ='.$id
+                                                            );  
+            Yii::app()->user->setFlash('success', "Fin del Tramite!");
+                            
+            }else{
+                $tramiteupdate = Tramite::model()->updateAll(array( 
+                                        'id_pasos' => $model->id_paso,                                                                                                              
+                                        'fecha_paso'=>$hoy,
+
+                                                              ),
+                                                                'id_tramite ='.$id
+                                                        ); 
+                $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                                'id_pasos'    =>$tramite->id_pasos,
+                                                'id_estado'   =>$model->id_estado,                                        
+                                                'fecha_solicitud'=>$model->fecha_solicitud,
+                                                'fecha_recibido'=>$model->fecha_recibido,
+                                                'firma_promotora'=>$model->firma_promotora,
+                                                'firma_cliente'=>$model->firma_cliente,
+                                                'fecha_paso'   =>$hoy,
+                                                'id_razones_estado' => $model->id_razones_estado
+                                              
+                                                                  ),
+                                                                    'id_tramite ='.$id
+                                                            );               
+                                                           
+           // $model->fecha_paso=$hoy; 
+            $model->fecha_inicio=$tramite->fecha_inicio;  
+            $model->id_tramite=$id; 
+            $model->id_cliente_gs=$tramite->id_usuario; 
+            $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
+            $model->id_expediente_fisico=$tramite->id_expediente_fisico;
+            $model->id_usuario=$tramite->id_usuario;
+            //Calculo el paso siguiente
+            $pasoactual=$tramite->id_pasos;
+            $model->id_paso=$pasoactual+1;
+            $tramite_actividad->id_paso=$tramite->id_pasos;
+            $tramite_actividad->id_tramite=$id;
+            
+            
+            $model->save();
+            $tramite_actividad->save();                      
+            
+                    if($model->save()){
+                                $tramiteupdate = Tramite::model()->updateAll(array( 
+                                        'id_pasos' => $model->id_paso,                                                                       
+                                       // 'id_estado'   =>$model->id_estado,
+                                         //$model->fecha_paso=
+
+                                        'fecha_paso'=>null,
+                                        'id_razones_estado' => null
+
+                                                              ),
+                                                                'id_tramite ='.$id
+                                                        ); 
+
+                        $this->redirect(array('tramite','id'=>$model->id_tramite));
+                    }else{
+                           Yii::app()->user->setFlash('error', "Fin del proceso!");
+                    }
+             }
+            
