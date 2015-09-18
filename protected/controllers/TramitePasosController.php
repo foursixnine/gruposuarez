@@ -31,7 +31,7 @@ public function accessRules()
             'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('tramite','update','pasoanterior'),
+            'actions'=>array('tramite','update','pasoanterior','detalleliquidacion'),
             'users'=>array('@'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -109,6 +109,7 @@ public function actionPasoAnterior($id)
         $this->redirect(array('tramitePasos/tramite/','id'=>$id));
 }
 
+/************************** REGISTRAR TRAMIES*****************/
 public function actionTramite($id)
 {
  
@@ -116,18 +117,21 @@ public function actionTramite($id)
     $model = new TramitePasos;
     //Para la actividad del tramite
     $tramite_actividad = new TramiteActividad;
+    //Para saber las actividades que exiten por tramite
     $tramitesactividad = TramiteActividad::model()->tramitesactividad($id);
     
+    //
     $tramite_datosgenerales = new Tramite();
        
     //Para el Chat **
     $chat = new Chat;
-    //$chat_mostrar = new Chat('search');
+     //Para los CHAT que existen por tramite
     $chat_mostrar = Chat::model()->tramites($id);
     
-    //Buscar Cliente
-    $tramite_cliente=  Tramite::model()->find('id_tramite=:id_tramite',
+    //Buscar datos del tramite de un cliente
+    $tramite_cliente =  Tramite::model()->find('id_tramite=:id_tramite',
                                array(':id_tramite'=>$id));
+
     $cliente= Cliente::model()->find('id_cliente_gs=:id_cliente_gs',
                                array(':id_cliente_gs'=>$tramite_cliente->id_cliente_gs));
     
@@ -160,7 +164,7 @@ public function actionTramite($id)
     //Uncomment the following line if AJAX validation is needed
     $this->performAjaxValidation($model);
 
-    //Obtengo la fecha actual
+    //Obtengo la Fecha Actual
     $hoy = date("Y-m-d");
     $tab=false;
     $fecha_tramite = $tramitepasos->fecha_paso;
@@ -171,7 +175,8 @@ public function actionTramite($id)
      * ******************************************************************************************************************
      * ******************************************************************************************************************
      */
-     if (isset($_POST['updatetramite'])){
+    
+    if (isset($_POST['updatetramite'])){
       
        
           $tramite_datosgenerales->attributes=$_POST['Tramite'];
@@ -183,22 +188,17 @@ public function actionTramite($id)
                                                 'ganancia_capital'  =>$tramite_datosgenerales->ganancia_capital,              
                                                 'fecha_escritura'   =>$_POST['Tramite']['fecha_escritura'],
                                                 'fecha_inscripcion_escritura' =>$_POST['Tramite']['fecha_inscripcion_escritura'],
-                'num_escritura' =>$_POST['Tramite']['num_escritura'],
-                'num_finca_inscrita'=>$_POST['Tramite']['num_finca_inscrita'],
-                'transferencia_inmueble'=>$_POST['Tramite']['transferencia_inmueble'],
+                                                'num_escritura' =>$_POST['Tramite']['num_escritura'],
+                                                'num_finca_inscrita'=>$_POST['Tramite']['num_finca_inscrita'],
+                                                'transferencia_inmueble'=>$_POST['Tramite']['transferencia_inmueble'],
                
             ));
-           
-     
-           $this->redirect(array('tramite','id'=>$id));
+          $this->redirect(array('tramite','id'=>$id));
           
      }
-      if (isset($_POST['chat'])){
-      
-       // $tramite_datosgenerales->attributes=$_POST['Tramite'];
-        
-        
-        //var_dump($_POST['Chat']);die;
+    
+    if (isset($_POST['chat'])){
+
           $chat->attributes=$_POST['Chat'];
           //var_dump($chat->descripcion);die;
           $chat->id_tramite=$id;
@@ -206,139 +206,152 @@ public function actionTramite($id)
            //$tab=true;
            $this->redirect(array('tramite','id'=>$id));
           
-     }
+    }
+        
+//*********************************************************************************************************
+//*********************************************************************************************************
+//*********************************************************************************************************
+//*************************$_POST['TramitePasos'], $_POST['TramiteActividad']************************************************     
+//*********************************************************************************************************
+//*********************************************************************************************************
+
     if(isset($_POST['TramitePasos'], $_POST['TramiteActividad']))
     {
-     //   var_dump($tramiteupdate->plano);
-     //     $tramiteupdate->attributes=$_POST['Tramite'];
-      //  die;
-           $model->attributes=$_POST['TramitePasos'];
-           $tramite_actividad->attributes=$_POST['TramiteActividad'];
+                            
+        //ATRIUTOS QUE VIENEN POR POST
+        $model->attributes=$_POST['TramitePasos'];
+        $tramite_actividad->attributes=$_POST['TramiteActividad'];
+
+        //Ponemos fecha en NULL
+        if($model->firma_cliente == ""){ $model->firma_cliente=null; } 
+        if($model->firma_promotora == ""){ $model->firma_promotora=null;} 
+        if($model->fecha_solicitud == ""){ $model->fecha_solicitud=null;} 
+        if($model->fecha_recibido == ""){ $model->fecha_recibido=null;} 
+
         
-           //*********************************************************************************************************
-           //*********************************************************************************************************
-           //*********************************************************************************************************
-           //***********************************************ACTUALIZAR************************************************//
-           if(isset($_POST['actualizar'])){
-               
-            if($_POST['TramitePasos']['id_paso']==1){  
-                
-            $tramiteupdate = Tramite::model()->updateAll(array( 
-                                                'id_pasos'    =>$tramite->id_pasos,
-                                                'id_estado'   =>$model->id_estado,                                        
-                                                'fecha_inicio'   =>$hoy,
-                                                'fecha_paso'   =>null,
-                                                'inicio'   =>1,
-                                                'id_razones_estado' => $model->id_razones_estado                                            
-                                                                  ),
-                                                                    'id_tramite ='.$id
-                                                            );
-                                                 $tramite_actividad->save();
-            }elseif($_POST['TramitePasos']['id_paso']==2){
-                
-                        $tramite_two = TramitePasos::model()->find('id_tramite=:id_tramite and
-                                 id_paso=:id_paso',
-                               array(':id_tramite'=>$id,
-                                     ':id_paso'=>2,
-                                    ));
-                                   
-                        if($tramite_two==NULL){
-                            //Poner fecha en null
-                            if($model->firma_cliente ==""){
-                                $model->firma_cliente=null;
-                            }
-                            if($model->firma_promotora ==""){
-                                $model->firma_promotora=null;
-                            }
-                            if($model->fecha_solicitud ==""){
-                                $model->fecha_solicitud=null;
-                            }
-                            if($model->fecha_recibido ==""){
-                                $model->fecha_recibido=null;
-                            }
-                            
-                            $model->fecha_inicio=$tramite->fecha_inicio;  
-                            $model->id_tramite=$id; 
-                            $model->id_cliente_gs=$tramite->id_usuario; 
-                            $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
-                            $model->id_expediente_fisico=$tramite->id_expediente_fisico;
-                            $model->id_usuario=$tramite->id_usuario;
-                           // $tramite_actividad->save();
-                            $model->save();
-                        }else{
-                            
-                       
-                        $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                                'id_pasos'    =>$tramite->id_pasos,
-                                                'id_estado'   =>$model->id_estado,                                        
-                                                'fecha_inicio'   =>$hoy,
-                                                //'fecha_paso'   =>"",
-                                                'id_razones_estado' => $model->id_razones_estado
-                                              
-                                                                  ),
-                                                                    'id_tramite ='.$id
-                                                            );
-                        }
-                
-            }else{
-            $tramiteupdate = Tramite::model()->updateAll(array( 
-                                                'id_pasos'    =>$tramite->id_pasos,
-                                                'id_estado'   =>$model->id_estado,                                        
-                                                'fecha_inicio'   =>$hoy,
-                                                'fecha_paso'   =>null,
-                                                'inicio'   =>1,
-                                                'id_razones_estado' => $model->id_razones_estado                                            
-                                                                  ),
-                                                                    'id_tramite ='.$id
-                                                            );                
-            }
-         /*   $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                                'id_pasos'    =>$tramite->id_pasos,
-                                                'id_estado'   =>$model->id_estado,                                        
-                                                'fecha_inicio'   =>$hoy,
-                                                //'fecha_paso'   =>"",
-                                                'id_razones_estado' => $model->id_razones_estado
-                                              
-                                                                  ),
-                                                                    'id_tramite ='.$id
-                                                            );*/
-            $tramite_actividad->id_paso=$tramite->id_pasos;
-            $tramite_actividad->id_tramite=$id;
-            $tramite_actividad->save();  
-            $this->redirect(array('tramite','id'=>$id));
-            
-            //*********************************************************************************************************
-            //*********************************************************************************************************
-            //***************************************CERRAR PASO*************************************************
-            //*********************************************************************************************************
-            //*********************************************************************************************************
-            
-            
-            }else{
-//********************************Pongo las fecha en NULL*******************************************************************************************************
+         //*********************************************************************************************************
+         //*********************************************************************************************************
+         //*********************************************************************************************************
+         //*************************************SI ES ACTUALIZAR************************************************//
+         //*********************************************************************************************************
+         //*********************************************************************************************************
+
+          if(isset($_POST['actualizar'])){
+     
+              //SI PASO ES EL IGUAL A 1  
+              if($_POST['TramitePasos']['id_paso']==1){  
                  
-            
-            if($model->firma_cliente ==""){
-                $model->firma_cliente=null;
-            }
-            if($model->firma_promotora ==""){
-                $model->firma_promotora=null;
-            }
-            if($model->fecha_solicitud ==""){
-                $model->fecha_solicitud=null;
-            }
-            if($model->fecha_recibido ==""){
-                $model->fecha_recibido=null;
-            }
-            
-            /**Si es paso 1 y le doya cerrar paso. Actualizo y 
-            Pongo la Fecha de Cierre es de decir fecha de Paso
-            **/
-            if($_POST['TramitePasos']['id_paso']==1){
+                  $tramiteupdate = Tramite::model()->updateAll(array( 
+                                                      'id_pasos'     =>$tramite->id_pasos,
+                                                      'id_estado'    =>$model->id_estado,                                        
+                                                      'fecha_inicio' =>$hoy,
+                                                      'fecha_paso'   =>null,
+                                                      'inicio'       =>1,
+                                                      'id_razones_estado' => $model->id_razones_estado                                            
+                                                                        ),
+                                                                'id_tramite ='.$id
+                                                       );
+                                                  
+                  //Guardamos el Tramite de la Actividad
+                  $tramite_actividad->id_paso=1;
+                  $tramite_actividad->id_tramite=$id;
+                  $tramite_actividad->save();  
+                  //Redigirimos la pagina a TRAMITE
+                  $this->redirect(array('tramite','id'=>$id));
+
+              //SI TRAMITE PASO ES IGUAL A DOS
+              }elseif($_POST['TramitePasos']['id_paso']==2){
                 
+                              //Busco si existe el tramite con el "PASO 2" ingreso o actualizo
+                              //Busco mi tramite
+                              $tramite_two = TramitePasos::model()->find('id_tramite=:id_tramite and
+                                            id_paso=:id_paso',
+                                        array(':id_tramite'=>$id,
+                                             ':id_paso'=>2,
+                                            ));
+                              //Si es existe mi tramite y es Diferente de vacio
+                              if(!empty($tramite_two)){
+
+                                $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                                    'id_pasos'    =>$tramite->id_pasos,
+                                                    'id_estado'   =>$model->id_estado,                                        
+                                                    'fecha_inicio'   =>$hoy,
+                                                    'id_razones_estado' => $model->id_razones_estado
+                                                  
+                                                                      ),
+                                                                        'id_paso=2 AND id_tramite ='.$id
+                                                                );
+                                //Guardo la Actividad
+                                $tramite_actividad->id_paso=2;
+                                $tramite_actividad->id_tramite=$id;
+                                $tramite_actividad->save();  
+                                $this->redirect(array('tramite','id'=>$id));
+
+                              }else{
+
+                                  //GUARDO el PASO DOS  
+                                  $model->fecha_inicio=$tramite->fecha_inicio;  
+                                  $model->id_tramite=$id; 
+                                  $model->id_cliente_gs=$tramite->id_cliente_gs; 
+                                  $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
+                                  $model->id_expediente_fisico=$tramite->id_expediente_fisico;
+                                  $model->id_usuario=$tramite->id_usuario;                              
+                                  $model->save();
+
+                                  //Guardo la Actividad
+                                  $tramite_actividad->id_paso=2;
+                                  $tramite_actividad->id_tramite=$id;
+                                  $tramite_actividad->save();
+                                  $this->redirect(array('tramite','id'=>$id));
+                              }       
+                                
+                        
+            
+              }else{
+                        
+                          //Es 3 o UN PASO MAYOR
+                          $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                                  'id_pasos'    =>$tramite->id_pasos,
+                                                  'id_estado'   =>$model->id_estado,                                        
+                                                  'fecha_inicio'   =>$hoy,
+                                                  //'fecha_paso'   =>"",
+                                                  'id_razones_estado' => $model->id_razones_estado
+                                                
+                                                                    ),
+                                                                      'id_tramite ='.$id
+                                                              );
+                          $tramiteupdate = Tramite::model()->updateAll(array( 
+                                      'id_pasos'    =>$tramite->id_pasos,
+                                      'id_estado'   =>$model->id_estado,                                        
+                                      'fecha_inicio'   =>$hoy,
+                                      'fecha_paso'   =>null,
+                                      'inicio'   =>1,
+                                      'id_razones_estado' => $model->id_razones_estado                                            
+                                                        ),
+                                                          'id_tramite ='.$id
+                                                  );  
+
+                          $tramite_actividad->id_paso=$tramite->id_pasos;
+                          $tramite_actividad->id_tramite=$id;
+                          $tramite_actividad->save();  
+                          $this->redirect(array('tramite','id'=>$id));
+
+
+                          }
+                
+            
+          }else{
+//*********************************************************************************************************
+//*********************************************************************************************************
+//***************************************CERRAR PASO*******************************************************
+//*********************************************************************************************************
+//*********************************************************************************************************
+
+                if($_POST['TramitePasos']['id_paso']==1){
+                       
                 //Actualizo la Tabla Tramite
                 $tramiteupdate = Tramite::model()->updateAll(array( 
-                                                'id_pasos'    =>$tramite->id_pasos,
+                                                'id_pasos'    =>2,
                                                 'id_estado'   =>$model->id_estado,                                        
                                                 'fecha_inicio'   =>$hoy,
                                                 'fecha_paso'   =>null,
@@ -349,7 +362,6 @@ public function actionTramite($id)
                                                             );        
                 //Actualizo la Tabla Tramite Paso
                 $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                             //   'id_pasos'    =>1,
                                                 'id_estado'   =>$model->id_estado,                                        
                                                 'fecha_solicitud'=>$model->fecha_solicitud,
                                                 'fecha_recibido'=>$model->fecha_recibido,
@@ -357,72 +369,109 @@ public function actionTramite($id)
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,                                                
                                                 'id_razones_estado' => $model->id_razones_estado
-                                              
                                                                   ),
                                                                   'id_paso=1 and id_tramite ='.$id 
                                                             );
-                                                $this->redirect(array('tramite','id'=>$id));
-            //Si al dar CERRAR PASO es 2(PASO 2)                                    
-            }elseif($_POST['TramitePasos']['id_paso']==2){  
+                $this->redirect(array('tramite','id'=>$id));
+          //SI ES CERRAR PASO 2      
+          }elseif($_POST['TramitePasos']['id_paso']==2){  
       
-                   
-                    //Actualizo la Tabla Tramite
-                    $tramiteupdate = Tramite::model()->updateAll(array( 
-                                                                    'id_pasos' =>$model->id_paso,
+                    //BUSCO EL TRAMITE ONE
+                    $tramite_one = TramitePasos::model()->find('id_tramite=:id_tramite and
+                                        id_paso=:id_paso',
+                                    array(':id_tramite'=>$id,
+                                         ':id_paso'=>1,
+                                        ));
+
+                    if(empty($tramite_one->fecha_paso)){
+                          Yii::app()->user->setFlash('error', "Es necesario Cerrar el Paso 1 => SOLICITUD DE MINUTA DE CANCELACIÓN A BANCO INTERINO Y FIRMA DE MINUTA");
+                          $this->redirect(array('tramite','id'=>$id));
+                          var_dump($tramite_one);die;
+                    }
+
+                    //Busco si existe el tramite con el PASO 2 ingreso o actualizo
+                    //Busco mi tramite
+                    $tramite_two = TramitePasos::model()->find('id_tramite=:id_tramite and
+                                            id_paso=:id_paso', array(
+                                              ':id_tramite'=>$id,
+                                              ':id_paso'=>2,
+                                            ));
+//var_dump($tramite_two);die;
+                    //SI PASO 2 EXISTE EN MI TABLA TRAMITE_PASOS => ACTUALIZO
+                    if(!empty($tramite_two)){    
+                                        //Actualizo la Tabla Tramite
+                          $tramiteupdate = Tramite::model()->updateAll(array( 
+                                                                    'id_pasos' =>3, //Actualizo con el ID 2
                                                                     'inicio'   =>1,               
                                                                   ),
                                                                     'id_tramite ='.$id
-                                                            ); 
-                   
-                    $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                                'id_pasos'    =>2,
-                                                'id_estado'   =>$model->id_estado,                                        
-                                                'fecha_solicitud'=>$model->fecha_solicitud,
-                                                'fecha_recibido'=>$model->fecha_recibido,
-                                                'firma_promotora'=>$model->firma_promotora,
-                                                'firma_cliente'=>$model->firma_cliente,
-                                                'fecha_paso'   =>$hoy,     
-                                                'id_razones_estado' => $model->id_razones_estado                                              
-                                                                  ),                    
-                                                                    'id_paso=2 and id_tramite ='.$id                                                                   
-                                                            );
-   
-                    $model->fecha_inicio=$tramite->fecha_inicio;  
-                    $model->id_tramite=$id; 
-                    $model->id_cliente_gs=$tramite->id_cliente_gs; 
-                    $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
-                    $model->id_expediente_fisico=$tramite->id_expediente_fisico;
-                    $model->id_usuario=$tramite->id_usuario;
-                    $pasoactual=$tramite->id_pasos;
-                    $model->id_paso=$pasoactual+1;
-                    $tramite_actividad->id_paso=$tramite->id_pasos;
-                    $tramite_actividad->id_tramite=$id;
-            
-                    //Guardo el tramite    
-                    $model->save();
-                    
-                    //Guardo la Activudad
-                    $tramite_actividad->save();                      
-            
-                    if($model->save()){
-                                $tramiteupdate = Tramite::model()->updateAll(array( 
-                                        'id_pasos' => $model->id_paso,                                                                       
-                                       // 'id_estado'   =>$model->id_estado,
-                                         //$model->fecha_paso=
+                                                            );      
+                          $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                                     // 'id_paso'    =>$model->id_paso,    
+                                                      'id_estado'   =>$model->id_estado,                                        
+                                                      'fecha_solicitud'=>$model->fecha_solicitud,
+                                                      'fecha_recibido'=>$model->fecha_recibido,
+                                                      'firma_promotora'=>$model->firma_promotora,
+                                                      'firma_cliente'=>$model->firma_cliente,
+                                                      'fecha_paso'   =>$hoy,     
+                                                      'id_razones_estado' => $model->id_razones_estado                                              
+                                                                        ),                    
+                                                                          'id_paso=2 and id_tramite ='.$id                                                                   
+                                                                  );
+                          //SI PASO 2 AUN NO EXISTE EN MI TABLA TRAMITE_PASOS => INGRESO Y PASO AL PASO 3.                        
+                          $model->fecha_inicio=$tramite->fecha_inicio;  
+                          $model->id_tramite=$id; 
+                          $model->id_cliente_gs=$tramite->id_cliente_gs; 
+                          $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
+                          $model->id_expediente_fisico=$tramite->id_expediente_fisico;
+                          $model->id_usuario=$tramite->id_usuario;
+                          //$pasoactual=$tramite->id_pasos;
+                          $model->id_paso=3;
+                          $tramite_actividad->id_paso=$tramite->id_pasos;
+                          $tramite_actividad->id_tramite=$id;
+                  
+                          //Guardo el tramite    
+                          $model->save();
+                          
+                          //Guardo la Activudad
+                          $tramite_actividad->save();  
+                          $this->redirect(array('tramite','id'=>$model->id_tramite));
 
-                                        'fecha_paso'=>null,
-                                        'id_razones_estado' => null
-
-                                                              ),
-                                                                'id_tramite ='.$id
-                                                        ); 
-
-                        $this->redirect(array('tramite','id'=>$model->id_tramite));
                     }else{
-                                //echo "epaa";    die;
-                            Yii::app()->user->setFlash('error', "Datos Invalidos por favor verifique!");   
-                    }
-             
+
+
+                            $model->fecha_inicio=$tramite->fecha_inicio;  
+                            $model->id_tramite=$id; 
+                            $model->id_cliente_gs=$tramite->id_cliente_gs; 
+                            $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
+                            $model->id_expediente_fisico=$tramite->id_expediente_fisico;
+                            $model->id_usuario=$tramite->id_usuario;
+                            $pasoactual=$tramite->id_pasos;
+                            $model->id_paso=$tramite->id_pasos+1;
+                            $tramite_actividad->id_paso=$tramite->id_pasos;
+                            $tramite_actividad->id_tramite=$id;
+                    
+                            //Guardo el tramite    
+                            $model->save();
+                            
+                            //Guardo la Activudad
+                            $tramite_actividad->save();                      
+                    
+                            if($model->save()){
+                                        $tramiteupdate = Tramite::model()->updateAll(array( 
+                                                'id_pasos' => 3,                                                                       
+                                                'fecha_paso'=>null,
+                                                //'id_razones_estado' => null
+                                                                      ),
+                                                                        'id_tramite ='.$id
+                                                                ); 
+
+                                $this->redirect(array('tramite','id'=>$model->id_tramite));
+                            }else{
+                                        //echo "epaa";    die;
+                                    Yii::app()->user->setFlash('error', "Datos Invalidos por favor verifique!");   
+                            }
+                       }
             
           
             }elseif($tramite->id_pasos==11){
@@ -474,7 +523,7 @@ public function actionTramite($id)
            // $model->fecha_paso=$hoy; 
             $model->fecha_inicio=$tramite->fecha_inicio;  
             $model->id_tramite=$id; 
-            $model->id_cliente_gs=$tramite->id_usuario; 
+            $model->id_cliente_gs=$tramite->id_cliente_gs; 
             $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
             $model->id_expediente_fisico=$tramite->id_expediente_fisico;
             $model->id_usuario=$tramite->id_usuario;
@@ -506,26 +555,29 @@ public function actionTramite($id)
                            Yii::app()->user->setFlash('error', "Fin del proceso!");
                     }
              }
-        }    
-    }
-
-    $this->render('tramite',array(
-            'model'=>$model,
-            'tramiteold'=>$tramiteold,
-            'tramite'=>$tramite,
-            'tramitepasos'=>$tramitepasos,
-            'duracionpasos'=>$duracionpasos,
-            'pasos'=>$pasos,
-            'tramite_actividad'=>$tramite_actividad,
-            'chat'=>$chat,
-            'chat_mostrar'=>$chat_mostrar,
-            'calle'=>$calle,
-            'model_adic'=>$model_adic,
-            'tab'=>$tab,
-        'tramitesactividad'=>$tramitesactividad,
-        'tramite_datosgenerales'=>$tramite_datosgenerales
-    ));
+          ///FIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+ }
+    }    
+    
+    
+$this->render('tramite',array(
+'model'=>$model,
+'tramiteold'=>$tramiteold,
+'tramite'=>$tramite,
+'tramitepasos'=>$tramitepasos,
+'duracionpasos'=>$duracionpasos,
+'pasos'=>$pasos,
+'tramite_actividad'=>$tramite_actividad,
+'chat'=>$chat,
+'chat_mostrar'=>$chat_mostrar,
+'calle'=>$calle,
+'model_adic'=>$model_adic,
+'tab'=>$tab,
+'tramitesactividad'=>$tramitesactividad,
+'tramite_datosgenerales'=>$tramite_datosgenerales
+  ));
 }
+
 
 /**
 * Updates a particular model.
@@ -599,6 +651,27 @@ public function actionAdmin($id)
     ));
 }
 
+public function actionDetalleLiquidacion($id)
+{
+    
+  //  $model = new TramitePasos('search');
+    
+    $tramitePasos=TramitePasos::model()->find(
+                                'id_tramite_pasos=:id_tramite_pasos',
+                                'id_paso=:id_paso',
+                                array(':id_tramite_pasos'=>$id,
+                                      ':id_paso'=>1,
+                                      )); 
+    var_dump($tramitePasos);die;
+    //var_dump($model);die;
+   /** $model->unsetAttributes();  // clear any default values
+    if(isset($_GET['TramitePasos']))
+             $model->attributes=$_GET['TramitePasos'];
+*/
+    $this->render('admin',array(
+             'model'=>$model,
+    ));
+}
 /**
 * Returns the data model based on the primary key given in the GET variable.
 * If the data model is not found, an HTTP exception will be raised.

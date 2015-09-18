@@ -94,21 +94,21 @@ public function actionView($id)
 */
 public function actionCreate()
 {
-$model=new Tramite;
+        $model=new Tramite;
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-if(isset($_POST['Tramite']))
-{
-$model->attributes=$_POST[''];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_tramite));
-}
+        if(isset($_POST['Tramite']))
+        {
+        $model->attributes=$_POST[''];
+        if($model->save())
+              $this->redirect(array('view','id'=>$model->id_tramite));
+        }
 
-$this->render('create',array(
-'model'=>$model,
-));
+        $this->render('create',array(
+             'model'=>$model,
+        ));
 }
 
 /**
@@ -168,10 +168,10 @@ $this->render('index',array(
 
 public function actionListar()
 {
-$dataProvider=new CActiveDataProvider('Tramite');
-$this->render('listar',array(
-'dataProvider'=>$dataProvider,
-));
+        $dataProvider=new CActiveDataProvider('Tramite');
+        $this->render('listar',array(
+              'dataProvider'=>$dataProvider,
+        ));
 }
 
 /**
@@ -232,10 +232,10 @@ public function actionContinuarTramites(){
 */
 public function loadModel($id)
 {
-$model=Tramite::model()->findByPk($id);
-if($model===null)
-throw new CHttpException(404,'The requested page does not exist.');
-return $model;
+    $model=Tramite::model()->findByPk($id);
+    if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+    return $model;
 }
 
 /**
@@ -244,10 +244,10 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='tramite-form')
-{
-echo CActiveForm::validate($model);
-Yii::app()->end();
-}
-}
+        if(isset($_POST['ajax']) && $_POST['ajax']==='tramite-form')
+        {
+                echo CActiveForm::validate($model);
+                Yii::app()->end();
+        }
+        }
 }
