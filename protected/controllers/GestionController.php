@@ -27,15 +27,15 @@ class GestionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','gestioncobros','toggle'),
+				'actions'=>array('index','view','gestioncobros','toggle','excel'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gestioncobros'),
+				'actions'=>array('create','update','gestioncobros','excel'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','excel'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -221,18 +221,44 @@ public function actionCreate($id){
 	 */
 	public function actionAdmin()
 	{
-                $model = new Cliente('search');
+                $model = new Gestion('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Cliente'])){
-			$model->attributes=$_GET['Cliente'];
+		if(isset($_GET['Gestion'])){
+			$model->attributes=$_GET['Gestion'];
 		}
-		if (isset($_GET['export'])) {
-        	$production = 'export';
-    	}else{
-        	$production = 'grid';
-    	}
-    	$this->render('admin', array('model' => $model, 'production' => $production));   
+	
+    	$this->render('admin', array('model' => $model));   
 	}
+    public function actionExcel() {
+
+       /* $d = $_SESSION['Lectivo-excel'];
+
+        $data = array();
+
+        $data[]=array_keys($d->data[0]->attributes);//headers: cols name
+
+        foreach ($d->data as $item) {
+            $data[] = $item->attributes;
+        }
+
+        Yii::import('application.extensions.phpexcel.JPhpExcel');
+        $xls = new JPhpExcel('UTF-8', false, 'test');
+        $xls->addArray($data);
+        $xls->generateXML('filename'); //export into a .xls file*/
+
+
+  
+        $model = new Gestion('search');
+        Yii::app()->request->sendFile('antaresclientes.xls',
+                                $this->renderPartial('admin',array(
+                                    'admin'=>$model,
+                                ),true)
+                
+                );
+        
+
+    }
+
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
