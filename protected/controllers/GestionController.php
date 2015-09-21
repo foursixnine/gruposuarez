@@ -221,14 +221,17 @@ public function actionCreate($id){
 	 */
 	public function actionAdmin()
 	{
-                $model= new CustomersView('noventadias');
+                $model = new Cliente('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CustomersView']))
-			$model->attributes=$_GET['CustomersView'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-                ));   
+		if(isset($_GET['Cliente'])){
+			$model->attributes=$_GET['Cliente'];
+		}
+		if (isset($_GET['export'])) {
+        	$production = 'export';
+    	}else{
+        	$production = 'grid';
+    	}
+    	$this->render('admin', array('model' => $model, 'production' => $production));   
 	}
 
 	/**
