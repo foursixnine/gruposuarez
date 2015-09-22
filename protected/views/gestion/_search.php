@@ -3,9 +3,9 @@
 	'method'=>'get',
 )); ?>
 
-	<?php echo $form->textFieldGroup($model,'ID_CLIENTE',array('class'=>'span5')); ?>
+	<?php echo $form->textFieldGroup($model,'id_cliente',array('class'=>'span5')); ?>
 
-	<?php echo $form->textFieldGroup($model,'NOMBRE',array('class'=>'span5')); ?>
+	<?php// echo $form->textFieldGroup($model,'NOMBRE',array('class'=>'span5')); ?>
 
 	
 

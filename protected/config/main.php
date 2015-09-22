@@ -64,6 +64,8 @@ return array(
                     'responsiveCss' => true, //Esto para que tengamos un dise�o responsive, adaptable a cualquier dispositivo!
 
                 ),
+
+      
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,

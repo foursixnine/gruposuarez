@@ -10,6 +10,8 @@ array('label'=>'Create Gestion','url'=>array('create')),
   array('label'=>'Exportar y descargar', 'url'=>array('excel'))
 );
 
+
+
 Yii::app()->clientScript->registerScript('search', "
         $('.search-button').click(function(){
             $('.search-form').toggle();
@@ -26,31 +28,20 @@ Yii::app()->clientScript->registerScript('search', "
 
 <h1>Manage Gestions</h1>
 
-<p>
-	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-		&lt;&gt;</b>
-	or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
-<?php /*echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-	<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); */?>
-<!--</div>
- search-form -->
 
 <?php 
 
 
 $this->widget('booster.widgets.TbGridView',array(
 'id'=>'gestion-grid',
-'dataProvider'=>$model->search(),
+'dataProvider'=>$model->excel(),
 'filter'=>$model,
 'columns'=>array(
 			'idClienteGs.id_cliente',
 			'idClienteGs.nombre_de_empresa',
 			'idClienteGs.numero_de_lote',
+			'idUsuario.username',
 			array(
 				'name'=>'id_acuerdo_cobros',
 				'header'=>'Acuerdos Cobros',

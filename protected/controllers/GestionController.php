@@ -36,7 +36,7 @@ class GestionController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','excel'),
-				'users'=>array('admin'),
+				'users'=>array('admin','orodriguez','obonilla','ppuerta'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -231,31 +231,18 @@ public function actionCreate($id){
 	}
     public function actionExcel() {
 
-       /* $d = $_SESSION['Lectivo-excel'];
-
-        $data = array();
-
-        $data[]=array_keys($d->data[0]->attributes);//headers: cols name
-
-        foreach ($d->data as $item) {
-            $data[] = $item->attributes;
-        }
-
-        Yii::import('application.extensions.phpexcel.JPhpExcel');
-        $xls = new JPhpExcel('UTF-8', false, 'test');
-        $xls->addArray($data);
-        $xls->generateXML('filename'); //export into a .xls file*/
+    
+    $data = array(
+    1 => array ('Name', 'Surname'),
+    array('Schwarz', 'Oliver'),
+    array('Test', 'Peter')
+);
+Yii::import('application.extensions.phpexcel.JPhpExcel');
+$xls = new JPhpExcel('UTF-8', false, 'My Test Sheet');
+$xls->addArray($data);
+$xls->generateXML('my-test');
 
 
-  
-        $model = new Gestion('search');
-        Yii::app()->request->sendFile('antaresclientes.xls',
-                                $this->renderPartial('admin',array(
-                                    'admin'=>$model,
-                                ),true)
-                
-                );
-        
 
     }
 

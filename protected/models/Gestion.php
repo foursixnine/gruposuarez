@@ -78,7 +78,7 @@ class Gestion extends CActiveRecord
 	{
 		return array(
 			'id_gestion' => 'Id Gestion',
-			'contactado_llamada' => 'Llama de Voz',
+			'contactado_llamada' => 'Llamada de Voz',
 			'llamada_voz' => 'Mensaje de Voz',
 			'id_acuerdo_cobros' => 'Id Acuerdo Cobros',
 			'fecha_acuerdo' => 'Fecha de Acuerdo Gestión',
@@ -189,7 +189,7 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
                         'criteria'=>$criteria,
                 ));
 
-        $_SESSION['Lectivo-excel']=$data; // get all data and filtered data :)
+        $_SESSION['gestion_cobros']=$data; // get all data and filtered data :)
 
         return $data;
 	}
