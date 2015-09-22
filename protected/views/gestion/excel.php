@@ -5,7 +5,6 @@ if($data!==null){?>
     <tr>
         <th>id_gestion</th>
         <th>Fecha de Acuerdo</th>        
-        <th>Cobradora</th>
         <th>Observaciones</th>
     </tr>
     
@@ -14,7 +13,7 @@ if($data!==null){?>
                 <td><?php echo $value['id_gestion'];?></td>
                 <td><?php echo $value['fecha_acuerdo']; ?></td>
                 <td><?php echo $value['observaciones'];?></td>
-                <td><?php echo $value['username'];?></td>
+            
             </tr>
     <?php } ?>  
 </table>
