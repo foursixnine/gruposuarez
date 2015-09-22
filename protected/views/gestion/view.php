@@ -16,13 +16,15 @@ array('label'=>'Volver','url'=>array('cliente/detalle')),
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
-		'id_gestion',
 		'id_cliente',
+		'idClienteGs.nombre_de_empresa',
+		'idClienteGs.proyecto',
+		'idClienteGs.numero_de_lote',
 		'contactado_llamada',
 		'llamada_voz',
 		'idAcuerdoCobros.descripcion',
 		'fecha_acuerdo',
 		'idGestionLlamadas.descripcion',
-         'observaciones',
+        'observaciones',
 ),
 )); ?>

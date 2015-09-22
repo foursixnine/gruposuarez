@@ -51,9 +51,22 @@ $this->widget('booster.widgets.TbGridView',array(
 			
 			'fecha_acuerdo',
 			
-array(
-'class'=>'booster.widgets.TbButtonColumn',
-),
+
+     array(
+            'class'=>'CButtonColumn',
+            'template'=>'{ver}',
+            'buttons'=>array
+        (
+        'ver' => array
+        (
+            'label'=>'Ver Cliente',
+            'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
+            'url'=>'Yii::app()->createUrl("gestion/view", array("id"=>$data->id_gestion))',
+        ),
+     ),
+        ),
+
+
 ),
 ));
 
