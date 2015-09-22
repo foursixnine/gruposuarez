@@ -7,10 +7,9 @@ $this->breadcrumbs=array(
 $this->menu=array(
 array('label'=>'List Gestion','url'=>array('index')),
 array('label'=>'Create Gestion','url'=>array('create')),
-  array('label'=>'Exportar y descargar', 'url'=>array('excel'))
+array('label'=>'Exportar y descargar', 'url'=>array('excel'))
+                                        
 );
-
-
 
 Yii::app()->clientScript->registerScript('search', "
         $('.search-button').click(function(){

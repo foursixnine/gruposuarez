@@ -32,6 +32,7 @@ return array(
 		'application.components.*',
                 'application.extensions.*',
                 'ext.EExcelView.*',
+
                 'application.extensions.yiichat.*',
                 'ext.ECompositeUniqueValidator',
                 'ext.YiiConditionalValidator',

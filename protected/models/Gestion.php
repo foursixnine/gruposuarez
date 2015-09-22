@@ -189,7 +189,7 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
                         'criteria'=>$criteria,
                 ));
 
-        $_SESSION['gestion_cobros']=$data; // get all data and filtered data :)
+        $_SESSION['Gestion']=$data; // get all data and filtered data :)
 
         return $data;
 	}

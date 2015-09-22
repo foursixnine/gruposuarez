@@ -229,20 +229,49 @@ public function actionCreate($id){
 	
     	$this->render('admin', array('model' => $model));   
 	}
+
     public function actionExcel() {
 
     
-    $data = array(
-    1 => array ('Name', 'Surname'),
-    array('Schwarz', 'Oliver'),
-    array('Test', 'Peter')
-);
-Yii::import('application.extensions.phpexcel.JPhpExcel');
-$xls = new JPhpExcel('UTF-8', false, 'My Test Sheet');
-$xls->addArray($data);
-$xls->generateXML('my-test');
+		$issueDataProvider = $_SESSION['Gestion'];
+		$i = 0;
+    
+        //fix column header. 
+        //Could have used something like this - $data[]=array_keys($issueDataProvider->data[0]->attributes);. 
+        //But that would return all attributes which i do not want
+        $data[$i]['id_gestion'] = 'Id Gestion';
+        $data[$i]['fecha_acuerdo'] = 'Fecha Acuerdo';
+        $data[$i]['observaciones'] = 'observaciones';
 
+        $i++;
+        
+        //populate data array with the required data elements
+        foreach($issueDataProvider->data as $issue)
+        {
+            $data[$i]['id_gestion'] = $issue['id_gestion'];
+            $data[$i]['fecha_acuerdo'] = $issue['fecha_acuerdo'];
+            $data[$i]['observaciones'] = $issue['observaciones'];
+   			
+            $i++;
+        }
+       // var_dump($data);die;
+ Yii::app()->request->sendFile('Gestiones.xls',
+                                $this->renderPartial('excel',array(
+                                    'data'=>$data,
+                                ),true)
+                
+                );
+        
+        /*
+   // var_dump($data);die;
+Yii :: import ('application.extensions.phpexcel.JPhpExcel');
+          
 
+ $this->layout=false;
+
+        $xls = new JPhpExcel('UTF-8', false, 'test');
+        $xls->addArray($data);
+        $xls->generateXML('test_file');*/
 
     }
 
