@@ -103,9 +103,9 @@ public function actionCreate($id){
         if(empty($_POST['Gestion']['fecha_acuerdo'])){               
                $model->fecha_acuerdo=NULL;
         }
-    
+        $model->id_usuario=Yii::app()->user->id; 
             
- 
+  
         if($model->save()){
             $clienteupdate = Cliente::model()->updateByPk($cliente->id_cliente_gs,array('gestion' => 1));
             $this->redirect(array('view','id'=>$model->id_gestion));
