@@ -104,14 +104,14 @@ class TramiteActividad extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
- $criteria->compare('id_tramite',$id);
+ 		$criteria->compare('id_tramite',$id);
 		$criteria->compare('id_tramite_actividad',$this->id_tramite_actividad);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('fecha_tramite_actividad',$this->fecha_tramite_actividad,true);
 		$criteria->compare('id_estado',$this->id_estado);
 		$criteria->compare('id_paso',$this->id_paso);
 		$criteria->compare('observaciones',$this->observaciones,true);
-
+        $criteria->order = 'id_tramite_actividad desc';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

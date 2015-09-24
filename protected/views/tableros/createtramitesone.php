@@ -15,9 +15,8 @@ array('label'=>'Volver','url'=>'index'),
 ?>
 <br/>        
 
-<h2 class="titulo">Liquidaciones</h2>
-
-
+<button type="button" class="btn btn-warning">LIQUIDACIONES</button>
+<br/><br/>
 <?php echo $form->errorSummary($model); ?>
 
         <?php echo $form->labelEx($model, 'Proyecto');?><br/>
@@ -86,7 +85,7 @@ array('label'=>'Volver','url'=>'index'),
 
 <br/>
 
-           <?php echo $form->labelEx($model, 'Mes'); ?>
+           <?php echo $form->labelEx($model, 'Meses'); ?>
            <br />
            <?php
            $this->widget(
@@ -116,9 +115,10 @@ array('label'=>'Volver','url'=>'index'),
                              )
 ); 
 ?>
-      <br/>      
-  
-           <br />
+      <br/>           
+   <?php echo $form->labelEx($model, 'Año'); ?>
+           <br/>
+     
            <?php
            $this->widget(
             'booster.widgets.TbSelect2',
@@ -149,69 +149,13 @@ array('label'=>'Volver','url'=>'index'),
 </div>
 
 <?php $this->endWidget(); ?>
+
 <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
 
+
+
 <div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto">
-
-<?php
-
-$this->Widget('ext.highcharts.HighchartsWidget', array(
-'scripts' => array(
-      'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
-      'modules/exporting', // adds Exporting button/menu to chart
-      'themes/grid-light'        // applies global 'grid' theme to all charts
-    ),
-    'options' => array(
-      'title' => array('text' => 'Tramite 1'),
-      'xAxis' => array(
-        'categories' => $mes_paso
-      ),
-      'yAxis' => array(
-         'title' => array('text' => 'Tramite 1 '),
-        // 'format'=>'{value}°C'
-      ),
-        'legend'=> array(
-          'format'=>  '{value} mm',            
-        ),
-      'colors'=>array('#0563FE', '#6AC36A', '#FFD148', '#FF2F2F'),
-      'gradient' => array('enabled'=> true),
-      'credits' => array('enabled' => true),
-      'exporting' => array('enabled' => true), //to turn off exporting uncomment
-      'chart' => array(
-        'plotBackgroundColor' => '#ffffff',
-        'plotBorderWidth' => null,
-        'plotShadow' => true,
-        'height' => 400,
-        'type'=>'xy',
-      ),
-      'title' => false,
-       'series' => array(
-          array(
-              
-              'type'=>'column',
-                'name' => 'Monto Liquidado',
-              //  'yAxis'=> 2,
-                'data' =>$totalliquidado
-              ),
-              
-         array(
-             'type'=>'spline',
-                'name' => 'Casas Liquidadas',
-                'data' => $totalpaso,
-              //  'yAxis'=> 1
-              ),
-   /*     array('type'=>'spline',
-                'name' => 'Pasos', 
-                'data' => $totalliquidado
-              ),   */    
-      ),
-    )
-  ));
-      
-?>
-</div>   
-  
 
 
 <?php
@@ -219,50 +163,107 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
 /*********ORIGINAL*****************///////
 
 
-/*
+
 $this->Widget('ext.highcharts.HighchartsWidget', array(
-'scripts' => array(
+    'scripts' => array(
       'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
       'modules/exporting', // adds Exporting button/menu to chart
       'themes/grid-light'        // applies global 'grid' theme to all charts
     ),
     'options' => array(
-      'title' => array('text' => 'Patient Visits By Day (Last Two Weeks)'),
+      'title' => array(
+            'text' => 'Casas Liquidadas'
+      ),
+      'subtitle' => array(
+          'text' => 'Pasos en Liquidación'
+      ),
       'xAxis' => array(
-         'categories' => array('14th','15th','16th','17th','18th','19th','20th','21th','22th','23th','24th','25th','26th','27th','28th')
+         'categories' => $mes_paso,
+         'crosshair' => true
       ),
-      'yAxis' => array(
-         'title' => array('text' => 'Number of Visits')
-      ),
-      'colors'=>array('#0563FE', '#6AC36A', '#FFD148', '#FF2F2F'),
-      'gradient' => array('enabled'=> true),
-      'credits' => array('enabled' => false),
-     
-      'chart' => array(
-        'plotBackgroundColor' => '#ffffff',
-        'plotBorderWidth' => null,
-        'plotShadow' => false,
-        'height' => 400,
-      ),
-      'title' => false,
-       'series' => array(
-          array('type'=>'column','name' => 'Hampton Office', 'data' => array(20, 25, 25,35, 30, 28,25, 27, 23, 24, 25, 26,27,28,33)),
-          array('type'=>'spline','name' => 'Hampton Office', 'data' => array(20, 25, 25,35, 30, 28,25, 27, 23, 24, 25, 26,27,28,33)),
-          array('type'=>'spline','name' => 'Richmond Office', 'data' => array(5, 7, 8,9, 7, 10,11, 12, 13,15, 17, 14,15,16,18)),
-          array(
-            'type'=>'pie',
-            'name' => 'Richmond Office',
-            'data' => array(5, 7, 8),
-            'dataLabels' => array(
-              'enabled' => false,
+      //Eje Primerio 
+      'yAxis' =>array(   
+            array(
+                      'labels' => array(
+                      'format' => '{value} int',
+                          'style'  => array(
+                              'color' => 'Highcharts.getOptions().colors[1]'
+                          )
+                      ),
+                      'title' => array(
+                            'text' => 'Cantidad de Casas',
+                            'style' => array(
+                                              'color' => 'Highcharts.getOptions().colors[1]'
+                                            )
+                                    ),
+                    'min' => 1,
+                    'max' => 30
+            ),array( // Secondary yAxis
+            'title' => array(
+                'text' => 'Monto Liquidado',
+                'style' => array(
+                    'color'=>'Highcharts.getOptions().colors[0]'
+                )
             ),
-            'showInLegend'=>false,
-            'size'=>'10',
-            'center'=>[20, 20],
+            'labels'=>array(
+                'format' => '{value} mm',
+                'style' =>array(
+                    'color'=> 'Highcharts.getOptions().colors[0]'
+                )
+            ),
+            'opposite'=>true
+          )
+      ),
+
+
+        'tooltip' =>array( 
+            'shared'=> true
+        ),
+
+        'legend' =>array(
+            'layout'=>  'vertical', //horizontal
+            'align'=>  'left', //center
+            'x'=> 120,
+            'borderWidth'=> 2,
+            'verticalAlign'=> 'top', //bottom top
+            'y'=> 100,
+            'floating'=> true
+
+            //'enabled' => true
+        
+            //'backgroundColor' => '(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || + .'#FFFFFF'.+'
+        ),
+       //Comienzan las grafico la data
+        'series' => 
+        array(
+          array(
+                'name'=> 'Monto Liquidado',
+                'type'=>'column',
+                'yAxis'=> 1, 
+                'data' => $totalliquidado,
+                //Para colocar en formato $ y con 2 decimales
+                'tooltip' => array(
+                  'valueDecimals'=> 2,
+                  'valuePrefix'=> '$',
+                  'valueSuffix'=> ' USD'
+                )
+          ),      
+          array(
+               'type'=>'spline',
+               'name' => 'Casas Liquidadas ', 
+               'data' => $totalpaso,
+               'tooltip' => array(
+                    'valueSuffix' => ' Casas'
+               )
           ),
       ),
     )
   ));
       
-      */
+      
+      
 ?>
+
+
+
+</div> 

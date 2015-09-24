@@ -184,8 +184,9 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
         $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 
         $data = new CActiveDataProvider(get_class($this), array(
-                        'pagination'=>array('pageSize'=> Yii::app()->user->getState('pageSize',
-                                                                        Yii::app()->params['defaultPageSize']),),
+                  //      'pagination'=>array('pageSize'=> Yii::app()->user->getState('pageSize',
+                    //                                                    Yii::app()->params['defaultPageSize']),),
+                        'pagination' => array('pageSize' => 50),
                         'criteria'=>$criteria,
                 ));
 

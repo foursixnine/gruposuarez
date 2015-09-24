@@ -51,7 +51,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
 
                                                                     ),true),
         ),
-        array(
+      /*  array(
             'id'=>'tab3',
             'active'=>false,
             'label'=>'CART. CORRIENTE',
@@ -63,12 +63,12 @@ $this->widget('bootstrap.widgets.TbTabs', array(
                                                                 'pivote_final_mes'=>$pivote_final_mes,
                                                                 'cartera_corriente'=>$cartera_corriente,
                                                                 'count_proyecto_corriente'=>$count_proyecto_corriente,
-                                                                    ),true),               
-        ),
+                                                                    ),true),              
+        ),*/ 
          array(
-            'id'=>'tab4',
+            'id'=>'tab3',
             'active'=>false,
-            'label'=>'ESTATUS DE CARTERA',
+            'label'=>'TRASLADO DE CARTERA',
             'content'=>$this->renderPartial("_incrementodecremento", array(
                                                                 'model'=>$model,
                                                                 'cobrado'=>$cobrado,

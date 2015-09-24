@@ -18,9 +18,9 @@ array('label'=>'Volver','url'=>'index'),
 ?>
         
 <br/>
-<h2 class="titulo">Tramite por Pasos</h2>
+<button type="button" class="btn btn-warning">TRAMITE POR PASOS</button>
 <br/>
-
+<br/>
 <?php echo $form->errorSummary($model); ?>
 <div class="form-group">
     

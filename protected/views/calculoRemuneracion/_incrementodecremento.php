@@ -3,6 +3,11 @@
         <a href="#" class="list-group-item list-group-item-info">
             <strong>INCREMENTO O DECREMENTO</strong>
         </a>
+        <br/>
+        <p>
+          <strong>Nota:</strong>El incremento de la cartera no puede exceder del <strong>5%</strong>
+          con respecto al mes anterior. 
+        </p>
  <?php 
  $sumcorriente=0;
  $cobradoc=0;
@@ -33,15 +38,22 @@
                             ?>
                         </td>
 
-                        <td><?php           $mes= $mes_actual= date("n")-1;
-                        
-                         $data->id_crm_proyecto;
-                                 $sum_pivote_inicio_mes= Yii::app()->db->createCommand()
-                                 ->select('sum(monto)')
-                                 ->from('pivote')
-                                 ->where('mes='."'".$mes."'".' and id_crm_proyecto='."'".$data->id_crm_proyecto."'")
-                                 ->queryScalar();
-                        echo $sum_pivote_inicio_mes;  ?></td>
+                        <td>
+                            <?php           
+                                $mes= $mes_actual= date("n")-1;
+                                $data->id_crm_proyecto;
+                                $sum_pivote_inicio_mes= Yii::app()->db->createCommand()
+                                ->select('sum(monto)')
+                                ->from('pivote')
+                                ->where('mes='."'".$mes."'".' and id_crm_proyecto='."'".$data->id_crm_proyecto."'")
+                                ->queryScalar();
+                            ?>
+                            <strong><font color="#610B0B">$    
+                                <?php 
+                                 echo number_format($sum_pivote_inicio_mes,2,'.',',');
+                                  ?>
+                            </strong></font>
+                        </td>
                     </tr>  
                     
                     <tr>
@@ -53,14 +65,18 @@
 
                         <td>
                             <?php
-                           $mes_actual= date("n");
+                                 $mes_actual= date("n");
                                  $sum_pivote_final_mes= Yii::app()->db->createCommand()
                                  ->select('sum(monto)')
                                  ->from('pivote')
                                  ->where('mes='."'".$mes_actual."'".' and id_crm_proyecto='."'".$data->id_crm_proyecto."'")
                                  ->queryScalar();
-                        echo $sum_pivote_final_mes;
-                        ?>
+                            ?>   
+                            <strong><font color="#610B0B">$  
+                              <?php  
+                                    echo number_format($sum_pivote_final_mes,2,'.',',');
+                              ?>
+                            </strong></font>  
                         </td>
                     </tr>                
                      <tr>
@@ -70,12 +86,14 @@
                                 </td>
                                 
                                 <td>
+                                    <strong><font color="#610B0B">$
                                     <?php
-                                echo  $diferencia =  (($sum_pivote_final_mes) - ($sum_pivote_inicio_mes));
-                                                 
-                                             $total = ((int)$diferencia / (int)$sum_pivote_inicio_mes)*100;   
+                                            $diferencia =  (($sum_pivote_final_mes) - ($sum_pivote_inicio_mes));
+                                            echo number_format($diferencia,2,'.',',');
+                                            $total = ((int)$diferencia / (int)$sum_pivote_inicio_mes)*100;   
                                                  // echo $total;die;
-                                        ?>
+                                    ?>
+                                    </strong></font>      
                             
                         </td>
 
@@ -83,16 +101,35 @@
                      <tr>
                         <td>
                             <?php            
-                                echo CHtml::label('Cumplimiento', '????');
+                                echo CHtml::label('Porcentaje', '????');
                             ?>
                         </td>
 
                         <td>
-                               <strong>
-                                  
-                                   
-                                   
-                                     <?php  echo number_format($total, 2, '.', '');?> %</strong>
+                                <strong><font color="#610B0B">
+                                    <?php  echo number_format($total, 2, '.', '');?> %
+
+                                </strong></font>  
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                         <td>
+                            <?php            
+                                echo CHtml::label('Cumplimiento', '????');
+                            ?>
+                        </td>
+                           <td>
+                              <?php 
+                                    if ($total <= 5){
+                                        echo '<strong><font color="#610B0B">100 %</strong></font>'; 
+                                    }elseif($total == 6 || $total <= 10) {
+                                        echo '<strong><font color="#610B0B">70 %</strong></font>';
+                                    }else{
+                                         echo '<strong><font color="#610B0B">0 %</strong></font>';
+                                    }
+
+                              ?>  
                             
                         </td>
                     </tr>
@@ -100,7 +137,7 @@
            </table>
  <?php } ?>        
 
-            <?php echo $sum;?>
+            <?php $sum;?>
         </div>
 </div>
                 

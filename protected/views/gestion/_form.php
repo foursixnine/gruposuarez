@@ -744,7 +744,7 @@ Esperaré su pago el día ----- con $ ----- (Monto).
                             ?>
                         </td>
 
-                        <td colspan="2"><strong>$<font color="blue"><?php  echo $cliente->monto_ultimo_pago;  ?></font> </strong></td>
+                        <td colspan="2"><strong><font color="#610B0B">$<?php  echo $cliente->monto_ultimo_pago;  ?></font> </strong></td>
                     </tr>    
                     <!--Fecha Ingreos Tramite -->
                     <tr>
@@ -765,7 +765,7 @@ Esperaré su pago el día ----- con $ ----- (Monto).
                             ?>
                         </td>
 
-                        <td colspan="2"><strong><font color="blue">$ <?php echo $cliente->total; ?></font> </strong></td>
+                        <td colspan="2"><strong><font color="#610B0B">$ <?php echo $cliente->total; ?></font> </strong></td>
                     </tr>
                     
                     <tr>
@@ -801,7 +801,7 @@ Esperaré su pago el día ----- con $ ----- (Monto).
                         <td><?php            
                            echo CHtml::label('Monto Mensualidad Abono','',array('size'=>8)); ?>
                         </td>            
-                        <td colspan="2"><strong><font color="blue">$ <?php echo $cliente->monto_quota_abono; ?> </font> </strong></td>
+                        <td colspan="2"><strong><font color="#610B0B">$ <?php echo $cliente->monto_quota_abono; ?> </font> </strong></td>
                     </tr> 
   
                   
@@ -811,9 +811,9 @@ Esperaré su pago el día ----- con $ ----- (Monto).
                            echo CHtml::label('Monto Mensualidad Mejoras','',array('size'=>8)); ?>
                         </td>      
                         <?php if ($cliente->monto_cuota_mejoras!=""){?>
-                        <td><strong><font color="blue">$ <?php echo $cliente->monto_cuota_mejoras; ?></font> </strong></td>
+                        <td><strong><font color="#610B0B">$ <?php echo $cliente->monto_cuota_mejoras; ?></font> </strong></td>
                         <?php } ?>
-                        <td><strong><font color="blue"><?php echo $cliente->monto_cuota_mejoras; ?></td>
+                        <td><strong><font color="#610B0B"><?php echo $cliente->monto_cuota_mejoras; ?></td>
                     </tr> 
             
                     <tr>
@@ -821,7 +821,7 @@ Esperaré su pago el día ----- con $ ----- (Monto).
                            echo CHtml::label('0-30','',array('size'=>8)); ?>
                         </td>           
                  
-                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_30_dias; ?></font> </strong></td>
+                        <td><strong><font color="#610B0B">$ <?php echo $cliente->cartera_30_dias; ?></font> </strong></td>
                     </tr> 
                     
                     
@@ -829,34 +829,34 @@ Esperaré su pago el día ----- con $ ----- (Monto).
                         <td><?php            
                            echo CHtml::label('31-60','',array('size'=>8)); ?>
                         </td>            
-                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_60_dias; ?></font> </strong></td>
+                        <td><strong><font color="#610B0B">$ <?php echo $cliente->cartera_60_dias; ?></font> </strong></td>
                     </tr> 
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('61-90','',array('size'=>8)); ?>
                         </td>            
-                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_90_dias; ?></font> </strong></td>
+                        <td><strong><font color="#610B0B">$ <?php echo $cliente->cartera_90_dias; ?></font> </strong></td>
                     </tr>
                     
                     <tr>
                         <td><?php            
                            echo CHtml::label('91-120','',array('size'=>8)); ?>
                         </td>            
-                        <td><strong><font color="blue">$ <?php echo $cliente->cartera_120_dias; ?></font> </strong></td>
+                        <td><strong><font color="#610B0B">$ <?php echo $cliente->cartera_120_dias; ?></font> </strong></td>
                     </tr> 
                   
                     <tr>
                         <td><?php            
                            echo CHtml::label('Total Vencido','',array('size'=>8)); ?>
                         </td>            
-                        <td><strong><font color="blue">$ <?php echo $cliente->total_vencido; ?></font> </strong></td>
+                        <td><strong><font color="#610B0B">$ <?php echo $cliente->total_vencido; ?></font> </strong></td>
                     </tr>
                      <tr>
                         <td><?php            
                            echo CHtml::label('Total Abonado','',array('size'=>8)); ?>
                         </td>            
-                        <td><strong><font color="blue">$ <?php echo $totalabonadof; ?></font> </strong></td>
+                        <td><strong><font color="#610B0B">$ <?php echo $totalabonadof; ?></font> </strong></td>
                     </tr>                 
                 </tbody>
             </table>     

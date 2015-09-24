@@ -29,19 +29,20 @@
                         </td>
 
                         <td><?php //echo $pivote_inicio_mes->monto; 
-                        $mes= $mes_actual= date("n")-1;
-                        
-                         $data->id_crm_proyecto;
-                                 $sum_pivote_inicio_mes= Yii::app()->db->createCommand()
-                                 ->select('sum(monto)')
-                                 ->from('pivote')
-                                 ->where('mes='."'".$mes."'".' and id_crm_proyecto='."'".$data->id_crm_proyecto."'")
-                                 ->queryScalar();
-                        echo $sum_pivote_inicio_mes;
-                        
-                        
-                        
-                        ?></td>
+                                $mes= $mes_actual= date("n")-1;
+                                
+                                 $data->id_crm_proyecto;
+                                         $sum_pivote_inicio_mes= Yii::app()->db->createCommand()
+                                         ->select('sum(monto)')
+                                         ->from('pivote')
+                                         ->where('mes='."'".$mes."'".' and id_crm_proyecto='."'".$data->id_crm_proyecto."'")
+                                         ->queryScalar();
+                                ?>
+
+                                <strong><font color="#610B0B">$
+                                        <?php echo $sum_pivote_inicio_mes; ?>
+                                </strong></font>        
+                        </td>
                     </tr>  
                     
                     <tr>
@@ -59,8 +60,10 @@
                                  ->from('pivote')
                                  ->where('mes='."'".$mes_actual."'".' and id_crm_proyecto='."'".$data->id_crm_proyecto."'")
                                  ->queryScalar();
-                        echo $sum_pivote_final_mes;
-                        
+
+                                 <strong><font color="#610B0B">$
+                                   echo $sum_pivote_final_mes;
+                                 </strong></font>
                         
                         
                         
@@ -75,10 +78,12 @@
                             ?>
                         </td>
 
-                        <td><?php echo $data->monto_mes_proyecto; 
+                        <td>
 
-                    
-                        ?></td>
+                            <strong><font color="#610B0B">$
+                                    <?php echo $data->monto_mes_proyecto; ?>
+                            </strong></font>
+                        </td>
                     </tr>
                 <tr>
                         <td>
@@ -103,7 +108,7 @@
                         </td>
 
                         <td>
-                               <strong bgcolor="#FF3333"> <p style="color: #6600CC; background-color: #ffffff"><?php 
+                               <strong bgcolor="#610B0B"> <p style="color: #6600CC; background-color: #ffffff"><?php 
                                                                
                                         $porcentajec = 1.0 - ($resta / $data->monto_mes_proyecto);
                                         $porcentajec_final=$porcentajec*100;

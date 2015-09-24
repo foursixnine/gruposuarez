@@ -192,9 +192,22 @@ public function actionTramite($id)
                                                 'num_escritura' =>$_POST['Tramite']['num_escritura'],
                                                 'num_finca_inscrita'=>$_POST['Tramite']['num_finca_inscrita'],
                                                 'transferencia_inmueble'=>$_POST['Tramite']['transferencia_inmueble'],
+                                                'num_permiso_ocupacion'=>$_POST['Tramite']['num_permiso_ocupacion'],
                
+            
             ));
-          $this->redirect(array('tramite','id'=>$id));
+
+
+                      
+                        if($tramite_datosgenerales->save())
+                        {
+                         
+                               Yii::app()->clientScript->registerScript(1, 'alert("Registros Almacenados Correctamente")');
+          $this->redirect(array('tramite',
+                                  'id'=>$id));
+                        }
+                
+          
           
      }
     

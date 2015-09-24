@@ -11,6 +11,12 @@
 )); 
  
 ?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="grabado_ok">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
 <?php echo $form->errorSummary($tramite); ?>
 
 <br/>
@@ -33,6 +39,8 @@
         <?php echo $form->textFieldGroup($tramite,'num_finca_inscrita',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
         <br/>        
         <?php echo $form->textFieldGroup($tramite,'transferencia_inmueble',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
+        <br/>       
+        <?php echo $form->textFieldGroup($tramite,'num_permiso_ocupacion',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
         <br/>        
         <?php echo CHtml::submitButton('Actualizar Tramite',array('name'=>'updatetramite')); ?>
 

@@ -239,7 +239,7 @@ public function actionCreate($id){
         //fix column header. 
         //Could have used something like this - $data[]=array_keys($issueDataProvider->data[0]->attributes);. 
         //But that would return all attributes which i do not want
-        $data[$i]['id_gestion'] = 'Id Gestion';
+     /*   $data[$i]['id_gestion'] = 'Id Gestion';
         $data[$i]['fecha_acuerdo'] = 'Fecha Acuerdo';
         $data[$i]['observaciones'] = 'observaciones';
 
@@ -253,6 +253,10 @@ public function actionCreate($id){
             $data[$i]['observaciones'] = $issue['observaciones'];
    			
             $i++;
+        }*/
+             foreach ($d->data as $item) {
+            $data[] = $item->attributes;
+
         }
        // var_dump($data);die;
  Yii::app()->request->sendFile('Gestiones.xls',
