@@ -33,7 +33,7 @@
         <button type="button" class="btn btn-warning">COBROS</button>
   
     </a>
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; 
     <!-- Tableros -->
     <a href="<?php echo Yii::app()->createUrl('metas/index'); ?>">
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/tableros.png' ?> "  />
@@ -45,8 +45,8 @@
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/remuneracion.png' ?> " />
              <button type="button" class="btn btn-warning">REMUNERACION</button>
      
-    </a>  
-   
+    </a>    
+    &nbsp; &nbsp; &nbsp;
     <!-- Tramites -->
     <a href="<?php echo Yii::app()->createUrl('tramite/'); ?>">
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> " />
