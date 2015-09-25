@@ -50,26 +50,22 @@ array('label'=>'Volver','url'=>'index'),
           <?php echo $form->labelEx($model, 'Tramitadora'); ?>
            
           
-           <?php 
-           $this->widget(
-            'booster.widgets.TbSelect2',
-                         array(
-                            'model'=>$model,
-                            'attribute'=>'id_usuario',
-                            'data'=>array(
-                                1=>'Gabriela',
-                                2=>'Oly',
-          
-                            ),
-             'options' => array(
+        <?php
+                    $this->widget(
+                      'booster.widgets.TbSelect2', array(
+                      'model' => $model,
+                      'attribute' => 'id_usuario',
+                      'data' => CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                      'options' => array(
                         'placeholder' => "TRAMITADORA",
-                             'allowClear'=>true,
+                       'allowClear'=>true,
+                      //  'minimumInputLength'=>2,
                       ),
-                                
-                  
-                            
-)); 
-    ?>
+                      'htmlOptions'=>array(
+                        'style'=>'width:380px',
+                      ),
+                    ));
+            ?>
   
 </div>
 
@@ -192,49 +188,49 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
 
 
     
-    <button type="button" class="btn btn-success btn-xs">Paso 1:</button>
+    <button type="button" class="btn btn-default btn-xs">Paso 1:</button>
  
     <small>Solicitud de minuta de cancelaci&oacute;n a Banco Interino y Firma de Minuta</small><br/>
  
 
-     <button type="button" class="btn btn-success btn-xs">Paso 2:</button>
+     <button type="button" class="btn btn-default btn-xs">Paso 2:</button>
  
     <small>Confeccionar minuta de Venta</small><br/>
  
     
-     <button type="button" class="btn btn-success btn-xs">Paso 3:</button>
+     <button type="button" class="btn btn-default btn-xs">Paso 3:</button>
  
      <small>Solicitar Minuta de Pr&eacute;stamo</small><br/>
  
     
-     <button type="button" class="btn btn-success btn-xs">Paso 4:</button>
+     <button type="button" class="btn btn-default btn-xs">Paso 4:</button>
  
      <small>Confeccionar escritura P&uacute;blica y Protocolo</small><br/>
      
-     <button type="button" class="btn btn-success btn-xs">Paso 5:</button>
+     <button type="button" class="btn btn-default btn-xs">Paso 5:</button>
  
      <small>Firma de escritura y Promotor</small><br/>
 
-          <button type="button" class="btn btn-success btn-xs">Paso 6:</button>
+          <button type="button" class="btn btn-default btn-xs">Paso 6:</button>
  
      <small>Interino</small><br/>
      
-          <button type="button" class="btn btn-success btn-xs">Paso 7:</button>
+          <button type="button" class="btn btn-default btn-xs">Paso 7:</button>
  
      <small>Acreedor</small><br/>
      
-          <button type="button" class="btn btn-success btn-xs">Paso 8:</button>
+          <button type="button" class="btn btn-default btn-xs">Paso 8:</button>
  
      <small>Cierre de escritura</small><br/>
      
-          <button type="button" class="btn btn-success btn-xs">Paso 9:</button>
+          <button type="button" class="btn btn-default btn-xs">Paso 9:</button>
  
      <small>Ingreso al registro p&uacute;blico de escritura</small><br/>
      
-          <button type="button" class="btn btn-success btn-xs">Paso 10:</button>
+          <button type="button" class="btn btn-default btn-xs">Paso 10:</button>
  
      <small>Envio de escritura a Bancos</small><br/>
      
-          <button type="button" class="btn btn-success btn-xs">Paso 11:</button>
+          <button type="button" class="btn btn-default btn-xs">Paso 11:</button>
  
           <small>Liquidaci&oacute;n</small><br/>

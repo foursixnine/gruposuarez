@@ -260,7 +260,10 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
       
       
 ?>
+</div>
 
+<div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto">
+  
 <?php
 
 $this->Widget('ext.highcharts.HighchartsWidget', array(

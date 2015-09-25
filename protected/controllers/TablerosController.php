@@ -1277,8 +1277,9 @@ array_push($totalpaso, $key['totalpaso']);
 
 
                         if($proyecto!=""){
-                            $queryusuario = "AND t.id_usuario=$usuario"; 
+                            $queryproyecto = "AND t.id_usuario=$usuario"; 
                         }
+
                         if($usuario!=""){
                             $queryusuario = "AND t.id_usuario=$usuario"; 
                         }
@@ -1437,6 +1438,9 @@ public function actionCreateTramitesTwo()
                     $queryusuario="";
                     if($usuario!=""){
                         $queryusuario = "AND t.id_usuario=$usuario"; 
+                    }
+                    if($usuario!=""){
+                        $queryusuario = "AND c.id_proyecto=$proyecto"; 
                     }
                             //Query donde obtengo los datos
                             $paso = Yii::app()->db->createCommand()
