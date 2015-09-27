@@ -60,7 +60,7 @@
                                  ->from('pivote')
                                  ->where('mes='."'".$mes_actual."'".' and id_crm_proyecto='."'".$data->id_crm_proyecto."'")
                                  ->queryScalar();
-
+                        ?>
                                  <strong><font color="#610B0B">$
                                    echo $sum_pivote_final_mes;
                                  </strong></font>

@@ -10,6 +10,7 @@
  * @property string $fecha_pazysalvo
  * @property integer $id_expediente_fisico
  * @property integer $id_usuario
+ * @property integer $casa_entregada
  * @property string $fecha_inicio
  * @property integer $id_pasos
  * @property string $fecha_fin
@@ -193,7 +194,37 @@ class Tramite extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-                $criteria->condition = 'inicio = 1';
+                $criteria->condition = 'inicio = 1 AND id_pasos!=11';
+		$criteria->compare('id_tramite',$this->id_tramite);
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+		$criteria->compare('descripcion',$this->descripcion,true);
+		$criteria->compare('fecha_pazysalvo',$this->fecha_pazysalvo,true);
+		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
+		$criteria->compare('id_usuario',$this->id_usuario);
+		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+		$criteria->compare('id_pasos',$this->id_pasos);
+		$criteria->compare('fecha_fin',$this->fecha_fin,true);
+		$criteria->compare('id_razones_estado',$this->id_razones_estado);
+		$criteria->compare('id_estado',$this->id_estado);
+		$criteria->compare('fecha_paso',$this->fecha_paso,true);
+		$criteria->compare('id_responsable_ejecucion',$this->id_responsable_ejecucion);
+		$criteria->compare('plano',$this->plano,true);
+		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
+		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
+		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
+		$criteria->compare('inicio',$this->inicio);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
+                public function tramitesliquidados()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+                $criteria->condition = 'inicio = 1 AND id_pasos=11';
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('descripcion',$this->descripcion,true);

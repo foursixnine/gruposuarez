@@ -147,12 +147,45 @@ class TramitePasos extends CActiveRecord
 		));
 	}
 
-        	public function tramitesanteriores($id)
+        public function tramitesanteriores($id)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
-
+               
 		$criteria=new CDbCriteria;
- $criteria->compare('id_tramite',$id);
+                $criteria->compare('id_tramite',$id);
+		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
+		$criteria->compare('id_tramite',$this->id_tramite);
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+		$criteria->compare('fecha_pazysalvo',$this->fecha_pazysalvo,true);
+		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
+		$criteria->compare('id_usuario',$this->id_usuario);
+		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+		$criteria->compare('id_razones_estado',$this->id_razones_estado);
+		$criteria->compare('id_estado',$this->id_estado);
+		$criteria->compare('id_paso',$this->id_paso);
+		$criteria->compare('fecha_paso',$this->fecha_paso,true);
+		$criteria->compare('id_banco',$this->id_banco);
+		$criteria->compare('id_responsable_ejecucion',$this->id_responsable_ejecucion);
+		$criteria->compare('id_tipo_responsable',$this->id_tipo_responsable);
+		$criteria->compare('firma_cliente',$this->firma_cliente,true);
+		$criteria->compare('firma_promotora',$this->firma_promotora,true);
+		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
+		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
+		$criteria->compare('plano',$this->plano,true);
+		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
+        public function tramitesliquidados($id)
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+               
+		$criteria=new CDbCriteria;
+            //    $criteria->compare('id_tramite',$id);
+                $criteria->condition = 'id_tramite = ."'.$id.'" ';
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);

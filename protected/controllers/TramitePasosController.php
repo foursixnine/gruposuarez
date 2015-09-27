@@ -27,11 +27,11 @@ public function accessRules()
 {
         return array(
         array('allow',  // allow all users to perform 'index' and 'view' actions
-            'actions'=>array('index','view','pasoanterior'),
+            'actions'=>array('index','view','pasoanterior','vertramitesliquidados'),
             'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('tramite','update','pasoanterior','detalleliquidacion'),
+            'actions'=>array('tramite','update','pasoanterior','detalleliquidacion','vertramitesliquidados'),
          //   'users'=>array('@'),
              'users'=>array('*'),
         ),
@@ -617,6 +617,38 @@ if(isset($_POST['TramitePasos']))
 ));
 }
 
+/**********************VER TRAMITES LIQUIDADOS**********************************************/
+public function actionVerTramitesLiquidados($id){
+    
+    //var_dump($id);die;
+    /*$model = TramitePasos::model()->tramitesanteriores($id);
+       $model = TramitePasos::model()->findAll('id_tramite=:id_tramite', array(
+                                              ':id_tramite'=>$id,
+                                            //  ':id_paso'=>2,
+                                            ));*/
+        $tramitesliquidados = Yii::app()->db->createCommand()
+    ->select('tp.id_tramite,tp.id_paso, c.nombre_de_empresa, tp.fecha_inicio, tp.fecha_paso, 
+        t.plano, t.fecha_entrega, t.ganancia_capital, t.permiso_ocupacion, 
+        t.inicio, t.fecha_escritura, t.fecha_inscripcion_escritura, t.num_escritura, 
+        t.num_finca_inscrita, t.transferencia_inmueble, t.num_permiso_ocupacion')
+    ->from('tramite_pasos tp')
+    ->join('tramite t', 'tp.id_tramite = t.id_tramite AND tp.id_tramite=63')
+    ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs GROUP BY 
+            tp.id_paso, tp.id_tramite, c.nombre_de_empresa, tp.fecha_inicio, tp.fecha_paso, 
+            t.plano, t.fecha_entrega, t.ganancia_capital, t.permiso_ocupacion,
+            t.inicio, t.fecha_escritura, t.fecha_inscripcion_escritura, t.num_escritura, 
+            t.num_finca_inscrita, t.transferencia_inmueble, t.num_permiso_ocupacion 
+            order by tp.id_paso')      
+    ->queryAll(true);
+
+        
+                  // var_dump($tramitesliquidados);die;                         
+    $this->render('vertramitesliquidados',array(
+         'tramitesliquidados'=>$tramitesliquidados,
+    ));
+    
+    
+}
 /**
 * Deletes a particular model.
 * If deletion is successful, the browser will be redirected to the 'admin' page.

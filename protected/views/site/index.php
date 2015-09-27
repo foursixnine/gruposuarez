@@ -43,7 +43,7 @@
     <!-- Remuneracion -->
     <a href="<?php echo Yii::app()->createUrl('calculoRemuneracion/calculoremunecacioncobradora/'); ?>">    
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/remuneracion.png' ?> " />
-             <button type="button" class="btn btn-warning">REMUNERACION</button>
+             <button type="button" class="btn btn-warning">REMUNERACI&Oacute;N</button>
      
     </a>    
     &nbsp; &nbsp; &nbsp;
@@ -57,7 +57,7 @@
     <!-- Tramites -->
     <a href="<?php echo Yii::app()->createUrl('usuarios/inicio/'); ?>">
         <img width="120px" height="120px" src="<?php echo Yii:: app() ->baseUrl.'/images/administracion.png' ?> "  />
-        <button type="button" class="btn btn-warning">ADMINISTRACION</button>
+        <button type="button" class="btn btn-warning">ADMINISTRA&Oacute;N</button>
             
     </a>
   

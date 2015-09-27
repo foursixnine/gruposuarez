@@ -52,10 +52,11 @@
 							)
                                 ),
                                 array('label'=>'REMUNERACION', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
-                                array('label'=>'TRAMITES', 'url'=>array('/tramite/admin'),
+                                array('label'=>'TRAMITES', 'url'=>array('/tramite/index'),
 							'items'=>array(
-								array('label'=>'Iniciar Tramite', 'url'=>array('/tramite/admin')),
-							
+								array('label'=>'Administrar Tramites', 'url'=>array('/tramite/admin')),
+                                                                array('label'=>'Tramites en Transito', 'url'=>array('/tramite/tramite/continuartramites')),
+                                                                array('label'=>'Tramites Liquidados', 'url'=>array('/tramite/tramite/tramitesliquidados')),
 							)
                                 ),
                                 array('label'=>'TABLEROS', 'url'=>array('/tableros/')),

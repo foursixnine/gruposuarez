@@ -22,17 +22,19 @@ array('label'=>'Volver','url'=>array('admin')),
 
 <br/><br/>
 
-<button type="button" class="btn btn-warning">TRAMITES EN CURSO</button>
+<button type="button" class="btn btn-warning">TRAMITES LIQUIDADOS</button>
 
 
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'tramite-grid',
-'dataProvider'=>$model->tramitadora(),
+'dataProvider'=>$model->tramitesliquidados(),
 'filter'=>$model,
 'columns'=>array(
+                'idUsuario.nombre',
                 'fecha_inicio',
                 'idClienteGs.proyecto',
                 'idClienteGs.numero_de_lote',
+                
     	             array(
                     'name'=>'id_pasos',
                     'header'=>'Paso',
@@ -45,8 +47,9 @@ array('label'=>'Volver','url'=>array('admin')),
             {
                 Controller::widget('bootstrap.widgets.TbProgress', array(
                     'percent' => ($data->id_pasos)/ 11 * 100,
-                    'striped' => true,
-                    'animated' => true,
+                    //'striped' => true,
+                    'context' => 'success',
+                    'animated' => false,
                     ));
             },
             'htmlOptions' => array (
@@ -63,8 +66,8 @@ array('label'=>'Volver','url'=>array('admin')),
                         'template' => '{continuar_tramite} ',
                         'buttons' => array(
                              'continuar_tramite' => array(
-                                    'label'=>'Continuar Tramite',
-                                    'url'=>'Yii::app()->createUrl("/tramitePasos/tramite/",array("id"=>$data["id_tramite"]))',
+                                    'label'=>'Ver Tramite',
+                                    'url'=>'Yii::app()->createUrl("/tramitePasos/vertramitesliquidados/",array("id"=>$data["id_tramite"]))',
                                     
                        ) )
             ), 

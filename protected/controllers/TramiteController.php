@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites'),
+        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados'),
         'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites'),
+        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados'),
         //'users'=>array('@'),
          'users'=>array('*'),
     ),
@@ -224,6 +224,23 @@ public function actionContinuarTramites(){
 
 }
 
+/**********************TRAMITES LIQUIDADOS*************************************/
+public function actionTramitesLiquidados(){
+            
+            $model = new Tramite('search');
+            $tramitadora = new Tramite('tramitesliquidados');
+            $tramitadora->unsetAttributes();  // clear any default values
+
+            if(isset($_GET['Tramite']))
+            $tramitadora->attributes=$_GET['Tramite'];
+
+            $this->render('tramitesliquidados',array(
+                    'model'=>$model,
+                    'tramitadora'=>$tramitadora,   
+                    
+            ));
+
+}
 
 /**
 * Returns the data model based on the primary key given in the GET variable.

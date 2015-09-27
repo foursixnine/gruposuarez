@@ -16,6 +16,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 array('label'=>'Listar Tramites','url'=>array('listar')),
 array('label'=>'Tramites en Transito','url'=>array('continuartramites')),
+array('label'=>'Tramites Liquidados','url'=>array('tramitesliquidados')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -46,6 +47,7 @@ $this->widget('booster.widgets.TbGridView',array(
                 'nombre_de_empresa',
                 'status_de_lote', 
                 'numero_de_lote',
+                'fecha_de_permiso_ocupacion',
                 array(
                     'name'=>'id_proyecto',
                     'header'=>'Proyecto',
@@ -79,9 +81,11 @@ $this->widget('booster.widgets.TbGridView',array(
 'filter'=>$tramitadora,
 'columns'=>array(
                 'fecha_pazysalvo',
+    
                 array(
                     'class' => 'bootstrap.widgets.TbEditableColumn',
                     'name' => 'id_expediente_fisico',
+                    
                     'editable' => 
                         array(
                             'type' => 'select',
@@ -94,6 +98,7 @@ $this->widget('booster.widgets.TbGridView',array(
 		'idClienteGs.nombre_de_empresa',
 		'idClienteGs.proyecto',
 		'idClienteGs.numero_de_lote',
+                'idClienteGs.fecha_de_permiso_ocupacion',
                 array(
                     'class' => 'bootstrap.widgets.TbEditableColumn',
                     'name' => 'id_usuario',
