@@ -32,7 +32,7 @@
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/cobros.png' ?> " />
         <button type="button" class="btn btn-warning">COBROS</button>
   
-    </a>
+    </a>   
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; 
     <!-- Tableros -->
     <a href="<?php echo Yii::app()->createUrl('metas/index'); ?>">
