@@ -52,6 +52,22 @@ public function accessRules()
 */
 public function actionView($id)
 {
+    //var_dump("HOLA");die;
+$auth=Yii::app()->authManager;
+ 
+
+  $bizRule='return !Yii::app()->user->isGuest;';
+  $auth->createRole('authenticated', 'authenticated user', $bizRule);
+ 
+  $bizRule='return Yii::app()->user->isGuest;';
+  $auth->createRole('guest', 'guest user', $bizRule);
+ 
+
+if(Yii::app()->user->checkAccess('admin'))
+{
+    var_dump("HOLAAA");die;
+}
+  
     $this->render('view',array(
         'model'=>$this->loadModel($id),
     ));
