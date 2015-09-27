@@ -13,9 +13,9 @@ public $layout='//layouts/column2';
 */
 public function filters()
 {
-return array(
-'accessControl', // perform access control for CRUD operations
-);
+    return array(
+           'accessControl', // perform access control for CRUD operations
+    );
 }
 
 /**
@@ -50,9 +50,9 @@ return array(
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+    $this->render('view',array(
+         'model'=>$this->loadModel($id),
+    ));
 }
 
 /**
@@ -73,9 +73,9 @@ public function actionCreate()
         $this->redirect(array('view','id'=>$model->id_tablero));
     }
 
-$this->render('create',array(
-'model'=>$model,
-));
+    $this->render('create',array(
+          'model'=>$model,
+    ));
 }
 
 public function actionCreateAnillos()
@@ -1236,18 +1236,20 @@ public function actionCreateTramitesOne()
    $totalpaso= array();
 
     $paso = Yii::app()->db->createCommand()
-    ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, 
+    ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, m.descripcion as nommes,
        COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
-    ->from('tramite_pasos t, cliente c, proyecto p')
-    ->where(' p.id_crm_proyecto=c.id_proyecto and c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
-    group by t.id_paso, mes, crmproyecto
+    ->from('tramite_pasos t, cliente c, proyecto p, meses m')
+    ->where(' p.id_crm_proyecto=c.id_proyecto and 
+        m.id_meses=date_part('. "'month'".', t.fecha_paso) and
+         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
+    group by t.id_paso, mes, crmproyecto, nommes
     order by mes')
     ->queryAll(true);
    $mes_paso = array();
    $totalliquidado = array();
    $totalpaso = array();
     foreach($paso as $t=>$key) {
-array_push($mes_paso, $key['mes']);
+array_push($mes_paso, $key['nommes']);
 array_push($totalliquidado, (int)$key['total_liquidado']);
 array_push($totalpaso, $key['totalpaso']);
 }
@@ -1271,14 +1273,19 @@ array_push($totalpaso, $key['totalpaso']);
                         $usuario = $_POST['Tableros']['id_usuario'];
                         $queryumes="";
                         $queryusuario="";
-                        
+                        $queryproyecto="";
+
+
+                        if($proyecto!=""){
+                            $queryproyecto = "AND t.id_usuario=$usuario"; 
+                        }
+
                         if($usuario!=""){
                             $queryusuario = "AND t.id_usuario=$usuario"; 
                         }
   
                         if($mes!=""){                            
                             $queryumes= "AND date_part('month', t.fecha_paso) = $mes";
-                            
                         }
       var_dump($queryumes);
                             
@@ -1431,6 +1438,9 @@ public function actionCreateTramitesTwo()
                     $queryusuario="";
                     if($usuario!=""){
                         $queryusuario = "AND t.id_usuario=$usuario"; 
+                    }
+                    if($usuario!=""){
+                        $queryusuario = "AND c.id_proyecto=$proyecto"; 
                     }
                             //Query donde obtengo los datos
                             $paso = Yii::app()->db->createCommand()

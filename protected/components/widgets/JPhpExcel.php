@@ -4,21 +4,22 @@
  * JPhpExcel class file.
  *
  * @author jerry2801 <jerry2801@gmail.com>
- * @version alpha1
+ * @version alpha 2
+ * @required php-excel Version 1.1 <http://code.google.com/p/php-excel/>
  *
  * A typical usage of JPhpExcel is as follows:
  * <pre>
  *
- * $data = array(
- *     1 => array ('Name', 'Surname'),
- *     array('Schwarz', 'Oliver'),
- *     array('Test', 'Peter')
+ * $data=array(
+ *     1=>array ('Name','Surname'),
+ *     array('Schwarz','Oliver'),
+ *     array('Test','Peter')
  * );
  *
- * Yii::import('application.extensions.phpexcel.JPhpExcel');
- * $xls = new JPhpExcel('UTF-8', false, 'My Test Sheet');
+ * Yii::import('ext.phpexcel.JPhpExcel');
+ * $xls=new JPhpExcel;
  * $xls->addArray($data);
- * $xls->generateXML('my-test');
+ * $xls->generateXML('中文名',false);
  * </pre>
  */
 

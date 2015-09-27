@@ -33,7 +33,13 @@
                             ?>
                         </td>
 
-                        <td><?php  echo $data->monto_mes_proyecto;  ?></td>
+                        <td>
+                            <strong><font color="#610B0B">$
+                             <?php
+                                echo number_format($data->monto_mes_proyecto,2,'.',',');
+                             ?>
+                            </strong></font>
+                        </td>
                     </tr>  
                     
                     <tr>
@@ -50,14 +56,13 @@
                                    ->from('payments p, quotes_details qd')
                                    ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-09-01'".' and '. "'2015-09-31'".' and project = '."'".$data->id_crm_proyecto."'")
                                    ->queryScalar();
-                             }
-                        
-                             echo $cobrado;
-                        
-                        
-                        
-                        
-                            ?></td>
+                             } ?>
+                            <strong><font color="#610B0B">$
+                                <?php 
+                                echo number_format($cobrado,2,'.',',');
+                                 ?>
+                            </strong></font>
+                        </td>
                     </tr>                
                      <tr>
                         <td>
@@ -67,8 +72,10 @@
                         </td>
 
                         <td>
-                               <strong><?php $porcentajev = $cobrado / $data->monto_mes_proyecto * 100;?>
-                                     <?php echo number_format($porcentajev, 2, '.', '');?>   %</strong>
+                               <strong><font color="#610B0B">
+                                <?php $porcentajev = $cobrado / $data->monto_mes_proyecto * 100;?>
+                                     <?php echo number_format($porcentajev, 2, '.', '');?>   %
+                                   </strong></font>
                             <?php $sum+=$porcentajev/$count_proyecto_vencida;?>
                         </td>
                     </tr>
@@ -76,7 +83,7 @@
            </table>
  <?php } ?>        
 
-            <?php echo $sum;?>
+            
         </div>
 </div>
                 

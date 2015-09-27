@@ -101,12 +101,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 ?>
 </div>
 
-<div class="form-group">
-    <?php echo $form->textFieldGroup($model,'plano',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span-14')))); 
-    
-    
-    ?>
-</div>
+
 
 <div class="form-actions">
 <?php $this->widget('booster.widgets.TbButton', array(

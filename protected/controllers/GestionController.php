@@ -27,16 +27,16 @@ class GestionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','gestioncobros','toggle'),
+				'actions'=>array('index','view','gestioncobros','toggle','excel'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gestioncobros'),
+				'actions'=>array('create','update','gestioncobros','excel'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('admin','delete','excel'),
+				'users'=>array('admin','orodriguez','obonilla','ppuerta'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -103,9 +103,9 @@ public function actionCreate($id){
         if(empty($_POST['Gestion']['fecha_acuerdo'])){               
                $model->fecha_acuerdo=NULL;
         }
-    
+        $model->id_usuario=Yii::app()->user->id; 
             
- 
+  
         if($model->save()){
             $clienteupdate = Cliente::model()->updateByPk($cliente->id_cliente_gs,array('gestion' => 1));
             $this->redirect(array('view','id'=>$model->id_gestion));
@@ -221,15 +221,64 @@ public function actionCreate($id){
 	 */
 	public function actionAdmin()
 	{
-                $model= new CustomersView('noventadias');
+                $model = new Gestion('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CustomersView']))
-			$model->attributes=$_GET['CustomersView'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-                ));   
+		if(isset($_GET['Gestion'])){
+			$model->attributes=$_GET['Gestion'];
+		}
+	
+    	$this->render('admin', array('model' => $model));   
 	}
+
+    public function actionExcel() {
+
+    
+		$issueDataProvider = $_SESSION['Gestion'];
+		$i = 0;
+    
+        //fix column header. 
+        //Could have used something like this - $data[]=array_keys($issueDataProvider->data[0]->attributes);. 
+        //But that would return all attributes which i do not want
+     /*   $data[$i]['id_gestion'] = 'Id Gestion';
+        $data[$i]['fecha_acuerdo'] = 'Fecha Acuerdo';
+        $data[$i]['observaciones'] = 'observaciones';
+
+        $i++;
+        
+        //populate data array with the required data elements
+        foreach($issueDataProvider->data as $issue)
+        {
+            $data[$i]['id_gestion'] = $issue['id_gestion'];
+            $data[$i]['fecha_acuerdo'] = $issue['fecha_acuerdo'];
+            $data[$i]['observaciones'] = $issue['observaciones'];
+   			
+            $i++;
+        }*/
+             foreach ($d->data as $item) {
+            $data[] = $item->attributes;
+
+        }
+       // var_dump($data);die;
+ Yii::app()->request->sendFile('Gestiones.xls',
+                                $this->renderPartial('excel',array(
+                                    'data'=>$data,
+                                ),true)
+                
+                );
+        
+        /*
+   // var_dump($data);die;
+Yii :: import ('application.extensions.phpexcel.JPhpExcel');
+          
+
+ $this->layout=false;
+
+        $xls = new JPhpExcel('UTF-8', false, 'test');
+        $xls->addArray($data);
+        $xls->generateXML('test_file');*/
+
+    }
+
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

@@ -4,26 +4,27 @@ $this->breadcrumbs=array(
 	$model->id_gestion,
 );
 
-
+$this->menu=array(
+array('label'=>'Volver','url'=>array('cliente/detalle')),
+);
 ?>
 
 
+<button type="button" class="btn btn-warning">Detalle de  la Gesti&oacute;n #<?php echo $model->id_gestion; ?></button>
 
-<h1>Detalle de la Gesti&oacute;n #<?php echo $model->id_gestion; ?></h1>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
-		'id_gestion',
 		'id_cliente',
+		'idClienteGs.nombre_de_empresa',
+		'idClienteGs.proyecto',
+		'idClienteGs.numero_de_lote',
 		'contactado_llamada',
 		'llamada_voz',
-               
-    
-    
 		'idAcuerdoCobros.descripcion',
 		'fecha_acuerdo',
 		'idGestionLlamadas.descripcion',
-                'observaciones',
+        'observaciones',
 ),
 )); ?>

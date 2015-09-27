@@ -24,8 +24,7 @@ return false;
 ");
 ?>
 <br/>
-<h1>Administrar Meta</h1>
-
+<button class="btn btn-warning">ADMINISTRAR META</button>
 <div>
 <?php /*echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
@@ -36,6 +35,8 @@ return false;
 
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'metas-grid',
+'type' => 'striped bordered condensed',
+'template' => "{items}",
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(

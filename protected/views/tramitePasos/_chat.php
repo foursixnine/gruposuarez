@@ -51,32 +51,6 @@ $this->widget('booster.widgets.TbGridView',array(
 
 ),
 ));
-      /*
-         //     var_dump($gestion_old);die;
-          foreach ($chat_mostrar as $row) {
-
-            echo $message = "<table><tr>
-                            <td><strong>Comentario:</strong></td>
-                            <td style='border: 1px solid #E2E2E2; height:30px; padding-left:5px; padding-right: 5px;'> ".$row['descripcion']."</td>
-                            </tr>
-                            
-                            <tr>
-                             <td><strong>Tramitador:</strong></td>
-                             <td style='border: 1px solid #E2E2E2; height:30px; padding-left:5px; padding-right: 5px;'>
-                             
-                             </td><br/>
-                            
-                             </tr>
-                        </table>";
-        }*/
+     
         
-
-/*
-$this->widget('zii.widgets.TbGridView', array(
-    'data'=>$chat_mostrar,
-    'attributes'=>array(
-        'descripcion',
-
-    ),
-));
 ?>

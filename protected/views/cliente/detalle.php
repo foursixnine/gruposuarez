@@ -36,14 +36,15 @@ $this->widget('booster.widgets.TbGridView',array(
 'filter'=>$model,
 'columns'=>
         array(
-		'nombre_de_empresa',		
-		'numero_de_lote',
-                'cartera_30_dias',
-                'cartera_60_dias',
-                'cartera_90_dias',
-                'cartera_120_dias',         
-                'total_vencido',
-            'status_plan_pago',
+                    'nombre_de_empresa',		
+                    'numero_de_lote',
+                    'cartera_corriente',
+                    'cartera_30_dias',
+                    'cartera_60_dias',
+                    'cartera_90_dias',
+                    'cartera_120_dias',         
+                    'total_vencido',
+                    'status_plan_pago',
                 array(
                     'name'=>'id_proyecto',
                     'header'=>'Proyecto',

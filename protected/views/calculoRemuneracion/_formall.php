@@ -11,7 +11,7 @@ $mes_actual= date("n");
 $variablephp=0;
 //var_dump($count_proyecto_corriente);die;
 
-//////////////////////////CORRIENTE//////////////////////////
+//////////////////////////TRASLADO DE CARTERA//////////////////////////
 
 $sumv=0;
 $sumpf=0;
@@ -41,21 +41,22 @@ $sumpi=0;
                                  $sumpf+=$sum_pivote_final_mes;
                          
 
-                         
-                  
-                              echo $resta = (($sumpf) - ($sumpi));
-                            //  echo $resta = $sumpf - $sumpi;'<br/>';
-                             $data->monto_mes_proyecto;'<br/>';
-                            $cumplimiento = 1.0 - ($resta / $data->monto_mes_proyecto);
-                            $cumplimiento_final = $cumplimiento*100;
-                           $sum+=$cumplimiento_final/$count_proyecto_corriente;
-                           
+                        $diferencia =  (($sum_pivote_final_mes) - ($sum_pivote_inicio_mes));
+                        number_format($diferencia,2,'.',',');
+                        $total = ((int)$diferencia / (int)$sum_pivote_inicio_mes)*100;
+                         if ($total <= 5){
+                                       $sum=100;
+                                    }elseif($total == 6 || $total <= 10) {
+                                       $sum=70;
+                                    }else{
+                                         $sum=0;
+                         }   
                            
                            
                            
    }
 
-   echo number_format($sum, 2, '.', '');
+
 
 //////////////////////////////VENCIDA/////////////////////////
   
@@ -72,7 +73,7 @@ $sumpi=0;
                         
                           
                   
-                        echo $porcentajev = $cobrado / $data->monto_mes_proyecto * 100;
+                         $porcentajev = $cobrado / $data->monto_mes_proyecto * 100;
                                   
                                  
                            $sumv+=$porcentajev/$count_proyecto_vencida;

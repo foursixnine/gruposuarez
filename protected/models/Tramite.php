@@ -27,7 +27,7 @@
  * @property string $num_escritura
  * @property string $num_finca_inscrita
  * @property string $transferencia_inmueble
- *
+ * @property string $num_permiso_ocupacion
  * The followings are the available model relations:
  * @property Chat[] $chats
  * @property Cliente $idClienteGs
@@ -105,11 +105,12 @@ class Tramite extends CActiveRecord
 			'ganancia_capital' => 'Ganancia Capital',
 			'permiso_ocupacion' => 'Permiso Ocupacion',
 			'inicio' => 'Inicio',
-                        'fecha_escritura' => 'Fecha Escritura',
+            'fecha_escritura' => 'Fecha Escritura',
 			'fecha_inscripcion_escritura' => 'Fecha Inscripcion Escritura',
 			'num_escritura' => 'Num Escritura',
 			'num_finca_inscrita' => 'Num Finca Inscrita',
-			'transferencia_inmueble' => 'Transferencia Inmueble',
+			'transferencia_inmueble' => 'Impuesto Transferencia de Inmueble',
+			'num_permiso_ocupacion'  => 'Num Permiso de Ocupacion',
 		);
 	}
 

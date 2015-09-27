@@ -78,18 +78,18 @@ class Gestion extends CActiveRecord
 	{
 		return array(
 			'id_gestion' => 'Id Gestion',
-			'contactado_llamada' => 'Lista desplegable de si o no.',
-			'llamada_voz' => 'En caso de ser no en el contacto llamada (lista desplegable) si o no',
+			'contactado_llamada' => 'Llamada de Voz',
+			'llamada_voz' => 'Mensaje de Voz',
 			'id_acuerdo_cobros' => 'Id Acuerdo Cobros',
-			'fecha_acuerdo' => 'Fecha Acuerdo',
+			'fecha_acuerdo' => 'Fecha de Acuerdo Gestión',
 			'id_gestion_llamadas' => 'Id Gestion Llamadas',
 			'observaciones' => 'Observaciones',
-			'id_cumplimiento' => 'Id Cumplimiento',
+			'id_cumplimiento' => 'Cumplimiento',
 			'id_cliente' => 'Id Cliente',
 			'id_crm_proyecto' => 'Id Crm Proyecto',
 			'id_usuario' => 'Id Usuario',
 			'id_cliente_gs' => 'Id Cliente Gs',
-                        'fecha_creacion'=> 'Fecha Gestión',
+            'fecha_creacion'=> 'Fecha Gestión',
 		);
 	}
 
@@ -123,7 +123,7 @@ class Gestion extends CActiveRecord
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 		$criteria->compare('id_usuario',$this->id_usuario);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
-                $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+        $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -163,6 +163,39 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
                 'totalItemCount'=>'50',
                 ));    
 	}
+	public function excel()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id_gestion',$this->id_gestion);
+		$criteria->compare('contactado_llamada',$this->contactado_llamada);
+		$criteria->compare('llamada_voz',$this->llamada_voz);
+		$criteria->compare('id_acuerdo_cobros',$this->id_acuerdo_cobros);
+		$criteria->compare('fecha_acuerdo',$this->fecha_acuerdo,true);
+		$criteria->compare('id_gestion_llamadas',$this->id_gestion_llamadas);
+		$criteria->compare('observaciones',$this->observaciones,true);
+		$criteria->compare('id_cumplimiento',$this->id_cumplimiento);
+		$criteria->compare('id_cliente',$this->id_cliente,true);
+		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
+		$criteria->compare('id_usuario',$this->id_usuario);
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+        $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+
+        $data = new CActiveDataProvider(get_class($this), array(
+                  //      'pagination'=>array('pageSize'=> Yii::app()->user->getState('pageSize',
+                    //                                                    Yii::app()->params['defaultPageSize']),),
+                        'pagination' => array('pageSize' => 50),
+                        'criteria'=>$criteria,
+                ));
+
+        $_SESSION['Gestion']=$data; // get all data and filtered data :)
+
+        return $data;
+	}
+
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

@@ -150,15 +150,14 @@ class Excel_XML
          * Generate the excel file
          * @param string $filename Name of excel file to generate (...xls)
          */
-        public function generateXML ($filename = 'excel-export', $correctFilename=true)
+        public function generateXML ($filename = 'excel-export')
         {
                 // correct/validate filename
-                if($correctFilename)
-                    $filename = preg_replace('/[^aA-zZ0-9\_\-]/', '', $filename);
+                $filename = preg_replace('/[^aA-zZ0-9\_\-]/', '', $filename);
     	
                 // deliver header (as recommended in php manual)
                 header("Content-Type: application/vnd.ms-excel; charset=" . $this->sEncoding);
-                header("Content-Disposition: inline; filename=\"" . $filename . ".xls\"");
+                header("Content-Disposition: inline; filename=\"" . $filename . ".odt\"");
 
                 // print out document to the browser
                 // need to use stripslashes for the damn ">"

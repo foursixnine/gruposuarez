@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 
 	$this->menu=array(
 	//array('label'=>'Tramites Anteriores','url'=>array('admin')),
-            array('label'=>'Tramites Anteriores','url'=>array('admin','id'=>$tramite->id_tramite)),
-        array('label'=>'Volver al Paso Anteriror','url'=>array('pasoanterior','id'=>$tramite->id_tramite)),
+        array('label'=>'Tramites Anteriores','url'=>array('admin','id'=>$tramite->id_tramite)),
+        //array('label'=>'Volver al Paso Anteriror','url'=>array('pasoanterior','id'=>$tramite->id_tramite)),
 	);
 
 $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
@@ -17,6 +17,30 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 )); 
  
 ?>
+<?php
+
+
+ $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+  'id'=>'midialogo',
+  // Opciones adicionales javascript
+  'options'=>array(
+   'title'=>'Tramites de Pasos',
+   'autoOpen'=>true,
+
+  
+  ),
+ ));
+
+
+     echo 'Hola estas en el paso # '. $tramite->id_pasos .' APURATE!!!!';
+
+    $this->endWidget('zii.widgets.jui.CJuiDialog');
+
+    // Link que abre la ventana de diálogo
+   echo CHtml::link('Abrir ventana', '#', array(
+      'onclick'=>'$("#midialogo").dialog("open"); return false;',
+   )); 
+  ?>
 <br/>
 <?php
 $new=0;
@@ -122,7 +146,8 @@ $(function(){
                                                 'class' => 'col-sm-5',
                                         ),
                                         'widgetOptions' => array(
-                                                'data' => array('Seleccione ...', 
+                                                'data' => array(
+                                                     0=>'---SELECCONE---',
                                                     1=>'SOLICITUD DE MINUTA DE CANCELACIÓN A BANCO INTERINO Y FIRMA DE MINUTA',
                                                     2=>'CONFECCIONAR MINUTA DE VENTA'),
                                                 'htmlOptions' => array(),
@@ -240,7 +265,7 @@ $(function(){
         );  
     ?>
                     
-    <!-------------*************RAZONES DE ESTADO****************---------------------------------------> 
+    <!-------------*************RAZONES DE ESTADO****************-------------> 
     
     <?php echo $form->dropDownListGroup(
 			$model,
@@ -292,7 +317,7 @@ $(function(){
 
 </fieldset>                      
        
-
+  <!-------------*************BOTONES DE ACTUALIZAR Y CERRAR PASO****************-------------> 
 <div class="form-actions">
     
 	
@@ -303,11 +328,17 @@ $(function(){
 			'buttonType'=>'submit',
 			'context'=>'primary',
 			'label'=>$model->isNewRecord ? 'Cerrar Paso' : 'Save',
-		)); 
-                
-                
-      
+
+		)); ?>
+
+       <div class="buttons">      
+    <?php  echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',
+    array(
+    'confirm'=> '¿Esta seguro que desea pasar al siguiente paso? ',   
+   // type="button",   
+    'class' => 'btn btn-warning' ));  
         ?>
+ </div> 
 </div>
 
                       

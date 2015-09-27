@@ -32,6 +32,7 @@ return array(
 		'application.components.*',
                 'application.extensions.*',
                 'ext.EExcelView.*',
+
                 'application.extensions.yiichat.*',
                 'ext.ECompositeUniqueValidator',
                 'ext.YiiConditionalValidator',
@@ -64,6 +65,8 @@ return array(
                     'responsiveCss' => true, //Esto para que tengamos un dise�o responsive, adaptable a cualquier dispositivo!
 
                 ),
+
+      
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
@@ -103,9 +106,9 @@ return array(
                 //Segunda Conexion
                 'dbconix'=>array(
                         'class' => 'CDbConnection',
-			//'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez',
+			            'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez',
                         'enableProfiling' => YII_DEBUG_PROFILING,
-            	        'connectionString' => 'mysql:host=192.168.0.159;dbname=enx_suarez',
+            	      //  'connectionString' => 'mysql:host=192.168.0.159;dbname=enx_suarez',
 			'emulatePrepare' => true,
 			'username' => 'suarez',
 			'password' => '!suarez2015!',

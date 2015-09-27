@@ -37,6 +37,8 @@ $this->widget('booster.widgets.TbGridView',array(
 'columns'=>       
      array(
                     'nombre_de_empresa',
+                    'numero_de_lote',
+                   'cartera_corriente',
                     'cartera_30_dias',
                     'cartera_60_dias',
                     'cartera_90_dias',
