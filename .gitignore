@@ -1,3 +1,5 @@
-/protected/runtime*
-/assets/*
-protected/runtime/*   
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db

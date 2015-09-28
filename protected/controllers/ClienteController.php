@@ -261,7 +261,22 @@ public function actionPerfilcliente($id){
     
    
     $gestion = new Gestion();
+    $model = new Tramite ();
+    $tramitadora = new Tramite('search');
+    $tramitadora->unsetAttributes();  // clear any default values
     
+
+    if(isset($_GET['Cliente'])){
+                            $cliente->attributes=$_GET['Cliente'];
+                        // print_r($_GET['Customers']);
+    }
+            
+    if(isset($_GET['Tramite'])){            
+                            $tramitadora->attributes=$_GET['Tramite'];
+                        // print_r($_GET['Customers']);
+    }
+
+
     $cliente= Cliente::model()->find('id_cliente=:id_cliente',
                                array(':id_cliente'=>$id));
   
@@ -279,6 +294,8 @@ public function actionPerfilcliente($id){
                           'cliente'=>$cliente,
                           'gestion_old'=>$gestion_old,
                           'tramite'=>$tramite,
+                          'tramitadora'=>$tramitadora,
+                          'model'=>$model,
 ));
     
 } 

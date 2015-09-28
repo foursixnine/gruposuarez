@@ -234,14 +234,23 @@ public function actionCreate($id){
 
     
 		$issueDataProvider = $_SESSION['Gestion'];
+		$cliente = new Cliente();
 		$i = 0;
-    
+
+      //var_dump($issueDataProvider);die;
+     
+   /*   foreach($issueDataProvider as $record) {
+    $names[] = $record->apellido;
+  }
+  return array_unique($names);die;*/
         //fix column header. 
         //Could have used something like this - $data[]=array_keys($issueDataProvider->data[0]->attributes);. 
         //But that would return all attributes which i do not want
-     /*   $data[$i]['id_gestion'] = 'Id Gestion';
+        $data[$i]['id_gestion'] = 'Id Gestion';
         $data[$i]['fecha_acuerdo'] = 'Fecha Acuerdo';
         $data[$i]['observaciones'] = 'observaciones';
+   $data[$i]['apellido'] = 'apellido';
+    $data[$i]['idClienteGs']='id_cliente_gs';
 
         $i++;
         
@@ -252,13 +261,15 @@ public function actionCreate($id){
             $data[$i]['fecha_acuerdo'] = $issue['fecha_acuerdo'];
             $data[$i]['observaciones'] = $issue['observaciones'];
    			
+            $data[$i]['apellido'] = $issue['apellido'];
+              var_dump($data);die;
             $i++;
-        }*/
-             foreach ($d->data as $item) {
+        }
+             foreach ($issueDataProvider->data as $item) {
             $data[] = $item->attributes;
 
         }
-       // var_dump($data);die;
+      
  Yii::app()->request->sendFile('Gestiones.xls',
                                 $this->renderPartial('excel',array(
                                     'data'=>$data,

@@ -174,9 +174,9 @@ var baseurl="<?php print Yii::app()->request->baseUrl;?>";
 				'wrapperHtmlOptions' => array(
 					'class' => 'col-sm-1',
 				),
-                            	'widgetOptions' => array(
+              /*              	'widgetOptions' => array(
 					'htmlOptions' => array('disabled' => true)
-				),
+				),*/
 				'append' => '%'
 			)
 		); ?>
@@ -188,8 +188,27 @@ var baseurl="<?php print Yii::app()->request->baseUrl;?>";
                  'model' => $model,
                  'attribute' => 'peso',
                  'data' => array(
-             
-                    '5' => '5'),
+'5' => '5',
+'10' => '10',
+'15' => '15',
+'20' => '20',
+'25' => '25',
+'30' => '30',
+'35' => '35',
+'40' => '40',
+'45' => '45',
+'50' => '50',
+'55' => '55',
+'60' => '60',
+'65' => '65',
+'70' => '70',
+'75' => '75',
+'80' => '80',
+'85' => '85',
+'90' => '90',
+'95' => '95',
+'100' => '100',
+),
 
                  'options' => array(
                   // 'placeholder' => "Peso Cartera Corriente",
@@ -198,7 +217,7 @@ var baseurl="<?php print Yii::app()->request->baseUrl;?>";
                    'minimumInputLength'=>2,*/
                  ),
                  'htmlOptions'=>array(
-                     'disabled' => true,
+                  //   'disabled' => true,
                    'style'=>'width:380px',
                      
                  ),
@@ -220,7 +239,7 @@ var baseurl="<?php print Yii::app()->request->baseUrl;?>";
                         'widgetOptions' => array(
                             'htmlOptions' => array(
                             'class'=>'span5',
-                                'disabled' => true,
+                 //               'disabled' => true,
                             'style' => 'width:590px;'), 
 ),
 				'append' => '%'
@@ -236,8 +255,26 @@ var baseurl="<?php print Yii::app()->request->baseUrl;?>";
                  'attribute' => 'peso1',
                  'data' => array(
                     
-                 
-                    '95' => '95'),
+'5' => '5',
+'10' => '10',
+'15' => '15',
+'20' => '20',
+'25' => '25',
+'30' => '30',
+'35' => '35',
+'40' => '40',
+'45' => '45',
+'50' => '50',
+'55' => '55',
+'60' => '60',
+'65' => '65',
+'70' => '70',
+'75' => '75',
+'80' => '80',
+'85' => '85',
+'90' => '90',
+'95' => '95',
+'100' => '100'),
 
                  'options' => array(
                 //   'placeholder' => "Peso Cartera Vencida",
@@ -247,7 +284,7 @@ var baseurl="<?php print Yii::app()->request->baseUrl;?>";
                  ),
                  'htmlOptions'=>array(
                    'style'=>'width:380px',
-                     'disabled' => true
+                    // 'disabled' => true
                  ),
                ));
    ?>
@@ -268,7 +305,7 @@ var baseurl="<?php print Yii::app()->request->baseUrl;?>";
 				  'widgetOptions' => array(
                             'htmlOptions' => array(
                             'class'=>'span5',
-                                'disabled' => true,
+                              //  'disabled' => true,
                             'style' => 'width:590px;'), 
 ),
 				'append' => '%'

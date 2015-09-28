@@ -14,23 +14,15 @@
       <h1><?php //echo CHtml::link(CHtml::encode(Yii::app()->name),Yii::app()->baseUrl);?></h1>
       <p><?php //echo Yii::app()->params['empresa']; 
 	  echo CHtml::image(Yii::app()->theme->baseUrl."/images/demo/logo1.png");
-       //echo Yii::app()->request->baseUrl."images/logo.png";
+       echo Yii::app()->request->baseUrl."images/logo.png";
          ?>      
       </p>
     </div>
 	<div style="text-align:right">
-    <?php
-	/*$this->widget('ext.components.language.XLangMenu', array(
-		'encodeLabel'=>false,
-		'hideActive'=>false,
-		'items'=>array(
-			'es'=>CHtml::image(Yii::app()->request->baseUrl.'/images/es.gif').' Spanish',
-			'en'=>CHtml::image(Yii::app()->request->baseUrl.'/images/en.png').' In English'
-		),
-	));*/?>
+
 	</div>
 	
-    <div class="fl_right"><a href="#"><?php //echo CHtml::image(Yii::app()->theme->baseUrl."/images/demo/gsuarezlogo.png");?></a></div>
+    <div class="text-align:right"><a href="#"><?php //echo CHtml::image(Yii::app()->theme->baseUrl."/images/demo/gsuarezlogo.png");?></a></div>
   </div>
 </div>
 

@@ -64,6 +64,8 @@ $this->widget('bootstrap.widgets.TbTabs', array(
                  'content'=>$this->renderPartial("_datostramites", array(
                                             'cliente' => $cliente,
                                            'tramite' => $tramite,
+                                           'tramitadora' =>$tramitadora,
+                                           'model'=>$model,
         ),true),
 
         ),   

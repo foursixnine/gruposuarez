@@ -1,4 +1,9 @@
-<?php
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
+    'id'=>'calculo-remuneracion-form',
+    //'enableAjaxValidation'=>true,
+        'enableAjaxValidation'=>false,
+)); 
+
 function dias_transcurridos($fecha_i,$fecha_f)
 {
 	$dias	= (strtotime($fecha_i)-strtotime($fecha_f))/86400;
@@ -46,13 +51,44 @@ function dias_transcurridos($fecha_i,$fecha_f)
                                 
                     <tr>
                         <td><?php            
-                        echo CHtml::label('Estatus Tramite','',array('size'=>8));  ?></td>            
+                        echo CHtml::label('Estatus de Expedientes','',array('size'=>8));  ?></td>            
                         <td>
                               <?php 
+                              /*
                             if(!empty($tramite->id_estado)){                        
                                  echo $tramite->idExpedienteFisico["descripcion"];
                             }
+                           */
+
                             ?>
+
+                          
+
+
+<?php echo $form->labelEx($model, 'Peso Cartera Vencidad');?><br/>
+        <?php $this->widget(
+                 'booster.widgets.TbSelect2', array(            
+                 'model' => $model,
+                 'attribute' => 'id_expediente_fisico',
+                 'data' => array(
+                    
+                 
+                    '95' => '95'),
+
+                 'options' => array(
+                //   'placeholder' => "Expediente Fisico",
+                  //     'id' => "proyecto",
+                  /* 'allowClear'=>true,
+                   'minimumInputLength'=>2,*/
+                 ),
+                 'htmlOptions'=>array(
+                   'style'=>'width:380px',
+                    // 'disabled' => true
+                 ),
+               ));
+   ?>
+                          
+
                         </td>
                     </tr>
                     
