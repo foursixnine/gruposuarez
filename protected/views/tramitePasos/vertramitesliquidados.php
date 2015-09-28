@@ -21,7 +21,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 <!----------------------------------------------------------------------------------->
 
 <button type="button" class="btn btn-warning">Actualizaci&oacute;n de Tramite</button>
-
+       <br/>  
  
         <br/>
         <?php echo $form->textAreaGroup(
@@ -37,8 +37,19 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 			)
 		); ?>
 	
-        <?php echo $form->textFieldGroup($model,'casa_entregada',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
-        <br/>        
+        <?php echo $form->radioButtonListGroup(
+			$model,
+			'casa_entregada',
+			array(
+				'widgetOptions' => array(
+					'data' => array(
+						'SI',
+						'NO',
+					)
+				)
+			)
+		); ?>
+       <br/>     
         <?php echo CHtml::submitButton('GUARDAR',array('name'=>'updatetramite')); ?>
 
 <?php $this->endWidget(); ?>
