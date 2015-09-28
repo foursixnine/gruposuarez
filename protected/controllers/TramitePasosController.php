@@ -393,36 +393,21 @@ public function actionTramite($id)
                                          ':id_paso'=>2,
                                         ));
 
-                   /* if(empty($tramite_two->fecha_paso)){
+                    if(empty($tramite_two)){
 
                     //Actualizo la Tabla Tramite Paso
-                    $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                                'id_estado'   =>$model->id_estado,                                        
-                                                'fecha_solicitud'=>$model->fecha_solicitud,
-                                                'fecha_recibido'=>$model->fecha_recibido,
-                                                'firma_promotora'=>$model->firma_promotora,
-                                                'firma_cliente'=>$model->firma_cliente,
-                                                'fecha_paso'   =>$hoy,                                               
-                                                'id_razones_estado' => $model->id_razones_estado
-                                                                  ),
-                                                                  'id_paso=2 and id_tramite ='.$id 
-                                                            );
+               
                           $model->fecha_inicio=$tramite->fecha_inicio;  
                           $model->id_tramite=$id; 
                           $model->id_cliente_gs=$tramite->id_cliente_gs; 
                           $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
                           $model->id_expediente_fisico=$tramite->id_expediente_fisico;
                           $model->id_usuario=$tramite->id_usuario;
-                          //$pasoactual=$tramite->id_pasos;
                           $model->id_paso=2;
-                          $tramite_actividad->id_paso=$tramite->id_pasos;
-                          $tramite_actividad->id_tramite=$id;
-                  
                           //Guardo el tramite    
                           $model->save();
-                          //Guardo la Activudad
-                          $tramite_actividad->save();
-                  }*/
+                        
+                  }
 
                          
                 $this->redirect(array('tramite','id'=>$id));
