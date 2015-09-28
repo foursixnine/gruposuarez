@@ -621,11 +621,9 @@ if(isset($_POST['TramitePasos']))
 public function actionVerTramitesLiquidados($id){
     
     //var_dump($id);die;
-    /*$model = TramitePasos::model()->tramitesanteriores($id);
-       $model = TramitePasos::model()->findAll('id_tramite=:id_tramite', array(
-                                              ':id_tramite'=>$id,
-                                            //  ':id_paso'=>2,
-                                            ));*/
+        $model = new Tramite();
+
+        $tramitesactividad = TramiteActividad::model()->tramitesactividad($id);
         $tramitesliquidados = Yii::app()->db->createCommand()
     ->select('tp.id_tramite,tp.id_paso, c.nombre_de_empresa, tp.fecha_inicio, tp.fecha_paso, 
         t.plano, t.fecha_entrega, t.ganancia_capital, t.permiso_ocupacion, 
@@ -645,6 +643,8 @@ public function actionVerTramitesLiquidados($id){
                   // var_dump($tramitesliquidados);die;                         
     $this->render('vertramitesliquidados',array(
          'tramitesliquidados'=>$tramitesliquidados,
+         'tramitesactividad'=>$tramitesactividad,
+         'model'=>$model
     ));
     
     
