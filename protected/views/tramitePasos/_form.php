@@ -19,7 +19,7 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 ?>
 <?php
 
-
+/*
  $this->beginWidget('zii.widgets.jui.CJuiDialog',array(
   'id'=>'midialogo',
   // Opciones adicionales javascript
@@ -39,7 +39,7 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
     // Link que abre la ventana de diálogo
    echo CHtml::link('Abrir ventana', '#', array(
       'onclick'=>'$("#midialogo").dialog("open"); return false;',
-   )); 
+   )); */
   ?>
 <br/>
 <?php
@@ -321,18 +321,18 @@ $(function(){
 <div class="form-actions">
     
 	
-        
-             <?php    echo CHtml::submitButton('Actualizar',array('name'=>'actualizar')); 
+         <div class="buttons">      
+             <?php    echo CHtml::submitButton('ACTUALIZAR',array('name'=>'actualizar')); 
        
-                $this->widget('booster.widgets.TbButton', array(
+              /*  $this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'context'=>'primary',
 			'label'=>$model->isNewRecord ? 'Cerrar Paso' : 'Save',
 
-		)); ?>
+		)); */?>
 
-       <div class="buttons">      
-    <?php  echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',
+      
+    <?php  echo CHtml::submitButton($model->isNewRecord ? 'CERRAR PASO' : 'Save',
     array(
     'confirm'=> '¿Esta seguro que desea pasar al siguiente paso? ',   
    // type="button",   
