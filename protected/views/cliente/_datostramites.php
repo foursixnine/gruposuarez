@@ -1,7 +1,9 @@
 <?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
-    'id'=>'calculo-remuneracion-form',
-    //'enableAjaxValidation'=>true,
-        'enableAjaxValidation'=>false,
+    'id'=>'tramite-form',
+    'enableAjaxValidation'=>false,
+    //  'id' => 'inlineForm',
+        'type' => 'inline',
+     //   'htmlOptions' => array('class' => 'well'),
 )); 
 
 function dias_transcurridos($fecha_i,$fecha_f)
@@ -10,7 +12,38 @@ function dias_transcurridos($fecha_i,$fecha_f)
 	$dias 	= abs($dias); $dias = floor($dias);		
 	return $dias;
 }
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+$('.search-form').toggle();
+return false;
+});
+$('.search-form form').submit(function(){
+$.fn.yiiGridView.update('tramite-grid', {
+data: $(this).serialize()
+});
+return false;
+});
+");
 ?>
+<?php echo $form->errorSummary($model); ?>
+ <?php
+                    $this->widget(
+                      'booster.widgets.TbSelect2', array(
+                      'model' => $model,
+                      'attribute' => 'id_razones_estado',
+                      'data' => CHtml::listData(RazonesEstado::model()->findAll(), 'id_razones_estado', 'descripcion'),
+                      'options' => array(
+                      'placeholder' => "RAZONES DE ESTADO",
+                       /* 'allowClear'=>true,
+                        'minimumInputLength'=>2,*/
+                      ),
+                      'htmlOptions'=>array(
+                        'style'=>'width:80px',
+                      ),
+                    ));
+        ?>
+<?php $this->endWidget(); ?>
   <!-----------***********************  TRAMITES ************************--->  
     <div class="row">
     <div class="col-sm-6" style="background-color:#f2dede;">     
@@ -20,10 +53,7 @@ function dias_transcurridos($fecha_i,$fecha_f)
               <!--  <a><image src="../../images/email.png" /></a>-->
             </a>
   
-        
-  
-    
-     
+
             <table class="list-group-item"">
                 <tbody>
                     <tr>
@@ -54,39 +84,19 @@ function dias_transcurridos($fecha_i,$fecha_f)
                         echo CHtml::label('Estatus de Expedientes','',array('size'=>8));  ?></td>            
                         <td>
                               <?php 
-                              /*
-                            if(!empty($tramite->id_estado)){                        
+                              
+                          /*  if(!empty($tramite->id_estado)){                        
                                  echo $tramite->idExpedienteFisico["descripcion"];
-                            }
-                           */
+                            }*/
+
 
                             ?>
 
                           
 
 
-<?php echo $form->labelEx($model, 'Peso Cartera Vencidad');?><br/>
-        <?php $this->widget(
-                 'booster.widgets.TbSelect2', array(            
-                 'model' => $model,
-                 'attribute' => 'id_expediente_fisico',
-                 'data' => array(
-                    
-                 
-                    '95' => '95'),
 
-                 'options' => array(
-                //   'placeholder' => "Expediente Fisico",
-                  //     'id' => "proyecto",
-                  /* 'allowClear'=>true,
-                   'minimumInputLength'=>2,*/
-                 ),
-                 'htmlOptions'=>array(
-                   'style'=>'width:380px',
-                    // 'disabled' => true
-                 ),
-               ));
-   ?>
+    
                           
 
                         </td>
@@ -147,3 +157,4 @@ function dias_transcurridos($fecha_i,$fecha_f)
 </div>
 </div>
     </div>
+

@@ -1277,7 +1277,7 @@ array_push($totalpaso, $key['totalpaso']);
 
 
                         if($proyecto!=""){
-                            $queryproyecto = "AND t.id_usuario=$usuario"; 
+                            $queryproyecto = "p.id_crm_proyecto='$proyecto' AND c.id_proyecto='$proyecto'"; 
                         }
 
                         if($usuario!=""){
@@ -1287,14 +1287,14 @@ array_push($totalpaso, $key['totalpaso']);
                         if($mes!=""){                            
                             $queryumes= "AND date_part('month', t.fecha_paso) = $mes";
                         }
-      var_dump($queryumes);
+    //  var_dump($queryproyecto);die;
                             
       
     $paso = Yii::app()->db->createCommand()
     ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, 
        COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
     ->from('tramite_pasos t, cliente c, proyecto p')
-    ->where('p.id_crm_proyecto='."'".$proyecto."'".' and c.id_proyecto='."'".$proyecto."'".' '.$queryusuario.' and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
+    ->where(' '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
     group by t.id_paso, mes, crmproyecto
     order by mes')
     ->queryAll(true);
@@ -1439,8 +1439,8 @@ public function actionCreateTramitesTwo()
                     if($usuario!=""){
                         $queryusuario = "AND t.id_usuario=$usuario"; 
                     }
-                    if($usuario!=""){
-                        $queryusuario = "AND c.id_proyecto=$proyecto"; 
+                    if($proyecto!=""){
+                        $queryproyecto = "AND c.id_proyecto='$proyecto'"; 
                     }
                             //Query donde obtengo los datos
                             $paso = Yii::app()->db->createCommand()
@@ -1452,7 +1452,7 @@ public function actionCreateTramitesTwo()
                             ->from('tramite t')
                             ->join('paso pa', 'pa.id_paso = t.id_pasos')
                             ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
-                            ->join('proyecto p', 'p.id_crm_proyecto = c.id_proyecto '.$queryusuario.' AND c.id_proyecto='."'".$proyecto."'".' GROUP BY 
+                            ->join('proyecto p', 'p.id_crm_proyecto = c.id_proyecto '.$queryproyecto.' '.$queryusuario.' GROUP BY 
                                     t.id_pasos,  p.titulo,  c.id_proyecto, pa.descripcion, pa.abrev
                                     order by t.id_pasos')      
                             ->queryAll(true);

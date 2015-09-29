@@ -236,40 +236,68 @@ public function actionCreate($id){
 		$issueDataProvider = $_SESSION['Gestion'];
 		$cliente = new Cliente();
 		$i = 0;
+	    /**
+	    **
+		** getData() : Devuelve los elementos de datos disponibles en la actualidad.
+		** agarra todo ese objeto y lo convierte en un array. Es lo que entiendo
+	    **/
+		//echo '<pre>';
+     	 //print_r($issueDataProvider);
+        //echo '</pre>';
 
-      //var_dump($issueDataProvider);die;
-     
-   /*   foreach($issueDataProvider as $record) {
-    $names[] = $record->apellido;
-  }
-  return array_unique($names);die;*/
+    // die;
+	/*	 foreach($issueDataProvider->getData(true) as $queryData)
+        {
+     // $queryData = $issueDataProvider->getData(true);
+    	//$record->apellido;
+		echo '<pre>';
+     	 print_r($queryData->idClienteGs->apellido);
+     	 	 print_r($queryData->id_cumplimiento);
+        echo '</pre>';
+    
+  		}*/
+
+//var_dump($queryData);die;
         //fix column header. 
         //Could have used something like this - $data[]=array_keys($issueDataProvider->data[0]->attributes);. 
         //But that would return all attributes which i do not want
-        $data[$i]['id_gestion'] = 'Id Gestion';
-        $data[$i]['fecha_acuerdo'] = 'Fecha Acuerdo';
+       /* $data[$i]['id_gestion'] = 'id_gestion';
+        $data[$i]['id_crm_proyecto'] = 'id_crm_proyecto';
+        $data[$i]['proyecto'] = 'proyecto';
+        $data[$i]['fecha_acuerdo'] = 'fecha_acuerdo';
+        $data[$i]['id_cumplimiento'] = 'id_cumplimiento';
         $data[$i]['observaciones'] = 'observaciones';
-   $data[$i]['apellido'] = 'apellido';
-    $data[$i]['idClienteGs']='id_cliente_gs';
+  		$data[$i]['nombre_de_empresa'] = 'nombre_de_empresa';*/
 
+      
         $i++;
         
         //populate data array with the required data elements
-        foreach($issueDataProvider->data as $issue)
+        foreach($issueDataProvider->getData(true) as $queryData)
         {
-            $data[$i]['id_gestion'] = $issue['id_gestion'];
-            $data[$i]['fecha_acuerdo'] = $issue['fecha_acuerdo'];
+        	
+			$data[$i]['id_gestion'] = $queryData->id_gestion;
+			$data[$i]['id_crm_proyecto'] = $queryData->id_crm_proyecto;
+			$data[$i]['proyecto'] = $queryData->idClienteGs->proyecto;
+			$data[$i]['numero_de_lote'] = $queryData->idClienteGs->numero_de_lote;
+			$data[$i]['nombre_de_empresa'] = $queryData->idClienteGs->nombre_de_empresa;
+			$data[$i]['descripcion'] = $queryData->idAcuerdoCobros->descripcion;
+			$data[$i]['fecha_acuerdo'] = $queryData->fecha_acuerdo;
+			$data[$i]['id_cumplimiento'] = $queryData->id_cumplimiento;
+			$data[$i]['observaciones'] = $queryData->observaciones;
+			
+           /* $data[$i]['fecha_acuerdo'] = $issue['fecha_acuerdo'];
             $data[$i]['observaciones'] = $issue['observaciones'];
    			
-            $data[$i]['apellido'] = $issue['apellido'];
-              var_dump($data);die;
+            $data[$i]['nombre_de_empresa'] = $issue['nombre_de_empresa'];*/
+            
             $i++;
         }
-             foreach ($issueDataProvider->data as $item) {
+     /*   foreach ($issueDataProvider->data as $item) {
             $data[] = $item->attributes;
 
-        }
-      
+        }*/
+       
  Yii::app()->request->sendFile('Gestiones.xls',
                                 $this->renderPartial('excel',array(
                                     'data'=>$data,

@@ -261,7 +261,8 @@ public function actionPerfilcliente($id){
     
    
     $gestion = new Gestion();
-    $model = new Tramite ();
+    $model = new Tramite;
+
     $tramitadora = new Tramite('search');
     $tramitadora->unsetAttributes();  // clear any default values
     
@@ -296,6 +297,7 @@ public function actionPerfilcliente($id){
                           'tramite'=>$tramite,
                           'tramitadora'=>$tramitadora,
                           'model'=>$model,
+
 ));
     
 } 
