@@ -27,15 +27,16 @@ if($data!==null){
      
     
     <tr>
-        <th>ID GESTION</th>
-        <th>ID PROYECTO</th>
-        <th>PROYECTO</th>
-        <th>NUM DE PROPIEDAD</th>  
         <th>NOMBRE CLIENTE</th>
-        <th>ACUERDO</th>
-        <th>FECHA DE ACUERDO</th>
-        <th>CUMPLIMIENTO</th>        
-        <th>OBSERVACIONES</th>
+        <th>CORREO</th>
+        <th>ID PROYECTO</th>
+        <th>PROYECTO</th>  
+        <th>NUM DE PROPIEDAD</th>
+        <th>CARTERA 30</th>
+        <th>CARTERA 60</th>
+        <th>CARTERA 90</th>        
+        <th>CARTERA 120</th>
+        <th>TOTAL VENCIDO</th>
         
 
 
