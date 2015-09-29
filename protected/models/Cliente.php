@@ -425,6 +425,45 @@ class Cliente extends CActiveRecord
       
         ));
 	}
+
+	public function clientesexcel()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+ $criteria->condition = 'status_plan_pago  != '."'RETIRO'".' ';
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+  $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
+
+		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('apellido',$this->apellido,true);
+		$criteria->compare('status',$this->status,true);
+		$criteria->compare('proyecto',$this->proyecto,true);
+		$criteria->compare('numero_de_lote',$this->numero_de_lote,true);
+		$criteria->compare('id_cliente',$this->id_cliente,true);
+		$criteria->compare('id_proyecto',$this->id_proyecto,true);
+
+
+		$criteria->compare('cartera_corriente',$this->cartera_corriente,true);
+		$criteria->compare('cartera_30_dias',$this->cartera_30_dias,true);
+		$criteria->compare('cartera_60_dias',$this->cartera_60_dias,true);
+		$criteria->compare('cartera_90_dias',$this->cartera_90_dias,true);
+		$criteria->compare('cartera_120_dias',$this->cartera_120_dias,true);
+		$criteria->compare('total_vencido',$this->total_vencido,true);
+
+        $criteria->order = 'CARTERA_90_DIAS DESC';
+		
+
+
+   $data = new CActiveDataProvider(get_class($this), array(
+                                'criteria'=> $criteria,     
+                                'pagination' => array('pageSize' =>10000),
+
+                'totalItemCount'=>'5000',   ));
+        $_SESSION['Cliente']=$data; // get all data and filtered data :)
+
+        return $data;
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

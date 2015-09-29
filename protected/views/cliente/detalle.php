@@ -25,7 +25,6 @@ Yii::app()->clientScript->registerScript('search', "
 <br/><br/><br/><br/>
 <button type="button" class="btn btn-warning">DETALLE CLIENTES</button>
 
-<?php //echo $hola; ?> 
 
 <?php //echo $this->renderPartial('detalle', array('model'=>$model)); ?>
 <?php 

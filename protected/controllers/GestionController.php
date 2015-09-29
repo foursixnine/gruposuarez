@@ -27,16 +27,16 @@ class GestionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','gestioncobros','toggle','excel'),
+				'actions'=>array('index','view','gestioncobros','toggle','excel','indexreportes','morocidadcliente','excelcm'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gestioncobros','excel'),
+				'actions'=>array('create','update','gestioncobros','excel','indexreportes','morocidadcliente','excelcm'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','excel'),
-				'users'=>array('admin','orodriguez','obonilla','ppuerta'),
+				'users'=>array('admin','orodriguez','obonilla','ppuerta','osoto'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -236,42 +236,10 @@ public function actionCreate($id){
 		$issueDataProvider = $_SESSION['Gestion'];
 		$cliente = new Cliente();
 		$i = 0;
-	    /**
-	    **
-		** getData() : Devuelve los elementos de datos disponibles en la actualidad.
-		** agarra todo ese objeto y lo convierte en un array. Es lo que entiendo
-	    **/
-		//echo '<pre>';
-     	 //print_r($issueDataProvider);
-        //echo '</pre>';
-
-    // die;
-	/*	 foreach($issueDataProvider->getData(true) as $queryData)
-        {
-     // $queryData = $issueDataProvider->getData(true);
-    	//$record->apellido;
-		echo '<pre>';
-     	 print_r($queryData->idClienteGs->apellido);
-     	 	 print_r($queryData->id_cumplimiento);
-        echo '</pre>';
-    
-  		}*/
-
-//var_dump($queryData);die;
-        //fix column header. 
-        //Could have used something like this - $data[]=array_keys($issueDataProvider->data[0]->attributes);. 
-        //But that would return all attributes which i do not want
-       /* $data[$i]['id_gestion'] = 'id_gestion';
-        $data[$i]['id_crm_proyecto'] = 'id_crm_proyecto';
-        $data[$i]['proyecto'] = 'proyecto';
-        $data[$i]['fecha_acuerdo'] = 'fecha_acuerdo';
-        $data[$i]['id_cumplimiento'] = 'id_cumplimiento';
-        $data[$i]['observaciones'] = 'observaciones';
-  		$data[$i]['nombre_de_empresa'] = 'nombre_de_empresa';*/
-
       
         $i++;
         
+
         //populate data array with the required data elements
         foreach($issueDataProvider->getData(true) as $queryData)
         {
@@ -285,11 +253,6 @@ public function actionCreate($id){
 			$data[$i]['fecha_acuerdo'] = $queryData->fecha_acuerdo;
 			$data[$i]['id_cumplimiento'] = $queryData->id_cumplimiento;
 			$data[$i]['observaciones'] = $queryData->observaciones;
-			
-           /* $data[$i]['fecha_acuerdo'] = $issue['fecha_acuerdo'];
-            $data[$i]['observaciones'] = $issue['observaciones'];
-   			
-            $data[$i]['nombre_de_empresa'] = $issue['nombre_de_empresa'];*/
             
             $i++;
         }
@@ -298,27 +261,90 @@ public function actionCreate($id){
 
         }*/
        
- Yii::app()->request->sendFile('Gestiones.xls',
+ 		Yii::app()->request->sendFile('Gestiones.xls',
                                 $this->renderPartial('excel',array(
                                     'data'=>$data,
                                 ),true)
                 
-                );
+        );
+
+	}
+
+	/**
+	 * INDEX DE REPORTES
+	 */
+	public function actionIndexReportes()
+	{
+
+
+		$this->render('indexreportes');
+               
+	}
+	/**
+	 * MOROCIDAD CLIENTE
+	 */
+
+
+	public function actionMorocidadCliente()
+	{
+        $model = new Cliente('clientesexcel');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Cliente'])){
+			$model->attributes=$_GET['Cliente'];
+		}
+	
+    	$this->render('morocidadcliente', array('model' => $model));   
+	}
+
+	 public function actionExcelcm() {
+
+    
+		$issueDataProvider = $_SESSION['Cliente'];
+		$cliente = new Cliente();
+		$i = 0;
+      
+      
         
-        /*
-   // var_dump($data);die;
-Yii :: import ('application.extensions.phpexcel.JPhpExcel');
-          
+      //populate data array with the required data elements
+      /*  foreach($issueDataProvider->getData(true) as $queryData)
+        {
+        	
+	 echo "<pre>";
+    print_r($queryData); // or var_dump($data);
+    echo "</pre>";	
+		die;
+        }*/
+        //populate data array with the required data elements
+        foreach($issueDataProvider->getData(true) as $queryData)
+        {
+        	
+			$data[$i]['nombre_de_empresa'] = $queryData->nombre_de_empresa;
+			$data[$i]['correo'] = $queryData->correo;
+			$data[$i]['id_proyecto'] = $queryData->id_proyecto;
+			$data[$i]['proyecto'] = $queryData->proyecto;
+			$data[$i]['numero_de_lote'] = $queryData->numero_de_lote;
+			$data[$i]['cartera_30_dias'] = $queryData->cartera_30_dias;
+			$data[$i]['cartera_60_dias'] = $queryData->cartera_60_dias;
+			$data[$i]['cartera_90_dias'] = $queryData->cartera_90_dias;
+			$data[$i]['cartera_120_dias'] = $queryData->cartera_120_dias;
+			$data[$i]['total_vencido'] = $queryData->cartera_120_dias;
 
- $this->layout=false;
+            $i++;
+        }
+     /*   foreach ($issueDataProvider->data as $item) {
+            $data[] = $item->attributes;
 
-        $xls = new JPhpExcel('UTF-8', false, 'test');
-        $xls->addArray($data);
-        $xls->generateXML('test_file');*/
+        }*/
+       
+ 		Yii::app()->request->sendFile('morocidadcliente.xls',
+                                $this->renderPartial('excelcm',array(
+                                    'data'=>$data,
+                                ),true)
+                
+        );
 
-    }
-
-
+	}
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -356,7 +382,7 @@ Yii :: import ('application.extensions.phpexcel.JPhpExcel');
                'cliente'=>$cliente,
             
             ));
- }
+ 	}
  
  
 }

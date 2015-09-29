@@ -48,20 +48,18 @@ if($data!==null){
         
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
-                <td><?php echo $value['id_gestion'];?></td>
-                <td><?php echo $value['id_crm_proyecto']; ?></td>
+                <td><?php echo $value['nombre_de_empresa'];?></td>
+                <td><?php echo $value['correo'];?></td> 
+                <td><?php echo $value['id_proyecto']; ?></td>
                 <td><?php echo $value['proyecto']; ?></td>
                 <td><?php echo $value['numero_de_lote']; ?></td>
-                <td><?php echo $value['nombre_de_empresa'];?></td>
-                <td><?php echo $value['descripcion'];?></td>
-                <td><?php echo $value['fecha_acuerdo']; ?></td>
-                <?php if($value['id_cumplimiento']!=0){ ?>
-                <td>SI</td>
-                <?php }else{ ?>
-                <td>NO</td>
-                <?php } ?>
-                
-                <td><?php echo $value['observaciones'];?></td>
+                <td><?php echo $value['cartera_30_dias'];?></td>
+                <td><?php echo $value['cartera_60_dias'];?></td>
+                <td><?php echo $value['cartera_90_dias']; ?></td>
+                <td><?php echo $value['cartera_120_dias']; ?></td>
+                <td><?php echo $value['total_vencido']; ?></td>
+             
+
                 
             </tr>
     <?php } ?>  

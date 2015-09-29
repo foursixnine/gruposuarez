@@ -1,12 +1,11 @@
 <?php
 $this->breadcrumbs=array(
-	'Gestions'=>array('index'),
-	'Manage',
+	'Gestión'=>array('index'),
+	'Administrar Gestiones',
 );
 
 $this->menu=array(
-array('label'=>'List Gestion','url'=>array('index')),
-array('label'=>'Create Gestion','url'=>array('create')),
+array('label'=>'Volver','url'=>array('index')),
 array('label'=>'Exportar y descargar', 'url'=>array('excel'))
                                         
 );
@@ -24,9 +23,9 @@ Yii::app()->clientScript->registerScript('search', "
         });
 ");
 ?>
+<br/>
 
-<h1>Manage Gestions</h1>
-
+<button type="button" class="btn btn-warning">ADMISTRAR GESTION</button>
 
 
 <?php 

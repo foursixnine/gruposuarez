@@ -67,7 +67,7 @@ return array(
                 ),
 
       
-		'user'=>array(
+			'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
                         

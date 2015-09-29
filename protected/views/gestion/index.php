@@ -7,6 +7,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 array('label'=>'Listar Gestion','url'=>array('admin')),
 array('label'=>'Detalle de Cliente','url'=>array('cliente/detalle')),
+array('label'=>'Reporte de Cobros','url'=>array('gestion/indexreportes')),
 );
 /*
 Yii::app()->clientScript->registerScript('search', "
