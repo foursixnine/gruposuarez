@@ -36,7 +36,7 @@
 				array('label'=>'INICIO', 'url'=>array('/site/index')),
                                 array('label'=>'COBROS', 'url'=>array('/gestion')),
                      
-				array('label'=>'METAS', 'url'=>array('/metas'),
+				array('label'=>'METAS', 'url'=>array('/metas/indexmetas'),
 							'items'=>array(
 								array('label'=>'Nuevo', 'url'=>array('/metas/create')),
 								array('label'=>'Administrar', 'url'=>array('/metas/admin')),
