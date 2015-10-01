@@ -11,9 +11,12 @@ $this->breadcrumbs=array(
 ?>
 
 
-
+             <p ><button type="button" class="btn btn-warning">BIENENVENIDO AL SISTEMA ANTERES</button>                            
+       <h2 class="titulo" align="center"></h2>
+    </p>
+    <br/>
 <div class="form">
-<!--<div class="logininicio" align="center">-->
+<div class="logininicio" align="center">
     <br/><br/>
 <?php //echo Yii::app()->params['empresa']; 
 	  //echo CHtml::image(Yii::app()->theme->baseUrl."/images/demo/logo1.png");
@@ -22,10 +25,7 @@ $this->breadcrumbs=array(
    <!-- <img src='<?php //echo Yii::app()->theme->baseUrl.'/images/demo/logo1.png' ?>' height='200' width='200' />                
        -->                                    
                                         
-                                           
-       <h2 class="titulo">Bienvenido al sistema "ANTARES"</h2>
-    
-    <br/>
+     
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -34,7 +34,7 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<p>Fields with <span class="required">*</span> are required.</p>
+	<p>Todos los campos con <span class="required">*</span> son requeridos.</p>
 
 	<div class="">
 		<?php echo $form->labelEx($model,'username'); ?>
@@ -46,9 +46,9 @@ $this->breadcrumbs=array(
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
+		<!--<p class="hint">
 			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
+		</p>-->
 	</div>
 
 	<div class="row rememberMe">
@@ -64,3 +64,4 @@ $this->breadcrumbs=array(
 <br/><br/><br/><br/><br/><br/><br/><br/>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+</div>

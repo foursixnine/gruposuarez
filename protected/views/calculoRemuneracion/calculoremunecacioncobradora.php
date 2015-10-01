@@ -4,8 +4,9 @@ array('label'=>'Asignar Proyecto a Cobradora','url'=>array('metas/admin')),
 
 );
 ?>
-<h1>Perfil de Cobradora</h1>
 
+
+<button type="button" class="btn btn-warning">C&#193;LCULO DE REMUNERACI&#211;N COBRADORA</button>
 
 <?php
 

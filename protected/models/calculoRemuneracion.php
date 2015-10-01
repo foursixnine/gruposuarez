@@ -65,7 +65,7 @@ class calculoRemuneracion extends CActiveRecord
 		return array(
 			'id_calculo_remuneracion' => 'Calculo Remuneracion',
 			'id_usuario' => 'Usuario',
-			'resultado' => 'Resultado Cartera Corriente',
+			'resultado' => 'Resultado Translado de Cartera',
 			'id_pago_remuneracion' => 'Id Pago Remuneracion',
 			'cumplimiento' => 'Cumplimiento Total',
 			'peso' => 'Peso Cartera Corriente',

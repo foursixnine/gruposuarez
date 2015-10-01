@@ -15,17 +15,18 @@ array('label'=>'Administrar Metas','url'=>array('admin')),
 );
 ?>
 
-<h1>View Metas #<?php echo $model->id_meta; ?></h1>
+
+<button type="button" class="btn btn-warning">VER META</button>
+
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
-		'id_meta',
+		'idCrmProyecto.titulo',
 		'monto',
 		'porcentaje_meta',
 		'monto_mes_proyecto',
 		'id_usuario',
-		'idCrmProyecto.titulo',
 		'mes0.descripcion',
 		'idTipoMeta.descripcion',
 ),

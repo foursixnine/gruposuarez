@@ -31,17 +31,16 @@ Yii::app()->clientScript->registerScript('search', "
 <!--<span>INICIAR GESTI&Oacute;N DE COBROS</span>-->
 <div class="">
        <!-- Remuneracion -->
-    <a href="<?php echo Yii::app()->createUrl('gestion/morocidadcliente'); ?>">
+    <a href="<?php echo Yii::app()->createUrl('metas/create'); ?>">
   
-        <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/cobros.png' ?> " />
-        <button type="button" class="btn btn-warning"> MOROSIDAD <br/>POR CLIENTE</button>
+        <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/crearmetas.png' ?> " />
+        <button type="button" class="btn btn-warning"> CREAR <br/>METAS</button>
      
     </a>      
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <!-- Tramites-->
-    <a href="<?php echo Yii::app()->createUrl('gestion/morosidadproyecto'); ?>">
-        <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/perfil.png' ?> "  />
-        <button type="button" class="btn btn-warning">MOROSIDAD <br/>POR PROYECTO</button>
+    <!-- Tramites -->
+    <a href="<?php echo Yii::app()->createUrl('metas/admin'); ?>"><img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/administrarmetas.png' ?> " />
+        <button type="button" class="btn btn-warning">ADMINISTRAR <br/>METAS</button>
             
     </a> 
 </div>

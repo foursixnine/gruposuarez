@@ -69,14 +69,14 @@ class Metas extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-		         'id_meta' => 'Id Meta',
+		    'id_meta' => 'Id Meta',
 			'monto' => 'Monto Cartera',
 			'porcentaje_meta' => 'Porcentaje Meta',
 			'monto_mes_proyecto' => 'Monto Meta',
 			'id_usuario' => 'Usuario',
-			'id_crm_proyecto' => 'Id Crm Proyecto',
+			'id_crm_proyecto' => 'ID Proyecto',
 			'mes' => 'Mes',
-			'id_tipo_meta' => 'Id Tipo Meta',
+			'id_tipo_meta' => 'Tipo Meta',
 			'remuneracion' => 'Remuneracion',
 		);
 	}
@@ -108,7 +108,8 @@ class Metas extends CActiveRecord
 		$criteria->compare('mes',$this->mes);
 		$criteria->compare('id_tipo_meta',$this->id_tipo_meta);
 		$criteria->compare('remuneracion',$this->remuneracion);
-
+        $criteria->order = 'id_meta desc';
+        
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

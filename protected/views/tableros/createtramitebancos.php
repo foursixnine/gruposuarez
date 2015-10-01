@@ -18,8 +18,10 @@ array('label'=>'Volver','url'=>'index'),
 ?>
         
 <br/>
-<h2 class="titulo">Bancos por Pasos</h2>
-<br/>
+
+<button type="button" class="btn btn-warning">TIEMPOS POR BANCOS</button>
+
+<br/><br/><br/>
 
 <?php echo $form->errorSummary($model); ?>
 <div class="form-group">
@@ -50,26 +52,22 @@ array('label'=>'Volver','url'=>'index'),
           <?php echo $form->labelEx($model, 'Tramitadora'); ?>
            
           
-           <?php 
-           $this->widget(
-            'booster.widgets.TbSelect2',
-                         array(
-                            'model'=>$model,
-                            'attribute'=>'id_usuario',
-                            'data'=>array(
-                                1=>'Gabriela',
-                                2=>'Oly',
-          
-                            ),
-             'options' => array(
+      <?php
+                    $this->widget(
+                      'booster.widgets.TbSelect2', array(
+                      'model' => $model,
+                      'attribute' => 'id_usuario',
+                      'data' => CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                      'options' => array(
                         'placeholder' => "TRAMITADORA",
-                             'allowClear'=>true,
+                       'allowClear'=>true,
+                      //  'minimumInputLength'=>2,
                       ),
-                                
-                  
-                            
-)); 
-    ?>
+                      'htmlOptions'=>array(
+                        'style'=>'width:380px',
+                      ),
+                    ));
+            ?>
   
 </div>
 
@@ -126,8 +124,8 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
    'scripts' => array(
       'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
       'modules/exporting', // adds Exporting button/menu to chart
-     'themes/light'        // applies global 'grid' theme to all charts
-    //   'themes/white'
+   //  'themes/light'        // applies global 'grid' theme to all charts
+    //  'themes/white'
     ),
     'options' => array(
       'chart' => array(

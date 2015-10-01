@@ -1267,22 +1267,24 @@ array_push($totalpaso, $key['totalpaso']);
               
             ///////////////////////////////////////////  
             
-            if($_POST['Tableros']['id_crm_proyecto'] != "" ){ 
+       //     if($_POST['Tableros']['id_crm_proyecto'] != "" ){ 
                         $proyecto = $_POST['Tableros']['id_crm_proyecto'];
                         $mes = $_POST['Tableros']['mes'];
                         $usuario = $_POST['Tableros']['id_usuario'];
                         $queryumes="";
                         $queryusuario="";
                         $queryproyecto="";
-
+//var_dump($usuario);die;
 
                         if($proyecto!=""){
-                            $queryproyecto = "p.id_crm_proyecto='$proyecto' AND c.id_proyecto='$proyecto'"; 
+                            $queryproyecto = "AND p.id_crm_proyecto='$proyecto' AND c.id_proyecto='$proyecto'"; 
                         }
 
                         if($usuario!=""){
                             $queryusuario = "AND t.id_usuario=$usuario"; 
                         }
+                                                  
+                        
   
                         if($mes!=""){                            
                             $queryumes= "AND date_part('month', t.fecha_paso) = $mes";
@@ -1294,7 +1296,7 @@ array_push($totalpaso, $key['totalpaso']);
     ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, 
        COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
     ->from('tramite_pasos t, cliente c, proyecto p')
-    ->where(' '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
+    ->where('c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
     group by t.id_paso, mes, crmproyecto
     order by mes')
     ->queryAll(true);
@@ -1311,7 +1313,7 @@ array_push($totalpaso, (int)$key['totalpaso']);
     
        
          
-           }
+        //   }
            }      
       
         
@@ -1335,6 +1337,7 @@ array_push($totalpaso, (int)$key['totalpaso']);
 
 public function actionCreateTramitesTwo()
 {
+   
     $model =new Tableros;
     $proyecto="";
     $totalsi="";
@@ -1428,20 +1431,23 @@ public function actionCreateTramitesTwo()
           // !empty($_POST['Tableros']['id_tipo_meta']) or
            !empty($_POST['Tableros']['mes']) 
            ) ){
-    
+     
               
             ///////////////////////////////////////////  
             
-            if($_POST['Tableros']['id_crm_proyecto'] != "" ){ 
+           // if($_POST['Tableros']['id_crm_proyecto'] != "" ){ 
                     $proyecto = $_POST['Tableros']['id_crm_proyecto'];
                     $usuario = $_POST['Tableros']['id_usuario'];
                     $queryusuario="";
+                    $queryproyecto="";
                     if($usuario!=""){
                         $queryusuario = "AND t.id_usuario=$usuario"; 
+
                     }
                     if($proyecto!=""){
                         $queryproyecto = "AND c.id_proyecto='$proyecto'"; 
                     }
+                   
                             //Query donde obtengo los datos
                             $paso = Yii::app()->db->createCommand()
                             ->select('t.id_pasos, 
@@ -1488,7 +1494,7 @@ public function actionCreateTramitesTwo()
                             } 
 
                     
-            }
+           // }
         }      
 
     //Envio  Variables a la Vista
@@ -1608,10 +1614,14 @@ public function actionCreateTramiteBancos()
                     //var_dump($banco);die;
                     $usuario = $_POST['Tableros']['id_usuario'];
                     $queryusuario="";
+                    $querybanco="";
                     if($usuario!=""){
                         $queryusuario = "AND t.id_usuario=$usuario"; 
                     }
-                            //Query donde obtengo los datos
+                    if($banco!=""){
+                        $querybanco = "AND c.id_banco=$banco"; 
+                    }
+                            //Query donde obtengo los datos c.id_banco='."'".$banco."'".'
           
 
                             $paso = Yii::app()->db->createCommand()
@@ -1623,7 +1633,7 @@ public function actionCreateTramiteBancos()
                             ->from('tramite t')
                             ->join('paso pa', 'pa.id_paso = t.id_pasos')
                             ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
-                            ->join('banco b', 'b.id_banco = c.id_banco '.$queryusuario.' AND c.id_banco='."'".$banco."'".' GROUP BY 
+                            ->join('banco b', 'b.id_banco = c.id_banco '.$queryusuario.' '.$querybanco.' GROUP BY 
                                     t.id_pasos,  b.descripcion,  c.id_banco, pa.descripcion, pa.abrev
                                     order by t.id_pasos')      
                             ->queryAll(true);

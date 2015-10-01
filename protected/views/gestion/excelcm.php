@@ -2,7 +2,12 @@
 <?php 
 $x=0;
 if($data!==null){
-
+$sumc=0;
+$sum30=0;
+$sum60=0;
+$sum90=0;
+$sum120=0;
+$sumtv=0;
     ?>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <meta http-equiv="Content-Language" content="pt-br, pt">
@@ -16,7 +21,7 @@ if($data!==null){
         
        
 
-<td colspan="9" color="">
+<td colspan="11"  align="center">
     <br/>
 <div style='background-color:#CCC'><STRONG>REPORTE DE GESTION</STRONG></div>
     <BR>
@@ -32,6 +37,7 @@ if($data!==null){
         <th>ID PROYECTO</th>
         <th>PROYECTO</th>  
         <th>NUM DE PROPIEDAD</th>
+        <th>CARTERA CORRIENTE</th>
         <th>CARTERA 30</th>
         <th>CARTERA 60</th>
         <th>CARTERA 90</th>        
@@ -45,8 +51,12 @@ if($data!==null){
     </tr>
     
     <?php foreach ($data as $value) {
-   
-        
+                $sumc+=$value['cartera_corriente'];
+                $sum30+=$value['cartera_30_dias'];
+                $sum60+=$value['cartera_60_dias'];
+                $sum90+=$value['cartera_90_dias'];
+                $sum120+=$value['cartera_120_dias'];
+                $sumtv+=$value['total_vencido'];
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
                 <td><?php echo $value['nombre_de_empresa'];?></td>
@@ -54,17 +64,48 @@ if($data!==null){
                 <td><?php echo $value['id_proyecto']; ?></td>
                 <td><?php echo $value['proyecto']; ?></td>
                 <td><?php echo $value['numero_de_lote']; ?></td>
+                <td><?php echo $value['cartera_corriente'];?></td>
                 <td><?php echo $value['cartera_30_dias'];?></td>
                 <td><?php echo $value['cartera_60_dias'];?></td>
                 <td><?php echo $value['cartera_90_dias']; ?></td>
                 <td><?php echo $value['cartera_120_dias']; ?></td>
                 <td><?php echo $value['total_vencido']; ?></td>
-             
-
                 
             </tr>
+            
     <?php } ?>  
-</table>
+
+            <tr>
+                <td colspan="10" align="right"><b>CARTERA CORRIENTE</b></td>
+                <td><?php echo $sumc; ?></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="10" align="right"><b>CARTERA 30</b></td>
+                <td><?php echo $sum30; ?></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="10" align="right"><b>CARTERA 6O</b></td>
+                <td><?php echo $sum60; ?></td>
+            </tr>
+
+            <tr>
+                <td colspan="10" align="right"><b>CARTERA 9O</b></td>
+                <td><?php echo $sum90; ?></td>
+            </tr>  
+
+            <tr>
+                <td colspan="10" align="right"><b>CARTERA 12O</b></td>
+                <td><?php echo $sum120; ?></td>
+            </tr> 
+            <tr>
+                <td colspan="10" align="right"><b>TOTAL VENCIDO</b></td>
+                <td><?php echo $sumtv; ?></td>
+            </tr>
+            </table>
     
 <?php }?>
 

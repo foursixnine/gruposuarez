@@ -27,11 +27,11 @@ public function accessRules()
 {
         return array(
         array('allow',  // allow all users to perform 'index' and 'view' actions
-            'actions'=>array('index','view','pasoanterior','vertramitesliquidados'),
+            'actions'=>array('index','view','pasoanterior','vertramitesliquidados','reporte','excelreporte'),
             'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('tramite','update','pasoanterior','detalleliquidacion','vertramitesliquidados'),
+            'actions'=>array('tramite','update','pasoanterior','detalleliquidacion','vertramitesliquidados','reporte','excelreporte'),
          //   'users'=>array('@'),
              'users'=>array('*'),
         ),
@@ -535,6 +535,7 @@ public function actionTramite($id)
                                                                     'id_tramite ='.$id
                                                             );  
             Yii::app()->user->setFlash('success', "Fin del Tramite!");
+            $this->redirect(array('tramitePasos/vertramitesliquidados','id'=>$id));
                             
             }else{
                 $tramiteupdate = Tramite::model()->updateAll(array( 
@@ -742,6 +743,57 @@ public function actionDetalleLiquidacion($id)
              'model'=>$model,
     ));
 }
+/*
+** REPORTE EXCEL
+*/
+
+ public function actionExcelReporte() {
+
+    
+    $issueDataProvider = $_SESSION['TramitePasos'];
+    $cliente = new Cliente();
+    $i = 0;
+      
+        $i++;
+        
+        foreach($issueDataProvider->getData(true) as $queryData)
+        {          
+              $data[$i]['nombre_de_empresa'] = $queryData->idClienteGs->nombre_de_empresa;
+              $data[$i]['proyecto'] = $queryData->idClienteGs->proyecto;
+              $data[$i]['numero_de_lote'] =$queryData->idClienteGs->numero_de_lote;
+              $data[$i]['total_venta'] =  $queryData->idClienteGs->total_venta;
+              $data[$i]['monto_liquidacion'] =  $queryData->idClienteGs->monto_liquidacion;
+              $data[$i]['banco_acreedor'] =  $queryData->idClienteGs->banco_acreedor;
+              $data[$i]['id_usuario'] =  $queryData->id_usuario;
+              $data[$i]['fecha_paso'] =  $queryData->fecha_paso;
+              $data[$i]['fecha_paso'] =  $queryData->fecha_paso; 
+             // $data[$i]['fecha_paso'] =  $queryData->idPaso->descripcion;
+             
+            $i++;
+        }
+
+
+      Yii::app()->request->sendFile('tramitereporte.xls',
+                                $this->renderPartial('excelreporte',array(
+                                    'data'=>$data,
+                                ),true)        
+        );
+
+  }
+
+  /**Re***/
+  public function actionReporte()
+  {
+        $model = new TramitePasos('reporteexcel');
+    $model->unsetAttributes();  // clear any default values
+    if(isset($_GET['TramitePasos'])){
+      $model->attributes=$_GET['TramitePasos'];
+    }
+  
+      $this->render('reporte', array('model' => $model));   
+  }
+
+
 /**
 * Returns the data model based on the primary key given in the GET variable.
 * If the data model is not found, an HTTP exception will be raised.

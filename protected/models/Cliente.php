@@ -388,10 +388,7 @@ class Cliente extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-           /*     
-                $_SESSION['Lectivo-excel']=$data; // get all data and filtered data :)
-
-        return $data;*/
+ 
 	}
         ///////////////////////////PAZ Y SALVO////////////////////////////////////
         
@@ -431,9 +428,9 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
- $criteria->condition = 'status_plan_pago  != '."'RETIRO'".' ';
+ 		$criteria->condition = 'status_plan_pago  != '."'RETIRO'".' ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
-  $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
+  		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
 
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('apellido',$this->apellido,true);
@@ -455,7 +452,7 @@ class Cliente extends CActiveRecord
 		
 
 
-   $data = new CActiveDataProvider(get_class($this), array(
+   		$data = new CActiveDataProvider(get_class($this), array(
                                 'criteria'=> $criteria,     
                                 'pagination' => array('pageSize' =>10000),
 

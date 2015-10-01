@@ -329,7 +329,7 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
     ),  
   array(
             'class'=>'CButtonColumn',
-            'template'=>'{ver}{delete}',
+            'template'=>'{ver}',
             'buttons'=>array
         (
         'ver' => array
@@ -338,12 +338,12 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
             'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
             'url'=>'Yii::app()->createUrl("metas/view", array("id"=>$data->id_meta))',
         ),
-                  'delete' => array
-        (
+       /*              'delete' => array
+     (
             'label'=>'Eliminar Proyecto',
             'imageUrl'=>Yii::app()->request->baseUrl.'/images/delete.png',
             'url'=>'Yii::app()->createUrl("metas/delete", array("id"=>$data->id_meta))',
-        ),
+        ),*/
                       
      ),
         ),

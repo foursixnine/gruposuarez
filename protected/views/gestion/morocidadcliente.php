@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 <br/>
 
-<button type="button" class="btn btn-warning">MOROCIDAD CLIENTE</button>
+<button type="button" class="btn btn-warning">MOROSIDAD CLIENTE</button>
 
 <br/><br/><br/><br/><br/><br/>
 
@@ -48,13 +48,14 @@ $this->widget('booster.widgets.TbExtendedGridView', array(
                     'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
                ), 
 
-        array('name'=>'cartera_corriente', 'header'=>'First name'),
-        array('name'=>'numero_de_lote', 'header'=>'First name'),
+      
+        array('name'=>'numero_de_lote', 'header'=>'LOTE'),
+        array('name'=>'cartera_corriente', 'header'=>'CARTERA CORRIENTE'),
         array('name'=>'cartera_30_dias', 'header'=>'30'),
         array('name'=>'cartera_60_dias', 'header'=>'60'),
         array('name'=>'cartera_90_dias', 'header'=>'90'),
         array('name'=>'cartera_120_dias', 'header'=>'120'),
-         array('name'=>'total_vencido', 'header'=>'120'),
+         array('name'=>'total_vencido', 'header'=>'TOTAL VENCIDO'),
      //   array('name'=>'total_vencido', 'header'=>'120', 'footer'=>'Total Vencido'),
     ),
 

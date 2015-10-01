@@ -35,7 +35,7 @@
     </a>   
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; 
     <!-- Tableros -->
-    <a href="<?php echo Yii::app()->createUrl('metas/index'); ?>">
+    <a href="<?php echo Yii::app()->createUrl('metas/indexmetas'); ?>">
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/tableros.png' ?> "  />
         <button type="button" class="btn btn-warning">METAS</button>
     </a>

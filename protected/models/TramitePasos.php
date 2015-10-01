@@ -26,11 +26,12 @@
  * @property string $fecha_entrega
  *
  * The followings are the available model relations:
- * @property Paso $idPaso
  * @property Estado $idEstado
- * @property ResponsableEjecucion $idResponsableEjecucion
+ * @property Paso $idPaso
  * @property RazonesEstado $idRazonesEstado
+ * @property ResponsableEjecucion $idResponsableEjecucion
  * @property TipoResponsable $idTipoResponsable
+ * @property Cliente $idClienteGs
  */
 class TramitePasos extends CActiveRecord
 {
@@ -66,11 +67,12 @@ class TramitePasos extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idPaso' => array(self::BELONGS_TO, 'Paso', 'id_paso'),
 			'idEstado' => array(self::BELONGS_TO, 'Estado', 'id_estado'),
-			'idResponsableEjecucion' => array(self::BELONGS_TO, 'ResponsableEjecucion', 'id_responsable_ejecucion'),
+			'idPaso' => array(self::BELONGS_TO, 'Paso', 'id_paso'),
 			'idRazonesEstado' => array(self::BELONGS_TO, 'RazonesEstado', 'id_razones_estado'),
+			'idResponsableEjecucion' => array(self::BELONGS_TO, 'ResponsableEjecucion', 'id_responsable_ejecucion'),
 			'idTipoResponsable' => array(self::BELONGS_TO, 'TipoResponsable', 'id_tipo_responsable'),
+			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
 		);
 	}
 
@@ -84,16 +86,16 @@ class TramitePasos extends CActiveRecord
 			'id_tramite' => 'Id Tramite',
 			'id_cliente_gs' => 'Id Cliente Gs',
 			'fecha_pazysalvo' => 'Fecha Pazysalvo',
-			'id_expediente_fisico' => 'Expediente Fisico',
+			'id_expediente_fisico' => 'Id Expediente Fisico',
 			'id_usuario' => 'Id Usuario',
 			'fecha_inicio' => 'Fecha Inicio',
-			'id_razones_estado' => 'Razones Estado',
-			'id_estado' => 'Estado',
-			'id_paso' => 'Paso',
+			'id_razones_estado' => 'Id Razones Estado',
+			'id_estado' => 'Id Estado',
+			'id_paso' => 'Id Paso',
 			'fecha_paso' => 'Fecha Paso',
-			'id_banco' => 'Banco',
-			'id_responsable_ejecucion' => 'Responsable Ejecucion',
-			'id_tipo_responsable' => 'Tipo Responsable',
+			'id_banco' => 'Id Banco',
+			'id_responsable_ejecucion' => 'Id Responsable Ejecucion',
+			'id_tipo_responsable' => 'Id Tipo Responsable',
 			'firma_cliente' => 'Firma Cliente',
 			'firma_promotora' => 'Firma Promotora',
 			'fecha_solicitud' => 'Fecha Solicitud',
@@ -115,7 +117,7 @@ class TramitePasos extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
+public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -152,7 +154,7 @@ class TramitePasos extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
                
 		$criteria=new CDbCriteria;
-                $criteria->compare('id_tramite',$id);
+        $criteria->compare('id_tramite',$id);
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
@@ -185,7 +187,7 @@ class TramitePasos extends CActiveRecord
                
 		$criteria=new CDbCriteria;
             //    $criteria->compare('id_tramite',$id);
-                $criteria->condition = 'id_tramite = ."'.$id.'" ';
+        $criteria->condition = 'id_tramite = ."'.$id.'" ';
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
@@ -211,6 +213,49 @@ class TramitePasos extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function reporteexcel()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
+		$criteria->compare('id_tramite',$this->id_tramite);
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+		$criteria->compare('fecha_pazysalvo',$this->fecha_pazysalvo,true);
+		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
+		$criteria->compare('id_usuario',$this->id_usuario);
+		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+		$criteria->compare('id_razones_estado',$this->id_razones_estado);
+		$criteria->compare('id_estado',$this->id_estado);
+		$criteria->compare('id_paso',$this->id_paso);
+		$criteria->compare('fecha_paso',$this->fecha_paso,true);
+		$criteria->compare('id_banco',$this->id_banco);
+		$criteria->compare('id_responsable_ejecucion',$this->id_responsable_ejecucion);
+		$criteria->compare('id_tipo_responsable',$this->id_tipo_responsable);
+		$criteria->compare('firma_cliente',$this->firma_cliente,true);
+		$criteria->compare('firma_promotora',$this->firma_promotora,true);
+		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
+		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
+		$criteria->compare('plano',$this->plano,true);
+		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
+
+
+   		$data = new CActiveDataProvider(get_class($this), array(
+                                'criteria'=> $criteria,     
+                                'pagination' => array('pageSize' =>10000),
+
+                'totalItemCount'=>'5000',   ));
+        $_SESSION['TramitePasos']=$data; // get all data and filtered data :)
+
+    
+        return $data;
+
+    
+
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

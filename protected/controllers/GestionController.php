@@ -27,11 +27,11 @@ class GestionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','gestioncobros','toggle','excel','indexreportes','morocidadcliente','excelcm'),
+				'actions'=>array('index','view','gestioncobros','toggle','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gestioncobros','excel','indexreportes','morocidadcliente','excelcm'),
+				'actions'=>array('create','update','gestioncobros','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -281,10 +281,34 @@ public function actionCreate($id){
                
 	}
 	/**
-	 * MOROCIDAD CLIENTE
+	 * MOROCIDAD PROYECTO 
 	 */
 
+    public function actionMorosidadProyecto(){
 
+
+        //MorosidadProyecto
+        $proyectomorosos =  Yii::app()->db->createCommand()
+                                ->select('p.titulo, SUM(TOTAL_VENCIDO) as suma, SUM(CARTERA_30_DIAS) as treinta, SUM(CARTERA_30_DIAS) as sesenta, 
+										SUM(CARTERA_90_DIAS) as noventa, SUM(CARTERA_120_DIAS) as cientoveinte,SUM(CARTERA_CORRIENTE) as cartera_corriente')
+                                ->from('cliente c, proyecto p ')
+                                ->where('c.id_proyecto=p.id_crm_proyecto GROUP BY p.titulo')
+                                ->queryAll(true);
+
+        Yii::app()->request->sendFile('MorosidadProyecto.xls',
+                                $this->renderPartial('morosidadproyecto',array(
+                                    'proyectomorosos'=>$proyectomorosos,
+                                ),true)
+                
+                );
+
+
+
+
+    }
+    	/**
+	 * MOROCIDAD PROYECTO 
+	 */
 	public function actionMorocidadCliente()
 	{
         $model = new Cliente('clientesexcel');
@@ -323,11 +347,12 @@ public function actionCreate($id){
 			$data[$i]['id_proyecto'] = $queryData->id_proyecto;
 			$data[$i]['proyecto'] = $queryData->proyecto;
 			$data[$i]['numero_de_lote'] = $queryData->numero_de_lote;
+			$data[$i]['cartera_corriente'] = $queryData->cartera_corriente;
 			$data[$i]['cartera_30_dias'] = $queryData->cartera_30_dias;
 			$data[$i]['cartera_60_dias'] = $queryData->cartera_60_dias;
 			$data[$i]['cartera_90_dias'] = $queryData->cartera_90_dias;
 			$data[$i]['cartera_120_dias'] = $queryData->cartera_120_dias;
-			$data[$i]['total_vencido'] = $queryData->cartera_120_dias;
+			$data[$i]['total_vencido'] = $queryData->total_vencido;
 
             $i++;
         }
