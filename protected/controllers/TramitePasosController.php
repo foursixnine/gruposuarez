@@ -27,11 +27,11 @@ public function accessRules()
 {
         return array(
         array('allow',  // allow all users to perform 'index' and 'view' actions
-            'actions'=>array('index','view','pasoanterior','vertramitesliquidados','reporte','excelreporte'),
+            'actions'=>array('index','view','pasoanterior','vertramitesliquidados','reporte','excelreporte','reportepasos'),
             'users'=>array('*'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('tramite','update','pasoanterior','detalleliquidacion','vertramitesliquidados','reporte','excelreporte'),
+            'actions'=>array('tramite','update','pasoanterior','detalleliquidacion','vertramitesliquidados','reporte','excelreporte','reportepasos'),
          //   'users'=>array('@'),
              'users'=>array('*'),
         ),
@@ -747,6 +747,33 @@ public function actionDetalleLiquidacion($id)
 ** REPORTE EXCEL
 */
 
+
+  public function actionReportePasos(){
+
+        $reportepasos = Yii::app()->db->createCommand()
+      ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, m.descripcion as nommes,p.titulo, pa.descripcion, p.id_crm_proyecto as crmproyecto,
+         COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
+      ->from('tramite_pasos t, cliente c, proyecto p, meses m,paso pa')
+      ->where(' p.id_crm_proyecto=c.id_proyecto and 
+          m.id_meses=date_part('. "'month'".', t.fecha_paso) and pa.id_paso=t.id_paso and 
+           c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs  and t.id_paso=11
+      group by t.id_paso, mes, crmproyecto, nommes, p.titulo, pa.descripcion 
+      order by mes')
+      ->queryAll(true);
+ /*  echo "<pre>";
+    print_r($reportepasos); // or var_dump($data);
+    echo "</pre>";  
+    die;*/
+        
+      Yii::app()->request->sendFile('ReportePasos.xls',
+                                $this->renderPartial('reportepasos',array(
+                                    'reportepasos'=>$reportepasos,
+                                ),true)
+                
+      );
+  }
+
+
  public function actionExcelReporte() {
 
     
@@ -764,11 +791,18 @@ public function actionDetalleLiquidacion($id)
               $data[$i]['total_venta'] =  $queryData->idClienteGs->total_venta;
               $data[$i]['monto_liquidacion'] =  $queryData->idClienteGs->monto_liquidacion;
               $data[$i]['banco_acreedor'] =  $queryData->idClienteGs->banco_acreedor;
-              $data[$i]['id_usuario'] =  $queryData->id_usuario;
-              $data[$i]['fecha_paso'] =  $queryData->fecha_paso;
-              $data[$i]['fecha_paso'] =  $queryData->fecha_paso; 
-             // $data[$i]['fecha_paso'] =  $queryData->idPaso->descripcion;
-             
+              $data[$i]['fecha_paso'] =  $queryData->id_usuario;
+              $data[$i]['plano'] =  $queryData->idTramite->plano;
+              $data[$i]['fecha_entrega'] = $queryData->idTramite->fecha_entrega; 
+              $data[$i]['ganancia_capital'] = $queryData->idTramite->ganancia_capital;   
+              $data[$i]['fecha_escritura'] = $queryData->idTramite->fecha_escritura;   
+              $data[$i]['fecha_inscripcion_escritura'] = $queryData->idTramite->fecha_inscripcion_escritura;   
+              $data[$i]['num_escritura'] = $queryData->idTramite->num_escritura;    
+              $data[$i]['num_finca_inscrita'] = $queryData->idTramite->num_finca_inscrita;   
+              $data[$i]['transferencia_inmueble'] = $queryData->idTramite->transferencia_inmueble;    
+              $data[$i]['num_permiso_ocupacion'] = $queryData->idTramite->num_permiso_ocupacion;  
+
+
             $i++;
         }
 
@@ -781,7 +815,7 @@ public function actionDetalleLiquidacion($id)
 
   }
 
-  /**Re***/
+  /**Reporte***/
   public function actionReporte()
   {
         $model = new TramitePasos('reporteexcel');

@@ -90,7 +90,8 @@ $model = Metas::model()->updateAll(array(
 public function actionCreate()
 {
 $model=new Metas;
-$model->mes=array(1,2,3,4,5,6,7,8,9,10,11,12);
+$mes_actual= date("n");
+$model->mes=array($mes_actual);
 // Uncomment the following line if AJAX validation is needed
  $this->performAjaxValidation($model);
 $proyect01 =  Yii::app()->db->createCommand()

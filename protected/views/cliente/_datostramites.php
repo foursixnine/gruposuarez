@@ -28,34 +28,40 @@ return false;
 ?>
 <?php echo $form->errorSummary($model); ?>
  <?php
-                    $this->widget(
-                      'booster.widgets.TbSelect2', array(
-                      'model' => $model,
-                      'attribute' => 'id_razones_estado',
-                      'data' => CHtml::listData(RazonesEstado::model()->findAll(), 'id_razones_estado', 'descripcion'),
-                      'options' => array(
-                      'placeholder' => "RAZONES DE ESTADO",
-                       /* 'allowClear'=>true,
-                        'minimumInputLength'=>2,*/
-                      ),
-                      'htmlOptions'=>array(
-                        'style'=>'width:80px',
-                      ),
-                    ));
+   
+$this->widget(
+    'booster.widgets.TbEditableField',
+    array(
+        'type' => 'text',
+        'model' => $model,
+        'attribute' => 'descripcion', // $model->name will be editable
+         'url' => $this->createUrl('/tramiteActividad/updateobservaciones'),
+    )
+);
+                                     
+                   $this->widget('booster.widgets.TbEditableField', array(
+    'type' => 'select2',
+    'model' => $model,
+    'attribute' => 'id_expediente_fisico',
+   'url' => $this->createUrl('/tramiteActividad/updateobservaciones'),
+    'source' => CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),
+)
+    
+);
+        
         ?>
-<?php $this->endWidget(); ?>
-  <!-----------***********************  TRAMITES ************************--->  
+
+ 
     <div class="row">
     <div class="col-sm-6" style="background-color:#f2dede;">     
         <div class="list-group">
             <a href="#" class="list-group-item list-group-item-danger">
-                <strong>TRAMITES</strong>
-              <!--  <a><image src="../../images/email.png" /></a>-->
+                <p>TRAMITES<span class="glyphicon glyphicon-list-alt"></span></p> 
+                
             </a>
-  
+          
 
-            <table class="list-group-item"">
-                <tbody>
+            <table class="list-group-item">
                     <tr>
                         <td>
                             <?php            
@@ -77,25 +83,33 @@ return false;
                             ?>
                         </td>
                     </tr>
-                    
+                       <?php 
+                            if(!empty($tramite->id_expediente_fisico)){    
+                            $expediente=$tramite->id_expediente_fisico;                    
+                                echo $model->id_expediente_fisico=$expediente;
+                              //  var_dump("Aqui-->". $expediente);die;
+                            }
+                            ?>
                                 
                     <tr>
                         <td><?php            
                         echo CHtml::label('Estatus de Expedientes','',array('size'=>8));  ?></td>            
                         <td>
-                              <?php 
-                              
-                          /*  if(!empty($tramite->id_estado)){                        
-                                 echo $tramite->idExpedienteFisico["descripcion"];
-                            }*/
-
-
-                            ?>
-
-                          
-
-
-
+                         <?php   
+                                $this->widget(
+                                        'booster.widgets.TbSelect2', array(
+                                        'model' => $model,
+                                        'attribute' => 'id_expediente_fisico',
+                                        'data' => CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),
+                                        'options' => array(
+                                        'placeholder' => "RAZONES DE ESTADO",
+                                        'value' =>3,
+                                    ),
+                                    'htmlOptions'=>array(
+                                       'style'=>'width:80px',
+                                    ),
+                                ));
+                      ?>
     
                           
 
@@ -147,7 +161,7 @@ return false;
                         </td>
                     </tr>
                     
-                </tbody>
+           
             </table>
         
         
@@ -158,3 +172,13 @@ return false;
 </div>
     </div>
 
+
+<div class="form-actions">
+  <?php $this->widget('booster.widgets.TbButton', array(
+      'buttonType'=>'submit',
+      'context'=>'primary',
+      'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
+    )); ?>
+</div>
+
+<?php $this->endWidget(); ?>

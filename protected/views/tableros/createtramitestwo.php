@@ -105,14 +105,7 @@ array('label'=>'Volver','url'=>'index'),
 <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
 
-<div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto">
-
-<?php
-
-
-$this->pageTitle=Yii::app()->name . ' - '.Yii::t('app','Highcharts');
-?>
-    
+<div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto">    
     
 <h1><?php //echo Yii::t('app','Highcharts').' Column DrillDown'; ?></h1>
  
@@ -181,9 +174,80 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
            
 ?>
 
+</div>
+   
+ 
 
-</div>   
-  
+<div id="containertablero2" style="min-width: 855px; height: 400px;margin: 0 auto">    
+    
+<h1><?php //echo Yii::t('app','Highcharts').' Column DrillDown'; ?></h1>
+ 
+<?php
+
+$this->Widget('ext.highcharts.HighchartsWidget', array(
+    'scripts' => array(
+      'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
+      'modules/exporting', // adds Exporting button/menu to chart
+     'themes/grid-light'        // applies global 'grid' theme to all charts
+      //  'themes/white'
+    ),
+    'options' => array(
+      'chart' => array(
+                    'type'=>'column'
+      ),
+        
+      'title' => array('text' => 'Pasos y Proyectos'
+          ),
+      'xAxis' => array(
+         'categories' => $dataSeries
+      ),
+
+
+      'yAxis' => array(
+         'title' => array(
+             'text' => 'Total Pasos'
+             )
+      ),
+      'legend'=> array(
+            'align'=> 'right',
+            'x'=> -30,
+            'verticalAlign'=> 'top',
+            'y'=> 25,
+            'floating'=> true,
+          //  'backgroundColor'=> '(Highcharts.theme && Highcharts.theme.background2)' || 'gray',
+            'borderColor'=>'#CCC',
+            'borderWidth'=> 1,
+            'shadow'=> false
+        ),
+
+        'tooltip'=>array (
+            'headerFormat'=>'<b>{point.x}</b><br/>',
+            'pointFormat'=> '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        ),
+        
+        'plotOptions'=>array (
+            'column'=>array(
+                'stacking'=>'normal',
+                'dataLabels'=>array(
+                    'enabled'=> true,
+             //       'color'=> '(Highcharts.theme && Highcharts.theme.dataLabelsColor) || "white"',
+                    'style'=> array(
+                        'textShadow'=>'0 0 3px black'
+                    )
+                )
+            )
+         ),
+
+       'series' => $dataCategories,
+    )
+  ));
+
+     
+      
+           
+?>
+
+</div>  
 <p class="bg-primary">Leyenda</p>
 
 

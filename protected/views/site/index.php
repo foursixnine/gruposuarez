@@ -18,11 +18,6 @@
 
 </style>
 
-
-<!------------------------------------------------------------------------------>
-
-<!------------------------------------------------------------------------------>
-
     
     <!-- Cobros -->
  <div class="cajademo">   
@@ -57,7 +52,7 @@
     <!-- Tramites -->
     <a href="<?php echo Yii::app()->createUrl('usuarios/inicio/'); ?>">
         <img width="120px" height="120px" src="<?php echo Yii:: app() ->baseUrl.'/images/administracion.png' ?> "  />
-        <button type="button" class="btn btn-warning">ADMINISTRA&Oacute;N</button>
+        <button type="button" class="btn btn-warning">ADMINISTRACI&Oacute;N</button>
             
     </a>
   

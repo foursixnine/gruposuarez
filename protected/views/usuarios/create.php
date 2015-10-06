@@ -10,6 +10,7 @@ array('label'=>'Manage Usuarios','url'=>array('admin')),
 );
 ?>
 
-<h1>Create Usuarios</h1>
 
+<button type="button" class="btn btn-warning">CREAR USUARIOS</button>
+     
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

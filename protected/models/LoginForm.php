@@ -40,6 +40,7 @@ class LoginForm extends CFormModel
 		);
 	}
 
+
 	/**
 	 * Authenticates the password.
 	 * This is the 'authenticate' validator as declared in rules().
@@ -50,7 +51,7 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-				$this->addError('password','Nombre o Contraseña  Incorrecta');
+				$this->addError('password','Nombre o Contraseña incorrecta');
 		}
 	}
 

@@ -45,13 +45,12 @@ $(document).ready(function(){
  $('select#Metas_id_tipo_meta').click(function () {
    
       var valor = $('#Metas_id_crm_proyecto').val(); 
-    
-      //alert($('#Metas_id_tipo_meta').select2().val());
+  
       var tipo_meta =$('#Metas_id_tipo_meta').select2().val();
       if (tipo_meta == 1){
           
-       //   alert("HOLA");
-            if(valor=="PROJ0001"){        
+     
+    if(valor=="PROJ0001"){        
         $("#Metas_monto").val(uno);
     }
     if(valor=="PROJ0002"){      
@@ -93,7 +92,7 @@ $(document).ready(function(){
       }else{
                   
           
-            if(valor=="PROJ0001"){        
+    if(valor=="PROJ0001"){        
         $("#Metas_monto").val(unoc);
     }
     if(valor=="PROJ0002"){      
@@ -143,7 +142,7 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
 
 });
 </script>
-<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+<p class="help-block">Los campos con<span class="required">*</span> son obligatorios.</p>
 
 <?php echo $form->errorSummary($model); ?>
 <?php
@@ -153,7 +152,7 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
 			'mes',
 			array(
 				'widgetOptions' => array(
-					'data' => array(1 => 'Enero',
+					                             'data' => array(1 => 'Enero',
                                                         2=>'Febrero',
                                                         3=>'Marzo',
                                                         4=>'Abril',
@@ -171,32 +170,7 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
 			)
 		); 
 ?>
-        <?php //echo $form->textFieldGroup($model,'mes',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
-	     <?php /*echo $form->checkboxListGroup(
-			$model,
-			'mes',
-			array(
-				'widgetOptions' => array(
-                                   // 'data' => array(1,2,3,4)
-					'data' => array(1 => 'Enero',
-                                                        2=>'Febrero',
-                                                        3=>'Marzo',
-                                                        4=>'Abril',
-                                                        5=>'Mayo',
-                                                        6=>'Junio',
-                                                        7=>'Julio',
-                                                        8=>'Agosto',
-                                                        9=>'Septiembre',
-                                                        10=>'Octubre',
-                                                        11=>'Noviembre',
-                                                        12=>'Diciembre',
-                                                        )
-				),
-				'inline'=>true,
-                            array('separator'=>' '),
-			)
-	   ); */
-        ?>   
+  
 
 
         <b><?php echo $form->labelEx($model, 'Proyecto');?></b>
@@ -285,10 +259,31 @@ $('#Metas_porcentaje_meta').select2().on('change', function() {
                  ),
                ));
          ?>
-        <?php echo $form->textFieldGroup($model,'monto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
-        <?php echo $form->textFieldGroup($model,'monto_mes_proyecto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
+      <?php //echo $form->textFieldGroup($model,'monto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'form-control')))); ?>
+      <?php echo $form->textFieldGroup(
+            $model,
+            'monto',
+            array(
+              'wrapperHtmlOptions' => array(
+                'class' => 'col-sm-5',
+              ),
+              'prepend' => '$'
+            )
+          ); ?>
+
+      <?php //echo $form->textFieldGroup($model,'monto_mes_proyecto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+      <?php echo $form->textFieldGroup(
+            $model,
+            'monto_mes_proyecto',
+            array(
+              'wrapperHtmlOptions' => array(
+                'class' => 'col-sm-5',
+              ),
+              'prepend' => '$'
+            )
+          ); ?>
 	
 
 	

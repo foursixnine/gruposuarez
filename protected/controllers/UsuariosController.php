@@ -32,13 +32,15 @@ public function accessRules()
         //'roles'=>array('admin'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array('create','update','listarusuarioremuneracion','email','inicio'),
-        'users'=>array('*'),
+      //  'actions'=>array('create','update','listarusuarioremuneracion','email','inicio'),
+    	  'actions'=>array('update','create'),
+     //   'users'=>array('*'),
+         'roles'=>array('analista_cobros','jefe_cobros','admin'),
     ),
     array('allow', // allow admin user to perform 'admin' and 'delete' actions
         'actions'=>array('admin','delete'),
-        'users'=>array('*'),
-       // 'roles'=>array('admin'),
+       // 'users'=>array('*'),
+        'roles'=>array('admin'),
     ),
     array('deny',  // deny all users
         'users'=>array('*'),
@@ -52,21 +54,7 @@ public function accessRules()
 */
 public function actionView($id)
 {
-    //var_dump("HOLA");die;
-$auth=Yii::app()->authManager;
- 
 
-  $bizRule='return !Yii::app()->user->isGuest;';
-  $auth->createRole('authenticated', 'authenticated user', $bizRule);
- 
-  $bizRule='return Yii::app()->user->isGuest;';
-  $auth->createRole('guest', 'guest user', $bizRule);
- 
-
-if(Yii::app()->user->checkAccess('admin'))
-{
-    var_dump("HOLAAA");die;
-}
   
     $this->render('view',array(
         'model'=>$this->loadModel($id),

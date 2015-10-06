@@ -41,9 +41,11 @@ return false;
 		'idClienteGs.nombre_de_empresa',
 		'idClienteGs.total_venta',
 		'idClienteGs.monto_liquidacion',
-		'idClienteGs.monto_liquidacion',
 		'idClienteGs.banco_acreedor',
-		'id_tramite',	
+		'idTramite.num_escritura',	
+		'idTramite.num_finca_inscrita',
+		'idTramite.transferencia_inmueble',
+		'idTramite.num_permiso_ocupacion',	
 		array(
 			'name'=>'id_paso',
 			'header'=>'Pasos',
@@ -55,3 +57,4 @@ return false;
 )); 
             
 ?>
+

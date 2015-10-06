@@ -43,8 +43,18 @@
 								array('label'=>'Listado', 'url'=>array('/metas/index')),
 							)
                                 ),
-                                array('label'=>'REMUNERACION', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
-                                array('label'=>'TRAMITES', 'url'=>array('/tramite/index'),
+  //                              array('label'=>'REMUNERACION', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
+              array('label'=>'REMUNERACIÓN', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora'),
+              'items'=>array(
+                array('label'=>'Bonos', 'url'=>array('/PagoRemuneracion/index')),
+                                                                //array('label'=>'Tramites en Transito', 'url'=>array('/tramite/continuartramites')),
+                                                               // array('label'=>'Tramites Liquidados', 'url'=>array('/tramite/tramitesliquidados')),
+              )
+                                ),
+    
+
+
+              array('label'=>'TRAMITES', 'url'=>array('/tramite/index'),
 							'items'=>array(
 								array('label'=>'Administrar Tramites', 'url'=>array('/tramite/admin')),
                                                                 array('label'=>'Tramites en Transito', 'url'=>array('/tramite/continuartramites')),

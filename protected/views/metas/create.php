@@ -9,8 +9,9 @@ array('label'=>'List Metas','url'=>array('index')),
 array('label'=>'Manage Metas','url'=>array('admin')),
 );
 ?>
+<br/>
+<button type="button" class="btn btn-warning">CREAR META</button>
 
-<h1>Create Metas</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,
                                                'proyect01'=>$proyect01,

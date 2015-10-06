@@ -33,33 +33,37 @@ $this->widget('bootstrap.widgets.TbTabs', array(
         array(
             'id'=>'tab1',
             'active'=>true,
+            'justified' => true,
+            //'itemOptions' => array('class' => ' <span </span>'),
             'label'=>'DATOS GENERALES',
             'content'=>$this->renderPartial("_datosgenerales", array('cliente' => $cliente),true),               
         ),
         array(
             'id'=>'tab2',
             'active'=>false,
+            'justified' => true,
             'label'=>'DATOS CONTACTO',
             'content'=>$this->renderPartial("_datoscontacto", array('cliente' => $cliente),true),
         ),
         array(
             'id'=>'tab3',
             'active'=>false,
+            'justified' => true,
             'label'=>'ULTIMA GESTION',
                  'content'=>$this->renderPartial("_datosgestion", array('cliente' => $cliente,
                                                                         'gestion_old'=>$gestion_old,    ),true),
-
         ), 
         array(
             'id'=>'tab4',
             'active'=>false,
+            'justified' => true,
             'label'=>'COBROS',
                  'content'=>$this->renderPartial("_datoscobros", array('cliente' => $cliente),true),
-
         ),        
         array(
             'id'=>'tab5',
             'active'=>false,
+            'justified' => true,
             'label'=>'TRAMITES',
                  'content'=>$this->renderPartial("_datostramites", array(
                                            'cliente' => $cliente,

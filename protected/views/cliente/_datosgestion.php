@@ -3,7 +3,8 @@
     <div class="col-sm-6" style="background-color:#dff0d8;">
         <div class="list-group">
         <a href="#" class="list-group-item list-group-item-info">
-            <strong>DATOS ULTIMAS GESTIONES</strong>
+    
+        <p>DATOS ULTIMAS GESTIONES <span class="glyphicon glyphicon-list-alt"></span></p> 
         </a>
           <?php 
          //     var_dump($gestion_old);die;

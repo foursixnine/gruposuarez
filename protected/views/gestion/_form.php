@@ -69,7 +69,7 @@ $(function(){
   <!--<div class="panel panel-default">-->
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h4 class="panel-title">
+      <h2 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
           #ID<?php echo $id; ?> - <?php echo $cliente->nombre;?> - 
              <?php 
@@ -81,7 +81,7 @@ $(function(){
 	     ?>
         </a>
     
-      </h4>
+      </h2>
     </div>
       
 <div id="collapseOne" class="panel-collapse collapse in">
@@ -377,13 +377,13 @@ Esperaré su pago el día ----- con $ ----- (Monto).
 <!-----------------------------  DATOS CLIENTES  ------------------------------------->	
 <?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
 
-  <div class="panel panel-success">
+  <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title">
+      <h2 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
           DATOS GENERALES
         </a>
-      </h4>
+      </h2>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
@@ -499,11 +499,11 @@ Esperaré su pago el día ----- con $ ----- (Monto).
   
   <div class="panel panel-info">
     <div class="panel-heading">
-      <h4 class="panel-title">
+      <h2 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
           DATOS CONTACTO
         </a>
-      </h4>
+      </h2>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
@@ -590,11 +590,11 @@ Esperaré su pago el día ----- con $ ----- (Monto).
   
   <div class="panel panel-warning">
     <div class="panel-heading">
-      <h4 class="panel-title">
+      <h2 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
           DATOS REFERENCIA
         </a>
-      </h4>
+      </h2>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
       <div class="panel-body">

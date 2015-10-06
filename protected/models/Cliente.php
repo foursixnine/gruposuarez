@@ -397,7 +397,7 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
                
 		$criteria=new CDbCriteria;
-              //  $criteria->condition = 'pazysalvo = 0';
+      
         $criteria->condition = 'pazysalvo = 0 AND status_de_lote =  '."'TRAMITE'".' ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);
@@ -405,7 +405,8 @@ class Cliente extends CActiveRecord
 		$criteria->compare('apellido',$this->apellido,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('proyecto',$this->proyecto,true);
-		$criteria->compare('numero_de_lote',$this->numero_de_lote,true);
+		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);	
+		
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
 

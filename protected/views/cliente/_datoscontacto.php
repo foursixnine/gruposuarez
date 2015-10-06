@@ -2,7 +2,8 @@
     <div class="col-sm-6" style="background-color:#dff0d8;">
         <div class="list-group">
             <a href="#" class="list-group-item list-group-item-info">
-                <strong>DATOS CONTACTO</strong>
+        
+                <p>DATOS CONTACTO <span class="glyphicon glyphicon-phone-alt"></span></p> 
             </a>
      
                  <table class="list-group-item"">

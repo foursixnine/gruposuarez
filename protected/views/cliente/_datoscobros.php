@@ -3,7 +3,9 @@
     <div class="col-sm-6" style="background-color:#f2dede;">
         <div class="list-group">
         <a href="#" class="list-group-item list-group-item-danger">
-            <strong>DATOS COBROS</strong>
+        
+            <p>DATOS COBROS<span class="glyphicon glyphicon-piggy-bank"></span></p> 
+            
         </a>    
          
               <table class="list-group-item">

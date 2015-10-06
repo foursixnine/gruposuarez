@@ -1353,6 +1353,7 @@ public function actionCreateTramitesTwo()
     ->select('t.id_pasos, 
             pa.descripcion, pa.abrev,
             p.titulo, c.id_proyecto, 
+            SUM(c.total) as total,
             COUNT(c.id_proyecto) as crmproyecto, 
             COUNT(t.id_pasos) as totalpaso')
     ->from('tramite t')

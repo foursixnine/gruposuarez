@@ -219,7 +219,7 @@ class Tramite extends CActiveRecord
 		));
 	}
         
-                public function tramitesliquidados()
+    public function tramitesliquidados()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -248,6 +248,8 @@ class Tramite extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+  
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

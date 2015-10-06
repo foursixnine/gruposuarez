@@ -3,7 +3,8 @@
     <div class="col-sm-6" style="background-color:#dff0d8;">
         <div class="list-group">
         <a href="#" class="list-group-item list-group-item-info">
-            <strong>DATOS GENERALES DEL CLIENTE</strong>
+           
+            <p>DATOS GENERALES DEL CLIENTE <span class="glyphicon glyphicon-home"></span></p> 
         </a>
             <table class="list-group-item">
                 <tbody>

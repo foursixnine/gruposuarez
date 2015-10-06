@@ -32,6 +32,8 @@
  * @property ResponsableEjecucion $idResponsableEjecucion
  * @property TipoResponsable $idTipoResponsable
  * @property Cliente $idClienteGs
+ * @property Tramite $idTramite
+ * @property ExpedienteFisico $idExpedienteFisico
  */
 class TramitePasos extends CActiveRecord
 {
@@ -73,6 +75,8 @@ class TramitePasos extends CActiveRecord
 			'idResponsableEjecucion' => array(self::BELONGS_TO, 'ResponsableEjecucion', 'id_responsable_ejecucion'),
 			'idTipoResponsable' => array(self::BELONGS_TO, 'TipoResponsable', 'id_tipo_responsable'),
 			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
+			'idTramite' => array(self::BELONGS_TO, 'Tramite', 'id_tramite'),
+			'idExpedienteFisico' => array(self::BELONGS_TO, 'ExpedienteFisico', 'id_expediente_fisico'),
 		);
 	}
 
