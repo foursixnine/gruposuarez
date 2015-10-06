@@ -1347,12 +1347,15 @@ public function actionCreateTramitesTwo()
     $totalpasos = array();       
     $dataCategories = array();
     $dataSeries = array();
-  
+
+$dataSeries2 = array();
+$dataCategories2 = array();  
     //Query donde obtengo los datos
     $paso = Yii::app()->db->createCommand()
     ->select('t.id_pasos, 
             pa.descripcion, pa.abrev,
             p.titulo, c.id_proyecto, 
+             SUM(c.total) as total,
             COUNT(c.id_proyecto) as crmproyecto, 
             COUNT(t.id_pasos) as totalpaso')
     ->from('tramite t')
@@ -1367,15 +1370,21 @@ public function actionCreateTramitesTwo()
     /** Get pasos */
 
     $pasosAvailable = Paso::model()->FindAll(array('order'=>'id_paso'));
-    
-    $maxPaso = Yii::app()->db->createCommand()->select('max(id_paso) as maxIdPasos')->from('paso')->queryScalar();
+
+//$pasosAvailable = array(1,2,3,4,5,6,7,8,9,10);
+
+
+   // $maxPaso = Yii::app()->db->createCommand()->select('max(id_paso) as maxIdPasos')->from('paso')->queryScalar();
     $minPaso = Yii::app()->db->createCommand()->select('min(id_paso) as maxIdPasos')->from('paso')->queryScalar();
-       
+ // $minPaso =1;
+   $maxPaso=10; 
    /* Extrayendo los nombres de las series*/
    
    foreach ($pasosAvailable as $thisPaso){
         
         array_push($dataSeries, $thisPaso["abrev"]);
+
+        array_push($dataSeries2, $thisPaso["abrev"]);
         
     }
     
@@ -1391,16 +1400,23 @@ public function actionCreateTramitesTwo()
     
 //    $dataCategories = array_flip(array_unique($dataCategories));
     $dataSeries = array_unique($dataSeries);
+
+
     
     foreach ($paso as $thisPaso){
         
         if (!isset($dataCategories[$thisPaso["titulo"]])) {
 //            $dataCategories[$thisPaso["titulo"]]= array();
             $dataCategories[$thisPaso["titulo"]] = array_fill($minPaso, $maxPaso+1, null);
+            $dataCategories2[$thisPaso["titulo"]] = array_fill($minPaso, $maxPaso+1, 0);
         }
         
         $dataCategories[$thisPaso["titulo"]][$thisPaso["id_pasos"]] = $thisPaso["totalpaso"];
+
+        $dataCategories2[$thisPaso["titulo"]][$thisPaso["id_pasos"]] = (int)$thisPaso["total"];
     }
+
+
     $categoriesData = $dataCategories;
     $dataCategories = array();
     
@@ -1408,19 +1424,29 @@ public function actionCreateTramitesTwo()
         
         $dataCategories[] = array("name" => $name, "data" => $data);
         
+    }
+
+
+    $categoriesData2 = $dataCategories2;
+    $dataCategories2 = array();
+    
+    foreach ($categoriesData2 as $name => $data){
+        
+        $dataCategories2[] = array("name" => $name, "data" => $data);
+        
     } 
-//    print "<pre>";
+  //  print "<pre>";
 //    
 ////    var_export ($paso);
-//    var_export ($dataCategories);
-//    var_export ($dataSeries);
+ //   var_export ($dataCategories2);
+   // var_export ($dataSeries2);
 //    var_export ($maxPaso);
 //    var_export ($minPaso);
 ////    var_export ($pasosAvailable);
 //    
 //    
-//    print "</pre>";
-//    die();
+   //print "</pre>";
+   // die();
     
 
 //var_dump($titulo);die;
@@ -1503,7 +1529,9 @@ public function actionCreateTramitesTwo()
         'totalpasos'=>$totalpasos,
         'titulo'=>$titulo, 
         'dataSeries' => $dataSeries,
+        'dataSeries2' => $dataSeries2,
         'dataCategories' => $dataCategories,
+        'dataCategories2' => $dataCategories2,
     ));
     
 }
@@ -1527,7 +1555,7 @@ public function actionCreateTramiteBancos()
     ->select('t.id_pasos, 
             pa.descripcion, pa.abrev,
             b.descripcion, c.id_banco, 
-           COUNT(c.id_banco) as bancotramite,
+            COUNT(c.id_banco) as bancotramite,
             COUNT(t.id_pasos) as totalpaso')
     ->from('tramite t')
     ->join('paso pa', 'pa.id_paso = t.id_pasos')
@@ -1573,7 +1601,7 @@ public function actionCreateTramiteBancos()
             $dataCategories[$thisPaso["descripcion"]] = array_fill($minPaso, $maxPaso+1, null);
         }
         
-        $dataCategories[$thisPaso["descripcion"]][$thisPaso["id_pasos"]] = $thisPaso["totalpaso"];
+        $dataCategories[$thisPaso["descripcion"]][$thisPaso["id_pasos"]] = $thisPaso["id_pasos"];
     }
     $categoriesData = $dataCategories;
     $dataCategories = array();

@@ -188,7 +188,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
     'scripts' => array(
       'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
       'modules/exporting', // adds Exporting button/menu to chart
-     'themes/grid-light'        // applies global 'grid' theme to all charts
+   //  'themes/grid-light'        // applies global 'grid' theme to all charts
       //  'themes/white'
     ),
     'options' => array(
@@ -196,10 +196,10 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
                     'type'=>'column'
       ),
         
-      'title' => array('text' => 'Pasos y Proyectos'
+      'title' => array('text' => 'Cantidad'
           ),
       'xAxis' => array(
-         'categories' => $dataSeries
+         'categories' => $dataSeries2
       ),
 
 
@@ -238,7 +238,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
             )
          ),
 
-       'series' => $dataCategories,
+       'series' => $dataCategories2,
     )
   ));
 
