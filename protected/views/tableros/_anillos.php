@@ -4,7 +4,7 @@
 <script>
 var pArray= <?php echo json_encode($proyecto); ?>;
 var countsiArray= <?php echo json_encode($totalsi); ?>;
-alert (countsiArray);
+//alert (countsiArray);
 </script>
 
 <div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto"></div>

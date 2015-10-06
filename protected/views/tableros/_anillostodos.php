@@ -47,8 +47,7 @@
             innerSize: '50%',
             data: [
             ['Llamadas', 20],
-            ['Correos', 10],
-            ['Mensajes de Texto', 0],
+           
                      
             ]
         }]

@@ -35,7 +35,7 @@
 			'items'=>array(
 				array('label'=>'INICIO', 'url'=>array('/site/index')),
                                 array('label'=>'COBROS', 'url'=>array('/gestion')),
-                     
+                  
 				array('label'=>'METAS', 'url'=>array('/metas/indexmetas'),
 							'items'=>array(
 								array('label'=>'Nuevo', 'url'=>array('/metas/create')),
@@ -46,10 +46,10 @@
   //                              array('label'=>'REMUNERACION', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
               array('label'=>'REMUNERACIÓN', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora'),
               'items'=>array(
-                array('label'=>'Bonos', 'url'=>array('/PagoRemuneracion/index')),
-                                                                //array('label'=>'Tramites en Transito', 'url'=>array('/tramite/continuartramites')),
-                                                               // array('label'=>'Tramites Liquidados', 'url'=>array('/tramite/tramitesliquidados')),
-              )
+                      array('label'=>'Bonos', 'url'=>array('/PagoRemuneracion/index')),
+                       array('label'=>'CÁLCULO DE REMUNERACIÓN COBRADORA', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
+                                                            
+                            )
                                 ),
     
 

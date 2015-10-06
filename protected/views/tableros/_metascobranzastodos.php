@@ -23,6 +23,9 @@ if (empty($mayopg)) {
       $mayopg=0;
 }
 
+if (empty($juniopg)) {
+      $juniopg=0;
+}
 if (empty($juliopg)) {
       $juliopg=0;
 }
@@ -52,6 +55,7 @@ if (empty($diciembrepg)) {
 var enero = <?php echo ($enero); ?>;
 if (enero == "") {
     enero= 0;
+    alert(enero);
 } 
 //**************FEBRERO************//
 var febrero = <?php echo ($febrero); ?>;
