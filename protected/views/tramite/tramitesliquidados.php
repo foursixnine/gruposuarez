@@ -28,7 +28,7 @@ array('label'=>'Volver','url'=>array('admin')),
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'tramite-grid',
 'dataProvider'=>$model->tramitesliquidados(),
-'filter'=>$model,
+//'filter'=>$model,
 'columns'=>array(
                 'idUsuario.nombre',
                 'fecha_inicio',

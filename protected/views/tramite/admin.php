@@ -122,8 +122,8 @@ $this->widget('booster.widgets.TbGridView',array(
   array(
     'class'=>'CLinkColumn',
     'header'=>'Tramite',
-    'labelExpression'=>'($data->permiso_ocupacion != 0 ? "Iniciar Tramite" : "Falta Permiso")',
-    'urlExpression'=>'($data->permiso_ocupacion!=0) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
+    'labelExpression'=>'($data->idClienteGs["fecha_de_permiso_ocupacion"] != "" ? "Iniciar Tramite" : "Falta Permiso")',
+    'urlExpression'=>'($data->idClienteGs["fecha_de_permiso_ocupacion"]!="") ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
     'cssClassExpression'=>'($data->permiso_ocupacion==1 ? " challenged" : "")',  
     ),
     

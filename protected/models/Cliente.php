@@ -409,7 +409,7 @@ class Cliente extends CActiveRecord
 		
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
-
+$criteria->order = 'id_cliente_gs DESC';
 
 		$criteria->order = 'id_cliente_gs DESC';
                 $criteria->limit = 20;

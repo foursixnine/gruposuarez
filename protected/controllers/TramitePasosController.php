@@ -600,21 +600,21 @@ public function actionTramite($id)
     
     
 $this->render('tramite',array(
-'model'=>$model,
-'tramiteold'=>$tramiteold,
-'tramite'=>$tramite,
-'tramitepasos'=>$tramitepasos,
-'duracionpasos'=>$duracionpasos,
-'pasos'=>$pasos,
-'tramite_actividad'=>$tramite_actividad,
-'chat'=>$chat,
-'chat_mostrar'=>$chat_mostrar,
-'calle'=>$calle,
-'model_adic'=>$model_adic,
-'tab'=>$tab,
-'tramitesactividad'=>$tramitesactividad,
-'tramite_datosgenerales'=>$tramite_datosgenerales
-  ));
+    'model'=>$model,
+    'tramiteold'=>$tramiteold,
+    'tramite'=>$tramite,
+    'tramitepasos'=>$tramitepasos,
+    'duracionpasos'=>$duracionpasos,
+    'pasos'=>$pasos,
+    'tramite_actividad'=>$tramite_actividad,
+    'chat'=>$chat,
+    'chat_mostrar'=>$chat_mostrar,
+    'calle'=>$calle,
+    'model_adic'=>$model_adic,
+    'tab'=>$tab,
+    'tramitesactividad'=>$tramitesactividad,
+    'tramite_datosgenerales'=>$tramite_datosgenerales
+      ));
 }
 
 
@@ -648,25 +648,47 @@ public function actionVerTramitesLiquidados($id){
     //var_dump($id);die;
         $model = new Tramite();
 
+       
+        // Uncomment the following line if AJAX validation is needed
+        $this->performAjaxValidation($model);
+
         $tramitesactividad = TramiteActividad::model()->tramitesactividad($id);
         $tramitesliquidados = Yii::app()->db->createCommand()
-    ->select('tp.id_tramite,tp.id_paso, c.nombre_de_empresa, tp.fecha_inicio, tp.fecha_paso, 
-        t.plano, t.fecha_entrega, t.ganancia_capital, t.permiso_ocupacion, 
-        t.inicio, t.fecha_escritura, t.fecha_inscripcion_escritura, t.num_escritura, 
-        t.num_finca_inscrita, t.transferencia_inmueble, t.num_permiso_ocupacion')
-    ->from('tramite_pasos tp')
-    ->join('tramite t', 'tp.id_tramite = t.id_tramite AND tp.id_tramite=63')
-    ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs GROUP BY 
-            tp.id_paso, tp.id_tramite, c.nombre_de_empresa, tp.fecha_inicio, tp.fecha_paso, 
-            t.plano, t.fecha_entrega, t.ganancia_capital, t.permiso_ocupacion,
-            t.inicio, t.fecha_escritura, t.fecha_inscripcion_escritura, t.num_escritura, 
-            t.num_finca_inscrita, t.transferencia_inmueble, t.num_permiso_ocupacion 
-            order by tp.id_paso')      
-    ->queryAll(true);
+                ->select('tp.id_tramite,tp.id_paso, c.nombre_de_empresa, tp.fecha_inicio, tp.fecha_paso, 
+                    t.plano, t.fecha_entrega, t.ganancia_capital, t.permiso_ocupacion, 
+                    t.inicio, t.fecha_escritura, t.fecha_inscripcion_escritura, t.num_escritura, 
+                    t.num_finca_inscrita, t.transferencia_inmueble, t.num_permiso_ocupacion')
+                ->from('tramite_pasos tp')
+                ->join('tramite t', 'tp.id_tramite = t.id_tramite AND tp.id_tramite= '."'".$id."'")
+                ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs GROUP BY 
+                        tp.id_paso, tp.id_tramite, c.nombre_de_empresa, tp.fecha_inicio, tp.fecha_paso, 
+                        t.plano, t.fecha_entrega, t.ganancia_capital, t.permiso_ocupacion,
+                        t.inicio, t.fecha_escritura, t.fecha_inscripcion_escritura, t.num_escritura, 
+                        t.num_finca_inscrita, t.transferencia_inmueble, t.num_permiso_ocupacion 
+                        order by tp.id_paso')      
+                ->queryAll(true);
 
-        
+
+          if(isset($_POST['Tramite']))
+              {
+
+             
+              $model->attributes=$_POST['Tramite'];
+             // var_dump($model->casa_entregada );die;
+
+                  $tramiteupdate = Tramite::model()->updateAll(array( 
+                                                      'descripcion'    =>$model->descripcion,
+                                                      'casa_entregada' =>$_POST['Tramite']['casa_entregada']                                            
+                                                   
+                                                                        ),
+                                                                'id_tramite ='.$id
+                                                       );
+                   $this->redirect(array('vertramitesliquidados','id'=>$id));
+              }
+
+      
                   // var_dump($tramitesliquidados);die;                         
-    $this->render('vertramitesliquidados',array(
+        $this->render('vertramitesliquidados',array(
          'tramitesliquidados'=>$tramitesliquidados,
          'tramitesactividad'=>$tramitesactividad,
          'model'=>$model
