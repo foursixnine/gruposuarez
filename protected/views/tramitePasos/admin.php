@@ -32,11 +32,11 @@ return false;
 'dataProvider'=>$model,
 //'filter'=>$model,
 'columns'=>array(
-                'id_tramite',
-                'idPaso.abrev',	
-		'idPaso.descripcion',		
-		'id_cliente_gs',
-		'fecha_pazysalvo',
+			'id_tramite',
+			'idPaso.abrev',	
+			'idPaso.descripcion',		
+			'id_cliente_gs',
+			'fecha_pazysalvo',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

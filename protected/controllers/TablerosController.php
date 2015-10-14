@@ -1232,17 +1232,19 @@ public function actionCreateTramitesOne()
    
   
        $mes_paso= array();
+       $mes_paso2= array();
    $totalliquidado=array();
    $totalpaso= array();
-
+   $totalpaso2= array();
+$totalventa=array();
     $paso = Yii::app()->db->createCommand()
     ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, m.descripcion as nommes,
-       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
+       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes')
     ->from('tramite_pasos t, cliente c, proyecto p, meses m')
     ->where(' p.id_crm_proyecto=c.id_proyecto and 
         m.id_meses=date_part('. "'month'".', t.fecha_paso) and
-         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
-    group by t.id_paso, mes, crmproyecto, nommes
+         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11 and c.id_banco!=16 
+    group by t.id_paso, mes, nommes
     order by mes')
     ->queryAll(true);
    $mes_paso = array();
@@ -1254,6 +1256,24 @@ array_push($totalliquidado, (int)$key['total_liquidado']);
 array_push($totalpaso, $key['totalpaso']);
 }
 
+    $paso2 = Yii::app()->db->createCommand()
+    ->select('SUM(DISTINCT c.total_venta) as total_venta, m.descripcion as nommes,
+       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
+    ->from('tramite_pasos t, cliente c, proyecto p, meses m')
+    ->where(' p.id_crm_proyecto=c.id_proyecto and 
+        m.id_meses=date_part('. "'month'".', t.fecha_paso) and
+         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11 and c.id_banco=16
+    group by t.id_paso, mes, crmproyecto, nommes
+    order by mes')
+    ->queryAll(true);
+   $mes_paso2 = array();
+   $totalventa = array();
+   $totalpaso2 = array();
+    foreach($paso2 as $t=>$key) {
+array_push($mes_paso2, $key['nommes']);
+array_push($totalventa, (int)$key['total_venta']);
+array_push($totalpaso2, $key['totalpaso']);
+}
 //$arr[$index] = (int)$value; 
 //var_dump($totalliquidado);
    //die;
@@ -1292,28 +1312,43 @@ array_push($totalpaso, $key['totalpaso']);
     //  var_dump($queryproyecto);die;
                             
       
-    $paso = Yii::app()->db->createCommand()
-    ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, 
-       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
-    ->from('tramite_pasos t, cliente c, proyecto p')
-    ->where('c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
-    group by t.id_paso, mes, crmproyecto
-    order by mes')
-    ->queryAll(true);
-   $mes_paso = array();
-   $totalliquidado = array();
-   $totalpaso = array();
-    foreach($paso as $t=>$key) {
-array_push($mes_paso, (int)$key['mes']);
-array_push($totalliquidado,  (int)$key['total_liquidado']);
-array_push($totalpaso, (int)$key['totalpaso']);
-}
-//var_dump($totalpaso);die;
-    
-    
-       
-         
-        //   }
+                        $paso = Yii::app()->db->createCommand()
+                        ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, 
+                        COUNT(DISTINCT t.id_tramite) as totalpaso, 
+                        t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, 
+                        p.id_crm_proyecto as crmproyecto, m.descripcion as nommes')
+                        ->from('tramite_pasos t, cliente c, proyecto p, meses m')
+                        ->where('m.id_meses = date_part('. "'month'".', t.fecha_paso) AND c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_banco!=16 and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
+                        group by t.id_paso, mes, crmproyecto, nommes
+                        order by mes')
+                        ->queryAll(true);
+                        $mes_paso = array();
+                        $totalliquidado = array();
+                        $totalpaso = array();
+                        foreach($paso as $t=>$key) {
+                            array_push($mes_paso, $key['nommes']);
+                            array_push($totalliquidado,  (int)$key['total_liquidado']);
+                            array_push($totalpaso, (int)$key['totalpaso']);
+                    }
+
+                        $paso2 = Yii::app()->db->createCommand()
+                        ->select('SUM(DISTINCT c.total_venta) as total_venta, 
+                        COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, 
+                        p.id_crm_proyecto as crmproyecto,  m.descripcion as nommes')
+                        ->from('tramite_pasos t, cliente c, proyecto p, meses m')
+                        ->where('m.id_meses = date_part('. "'month'".', t.fecha_paso) AND c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_banco=16 and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
+                        group by t.id_paso, mes, crmproyecto, nommes
+                        order by mes')
+                        ->queryAll(true);
+                        $mes_paso2 = array();
+                        $totalventa = array();
+                        $totalpaso2 = array();
+
+                        foreach($paso2 as $t=>$key) {
+                            array_push($mes_paso2, $key['nommes']);
+                            array_push($totalventa,  (int)$key['total_venta']);
+                            array_push($totalpaso2, (int)$key['totalpaso']);
+                        }
            }      
       
         
@@ -1324,11 +1359,11 @@ array_push($totalpaso, (int)$key['totalpaso']);
         'mes'=>$mes,
         'totalsi'=>$totalsi,
         'mes_paso'=>$mes_paso,
-       // 'total'=>$total,
-        'mes_paso'=>$mes_paso,
-   'totalliquidado'=>$totalliquidado,
-   'totalpaso'=>$totalpaso,
-        
+        'mes_paso2'=>$mes_paso2,
+        'totalliquidado'=>$totalliquidado,
+        'totalpaso'=>$totalpaso,
+        'totalventa'=>$totalventa,
+        'totalpaso2'=>$totalpaso2,
     ));
     
 }
@@ -1347,75 +1382,61 @@ public function actionCreateTramitesTwo()
     $totalpasos = array();       
     $dataCategories = array();
     $dataSeries = array();
+    //Variable para el grafico dos
+    $dataSeries2 = array();
+    $dataCategories2 = array();  
 
-$dataSeries2 = array();
-$dataCategories2 = array();  
-    //Query donde obtengo los datos
+    //Query donde obtengo los datos necesarios mediante un query
     $paso = Yii::app()->db->createCommand()
     ->select('t.id_pasos, 
             pa.descripcion, pa.abrev,
-            p.titulo, c.id_proyecto, 
-             SUM(c.total) as total,
+            p.comentario, c.id_proyecto, 
+             SUM(c.monto_liquidacion) as total,
             COUNT(c.id_proyecto) as crmproyecto, 
             COUNT(t.id_pasos) as totalpaso')
     ->from('tramite t')
-    ->join('paso pa', 'pa.id_paso = t.id_pasos')
+    ->join('paso pa', 'pa.id_paso = t.id_pasos and t.id_pasos!=11 and t.id_pasos!=0')
     ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
     ->join('proyecto p', 'p.id_crm_proyecto = c.id_proyecto GROUP BY 
-            t.id_pasos,  p.titulo,  c.id_proyecto, pa.descripcion, pa.abrev
+            t.id_pasos,  p.comentario,  c.id_proyecto, pa.descripcion, pa.abrev
             order by t.id_pasos')      
     ->queryAll(true);
    
     
-    /** Get pasos */
+    /** Obtengo mis pasos*/
 
-    $pasosAvailable = Paso::model()->FindAll(array('order'=>'id_paso'));
+    //$pasosAvailable = Paso::model()->FindAll(array('order'=>'id_paso'));
 
-//$pasosAvailable = array(1,2,3,4,5,6,7,8,9,10);
+    $pasosAvailable  = Paso::model()->findAll('id_paso > 0 AND id_paso < 11 order by id_paso');
 
-
-   // $maxPaso = Yii::app()->db->createCommand()->select('max(id_paso) as maxIdPasos')->from('paso')->queryScalar();
+     //Obtengo el Maximo y el Minimo
+    $maxPaso = Yii::app()->db->createCommand()->select('max(id_paso) as maxIdPasos')->from('paso')->queryScalar();
     $minPaso = Yii::app()->db->createCommand()->select('min(id_paso) as maxIdPasos')->from('paso')->queryScalar();
- // $minPaso =1;
-   $maxPaso=10; 
-   /* Extrayendo los nombres de las series*/
-   
-   foreach ($pasosAvailable as $thisPaso){
-        
-        array_push($dataSeries, $thisPaso["abrev"]);
 
-        array_push($dataSeries2, $thisPaso["abrev"]);
-        
+
+
+   /* Extrayendo los nombres de las series*/
+   foreach ($pasosAvailable as $thisPaso){
+        array_push($dataSeries, $thisPaso["abrev"]);   //Para la serie cantdad de Pasos
+        array_push($dataSeries2, $thisPaso["abrev"]);  //Para la serie monto de Pasos
     }
-    
-    foreach ($paso as $thisPaso){
-        
-//        if (!array_key_exists($thisPaso["id_pasos"], $dataSeries)){
-//            $dataSeries = array_merge($dataSeries, array($thisPaso["id_pasos"] => $thisPaso["descripcion"]));
-////            array_push($dataSeries, $thisPaso["descripcion"]);
-//        }
-        
-       
-    }
-    
-//    $dataCategories = array_flip(array_unique($dataCategories));
+
+
+   // $dataCategories = array_flip(array_unique($dataCategories));
     $dataSeries = array_unique($dataSeries);
 
-
-    
     foreach ($paso as $thisPaso){
         
-        if (!isset($dataCategories[$thisPaso["titulo"]])) {
-//            $dataCategories[$thisPaso["titulo"]]= array();
-            $dataCategories[$thisPaso["titulo"]] = array_fill($minPaso, $maxPaso+1, null);
-            $dataCategories2[$thisPaso["titulo"]] = array_fill($minPaso, $maxPaso+1, 0);
+        if (!isset($dataCategories[$thisPaso["comentario"]])) {
+            $dataCategories[$thisPaso["comentario"]] = array_fill($minPaso, 10, null);
+            $dataCategories2[$thisPaso["comentario"]] = array_fill($minPaso, 10, null);
         }
         
-        $dataCategories[$thisPaso["titulo"]][$thisPaso["id_pasos"]] = $thisPaso["totalpaso"];
+        $dataCategories[$thisPaso["comentario"]][$thisPaso["id_pasos"]] = $thisPaso["totalpaso"];
+        $dataCategories2[$thisPaso["comentario"]][$thisPaso["id_pasos"]] = intval(substr($thisPaso["total"],0,8),16);
 
-        $dataCategories2[$thisPaso["titulo"]][$thisPaso["id_pasos"]] = (int)$thisPaso["total"];
     }
-
+ 
 
     $categoriesData = $dataCategories;
     $dataCategories = array();
@@ -1426,6 +1447,9 @@ $dataCategories2 = array();
         
     }
 
+  
+ //array_pop($dataCategories); 
+
 
     $categoriesData2 = $dataCategories2;
     $dataCategories2 = array();
@@ -1434,7 +1458,9 @@ $dataCategories2 = array();
         
         $dataCategories2[] = array("name" => $name, "data" => $data);
         
-    } 
+    }
+
+
   //  print "<pre>";
 //    
 ////    var_export ($paso);
@@ -1484,7 +1510,7 @@ $dataCategories2 = array();
                             ->from('tramite t')
                             ->join('paso pa', 'pa.id_paso = t.id_pasos')
                             ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
-                            ->join('proyecto p', 'p.id_crm_proyecto = c.id_proyecto '.$queryproyecto.' '.$queryusuario.' GROUP BY 
+                            ->join('proyecto p', 't.id_pasos!=11 and t.id_pasos!=0 and p.id_crm_proyecto = c.id_proyecto '.$queryproyecto.' '.$queryusuario.' GROUP BY 
                                     t.id_pasos,  p.titulo,  c.id_proyecto, pa.descripcion, pa.abrev
                                     order by t.id_pasos')      
                             ->queryAll(true);

@@ -183,14 +183,21 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
         $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
 
-        $data = new CActiveDataProvider(get_class($this), array(
+
+   		$data = new CActiveDataProvider(get_class($this), array(
+                                'criteria'=> $criteria,     
+                                'pagination' => array('pageSize' =>10000),
+
+                'totalItemCount'=>'5000',   ));
+        $_SESSION['Gestion']=$data; // get all data and filtered data :)
+       /* $data = new CActiveDataProvider(get_class($this), array(
                         'pagination'=>array('pageSize'=> Yii::app()->user->getState('pageSize',
                                                                         Yii::app()->params['defaultPageSize']),),
                      /*   'pagination' => array('pageSize' => 50),
                         'criteria'=>$criteria,*/
-                ));
+              
 
-        $_SESSION['Gestion']=$data; // get all data and filtered data :)
+     
 
         return $data;
 	}

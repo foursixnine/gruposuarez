@@ -89,7 +89,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 
 <div class="form-group">
 <?php //echo $form->datePickerGroup($model,'fecha_entrega',array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array('class'=>'span5')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click on Month/Year to select a different Month/Year.')); 
-    
+ /*   
         echo $form->datePickerGroup($model,'fecha_entrega',
    array('widgetOptions'=>
             array('options'=>array('format'=>'yyyy-mm-dd'),
@@ -97,7 +97,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
     array('class' => 'col-sm-3')), 
     'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 
     'append'=>''));
-
+*/
 ?>
 </div>
 

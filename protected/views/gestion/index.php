@@ -61,7 +61,7 @@ $this->widget('booster.widgets.TbGridView',array(
             'idClienteGs.nombre_de_empresa',
             'idClienteGs.cedula',
             'fecha_creacion',
-            	'idClienteGs.numero_de_lote',
+            'idClienteGs.numero_de_lote',
         array(
         'name'=>'fecha_acuerdo',
         'header'=>'Fecha de Acuerdo',

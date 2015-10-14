@@ -405,13 +405,15 @@ class Cliente extends CActiveRecord
 		$criteria->compare('apellido',$this->apellido,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('proyecto',$this->proyecto,true);
-		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);	
+		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
+
+		
 		
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
-$criteria->order = 'id_cliente_gs DESC';
 
-		$criteria->order = 'id_cliente_gs DESC';
+
+		$criteria->order = 'proyecto, numero_de_lote DESC';
                 $criteria->limit = 20;
                 $criteria->offset = 0;
                 return new CActiveDataProvider($this, array(

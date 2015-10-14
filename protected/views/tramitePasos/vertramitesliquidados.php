@@ -6,7 +6,8 @@
 
 		'id' =>'tramite-pasos-form',
 		'type' => 'horizontal',
-	
+	   'enableAjaxValidation'=>true
+
    
 )); 
  
@@ -18,12 +19,14 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 );
 ?>
  
-<?php echo $model->descripcion; ?>
-<button type="button" class="btn btn-warning">ACTUALIZACI&Oacute;N DE TRAMITE</button>
+
+<button type="button" class="btn btn-warning">DATOS DE ENTREGA</button>
        <br/>  
  
         <br/>
-        <?php echo $form->textAreaGroup(
+        <?php 
+
+        echo $form->textAreaGroup(
 			$model,
 			'descripcion',
 
@@ -36,9 +39,16 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 					'htmlOptions' => array('rows' => 5),
 				)
 			)
-		); ?>
-	
-        <?php echo $form->radioButtonListGroup(
+		); 
+
+	    echo $form->datePickerGroup($model,'fecha_entrega',
+                                array('widgetOptions'=>array('options'=>array(
+                                                             'format' => 'yyyy-mm-dd'
+                                ),
+                                'htmlOptions'=>array('class'=>'span5')), 
+                                'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>')); 
+    
+       echo $form->radioButtonListGroup(
 			$model,
 			'casa_entregada',
 			array(
@@ -51,7 +61,8 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 			)
 		); ?>
        <br/>     
-        <?php echo CHtml::submitButton('GUARDAR',array('name'=>'updatetramite')); ?>
+
+<?php echo CHtml::submitButton('GUARDAR',array('name'=>'updatetramite')); ?>
 
 <?php $this->endWidget(); ?>
 <br/>

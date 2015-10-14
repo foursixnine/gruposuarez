@@ -45,25 +45,7 @@ array('label'=>'Volver','url'=>'index'),
           <?php echo $form->labelEx($model, 'Tramitadora'); ?>
            
            <br/>
-           <?php /*
-           $this->widget(
-            'booster.widgets.TbSelect2',
-                         array(
-                            'model'=>$model,
-                            'attribute'=>'id_usuario',
-                            'data'=>array(
-                                1=>'Gabriela',
-                                2=>'Oly',
-          
-                            ),
-             'options' => array(
-                        'placeholder' => "Cobradora",
-                             'allowClear'=>true,
 
-                      ),
-                             )
-); 
-*/?>
                 <?php
                     $this->widget(
                       'booster.widgets.TbSelect2', array(
@@ -169,13 +151,127 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
     ),
     'options' => array(
       'title' => array(
-            'text' => 'Casas Liquidadas'
+            'text' => 'Casas Liquidadas a Credito'
       ),
       'subtitle' => array(
           'text' => 'Pasos en Liquidación'
       ),
       'xAxis' => array(
          'categories' => $mes_paso,
+         'crosshair' => true
+      ),
+      //Eje Primerio 
+      'yAxis' =>array(   
+            array(
+                      'labels' => array(
+                      'format' => '{value} ',
+                          'style'  => array(
+                              'color' => 'Highcharts.getOptions().colors[1]'
+                          )
+                      ),
+                      'title' => array(
+                            'text' => 'Cantidad de Casas de Contado',
+                            'style' => array(
+                                              'color' => 'Highcharts.getOptions().colors[1]'
+                                            )
+                                    ),
+                    'min' => 1,
+                    'max' => 30
+            ),array( // Secondary yAxis
+            'title' => array(
+                'text' => 'Monto Liquidado',
+                'style' => array(
+                    'color'=>'Highcharts.getOptions().colors[0]'
+                )
+            ),
+            'labels'=>array(
+                'format' => '{value} mm',
+                'style' =>array(
+                    'color'=> 'Highcharts.getOptions().colors[0]'
+                )
+            ),
+            'opposite'=>true
+          )
+      ),
+
+
+        'tooltip' =>array( 
+            'shared'=> true
+        ),
+
+        'legend' =>array(
+            'layout'=>  'vertical', //horizontal
+            'align'=>  'left', //center
+            'x'=> 120,
+            'borderWidth'=> 2,
+            'verticalAlign'=> 'top', //bottom top
+            'y'=> 100,
+            'floating'=> true
+
+            //'enabled' => true
+        
+            //'backgroundColor' => '(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || + .'#FFFFFF'.+'
+        ),
+       //Comienzan las grafico la data
+        'series' => 
+        array(
+          array(
+                'name'=> 'Monto Liquidado',
+                'type'=>'column',
+                'yAxis'=> 1, 
+                'data' => $totalliquidado,
+                //Para colocar en formato $ y con 2 decimales
+                'tooltip' => array(
+                  'valueDecimals'=> 2,
+                  'valuePrefix'=> '$',
+                  'valueSuffix'=> ' USD'
+                )
+          ),      
+          array(
+               'type'=>'spline',
+               'name' => 'Casas Liquidadas ', 
+               'data' => $totalpaso,
+               'tooltip' => array(
+                    'valueSuffix' => ' Casas'
+               )
+          ),
+      ),
+    )
+  ));
+      
+      
+      
+?>
+</div>
+
+
+<br/>
+
+
+<div id="containertablero2" style="min-width: 855px; height: 400px;margin: 0 auto">
+
+
+<?php
+
+/*********ORIGINAL*****************///////
+
+
+
+$this->Widget('ext.highcharts.HighchartsWidget', array(
+    'scripts' => array(
+      'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
+      'modules/exporting', // adds Exporting button/menu to chart
+      'themes/grid-light'        // applies global 'grid' theme to all charts
+    ),
+    'options' => array(
+      'title' => array(
+            'text' => 'Casas Liquidadas de Contado'
+      ),
+      'subtitle' => array(
+          'text' => 'Pasos en Liquidación'
+      ),
+      'xAxis' => array(
+         'categories' => $mes_paso2,
          'crosshair' => true
       ),
       //Eje Primerio 
@@ -237,7 +333,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
                 'name'=> 'Monto Liquidado',
                 'type'=>'column',
                 'yAxis'=> 1, 
-                'data' => $totalliquidado,
+                'data' => $totalventa,
                 //Para colocar en formato $ y con 2 decimales
                 'tooltip' => array(
                   'valueDecimals'=> 2,
@@ -248,7 +344,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
           array(
                'type'=>'spline',
                'name' => 'Casas Liquidadas ', 
-               'data' => $totalpaso,
+               'data' => $totalpaso2,
                'tooltip' => array(
                     'valueSuffix' => ' Casas'
                )

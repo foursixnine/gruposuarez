@@ -147,7 +147,7 @@ $(function(){
                                         ),
                                         'widgetOptions' => array(
                                                 'data' => array(
-                                                     0=>'---SELECCONE---',
+                                                    0=>'---SELECCONE---',
                                                     1=>'SOLICITUD DE MINUTA DE CANCELACIÓN A BANCO INTERINO Y FIRMA DE MINUTA',
                                                     2=>'CONFECCIONAR MINUTA DE VENTA'),
                                                 'htmlOptions' => array(),

@@ -32,14 +32,24 @@ Yii::app()->clientScript->registerScript('search', "
 
 
 $this->widget('booster.widgets.TbGridView',array(
-'id'=>'gestion-grid',
+'id'=>'gestion',
 'dataProvider'=>$model->excel(),
 'filter'=>$model,
 'columns'=>array(
 			'idClienteGs.id_cliente',
 			'idClienteGs.nombre_de_empresa',
+            array(
+                    'name'=>'id_crm_proyecto',
+                    'header'=>'Proyecto',
+                    'value'=> 'CHtml::encode($data->idCrmProyecto["titulo"])',
+                    'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
+            ), 
 			'idClienteGs.numero_de_lote',
-			'idUsuario.username',
+			
+
+            array('name'=>'idUsuario.username', 'header'=>'Cobradora'),
+
+
 			array(
 				'name'=>'id_acuerdo_cobros',
 				'header'=>'Acuerdos Cobros',

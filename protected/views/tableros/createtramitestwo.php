@@ -1,4 +1,7 @@
 <meta http-equiv="Content-Type" charset=utf-8">
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
 <?php   $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'tableros-form',
 //'type' => 'horizontal',
@@ -102,8 +105,7 @@ array('label'=>'Volver','url'=>'index'),
 </div>
 
 <?php $this->endWidget(); ?>
-<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-<script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+
 
 <div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto">    
     
@@ -111,12 +113,13 @@ array('label'=>'Volver','url'=>'index'),
  
 <?php
 
+
 $this->Widget('ext.highcharts.HighchartsWidget', array(
     'scripts' => array(
       'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
       'modules/exporting', // adds Exporting button/menu to chart
-     'themes/grid-light'        // applies global 'grid' theme to all charts
-      //  'themes/white'
+    // 'themes/grid-light'        // applies global 'grid' theme to all charts
+      'themes/white'
     ),
     'options' => array(
       'chart' => array(
@@ -189,7 +192,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
       'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
       'modules/exporting', // adds Exporting button/menu to chart
    //  'themes/grid-light'        // applies global 'grid' theme to all charts
-      //  'themes/white'
+        'themes/white'
     ),
     'options' => array(
       'chart' => array(
@@ -214,7 +217,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
             'verticalAlign'=> 'top',
             'y'=> 25,
             'floating'=> true,
-          //  'backgroundColor'=> '(Highcharts.theme && Highcharts.theme.background2)' || 'gray',
+          // 'backgroundColor'=> '(Highcharts.theme && Highcharts.theme.background2)' || 'gray',
             'borderColor'=>'#CCC',
             'borderWidth'=> 1,
             'shadow'=> false
@@ -230,7 +233,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
                 'stacking'=>'normal',
                 'dataLabels'=>array(
                     'enabled'=> true,
-             //       'color'=> '(Highcharts.theme && Highcharts.theme.dataLabelsColor) || "white"',
+                    'color'=> '(Highcharts.theme && Highcharts.theme.dataLabelsColor) || "white"',
                     'style'=> array(
                         'textShadow'=>'0 0 3px black'
                     )

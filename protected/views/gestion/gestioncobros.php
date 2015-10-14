@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Gestion','url'=>array('index')),
-	array('label'=>'Manage Gestion','url'=>array('admin')),
+	array('label'=>'Listar Gestion','url'=>array('index')),
+	array('label'=>'Administrar Gestion','url'=>array('admin')),
 );
 ?>
 

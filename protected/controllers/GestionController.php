@@ -210,7 +210,7 @@ public function actionCreate($id){
 		$this->render('index',array(
                     'model'=>$model,
                     'cliente'=>$cliente,
-                   'retiro'=>$retiro                  
+                    'retiro'=>$retiro                  
 		));
              
         
@@ -221,13 +221,23 @@ public function actionCreate($id){
 	 */
 	public function actionAdmin()
 	{
-                $model = new Gestion('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Gestion'])){
-			$model->attributes=$_GET['Gestion'];
-		}
-	
-    	$this->render('admin', array('model' => $model));   
+    
+            $model=new Gestion('search');  
+            $model->unsetAttributes();
+     
+         
+            if(isset($_GET['Gestion'])){
+                            $model->attributes=$_GET['Gestion'];
+                        // print_r($_GET['Customers']);
+            }		
+		
+                     
+                
+		$this->render('admin',array(
+                    'model'=>$model,
+                      
+		));
+
 	}
 
     public function actionExcel() {

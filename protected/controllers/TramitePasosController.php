@@ -517,6 +517,7 @@ public function actionTramite($id)
                    $tramiteupdate = Tramite::model()->updateAll(array( 
                                         'id_pasos' => 11,                                                                                                              
                                         'fecha_paso'=>$hoy,
+                                        'id_estado' => 4
 
                                                               ),
                                                                 'id_tramite ='.$id
@@ -529,7 +530,8 @@ public function actionTramite($id)
                                                 'firma_promotora'=>$model->firma_promotora,
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,
-                                                'id_razones_estado' => $model->id_razones_estado
+                                                'id_razones_estado' => $model->id_razones_estado,
+                                                'id_estado' => 4
                                               
                                                                   ),
                                                                     'id_tramite ='.$id
@@ -678,12 +680,12 @@ public function actionVerTramitesLiquidados($id){
 
                   $tramiteupdate = Tramite::model()->updateAll(array( 
                                                       'descripcion'    =>$model->descripcion,
-                                                      'casa_entregada' =>$_POST['Tramite']['casa_entregada']                                            
-                                                   
+                                                      'casa_entregada' =>$_POST['Tramite']['casa_entregada'],                                            
+                                                   'fecha_entrega' => $_POST['Tramite']['fecha_entrega']
                                                                         ),
                                                                 'id_tramite ='.$id
                                                        );
-                   $this->redirect(array('vertramitesliquidados','id'=>$id));
+                //   $this->redirect(array('vertramitesliquidados','id'=>$id));
               }
 
       
@@ -773,7 +775,7 @@ public function actionDetalleLiquidacion($id)
   public function actionReportePasos(){
 
         $reportepasos = Yii::app()->db->createCommand()
-      ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, m.descripcion as nommes,p.titulo, pa.descripcion, p.id_crm_proyecto as crmproyecto,
+      ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, SUM(DISTINCT c.total_venta) as totalventa, m.descripcion as nommes,p.titulo, pa.descripcion, p.id_crm_proyecto as crmproyecto,
          COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
       ->from('tramite_pasos t, cliente c, proyecto p, meses m,paso pa')
       ->where(' p.id_crm_proyecto=c.id_proyecto and 
@@ -813,7 +815,7 @@ public function actionDetalleLiquidacion($id)
               $data[$i]['total_venta'] =  $queryData->idClienteGs->total_venta;
               $data[$i]['monto_liquidacion'] =  $queryData->idClienteGs->monto_liquidacion;
               $data[$i]['banco_acreedor'] =  $queryData->idClienteGs->banco_acreedor;
-              $data[$i]['fecha_paso'] =  $queryData->id_usuario;
+              $data[$i]['fecha_paso'] =  $queryData->fecha_paso;
               $data[$i]['plano'] =  $queryData->idTramite->plano;
               $data[$i]['fecha_entrega'] = $queryData->idTramite->fecha_entrega; 
               $data[$i]['ganancia_capital'] = $queryData->idTramite->ganancia_capital;   
@@ -823,7 +825,12 @@ public function actionDetalleLiquidacion($id)
               $data[$i]['num_finca_inscrita'] = $queryData->idTramite->num_finca_inscrita;   
               $data[$i]['transferencia_inmueble'] = $queryData->idTramite->transferencia_inmueble;    
               $data[$i]['num_permiso_ocupacion'] = $queryData->idTramite->num_permiso_ocupacion;  
-
+              $data[$i]['fecha_de_permiso_ocupacion'] = $queryData->idClienteGs->fecha_de_permiso_ocupacion;  
+              $data[$i]['id_paso'] = $queryData->idPaso->descripcion; 
+              $data[$i]['id_expediente_fisico'] = $queryData->idExpedienteFisico->descripcion; 
+               
+              $data[$i]['id_tipo_responsable'] = $queryData->idPaso->abrev;  
+              $data[$i]['fecha_de_permiso_contruccion'] =$queryData->idClienteGs->fecha_de_permiso_contruccion;
 
             $i++;
         }

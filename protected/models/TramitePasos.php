@@ -22,8 +22,6 @@
  * @property string $firma_promotora
  * @property string $fecha_solicitud
  * @property string $fecha_recibido
- * @property string $plano
- * @property string $fecha_entrega
  *
  * The followings are the available model relations:
  * @property Estado $idEstado
@@ -54,10 +52,10 @@ class TramitePasos extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_tramite, id_cliente_gs, id_expediente_fisico, id_usuario, id_razones_estado, id_estado, id_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable', 'numerical', 'integerOnly'=>true),
-			array('fecha_pazysalvo, fecha_inicio, fecha_paso, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, plano, fecha_entrega', 'safe'),
+			array('fecha_pazysalvo, fecha_inicio, fecha_paso, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, plano, fecha_entrega', 'safe', 'on'=>'search'),
+			array('id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -94,7 +92,7 @@ class TramitePasos extends CActiveRecord
 			'id_usuario' => 'Id Usuario',
 			'fecha_inicio' => 'Fecha Inicio',
 			'id_razones_estado' => 'Id Razones Estado',
-			'id_estado' => 'Id Estado',
+			'id_estado' => 'Estado',
 			'id_paso' => 'Id Paso',
 			'fecha_paso' => 'Fecha Paso',
 			'id_banco' => 'Id Banco',
@@ -104,8 +102,6 @@ class TramitePasos extends CActiveRecord
 			'firma_promotora' => 'Firma Promotora',
 			'fecha_solicitud' => 'Fecha Solicitud',
 			'fecha_recibido' => 'Fecha Recibido',
-			'plano' => 'Plano',
-			'fecha_entrega' => 'Fecha Entrega',
 		);
 	}
 
@@ -145,8 +141,7 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
-		$criteria->compare('plano',$this->plano,true);
-		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -177,8 +172,7 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
-		$criteria->compare('plano',$this->plano,true);
-		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -210,8 +204,7 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
-		$criteria->compare('plano',$this->plano,true);
-		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -242,8 +235,6 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
-		$criteria->compare('plano',$this->plano,true);
-		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 
 
    		$data = new CActiveDataProvider(get_class($this), array(
