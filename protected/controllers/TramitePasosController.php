@@ -369,7 +369,7 @@ public function actionTramite($id)
                                                 'id_estado'   =>$model->id_estado,                                        
                                                 'fecha_inicio'   =>$hoy,
                                                 'fecha_paso'   =>null,
-                                                'inicio'   =>1,
+                                                'inicio'   =>1,                                        
                                                 'id_razones_estado' => $model->id_razones_estado                                            
                                                                   ),
                                                                     'id_tramite ='.$id
@@ -424,7 +424,7 @@ public function actionTramite($id)
                     if(empty($tramite_one->fecha_paso)){
                           Yii::app()->user->setFlash('error', "Es necesario Cerrar el Paso 1 => SOLICITUD DE MINUTA DE CANCELACIÓN A BANCO INTERINO Y FIRMA DE MINUTA");
                           $this->redirect(array('tramite','id'=>$id));
-                          var_dump($tramite_one);die;
+                          //var_dump($tramite_one);die;
                     }
 
                     //Busco si existe el tramite con el PASO 2 ingreso o actualizo
@@ -463,16 +463,17 @@ public function actionTramite($id)
                           $model->fecha_pazysalvo=$tramite->fecha_pazysalvo;
                           $model->id_expediente_fisico=$tramite->id_expediente_fisico;
                           $model->id_usuario=$tramite->id_usuario;
+                          $model->id_crm_proyecto = $tramite->idClienteGs->id_proyecto;
                           //$pasoactual=$tramite->id_pasos;
                           $model->id_paso=3;
-                          $tramite_actividad->id_paso=$tramite->id_pasos;
-                          $tramite_actividad->id_tramite=$id;
+                        //  $tramite_actividad->id_paso=$tramite->id_pasos;
+                         // $tramite_actividad->id_tramite=$id;
                   
                           //Guardo el tramite    
                           $model->save();
                           
                           //Guardo la Activudad
-                          $tramite_actividad->save();  
+                          //$tramite_actividad->save();  
                           $this->redirect(array('tramite','id'=>$model->id_tramite));
 
                     }else{
@@ -625,23 +626,53 @@ $this->render('tramite',array(
 * If update is successful, the browser will be redirected to the 'view' page.
 * @param integer $id the ID of the model to be updated
 */
-public function actionUpdate($id)
-{
-$model=$this->loadModel($id);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+public function actionUpdate($id){
+    
+    //Cargo mi Modelo Actual Tramite Actividad 
+    $model=$this->loadModel($id);
 
-if(isset($_POST['TramitePasos']))
-{
-    $model->attributes=$_POST['TramitePasos'];
-    if($model->save())
-         $this->redirect(array('view','id'=>$model->id_tramite_pasos));
-    }
+    //Creo un nuevo modelo de Tramite Actividad
+    $tramite_actividad = new TramiteActividad;
+    
+    //Para saber las actividades que exiten por tramite
+    $tramitesactividad = TramiteActividad::model()->tramitesactividad($model->id_tramite);
+   
+    // Uncomment the following line if AJAX validation is needed
+    $this->performAjaxValidation($model);
+    $this->performAjaxValidation($tramite_actividad);
+    
+
+      if(isset($_POST['actualizar'])){
+
+              
+                $tramite_actividad->attributes=$_POST['TramiteActividad'];
+                $tramite_actividad->id_paso=$model->id_paso;
+                $tramite_actividad->id_tramite=$model->id_tramite;
+                $tramite_actividad->save();     
+                Yii::app()->user->setFlash('success', "Actividad creada Satisfactoriamente!");       
+                $this->redirect(array('update','id'=>$id));
+             
+                
+      }
+        if(isset($_POST['tramite']))
+        {
+           
+            $model->attributes=$_POST['TramitePasos'];
+             
+            if($model->validate())
+            {
+                $model->save();
+                $this->redirect(array('view','id'=>$id));
+            }
+        }
+   
 
     $this->render('update',array(
-         'model'=>$model,
-));
+             'model'=>$model,
+             'tramitesactividad'=>$tramitesactividad,
+             'tramite_actividad'=>$tramite_actividad,
+    ));
 }
 
 /**********************VER TRAMITES LIQUIDADOS**********************************************/

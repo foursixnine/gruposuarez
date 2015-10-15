@@ -183,7 +183,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
 		$criteria->compare('inicio',$this->inicio);
-
+        $criteria->order = 'id_tramite DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -213,7 +213,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
 		$criteria->compare('inicio',$this->inicio);
-
+       $criteria->order = 'id_tramite DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

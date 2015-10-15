@@ -36,7 +36,12 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 
-		'idClienteGs.proyecto',
+		array(
+			'name'=>'id_crm_proyecto',
+			'header'=>'Proyecto',
+			'value'=> 'CHtml::encode($data->idCrmProyecto["titulo"])',
+			'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
+		),
 		'idClienteGs.numero_de_lote',
 		'idClienteGs.nombre_de_empresa',
 		'idClienteGs.total_venta',

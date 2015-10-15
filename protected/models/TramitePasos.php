@@ -22,6 +22,7 @@
  * @property string $firma_promotora
  * @property string $fecha_solicitud
  * @property string $fecha_recibido
+ * @property string $id_crm_proyecto
  *
  * The followings are the available model relations:
  * @property Estado $idEstado
@@ -32,6 +33,7 @@
  * @property Cliente $idClienteGs
  * @property Tramite $idTramite
  * @property ExpedienteFisico $idExpedienteFisico
+ * @property Proyecto $idCrmProyecto
  */
 class TramitePasos extends CActiveRecord
 {
@@ -55,7 +57,7 @@ class TramitePasos extends CActiveRecord
 			array('fecha_pazysalvo, fecha_inicio, fecha_paso, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido', 'safe', 'on'=>'search'),
+			array('id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +77,7 @@ class TramitePasos extends CActiveRecord
 			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
 			'idTramite' => array(self::BELONGS_TO, 'Tramite', 'id_tramite'),
 			'idExpedienteFisico' => array(self::BELONGS_TO, 'ExpedienteFisico', 'id_expediente_fisico'),
+			'idCrmProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_crm_proyecto'),
 		);
 	}
 
@@ -102,6 +105,7 @@ class TramitePasos extends CActiveRecord
 			'firma_promotora' => 'Firma Promotora',
 			'fecha_solicitud' => 'Fecha Solicitud',
 			'fecha_recibido' => 'Fecha Recibido',
+			'id_crm_proyecto' => 'Proyecto',
 		);
 	}
 
@@ -117,7 +121,7 @@ class TramitePasos extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-public function search()
+	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -141,6 +145,7 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
+		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 
 
 		return new CActiveDataProvider($this, array(
@@ -172,7 +177,7 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
-
+		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -204,7 +209,7 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
-
+		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -235,7 +240,7 @@ public function search()
 		$criteria->compare('firma_promotora',$this->firma_promotora,true);
 		$criteria->compare('fecha_solicitud',$this->fecha_solicitud,true);
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
-
+		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 
    		$data = new CActiveDataProvider(get_class($this), array(
                                 'criteria'=> $criteria,     

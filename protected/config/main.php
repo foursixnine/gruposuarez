@@ -73,7 +73,7 @@ return array(
                        // 'class' => 'application.modules.cruge.components.CrugeWebUser', 
                         'loginUrl'=>array('site/login'),
 		),
-	  /*      'urlManager'=>array(
+	  /*     'urlManager'=>array(
 			'urlFormat'=>'path',
                         'showScriptName'=>false,
                         'caseSensitive'=>false,//true
@@ -105,9 +105,9 @@ return array(
                 //Segunda Conexion
                 'dbconix'=>array(
                         'class' => 'CDbConnection',
-			         //   'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez',
+			            'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez',
                         'enableProfiling' => YII_DEBUG_PROFILING,
-            	        'connectionString' => 'mysql:host=192.168.0.159;dbname=enx_suarez',
+            	   //     'connectionString' => 'mysql:host=192.168.0.159;dbname=enx_suarez',
 			'emulatePrepare' => true,
 			'username' => 'suarez',
 			'password' => '!suarez2015!',
