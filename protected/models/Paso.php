@@ -61,8 +61,8 @@ class Paso extends CActiveRecord
 	{
 		return array(
 			'id_paso' => 'Id Paso',
-			'descripcion' => 'Descripcion',
-                        'abrev' => 'Abrev',
+			'descripcion' => 'Nombre Paso',
+                        'abrev' => 'Paso',
 		);
 	}
 

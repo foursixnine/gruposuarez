@@ -13,19 +13,12 @@ $this->breadcrumbs=array(
 );
 $this->menu=array(
 array('label'=>'Volver','url'=>array('tramite/admin')),
-//array('label'=>'Create TramitePasos','url'=>array('create')),
 );
-/*
-	$this->menu=array(
-	array('label'=>'Listar Pasos del Tramite','url'=>array('index')),
-	array('label'=>'Crear Tramite','url'=>array('create','id'=>$model->id_tramite)),
-	array('label'=>'Visualizar Tramite','url'=>array('view','id'=>$model->id_tramite_pasos)),
-	array('label'=>'Administrar Pasos del Tramite','url'=>array('admin')),
-	);*/
+
 	?>
 
 <br/><br/>
-<button type="button" class="btn btn-warning">Paso:
+<button type="button" class="btn btn-warning">Paso
 <span class="badge"><?php echo $model->idPaso['id_paso']; ?></span>
  <?php echo $model->idPaso['descripcion']; ?></button>
 
@@ -62,7 +55,21 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
     ?>
 </div>
 
+<?php
+
+
+  foreach ($tramite_estado as $data) {
+    if( $data['id_estado'] >= 3){
+            echo $var=false;
+    }else{          
+           echo $var=true;
+    }
+  }
+
+
+?>
 <br/><br/><br/>
+<?php if($var){ ?> 
 <div class="alert alert-success" role="alert">
   <span class="glyphicon glyphicon-list-alt" aria-hidden="true">  Actividad del Tramite</span></div>
 
@@ -111,12 +118,16 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
     </div>              
 
 
-
+<?php } ?>
 
 <div class="form-actions">
 <div class="row buttons">      
-         <?php echo CHtml::submitButton('Tramite',array('name'=>'tramite')); ?>
-        <?php echo CHtml::submitButton('Volver al Home',array('name'=>'actualizar')); ?>
+         <?php echo CHtml::submitButton('ACTUALIZAR TRAMITE',array('name'=>'tramite')); ?>
+         <?php if($var){ ?> 
+
+          <?php echo CHtml::submitButton('ACTUALIZAR ACTIVIDAD',array('name'=>'actualizar')); ?>
+
+         <?php } ?> 
 </div>
 
 </div>
@@ -133,7 +144,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 'columns'=>array(
                 'idPaso.descripcion',
                 'idEstado.descripcion',
-             
+                'id_tramite',
                 array(
                       'class' => 'bootstrap.widgets.TbEditableColumn',
                       'name' => 'Fecha Tramite',
@@ -165,7 +176,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
                                'placement' => 'right',                            
                           )
                   ), 
-                array(
+                /*array(
                        'class'=>'CButtonColumn',
                        'template'=>'{delete}',
                        'buttons'=>array
@@ -179,7 +190,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
                    ),
 
                 ),
-                   ),
+                   ),*/
              
     
     

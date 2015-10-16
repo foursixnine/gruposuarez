@@ -50,7 +50,7 @@ class RazonesEstado extends CActiveRecord
 	{
 		return array(
 			'id_razones_estado' => 'Id Razones Estado',
-			'descripcion' => 'Descripcion',
+			'descripcion' => 'Razones Estado Descripcion',
 		);
 	}
 

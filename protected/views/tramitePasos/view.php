@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Tramite Pasoses'=>array('index'),
+	'Tramite Pasos'=>array('index'),
 	$model->id_tramite_pasos,
 );
 
@@ -13,25 +13,55 @@ array('label'=>'Administrar Pasos del Tramite','url'=>array('admin')),
 );
 ?>
 
+<br/><br/>
+<button type="button" class="btn btn-warning">Paso
+<span class="badge"><?php echo $model->idPaso['id_paso']; ?></span>
+ <?php echo $model->idPaso['descripcion']; ?></button>
 
-<h1>View TramitePasos #<?php echo $model->id_tramite_pasos; ?></h1>
+
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
-		'id_tramite_pasos',
-		'id_tramite',
-		'id_cliente_gs',
-		'fecha_pazysalvo',
-		'id_expediente_fisico',
-		'id_usuario',
+		'idClienteGs.proyecto',
+		'idClienteGs.numero_de_lote',
+		'idClienteGs.nombre_de_empresa',
+		'idExpedienteFisico.descripcion',
+		'idPaso.abrev',
+		'idPaso.descripcion',
+		'idRazonesEstado.descripcion',
 		'fecha_inicio',
-		'id_pasos',
-		'id_abogado',
-		'fecha_fin',
-		'id_razones_estado',
-		'id_proveedores',
-		'id_estado',
-		'id_paso',
-),
+		'fecha_fin',		
+		'firma_cliente',
+  		'firma_promotora', 
+		),
 )); ?>
+
+
+<br/><br/>
+<button type="button" class="btn btn-warning">
+ ACTIVIDADES DEL TRAMITE</button>
+
+
+
+
+<?php $this->widget('booster.widgets.TbGridView',array(
+'id'=>'tramite-actividad-grid',
+'dataProvider'=>$tramitesactividad,
+'columns'=>array(
+			'idPaso.descripcion',
+			'idEstado.descripcion',
+			'id_tramite',
+
+			'fecha_tramite_actividad',                              
+
+			'observaciones',                           
+                           
+           
+             
+    
+    
+ 
+)
+)
+    );?>

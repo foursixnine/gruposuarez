@@ -65,8 +65,14 @@ public function actions()
 */
 public function actionView($id)
 {
+    //Cargo mi Modelo Actual Tramite Actividad 
+    $model=$this->loadModel($id);
+    //Para saber las actividades que exiten por tramite
+   
+    $tramitesactividad = TramiteActividad::model()->tramitesactividad($model->id_tramite);
     $this->render('view',array(
-          'model'=>$this->loadModel($id),
+          'model'=>$model,
+          'tramitesactividad'=>$tramitesactividad,
     ));
 }
 
@@ -638,6 +644,12 @@ public function actionUpdate($id){
     //Para saber las actividades que exiten por tramite
     $tramitesactividad = TramiteActividad::model()->tramitesactividad($model->id_tramite);
    
+    $tramite_estado = TramiteActividad::model()->findAll(
+                                                'id_tramite=:id_tramite AND id_paso=:id_paso',
+                                                array(':id_tramite'=>$model->id_tramite,
+                                                ':id_paso'=>$model->id_paso,
+                                     )); 
+
     // Uncomment the following line if AJAX validation is needed
     $this->performAjaxValidation($model);
     $this->performAjaxValidation($tramite_actividad);
@@ -672,6 +684,7 @@ public function actionUpdate($id){
              'model'=>$model,
              'tramitesactividad'=>$tramitesactividad,
              'tramite_actividad'=>$tramite_actividad,
+             'tramite_estado'=>$tramite_estado,
     ));
 }
 
