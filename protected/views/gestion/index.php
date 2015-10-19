@@ -69,11 +69,19 @@ $this->widget('booster.widgets.TbGridView',array(
         ),     
                
         array(
+ //'prompt'=>'Please select the minimum value',
+
+   
         'name'=>'id_acuerdo_cobros',
+
         'header'=>'Acuerdo',
+            
         'value'=> 'CHtml::encode($data->idAcuerdoCobros["descripcion"])',
-        'filter'=>CHtml::listData(AcuerdoCobros::model()->findAll(), 'id_acuerdo_cobros', 'descripcion'),
-        ),            
+
+     'filter'=>CHtml::listData(AcuerdoCobros::model()->findAll(), 'id_acuerdo_cobros', 'descripcion'),
+//'options' => array('unit'=>array('selected'=>true))
+
+  ),            
         array(
           'class' => 'bootstrap.widgets.TbToggleColumn',
           'toggleAction' => 'gestion/toggle',
