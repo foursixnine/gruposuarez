@@ -1391,7 +1391,7 @@ public function actionCreateTramitesTwo()
     ->select('t.id_pasos, 
             pa.descripcion, pa.abrev,
             p.comentario, c.id_proyecto, 
-             SUM(c.monto_liquidacion) as total,
+            SUM(c.monto_liquidacion) as total,
             COUNT(c.id_proyecto) as crmproyecto, 
             COUNT(t.id_pasos) as totalpaso')
     ->from('tramite t')
@@ -1503,15 +1503,16 @@ public function actionCreateTramitesTwo()
                             //Query donde obtengo los datos
                             $paso = Yii::app()->db->createCommand()
                             ->select('t.id_pasos, 
-                                    pa.descripcion, pa.abrev,
+                                    pa.descripcion, pa.abrev,  p.comentario,
                                     p.titulo, c.id_proyecto, 
                                     COUNT(c.id_proyecto) as crmproyecto, 
+                                     SUM(c.monto_liquidacion) as total,
                                     COUNT(t.id_pasos) as totalpaso')
                             ->from('tramite t')
-                            ->join('paso pa', 'pa.id_paso = t.id_pasos')
+                            ->join('paso pa', 'pa.id_paso = t.id_pasos ')
                             ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
                             ->join('proyecto p', 't.id_pasos!=11 and t.id_pasos!=0 and p.id_crm_proyecto = c.id_proyecto '.$queryproyecto.' '.$queryusuario.' GROUP BY 
-                                    t.id_pasos,  p.titulo,  c.id_proyecto, pa.descripcion, pa.abrev
+                                    t.id_pasos,  p.titulo,  c.id_proyecto, p.comentario,pa.descripcion, pa.abrev
                                     order by t.id_pasos')      
                             ->queryAll(true);
                       
@@ -1522,28 +1523,52 @@ public function actionCreateTramitesTwo()
                             $minPaso = Yii::app()->db->createCommand()->select('min(id_paso) as maxIdPasos')->from('paso')->queryScalar();
 
                            /* Extrayendo los nombres de las series*/
+ /* Extrayendo los nombres de las series*/
+   foreach ($pasosAvailable as $thisPaso){
+        array_push($dataSeries, $thisPaso["abrev"]);   //Para la serie cantdad de Pasos
+        array_push($dataSeries2, $thisPaso["abrev"]);  //Para la serie monto de Pasos
+    }
 
-                           foreach ($pasosAvailable as $thisPaso){
-                                array_push($dataSeries, $thisPaso["abrev"]);
-                            }
+
+   // $dataCategories = array_flip(array_unique($dataCategories));
+    $dataSeries = array_unique($dataSeries);
+
+    foreach ($paso as $thisPaso){
+        
+        if (!isset($dataCategories[$thisPaso["comentario"]])) {
+            $dataCategories[$thisPaso["comentario"]] = array_fill($minPaso, 10, null);
+            $dataCategories2[$thisPaso["comentario"]] = array_fill($minPaso, 10, null);
+        }
+        
+        $dataCategories[$thisPaso["comentario"]][$thisPaso["id_pasos"]] = $thisPaso["totalpaso"];
+        $dataCategories2[$thisPaso["comentario"]][$thisPaso["id_pasos"]] = intval(substr($thisPaso["total"],0,8),16);
+
+    }
+ 
+
+    $categoriesData = $dataCategories;
+    $dataCategories = array();
     
-                            $dataSeries = array_unique($dataSeries);
+    foreach ($categoriesData as $name => $data){
+        
+        $dataCategories[] = array("name" => $name, "data" => $data);
+        
+    }
 
-                            foreach ($paso as $thisPaso){
+  
+ //array_pop($dataCategories); 
 
-                                if (!isset($dataCategories[$thisPaso["titulo"]])) {                      
-                                    $dataCategories[$thisPaso["titulo"]] = array_fill($minPaso, $maxPaso+1, null);
-                                }
-                                $dataCategories[$thisPaso["titulo"]][$thisPaso["id_pasos"]] = $thisPaso["totalpaso"];
-                            }
-                            
-                            $categoriesData = $dataCategories;
-                            $dataCategories = array();
 
-                            foreach ($categoriesData as $name => $data){
-                                $dataCategories[] = array("name" => $name, "data" => $data);
+    $categoriesData2 = $dataCategories2;
+    $dataCategories2 = array();
+    
+    foreach ($categoriesData2 as $name => $data){
+        
+        $dataCategories2[] = array("name" => $name, "data" => $data);
+        
+    }
 
-                            } 
+
 
                     
            // }
