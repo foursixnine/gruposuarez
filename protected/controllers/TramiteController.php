@@ -37,7 +37,7 @@ return array(
     ),
     array('allow', // allow admin user to perform 'admin' and 'delete' actions
         'actions'=>array('admin','delete','actualizarcobradora'),
-        'users'=>array('admin', 'gilarreta','aquintero','lvelasco','mguerra'),
+        'users'=>array('admin', 'gilarreta','aquintero','lvelasco','mguerra','obonilla'),
        //  'users'=>array('*'),
     ),
     array('deny',  // deny all users
