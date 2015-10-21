@@ -6,7 +6,7 @@
 $this->pageTitle=Yii::app()->name . ' - Inicio';
 /*
 $this->breadcrumbs=array(
-	'Login',
+	'Login eceeee',
 );*/
 ?>
 <style type="text/css">
@@ -16,7 +16,7 @@ html { height: 100% }
 ::selection { background: #fe57a1; color: #fff; text-shadow: none; }
 body { background-image: radial-gradient( cover, rgba(92,100,111,1) 0%,rgba(31,35,40,1) 100%), url('http://i.minus.com/io97fW9I0NqJq.png') }
 .login {
-  background: #eceeee;
+  background: #FFFFFF;
   border: 1px solid #42464b;
   border-radius: 6px;
   height: 257px;
@@ -163,13 +163,15 @@ input[type="submit"]:active {
 	
 
 	<div class="">
-		<?php echo $form->labelEx($model,'username'); ?>
+    <br/>
+		<?php //echo $form->labelEx($model,'username'); ?>
+    <?php echo "NOMBRE DE USUARIO"; ?>
 		<?php echo $form->textField($model,'username'); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
 	<div class="">
-		<?php echo $form->labelEx($model,'password'); ?>
+		<?php echo "CONTRASEÑA"; ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
 		<!--<p class="hint">

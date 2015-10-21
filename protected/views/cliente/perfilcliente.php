@@ -51,7 +51,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
             'justified' => true,
             'label'=>'ULTIMA GESTION',
                  'content'=>$this->renderPartial("_datosgestion", array('cliente' => $cliente,
-                                                                        'gestion_old'=>$gestion_old,    ),true),
+                                                                        'gestion_old'=>$gestion_old,),true),
         ), 
         array(
             'id'=>'tab4',

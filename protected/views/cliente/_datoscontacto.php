@@ -6,8 +6,8 @@
                 <p>DATOS CONTACTO <span class="glyphicon glyphicon-phone-alt"></span></p> 
             </a>
      
-                 <table class="list-group-item"">
-                <tbody>
+                 <table class="list-group-item">
+             
                     <tr>
                         <td>
                             <?php            
@@ -17,11 +17,11 @@
 
                         <td><?php  echo $cliente->direccion;  ?></td>
                     </tr>    
-                    <!--Fecha Ingreos Tramite -->
+                    
                     <tr>
                         <td>
                             <?php            
-                                echo CHtml::label('Correo: ', '????');
+                                echo CHtml::label('Correo', '????');
                             ?>
                         </td>
 
@@ -32,7 +32,7 @@
                     <tr>
                         <td>
                             <?php            
-                                echo CHtml::label('Telef. Casa:   ', '????');
+                                echo CHtml::label('Telef. Casa', '????');
                             ?>
                         </td>
 
@@ -52,7 +52,7 @@
                         </td>            
                         <td><?php echo $cliente->numero_adicional; ?></td>
                     </tr>                  
-                </tbody>
+           
             </table>
  
      

@@ -1,5 +1,4 @@
 <div class="row">
-    <!--<div class="col-sm-6" style="background-color:lavender;">-->
     <div class="col-sm-6" style="background-color:#dff0d8;">
         <div class="list-group">
         <a href="#" class="list-group-item list-group-item-info">
@@ -18,7 +17,7 @@
                         <td><?php  echo $cliente->nombre_de_empresa;  ?></td>
                     </tr>    
                     
-                    <!--Cedula del Cliente o RUC--->
+                
                     <tr>
                         <td>
                             <?php            
@@ -29,7 +28,7 @@
                         <td><?php  echo $cliente->cedula;  ?></td>
                     </tr> 
                     
-                    <!-- ID Cliente--->
+               
                     <tr>
                         <td>
                             <?php            

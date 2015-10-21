@@ -9,7 +9,9 @@ array('label'=>'Manage Cliente','url'=>array('admin')),
 );
 ?>
 
-<h1>Clientes</h1>
+<br/>
+<button type="button" class="btn btn-warning">CLIENTE</button>
+<br/>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,
