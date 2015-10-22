@@ -38,7 +38,7 @@ public function accessRules()
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
             'actions'=>array('admin','delete'),
            // 'users'=>array('*'),
-            'users'=>array('admin', 'gilarreta','aquintero','lvelasco','mguerra','obonilla'),
+            'users'=>array('admin', 'gilarreta','aquintero','lvelasco','mguerra','orodriguez'),
         ),
         array('deny',  // deny all users
             'users'=>array('*'),
