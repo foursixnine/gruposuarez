@@ -169,6 +169,11 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
 
 		$criteria=new CDbCriteria;
 
+		if(!empty($this->fecha_creacion))
+        {
+            $criteria->condition = "fecha_creacion >= '$this->fecha_creacion'";  // date is database date column field
+        }
+
 		$criteria->compare('id_gestion',$this->id_gestion);
 		$criteria->compare('contactado_llamada',$this->contactado_llamada);
 		$criteria->compare('llamada_voz',$this->llamada_voz);
@@ -181,8 +186,8 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 		$criteria->compare('id_usuario',$this->id_usuario);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
-        $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
-
+      //  $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
+  //$criteria->mergeWith($this->dateRangeSearchCriteria('fecha_creacion', $this->fecha_creacion));  
 
    		$data = new CActiveDataProvider(get_class($this), array(
                                 'criteria'=> $criteria,     

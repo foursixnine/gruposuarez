@@ -69,6 +69,7 @@ $this->widget('booster.widgets.TbExtendedGridView', array(
         'cartera_90_dias' => array('label'=>'Cartera de 90', 'class'=>'TbSumOperation'),
         'cartera_60_dias' => array('label'=>'Cartera de 60', 'class'=>'TbSumOperation'),
         'cartera_30_dias' => array('label'=>'Cartera de 30', 'class'=>'TbSumOperation'),
+        'cartera_corriente' => array('label'=>'Cartera Corriente', 'class'=>'TbSumOperation'),
         )
     ),
     'extendedSummaryOptions' => array(

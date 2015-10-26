@@ -26,9 +26,13 @@
   </div>
 </div>
 
-
 <!-- ####################################################################################################### -->
 
+<?php 
+$user=Yii::app()->user->id;
+if($user!=""){
+ 
+?>
 <div class="wrapper col1">
   <div id="topbar" class="clear">
     <?php $this->widget('zii.widgets.CMenu',array(
@@ -57,8 +61,9 @@
               array('label'=>'TRAMITES', 'url'=>array('/tramite/index'),
 							'items'=>array(
 								array('label'=>'Administrar Tramites', 'url'=>array('/tramite/admin')),
-                                                                array('label'=>'Tramites en Transito', 'url'=>array('/tramite/continuartramites')),
-                                                                array('label'=>'Tramites Liquidados', 'url'=>array('/tramite/tramitesliquidados')),
+                array('label'=>'Tramites en Transito', 'url'=>array('/tramite/continuartramites')),
+                array('label'=>'Tramites Liquidados', 'url'=>array('/tramite/tramitesliquidados')),
+                array('label'=>'Administración de Pasos', 'url'=>array('/duracionPasos/')),
 							)
                                 ),
                                 array('label'=>'TABLEROS', 'url'=>array('/tableros/')),
@@ -76,16 +81,22 @@
 				array('label'=>'CERRAR SESION ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 			'id'=>'topnav',
-		)); ?>
-	
+		));
 
-    <!--<form action="#" method="post" id="search">
-      <fieldset>
-        <legend>Site Search</legend>
-        <input type="text" value="Search Our Website&hellip;" onfocus="this.value=(this.value=='Search Our Website&hellip;')? '' : this.value ;" />
-        <input type="image" id="go" src="<?php //echo Yii::app()->theme->baseUrl;?>/images/search.gif" alt="Search" />
-      </fieldset>
-    </form>-->
+}else{
+
+?>	
+<div class="wrapper col1">
+  <div id="topbar" class="clear">
+    <?php $this->widget('zii.widgets.CMenu',array(
+      'items'=>array(
+        array('label'=>'INICIAR SESIÓN', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+        array('label'=>'CERRAR SESION ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+      ),
+      'id'=>'topnav',
+    ));
+  }
+?>
   </div>
 </div>
 <!-- ####################################################################################################### -->

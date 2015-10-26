@@ -63,9 +63,9 @@ class DuracionPasos extends CActiveRecord
 		return array(
 			'id_duracion_paso' => 'Id Duracion Paso',
 			'id_paso' => 'Id Paso',
-			'id_tipo_paso' => 'Id Tipo Paso',
-			'id_banco' => 'Id Banco',
-			'duracion' => 'Duracion',
+			'id_tipo_paso' => 'Tipo de Paso',
+			'id_banco' => 'Banco',
+			'duracion' => 'Duración Días',
 		);
 	}
 

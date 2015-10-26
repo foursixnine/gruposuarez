@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Gestion','url'=>array('index')),
-	array('label'=>'Create Gestion','url'=>array('create')),
+	array('label'=>'Crear Gestión','url'=>array('create')),
 	array('label'=>'View Gestion','url'=>array('view','id'=>$model->id_gestion)),
 	array('label'=>'Manage Gestion','url'=>array('admin')),
 );

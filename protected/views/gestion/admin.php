@@ -1,4 +1,16 @@
 <?php
+$this->pageTitle=Yii::app()->name;
+Yii::app()->clientScript->registerCoreScript('jquery'); 
+Yii::app()->clientScript->registerCoreScript('jquery.ui');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/helpers/bootstrap-datepicker/js/bootstrap-datepicker.js');
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/helpers/bootstrap-datepicker/css/datepicker.css'); 
+?>
+ <script type="text/javascript">
+$("#dp3").datepicker({
+    format: 'mm-dd-yyyy'
+});
+</script>  
+<?php
 $this->breadcrumbs=array(
 	'Gestión'=>array('index'),
 	'Administrar Gestiones',
@@ -24,7 +36,8 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 <br/>
-
+<br/><br/><br/>
+<br/><br/><br/><br/>
 <button type="button" class="btn btn-warning">ADMISTRAR GESTION</button>
 
 
@@ -35,6 +48,8 @@ $this->widget('booster.widgets.TbGridView',array(
 'id'=>'gestion',
 'dataProvider'=>$model->excel(),
 'filter'=>$model,
+//'afterAjaxUpdate'=>"function(){jQuery('#fecha_creacion').datepicker({'dateFormat': 'yy-mm-dd'})}",
+'afterAjaxUpdate' => 'reinstallDatePicker', // (#1)
 'columns'=>array(
 			'idClienteGs.id_cliente',
 			'idClienteGs.nombre_de_empresa',
@@ -58,6 +73,30 @@ $this->widget('booster.widgets.TbGridView',array(
 			),
 			
 			'fecha_acuerdo',
+            array(
+            'name' => 'fecha_creacion',
+            'type' => 'date',
+   
+            'filter' => $this->widget('bootstrap.widgets.TbDatePicker', array(
+                'model'=>$model, 
+                'attribute'=>'fecha_creacion',  
+             //   'i18nScriptFile' => 'jquery.ui.datepicker-ja.js', //(#2)
+                'htmlOptions' => array(
+                      'id' => 'datepicker_for_fecha_creacion',
+                      'size' => '10',
+                      //'style' => 'width:80px;vertical-align:top'
+                ),
+                 'options'=>array(
+                        'showAnim'=>'fold',
+                        'format' => 'yyyy-mm-dd',
+                     /*    'afterAjaxUpdate'=>'function(){
+                                        jQuery("#'.CHtml::activeId($model, 'fecha_creacion').'").datepicker({showButtonPanel:true, changeYear:true});
+                                }',*/
+        )
+            ), 
+            true), // (#4)
+        ),
+
 			
 
      array(
@@ -78,6 +117,12 @@ $this->widget('booster.widgets.TbGridView',array(
 ),
 ));
 
-
+// (#5)
+Yii::app()->clientScript->registerScript('re-install-date-picker', "
+function reinstallDatePicker(id, data) {
+        //use the same parameters that you had set in your widget else the datepicker will be refreshed by default
+    $('#datepicker_for_fecha_creacion').datepicker(jQuery.extend({showMonthAfterYear:false},jQuery.datepicker.regional['ja'],{'dateFormat':'yyyy-mm-dd'}));
+}
+");
 ?>
 
