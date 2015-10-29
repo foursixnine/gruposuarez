@@ -871,9 +871,12 @@ public function actionDetalleLiquidacion($id)
               $data[$i]['fecha_de_permiso_ocupacion'] = $queryData->idClienteGs->fecha_de_permiso_ocupacion;  
               $data[$i]['id_paso'] = $queryData->idPaso->descripcion; 
               $data[$i]['id_expediente_fisico'] = $queryData->idExpedienteFisico->descripcion; 
-                 $data[$i]['num_formulario'] = $queryData->idTramite->num_formulario;
+              $data[$i]['num_formulario'] = $queryData->idTramite->num_formulario;
               $data[$i]['id_tipo_responsable'] = $queryData->idPaso->abrev;  
               $data[$i]['fecha_de_permiso_contruccion'] =$queryData->idClienteGs->fecha_de_permiso_contruccion;
+              $data[$i]['vendedor'] =$queryData->idClienteGs->vendedor;
+                  $data[$i]['id_usuario'] =$queryData->idTramite->id_usuario;
+
 
             $i++;
         }
