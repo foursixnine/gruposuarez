@@ -41,6 +41,8 @@
         <?php echo $form->textFieldGroup($tramite,'transferencia_inmueble',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
         <br/>       
         <?php echo $form->textFieldGroup($tramite,'num_permiso_ocupacion',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
+        <br/>               
+        <?php echo $form->textFieldGroup($tramite,'num_formulario',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
         <br/>        
         <?php echo CHtml::submitButton('Actualizar Tramite',array('name'=>'updatetramite')); ?>
 

@@ -199,8 +199,7 @@ public function actionTramite($id)
                                                 'num_finca_inscrita'=>$_POST['Tramite']['num_finca_inscrita'],
                                                 'transferencia_inmueble'=>$_POST['Tramite']['transferencia_inmueble'],
                                                 'num_permiso_ocupacion'=>$_POST['Tramite']['num_permiso_ocupacion'],
-               
-            
+                                                'num_formulario'=>$_POST['Tramite']['num_formulario'],
             ));
 
 
@@ -872,7 +871,7 @@ public function actionDetalleLiquidacion($id)
               $data[$i]['fecha_de_permiso_ocupacion'] = $queryData->idClienteGs->fecha_de_permiso_ocupacion;  
               $data[$i]['id_paso'] = $queryData->idPaso->descripcion; 
               $data[$i]['id_expediente_fisico'] = $queryData->idExpedienteFisico->descripcion; 
-               
+                 $data[$i]['num_formulario'] = $queryData->idTramite->num_formulario;
               $data[$i]['id_tipo_responsable'] = $queryData->idPaso->abrev;  
               $data[$i]['fecha_de_permiso_contruccion'] =$queryData->idClienteGs->fecha_de_permiso_contruccion;
 

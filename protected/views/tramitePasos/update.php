@@ -122,12 +122,13 @@ $var=0;
 
 <div class="form-actions">
 <div class="row buttons">      
-         <?php echo CHtml::submitButton('ACTUALIZAR TRAMITE',array('name'=>'tramite')); ?>
          <?php if($var){ ?> 
 
-          <?php echo CHtml::submitButton('ACTUALIZAR ACTIVIDAD',array('name'=>'actualizar')); ?>
+          <?php echo CHtml::submitButton('ACTUALIZAR PASO',array('name'=>'actualizar')); ?>
 
          <?php } ?> 
+         <?php echo CHtml::submitButton('CERRAR PASO',array('name'=>'tramite')); ?>
+   
 </div>
 
 </div>

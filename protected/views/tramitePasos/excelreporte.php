@@ -45,7 +45,8 @@ if($data!==null){
         <th>N° DE ESCRITURA</th>
         <th>N° FINCA INSCRITA</th>
         <th>TRANSFERENCIA INMUEBLE</th>
-        <th>N° PERMISO DE OCUPACIÓN</th>        
+        <th>N° PERMISO DE OCUPACIÓN</th>
+          <th>N° DE FORMULARIO</th>        
          <th>FECHA DE PERMISO DE OCUPACIÓN</th>        
           <th>FECHA DE PERMISO DE CONSTRUCCION</th>  
     </tr>
@@ -81,7 +82,7 @@ if($data!==null){
                <td><?php echo $value['num_finca_inscrita'];?></td>
                <td><?php echo $value['transferencia_inmueble'];?></td>
                <td><?php echo $value['num_permiso_ocupacion'];?></td>
-             
+               <td><?php echo $value['num_formulario'];?></td>
                <td><?php echo $value['fecha_de_permiso_ocupacion'];?></td>
                <td><?php echo $value['fecha_de_permiso_contruccion'];?></td>
              

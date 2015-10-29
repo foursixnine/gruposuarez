@@ -50,12 +50,13 @@ return false;
 		'idTramite.num_escritura',	
 		'idTramite.num_finca_inscrita',
 		'idTramite.transferencia_inmueble',
-		'idTramite.num_permiso_ocupacion',	
+		'idTramite.num_permiso_ocupacion',
+		'idTramite.num_formulario',	
 		array(
 			'name'=>'id_paso',
 			'header'=>'Pasos',
-			'value'=> 'CHtml::encode($data->idPaso["descripcion"])',
-			'filter'=>CHtml::listData(Paso::model()->findAll(), 'id_paso', 'descripcion'),
+			'value'=> 'CHtml::encode($data->idPaso["abrev"])',
+			'filter'=>CHtml::listData(Paso::model()->findAll(), 'id_paso', 'abrev'),
 		),
 				
 ),

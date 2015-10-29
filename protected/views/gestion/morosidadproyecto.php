@@ -47,7 +47,7 @@ $sumtv=0;
                 $sum60+=$value['sesenta'];
                 $sum90+=$value['noventa'];
                 $sum120+=$value['cientoveinte'];
-                $sumtv+=$value['suma'];
+                $sumtv+=$value['total_vencido'];
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
                 <td><?php echo $value['titulo'];?></td>

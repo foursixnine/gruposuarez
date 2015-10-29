@@ -6,7 +6,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/helpers/boots
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/helpers/bootstrap-datepicker/css/datepicker.css'); 
 ?>
  <script type="text/javascript">
-$("#dp3").datepicker({
+$("#fecha_creacion").datepicker({
     format: 'mm-dd-yyyy'
 });
 </script>  
@@ -48,8 +48,8 @@ $this->widget('booster.widgets.TbGridView',array(
 'id'=>'gestion',
 'dataProvider'=>$model->excel(),
 'filter'=>$model,
-//'afterAjaxUpdate'=>"function(){jQuery('#fecha_creacion').datepicker({'dateFormat': 'yy-mm-dd'})}",
-'afterAjaxUpdate' => 'reinstallDatePicker', // (#1)
+'afterAjaxUpdate'=>"function(){jQuery('#Gestion_fecha_creacion').datepicker({'dateFormat': 'yyyy-mm-dd'})}",
+//'afterAjaxUpdate' => 'reinstallDatePicker', // (#1)
 'columns'=>array(
 			'idClienteGs.id_cliente',
 			'idClienteGs.nombre_de_empresa',
@@ -82,14 +82,14 @@ $this->widget('booster.widgets.TbGridView',array(
                 'attribute'=>'fecha_creacion',  
              //   'i18nScriptFile' => 'jquery.ui.datepicker-ja.js', //(#2)
                 'htmlOptions' => array(
-                      'id' => 'datepicker_for_fecha_creacion',
+                      'id' => 'fecha_creacion',
                       'size' => '10',
                       //'style' => 'width:80px;vertical-align:top'
                 ),
                  'options'=>array(
                         'showAnim'=>'fold',
                         'format' => 'yyyy-mm-dd',
-                     /*    'afterAjaxUpdate'=>'function(){
+                       /*  'afterAjaxUpdate'=>'function(){
                                         jQuery("#'.CHtml::activeId($model, 'fecha_creacion').'").datepicker({showButtonPanel:true, changeYear:true});
                                 }',*/
         )
@@ -117,11 +117,12 @@ $this->widget('booster.widgets.TbGridView',array(
 ),
 ));
 
-// (#5)
+//use the same parameters that you had set in your widget else the datepicker will be refreshed by default 
+//(#5)
 Yii::app()->clientScript->registerScript('re-install-date-picker', "
 function reinstallDatePicker(id, data) {
-        //use the same parameters that you had set in your widget else the datepicker will be refreshed by default
-    $('#datepicker_for_fecha_creacion').datepicker(jQuery.extend({showMonthAfterYear:false},jQuery.datepicker.regional['ja'],{'dateFormat':'yyyy-mm-dd'}));
+
+    $('#fecha_acuerdo').datepicker(jQuery.extend({showMonthAfterYear:true},jQuery.datepicker.regional['es'],{'dateFormat':'yyyy-mm-dd'}));
 }
 ");
 ?>

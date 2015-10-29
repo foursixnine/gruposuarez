@@ -29,6 +29,7 @@
  * @property string $num_finca_inscrita
  * @property string $transferencia_inmueble
  * @property string $num_permiso_ocupacion
+ * @property string $num_formulario
  * The followings are the available model relations:
  * @property Chat[] $chats
  * @property Cliente $idClienteGs
@@ -112,6 +113,7 @@ class Tramite extends CActiveRecord
 			'num_finca_inscrita' => 'Num Finca Inscrita',
 			'transferencia_inmueble' => 'Impuesto Transferencia de Inmueble',
 			'num_permiso_ocupacion'  => 'Num Permiso de Ocupacion',
+			'num_formulario'  => 'Num de Formulario',
 		);
 	}
 
@@ -132,7 +134,7 @@ class Tramite extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-                $criteria->condition = 'inicio = 0 ';
+        $criteria->condition = 'inicio = 0 ';
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('descripcion',$this->descripcion,true);
@@ -194,7 +196,7 @@ class Tramite extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-                $criteria->condition = 'inicio = 1 AND id_pasos!=11';
+        $criteria->condition = 'inicio = 1 AND id_pasos!=11';
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('descripcion',$this->descripcion,true);

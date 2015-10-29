@@ -53,9 +53,34 @@ foreach ($pasos as $nompaso) {
 
 ?>
 
-<!--PARA DETERMINAR EL PASO ACTUAL --->
-
+<!--PARA DETERMINAR EL PASO ACTUAL -->
 <?php 
+  $paso_now=0;
+if($tramite->fecha_paso==""){
+  ?>
+
+<button type="button" class="btn btn-warning">Paso
+<span class="badge"><?php echo $tramite->idPasos['id_paso']; ?></span>
+ <?php echo $tramite->idPasos['descripcion']; ?></button>
+<?php 
+  }else{
+     foreach ($pasos as $nompaso) {
+            if($nompaso['id_paso']==$new_tramite){
+?>
+
+<button type="button" class="btn btn-warning">Paso
+<span class="badge"><?php echo $nompaso["id_paso"]; ?></span>
+ <?php echo  $paso_now=$nompaso["id_paso"]; 
+   $paso_now=$nompaso["id_paso"];?></button>
+<?php    
+  }
+        }
+}
+?>
+<br/>
+
+
+<?php /*
   $paso_now=0;
 if($tramite->fecha_paso==""){
         echo "<h2>Paso Actual ".''. $tramite->idPasos["id_paso"] .'<br/>'. $tramite->idPasos["descripcion"] .'</h2>';
@@ -69,7 +94,7 @@ if($tramite->fecha_paso==""){
    $paso_now=$nompaso["id_paso"];
             }
         }
-}
+}*/
 ?>
 
 <script>
@@ -89,7 +114,7 @@ $(function(){
     $("#mielemento").css("display", "none");
     //$('select#TramitePasos_id_tipo_responsable').hide();
     $('select#TramitePasos_id_responsable_ejecucion').change(function () { 
-       // alert("1");
+        alert("1");
            $valor=(document.getElementById('TramitePasos_id_responsable_ejecucion').value);
            if($valor==1){
                document.getElementById("TramitePasos_id_tipo_responsable").disabled=true; 
@@ -265,7 +290,7 @@ $(function(){
         );  
     ?>
                     
-    <!-------------*************RAZONES DE ESTADO****************-------------> 
+    <!--*************RAZONES DE ESTADO****************--> 
     
     <?php echo $form->dropDownListGroup(
 			$model,
@@ -317,7 +342,7 @@ $(function(){
 
 </fieldset>                      
        
-  <!-------------*************BOTONES DE ACTUALIZAR Y CERRAR PASO****************-------------> 
+  <!--*************BOTONES DE ACTUALIZAR Y CERRAR PASO****************--> 
 <div class="form-actions">
     
 	
@@ -387,7 +412,7 @@ $(function(){
                                'placement' => 'right',                            
                           )
                   ), 
-                array(
+             /*   array(
                        'class'=>'CButtonColumn',
                        'template'=>'{delete}',
                        'buttons'=>array
@@ -401,7 +426,7 @@ $(function(){
                    ),
 
                 ),
-                   ),
+                   ),*/
              
     
     

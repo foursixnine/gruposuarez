@@ -37,10 +37,29 @@ return false;
 			'idPaso.descripcion',		
 			'id_cliente_gs',
 			'fecha_pazysalvo',
+		'buttons' => 
 array(
-'class'=>'booster.widgets.TbButtonColumn',
+            'class'=>'CButtonColumn',
+            'template'=>'{actualizar}',
+            'buttons'=>array
+        (
+        'actualizar' => array
+        (
+            'label'=>'Modificar o Actualizar Paso',
+            'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
+            'url'=>'Yii::app()->createUrl("tramitePasos/update", array("id"=>$data->id_tramite_pasos))',
+        ),
+       /*              'delete' => array
+     (
+            'label'=>'Eliminar Proyecto',
+            'imageUrl'=>Yii::app()->request->baseUrl.'/images/delete.png',
+            'url'=>'Yii::app()->createUrl("metas/delete", array("id"=>$data->id_meta))',
+        ),*/
+                      
+     ),
+        ),
 ),
-),
+     
 )); 
             
 ?>
