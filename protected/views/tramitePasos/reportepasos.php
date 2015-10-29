@@ -44,7 +44,7 @@ if($reportepasos!==null){
                 <td><?php echo $value['descripcion']; ?></td>
                 <td>$<?php echo number_format($value['totalpaso'], 2, ',', ' '); ?></td>
                 <td>$<?php echo number_format($value['totalventa'], 2, ',', ' '); ?></td>
-                <td><?php echo $value['total_liquidado']; ?></td>
+                <td><?php echo number_format($value['total_liquidado'], 2, ',', ' '); ?></td>
             </tr>
             
     <?php } ?>  
