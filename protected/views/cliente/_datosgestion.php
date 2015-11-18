@@ -6,23 +6,30 @@
             <p>DATOS ULTIMAS GESTIONES<span class="glyphicon glyphicon-list-alt"></span></p> 
         </a>
           <?php 
-          foreach ($gestion_old as $row) {
+
+          foreach ($gestion_old as $key=>$row) {
           ?>
          <table class="list-group-item">
                             <tr>
                               <td><strong>Fecha de Acuerdo:</strong></td>
-                              <td><?php $row['fecha_acuerdo']; ?></td>
+                              <td><?php echo $row['fecha_acuerdo']; ?></td>
                             </tr>
 
                             <tr>
                               <td><strong>Observaciones:</strong></td>
-                              <td><?php $row['observaciones']; ?></td>
+                              <td><?php echo $row['observaciones']; ?></td>
                             </tr>
                             <tr>
                              <td><strong>Tipo de Contacto:</strong></td>
-                             <td>
-                             
-                             </td>
+                              <td><?php if ($row['contactado_llamada']==1){
+                                    echo "Contactado (Telefónicamente)";
+                              }else{
+                                     echo "No Contactado";
+                              }
+                              
+
+
+                              ?></td>
                             
                         </tr></table>
         <?php }

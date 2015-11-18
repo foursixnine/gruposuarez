@@ -31,14 +31,18 @@ array('label'=>'Volver','url'=>array('admin')),
 'filter'=>$model,
 'columns'=>array(
                 'fecha_inicio',
+                'idUsuario.nombre',
+                 'idClienteGs.vendedor',
                 'idClienteGs.proyecto',
                 'idClienteGs.numero_de_lote',
-    	             array(
+
+    
+    	          array(
                     'name'=>'id_pasos',
                     'header'=>'Paso',
                     'value'=> 'CHtml::encode($data->idPasos["descripcion"])',
                     'filter'=>CHtml::listData(Paso::model()->findAll(), 'id_paso', 'descripcion'),
-               ), 
+                ), 
      array(
             'header' => 'Porcentaje',
             'value' => function($data)

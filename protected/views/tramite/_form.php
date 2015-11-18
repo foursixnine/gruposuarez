@@ -14,9 +14,8 @@
 		'idClienteGs.numero_de_lote',
 		'idExpedienteFisico.descripcion',
 		'idClienteGs.banco_acreedor',
-                'idClienteGs.id_proyecto',
+    'idClienteGs.id_proyecto',
 		'idClienteGs.proyecto',
-    
 ),
 )); ?>
 

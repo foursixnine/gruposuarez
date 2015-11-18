@@ -145,7 +145,10 @@ $this->widget(
                         echo CHtml::label('Generar Paz y Salvo','',array('size'=>8));  ?>
                         </td>             
                         <td>
+
                               <?php
+
+                              if ($cliente->monto_liquidacion<=1){ 
           $this->widget('zii.widgets.CMenu', array(
             'items'=>array(
                     array(
@@ -157,6 +160,7 @@ $this->widget(
             ),
             'encodeLabel' => false,
         ));
+      }
         ?>
                         </td>
                     </tr>

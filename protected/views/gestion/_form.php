@@ -374,7 +374,7 @@ Esperaré su pago el día ----- con $ ----- (Monto).
 
 
 
-<!-----------------------------  DATOS CLIENTES  ------------------------------------->	
+<!--  DATOS CLIENTES  -->	
 <?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
 
   <div class="panel panel-default">

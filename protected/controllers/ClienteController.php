@@ -27,18 +27,18 @@ public function accessRules()
 {
     return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-            'actions'=>array('index','view','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite'),
+            'actions'=>array('index','view','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones'),
             'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('create','update','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite'),
+            'actions'=>array('create','update','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones'),
          //   'users'=>array('@'),
                'users'=>array('*'),
 
     ),
     array('allow', // allow admin user to perform 'admin' and 'delete' actions
             'actions'=>array('admin','delete'),
-            'users'=>array('admin','orodriguez','obonilla'),
+            'users'=>array('admin','obonilla'),
     ),
     array('deny',  // deny all users
             'users'=>array('*'),
@@ -50,6 +50,14 @@ public function accessRules()
 * Displays a particular model.
 * @param integer $id the ID of the model to be displayed
 */
+//********* ACTUALIZAR OBSERVACIONES ************//
+public function actionActualizarObservaciones()
+    {
+    Yii::import('bootstrap.widgets.TbEditableSaver');
+    $es = new TbEditableSaver('Cliente');
+    $es->update();
+}
+
 //*********ACTUALIZAMOS EL PAZYSALVO QUE VIENE DE TRAMITE/ADMIN ************//
 public function actionIniciarTramite($id){
         //Buscamos las ultimas Gestiones Realizadas
@@ -270,7 +278,7 @@ public function actionPerfilcliente($id){
                                array(':id_cliente'=>$id));
   
     //Buscamos las ultimas Gestiones Realizadas
-    $gestion_old = $gestion->findAll('id_cliente=:id_cliente',
+    $gestion_old = Gestion::model()->findAll('id_cliente=:id_cliente',
                               array(':id_cliente'=>$id)); 
 
     //Buscamos para si existe algun tramite

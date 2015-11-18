@@ -234,6 +234,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
 		$criteria->compare('id_usuario',$this->id_usuario);
 		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+		$criteria->compare('fecha_paso',$this->fecha_paso,true);
 		$criteria->compare('id_pasos',$this->id_pasos);
 		$criteria->compare('fecha_fin',$this->fecha_fin,true);
 		$criteria->compare('id_razones_estado',$this->id_razones_estado);

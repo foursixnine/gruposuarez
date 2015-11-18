@@ -28,7 +28,8 @@ array('label'=>'Volver','url'=>array('admin')),
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'tramite-grid',
 'dataProvider'=>$model->tramitesliquidados(),
-//'filter'=>$model,
+ 'afterAjaxUpdate' => 'reinstallDatePicker',
+'filter'=>$model,
 'columns'=>array(
                 'idUsuario.nombre',
                 'fecha_inicio',
@@ -41,6 +42,30 @@ array('label'=>'Volver','url'=>array('admin')),
                     'value'=> 'CHtml::encode($data->idPasos["descripcion"])',
                     'filter'=>CHtml::listData(Paso::model()->findAll(), 'id_paso', 'descripcion'),
                ), 
+               array(
+            'name' => 'fecha_paso',
+            //'filter' => $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+               'filter' => $this->widget('bootstrap.widgets.TbDatePicker', array(
+                'model'=>$model, 
+                'attribute'=>'fecha_paso', 
+                'language' => 'en',
+              //   'i18nScriptFile' => 'jquery.ui.datepicker-ja.js', //(#2)
+                'htmlOptions' => array(
+                    'id' => 'Tramite_fecha_paso',
+                    'size' => '10',
+                ),
+                'defaultOptions' => array(  // (#3)
+                    'showOn' => 'focus', 
+                    'dateFormat' => 'yyyy-mm-dd',
+                    'showOtherMonths' => true,
+                    'selectOtherMonths' => true,
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'showButtonPanel' => true,
+                )
+            ), 
+            true), // (#4)
+        ),
      array(
             'header' => 'Porcentaje',
             'value' => function($data)
@@ -76,4 +101,15 @@ array('label'=>'Volver','url'=>array('admin')),
 
 )
 )
-    );?>
+    );
+
+
+
+// (#5)
+Yii::app()->clientScript->registerScript('re-install-date-picker', "
+function reinstallDatePicker(id, data) {
+
+    $('#Tramite_fecha_paso').datepicker();
+}
+");
+    ?>

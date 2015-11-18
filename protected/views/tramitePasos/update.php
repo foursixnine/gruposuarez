@@ -58,11 +58,15 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 <?php
 
 $var=0;
+  if(empty($tramite_estado)){
+       $var=true;
+  }
+
   foreach ($tramite_estado as $data) {
-    if( $data['id_estado'] >= 6){
-            echo $var=false;
+    if( $data['id_estado'] <= 3){
+             $var=true;
     }else{          
-           echo $var=true;
+            $var=false;
     }
   }
 

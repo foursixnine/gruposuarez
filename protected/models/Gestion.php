@@ -124,7 +124,7 @@ class Gestion extends CActiveRecord
 		$criteria->compare('id_usuario',$this->id_usuario);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
         $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
-
+  $criteria->order = 'fecha_creacion DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -140,7 +140,7 @@ class Gestion extends CActiveRecord
            
 $now = new CDbExpression('NOW()::date');
 //$criteria->addCondition('fecha_acuerdo >= NOW()::date '); 
-$criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
+$criteria->addCondition('fecha_acuerdo <= DATE(NOW()) ');
 		$criteria->compare('id_gestion',$this->id_gestion);
 		$criteria->compare('contactado_llamada',$this->contactado_llamada);
 		$criteria->compare('llamada_voz',$this->llamada_voz);
@@ -152,7 +152,7 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 		$criteria->compare('id_usuario',$this->id_usuario);
-                $criteria->order = 'fecha_acuerdo desc';
+        $criteria->order = 'fecha_acuerdo desc';
                                 
 		$criteria->limit = 20;
                 $criteria->offset = 0;
@@ -160,7 +160,7 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
                         'criteria'=> $criteria,     
                         'pagination' => array('pageSize' => 5),
 
-                'totalItemCount'=>'50',
+                'totalItemCount'=>'10',
                 ));    
 	}
 	public function excel()
@@ -186,6 +186,7 @@ $criteria->addCondition('fecha_acuerdo = DATE(NOW()) ');
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 		$criteria->compare('id_usuario',$this->id_usuario);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+		 $criteria->order = 'fecha_creacion DESC';
       //  $criteria->compare('fecha_creacion',$this->fecha_creacion,true);
   //$criteria->mergeWith($this->dateRangeSearchCriteria('fecha_creacion', $this->fecha_creacion));  
 

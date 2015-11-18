@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'roles':
  * @property integer $id_rol
  * @property string $descripcion
+ * @property string $descrip_roles
  *
  * The followings are the available model relations:
  * @property Usuarios[] $usuarioses
@@ -28,10 +29,10 @@ class Roles extends GActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('descripcion', 'safe'),
+			array('descripcion, descrip_roles', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_rol, descripcion', 'safe', 'on'=>'search'),
+			array('id_rol, descripcion, descrip_roles', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +56,7 @@ class Roles extends GActiveRecord
 		return array(
 			'id_rol' => 'Id Rol',
 			'descripcion' => 'Descripcion',
+			'descrip_roles' => 'Descrip Roles',
 		);
 	}
 
@@ -78,6 +80,7 @@ class Roles extends GActiveRecord
 
 		$criteria->compare('id_rol',$this->id_rol);
 		$criteria->compare('descripcion',$this->descripcion,true);
+		$criteria->compare('descrip_roles',$this->descrip_roles,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

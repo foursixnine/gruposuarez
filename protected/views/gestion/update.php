@@ -6,16 +6,18 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Gestion','url'=>array('index')),
+	array('label'=>'Listar Gestion','url'=>array('index')),
 	array('label'=>'Crear Gestión','url'=>array('create')),
-	array('label'=>'View Gestion','url'=>array('view','id'=>$model->id_gestion)),
-	array('label'=>'Manage Gestion','url'=>array('admin')),
+	array('label'=>'Ver Gestion','url'=>array('view','id'=>$model->id_gestion)),
+	array('label'=>'Administrar Gestion','url'=>array('admin')),
 );
 ?>
+<br/><br/>
+<button type="button" class="btn btn-warning">ACTUALIZAR GESTION</button>
 
-<h1>Actualizar Gesti&oacute;n<?php echo $model->id_cliente; ?></h1>
 
-<?php echo $this->renderPartial('_form',array('model'=>$model,
-                                              'cliente'=>$model->id_cliente,
-));
- ?>
+
+<?php echo $this->renderPartial('actualizar',array('model'=>$model,
+'cliente'=>$cliente,
+)); ?>
+

@@ -55,8 +55,9 @@ foreach ($pasos as $nompaso) {
 
 <!--PARA DETERMINAR EL PASO ACTUAL -->
 <?php 
-  $paso_now=0;
+ 
 if($tramite->fecha_paso==""){
+       $paso_now=$tramite->idPasos['id_paso'];
   ?>
 
 <button type="button" class="btn btn-warning">Paso
@@ -64,6 +65,7 @@ if($tramite->fecha_paso==""){
  <?php echo $tramite->idPasos['descripcion']; ?></button>
 <?php 
   }else{
+
      foreach ($pasos as $nompaso) {
             if($nompaso['id_paso']==$new_tramite){
 ?>
@@ -100,6 +102,7 @@ if($tramite->fecha_paso==""){
 <script>
 $(function(){
     var paso = <?php echo ($paso_now); ?>;
+ //   alert(paso);
    document.getElementById("TramitePasos_id_tipo_responsable").disabled=true;
    if(paso == 1 || paso == 2){
     $("#mielemento3").css("display", "block");

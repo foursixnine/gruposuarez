@@ -28,14 +28,14 @@ public function accessRules()
     return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
         'actions'=>array('index','view','listarusuarioremuneracion','email','inicio'),
-        'users'=>array('*'),
-        //'roles'=>array('admin'),
+      //  'users'=>array('*'),
+        'roles'=>array('admin'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
       //  'actions'=>array('create','update','listarusuarioremuneracion','email','inicio'),
-    	  'actions'=>array('update','create'),
+    	  'actions'=>array('update','create','view'),
      //   'users'=>array('*'),
-         'roles'=>array('analista_cobros','jefe_cobros','admin'),
+          'roles'=>array('analista_cobros','jefe_cobros','admin'),
     ),
     array('allow', // allow admin user to perform 'admin' and 'delete' actions
         'actions'=>array('admin','delete'),
@@ -78,6 +78,12 @@ $model=new Usuarios;
 		$model->password=$model->hashPassword($_POST['Usuarios']['password'],$session=$model->generateSalt());
 		$model->session=$session;
 		if($model->save())
+			//$role = $auth->createRole('analista_cobros', 'Analista de Cobros');
+			$auth=Yii::app()->authManager;
+            $rol = Roles::model()->find('id_rol=:id_rol',
+                              array(':id_rol'=>$model->id_rol)); 
+			$auth->assign($rol->descrip_roles,$model->id_usuario); // adding admin to first user created 
+			$auth->save();
 			$this->redirect(array('view','id'=>$model->id_usuario));
 		}
 
@@ -137,12 +143,12 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {   
-if (Yii::app()->user->checkAccess("admin"))
+/*if (Yii::app()->user->checkAccess("admin"))
     {
         echo 'HOLA';
     } else {
         echo 'ADIOS';
-    }
+    }*/
    /* Yii::app()->authManager->createRole("admin");
     Yii::app()->authManager->assign("admin",1);*/
  

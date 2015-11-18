@@ -61,7 +61,7 @@ function dias_transcurridos($fecha_i,$fecha_f)
                   foreach ($tramiteold as $row) {
                         if($nompaso['id_paso'] == $row['id_paso']){
                             if($row['fecha_paso']==""){                            
-                                echo $dias_transc_now=dias_transcurridos($row['fecha_inicio'],'2015-08-31');      
+                                echo $dias_transc_now=dias_transcurridos($row['fecha_inicio'],date("Y-m-d"));      
                             }else{
                                 echo $dias_transcurridos=dias_transcurridos($row['fecha_inicio'],$row['fecha_paso']);      
                             }

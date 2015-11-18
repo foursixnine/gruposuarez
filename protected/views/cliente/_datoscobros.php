@@ -34,7 +34,7 @@
                     <tr>
                         <td>
                             <?php            
-                                echo CHtml::label('Monto Cuota Abono','',array('size'=>12));
+                                echo CHtml::label('Monto de Cuota Abono Inicial','',array('size'=>12));
                             ?>
                         </td>
 

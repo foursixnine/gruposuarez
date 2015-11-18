@@ -13,7 +13,7 @@ $(function(){
 if($tab){
     $tab1=false;
     $tab2=true;
-    var_dump($tab);  die;   
+  
 }else{
   //  var_dump($tab);  die;   
     $tab1=true;

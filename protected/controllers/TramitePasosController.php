@@ -660,6 +660,7 @@ public function actionUpdate($id){
                 $tramite_actividad->attributes=$_POST['TramiteActividad'];
                 $tramite_actividad->id_paso=$model->id_paso;
                 $tramite_actividad->id_tramite=$model->id_tramite;
+                $tramite_actividad->id_estado;
                 $tramite_actividad->save();     
                 Yii::app()->user->setFlash('success', "Actividad creada Satisfactoriamente!");       
                 $this->redirect(array('update','id'=>$id));
