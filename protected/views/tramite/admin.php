@@ -20,24 +20,28 @@ array('label'=>'Tramites Liquidados','url'=>array('tramitesliquidados')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-$('.search-form').toggle();
-return false;
-});
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('tramite-grid', {
-data: $(this).serialize()
-});
-return false;
-});
-");
+    $('.search-button').click(function(){
+    $('.search-form').toggle();
+         return false;
+    });
+    $('.search-form form').submit(function(){
+            $.fn.yiiGridView.update('tramite-grid', {
+            data: $(this).serialize()
+    });
+                return false;
+    });
+    ");
 ?>
-<?php
 
-if (Yii::app()->user->checkAccess("admin"))
-    {
-        
+<?php
+  $id = Yii::app()->user->id;
+  $a = Yii::app()->user->name;
+ if($a=='admin' or $a=='orodriguez'){
+   
+
+
 ?>
+
 <br/>
 <button type="button" class="btn btn-warning">CLIENTE EN TRAMITES</button>
 <?php
@@ -53,26 +57,15 @@ $this->widget('booster.widgets.TbGridView',array(
                 'status_de_lote', 
                 'numero_de_lote',
                 'fecha_de_permiso_ocupacion',
-               'observacion_tramite',
+                'observacion_tramite',
                 array(
                     'name'=>'id_proyecto',
                     'header'=>'Proyecto',
                     'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
                     'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),                   
                 ), 
-                array(
-                      'class' => 'bootstrap.widgets.TbEditableColumn',
-                      'name' => 'observacion_tramite',
-                      'editable' => 
-                          array(
-                              'type' => 'textarea',
-                              'model'     => $cliente,
-                              'attribute' => 'observacion_tramite',                           
-                              'url' => $this->createUrl('/cliente/actualizarobservaciones'),
-                               'placement' => 'right',  
-                               'emptytext' => 'Ninguna Observación...',                          
-                          )
-                ),  
+
+             
                 'buttons' => 
                 array(
                 'class'=>
@@ -97,7 +90,7 @@ $this->widget('booster.widgets.TbGridView',array(
 
 <?php 
 $this->widget('booster.widgets.TbGridView',array(
-'id'=>'tramitadora',
+'id'=>'tramitadoraold',
 'dataProvider'=>$tramitadora->activos(),
 'filter'=>$tramitadora,
 'columns'=>array(
@@ -105,30 +98,34 @@ $this->widget('booster.widgets.TbGridView',array(
     
                 array(
                     'class' => 'bootstrap.widgets.TbEditableColumn',
-                    'name' => 'id_expediente_fisico',
-                    
+                    'name' => 'id_expediente_fisico',                    
                     'editable' => 
-                        array(
-                            'type' => 'select',
-                            'model'     => $model,
-                            'attribute' => 'id_expediente_fisico',
-                            'url' => $this->createUrl('actualizar'),
-                            'source' =>  CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),      
-                        )
-                ), 
-        'idClienteGs.nombre_de_empresa',
-        'idClienteGs.proyecto',
-
-
-        'idClienteGs.numero_de_lote',
+                            array(
+                                'type' => 'select',
+                                'model'     => $tramitadora,
+                                'attribute' => 'id_expediente_fisico',
+                                'url' => $this->createUrl('actualizar'),
+                                'source' =>  CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),      
+                            )
+                    ), 
+                'idClienteGs.nombre_de_empresa',
+                'idClienteGs.proyecto',
+             
+                'idClienteGs.numero_de_lote',
                 'idClienteGs.fecha_de_permiso_ocupacion',
+          /*      array(
+                    'name'=>'id_usuario',
+                    'header'=>'Tramitador',
+                    'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
+                    'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                ), */
                 array(
                     'class' => 'bootstrap.widgets.TbEditableColumn',
                     'name' => 'id_usuario',
                     'editable' => 
                         array(
                             'type' => 'select',
-                            'model'     => $model,
+                            'model'     => $tramitadora,
                             'attribute' => 'id_usuario',
                          //    'text'      => 'Seleccione el Tramitador',
                             'url' => $this->createUrl('actualizarcobradora'),
@@ -149,6 +146,21 @@ $this->widget('booster.widgets.TbGridView',array(
     'urlExpression'=>'($data->idClienteGs["pazysalvo"]!=0) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
     'cssClassExpression'=>'($data->permiso_ocupacion==1 ? " challenged" : "")',  
     ),
+
+
+                array(
+                      'class' =>'bootstrap.widgets.TbEditableColumn',
+                      'name' => 'idClienteGs.observacion_tramite',
+                      'editable' => 
+                          array(
+                              'type' => 'textarea',
+                              'model'     => $cliente,
+                              'attribute' => 'idClienteGs.observacion_tramite',                           
+                              'url' => $this->createUrl('/cliente/actualizarobservaciones'),
+                               'placement' => 'right',  
+                               'emptytext' => 'Ninguna Observación...',                          
+                          )
+                ),
     
     
 
@@ -160,74 +172,81 @@ $this->widget('booster.widgets.TbGridView',array(
 ?>
 
 <?php
+ }else{
+   
+?>
 
-    } else {
-      
- ?>  
-<br/>
-<br/>
-<br/>
-<br/>
- <br/>
- <br/> 
- <br/> 
-  <br/> 
+
+<?php
+
+ }
+?>
+
+<br><br><br><br><br><br><br><br>
 <button type="button" class="btn btn-warning">INICIAR TRAMITES</button>
 
 <?php 
 $this->widget('booster.widgets.TbGridView',array(
-'id'=>'tramitadora',
-'dataProvider'=>$tramitadora->activos(),
+'id'=>'activostramitador',
+'dataProvider'=>$tramitadora->activostramitador($id),
 'filter'=>$tramitadora,
 'columns'=>array(
                 'fecha_pazysalvo',
     
                 array(
                     'class' => 'bootstrap.widgets.TbEditableColumn',
-                    'name' => 'id_expediente_fisico',
-                    
+                    'name' => 'id_expediente_fisico',                    
                     'editable' => 
-                        array(
-                            'type' => 'select',
-                            'model'     => $model,
-                            'attribute' => 'id_expediente_fisico',
-                            'url' => $this->createUrl('actualizar'),
-                            'source' =>  CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),      
-                        )
-                ), 
-		'idClienteGs.nombre_de_empresa',
-		'idClienteGs.proyecto',
-
-
-		'idClienteGs.numero_de_lote',
+                            array(
+                                'type' => 'select',
+                                'model'     => $tramitadora,
+                                'attribute' => 'id_expediente_fisico',
+                                'url' => $this->createUrl('actualizar'),
+                                'source' =>  CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),      
+                            )
+                    ), 
+                'idClienteGs.nombre_de_empresa',
+                'idClienteGs.proyecto',
+             
+                'idClienteGs.numero_de_lote',
                 'idClienteGs.fecha_de_permiso_ocupacion',
-                array(
-                    'class' => 'bootstrap.widgets.TbEditableColumn',
-                    'name' => 'id_usuario',
-                    'editable' => 
-                        array(
-                            'type' => 'select',
-                            'model'     => $model,
-                            'attribute' => 'id_usuario',
-                         //    'text'      => 'Seleccione el Tramitador',
-                            'url' => $this->createUrl('actualizarcobradora'),
-                            'source' =>  CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),      
-                        )
-                ),     
+                'idUsuario.nombre',
+          /*      array(
+                    'name'=>'id_usuario',
+                    'header'=>'Tramitador',
+                    'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
+                    'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                ), */
+                
                 array(
                     'class' => 'bootstrap.widgets.TbToggleColumn',
                     'toggleAction' => 'tramite/toggle',
                     'name' => 'permiso_ocupacion',
                     'header' => 'Permiso de Ocupacion',
                     'filter'=>false,
-                ),  	
- array(
+                ),      
+  array(
     'class'=>'CLinkColumn',
     'header'=>'Tramite',
     'labelExpression'=>'($data->idClienteGs["pazysalvo"] != 0 ? "Iniciar Tramite" : "Falta Permiso")',
     'urlExpression'=>'($data->idClienteGs["pazysalvo"]!=0) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
     'cssClassExpression'=>'($data->permiso_ocupacion==1 ? " challenged" : "")',  
     ),
+
+
+                array(
+                      'class' =>'bootstrap.widgets.TbEditableColumn',
+                      'name' => 'idClienteGs.observacion_tramite',
+                      'editable' => 
+                          array(
+                              'type' => 'textarea',
+                              'model'     => $cliente,
+                              'attribute' => 'idClienteGs.observacion_tramite',                           
+                              'url' => $this->createUrl('/cliente/actualizarobservaciones'),
+                               'placement' => 'right',  
+                               'emptytext' => 'Ninguna Observación...',                          
+                          )
+                ),
     
     
 
@@ -236,11 +255,4 @@ $this->widget('booster.widgets.TbGridView',array(
 )
     );
 
-?>
-
-
-<?php
-
-//  echo 'ADIOS';die;
-    }
 ?>

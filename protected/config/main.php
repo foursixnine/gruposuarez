@@ -73,7 +73,7 @@ return array(
                        // 'class' => 'application.modules.cruge.components.CrugeWebUser', 
                         'loginUrl'=>array('site/login'),
 		),
-	   /*     'urlManager'=>array(
+	     /*   'urlManager'=>array(
 			'urlFormat'=>'path',
                         'showScriptName'=>false,
                         'caseSensitive'=>false,//true
@@ -83,7 +83,7 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),*/
-           'urlManager'=>array(
+        'urlManager'=>array(
 			//'class'=>'application.components.MyCUrlManager',
 			'urlFormat'=>'path',
 			'showScriptName'=>false,

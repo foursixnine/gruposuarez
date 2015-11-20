@@ -66,7 +66,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
         array(
             'id'=>'tab4',
             'active'=>false,
-            'label'=>'CHAT',
+            'label'=>'SEGUIMIENTO',
                  'content'=>$this->renderPartial("_chat", array('chat' => $chat,
                                                                 'chat_mostrar'=>$chat_mostrar, 
                      

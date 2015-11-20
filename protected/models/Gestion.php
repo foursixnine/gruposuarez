@@ -141,6 +141,7 @@ class Gestion extends CActiveRecord
 $now = new CDbExpression('NOW()::date');
 //$criteria->addCondition('fecha_acuerdo >= NOW()::date '); 
 $criteria->addCondition('fecha_acuerdo <= DATE(NOW()) ');
+		$criteria->compare('fecha_creacion',$this->fecha_creacion);
 		$criteria->compare('id_gestion',$this->id_gestion);
 		$criteria->compare('contactado_llamada',$this->contactado_llamada);
 		$criteria->compare('llamada_voz',$this->llamada_voz);
@@ -152,7 +153,7 @@ $criteria->addCondition('fecha_acuerdo <= DATE(NOW()) ');
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 		$criteria->compare('id_usuario',$this->id_usuario);
-        $criteria->order = 'fecha_acuerdo desc';
+        $criteria->order = 'fecha_creacion desc';
                                 
 		$criteria->limit = 20;
                 $criteria->offset = 0;
@@ -173,7 +174,9 @@ $criteria->addCondition('fecha_acuerdo <= DATE(NOW()) ');
         {
             $criteria->condition = "fecha_creacion >= '$this->fecha_creacion'";  // date is database date column field
         }
+//$criteria->condition = 'status_plan_pago !=  '."'RETIRO'".'  AND status_de_lote =  '."'TRAMITE'".' ';
 
+  //$criteria->condition = c.id_proyecto=p.id_crm_proyecto AND status_plan_pago != '."'RETIRO'".' AND (cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".'
 		$criteria->compare('id_gestion',$this->id_gestion);
 		$criteria->compare('contactado_llamada',$this->contactado_llamada);
 		$criteria->compare('llamada_voz',$this->llamada_voz);

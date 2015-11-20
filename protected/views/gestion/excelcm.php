@@ -51,12 +51,34 @@ $sumtv=0;
     </tr>
     
     <?php foreach ($data as $value) {
-                $sumc+=$value['cartera_corriente'];
+             //   if($value['cartera_corriente'] > 1){
+                    $sumc+=$value['cartera_corriente'];
+               // }    
+                    
+                if($value['cartera_30_dias'] > 1){
+                     $sum30+=$value['cartera_30_dias'];
+                }
+               
+                if($value['cartera_60_dias'] > 1){
+                     $sum60+=$value['cartera_60_dias'];
+                }
+
+                if($value['cartera_90_dias'] > 1){
+                      $sum90+=$value['cartera_90_dias'];
+                }
+                
+                if($value['cartera_120_dias'] > 1){
+                      $sum120+=$value['cartera_120_dias'];
+                }
+                  if($value['total_vencido'] > 1){
+                     $sumtv+=$value['total_vencido'];
+                }
+                /*
                 $sum30+=$value['cartera_30_dias'];
                 $sum60+=$value['cartera_60_dias'];
                 $sum90+=$value['cartera_90_dias'];
                 $sum120+=$value['cartera_120_dias'];
-                $sumtv+=$value['total_vencido'];
+                $sumtv+=$value['total_vencido'];*/
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
                 <td><?php echo $value['nombre_de_empresa'];?></td>

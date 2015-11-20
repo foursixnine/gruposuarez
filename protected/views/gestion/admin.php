@@ -39,7 +39,7 @@ $this->widget('booster.widgets.TbGridView',array(
 'filter'=>$model,
 
 //'afterAjaxUpdate'=>"function(){jQuery('#fecha_creacion').datepicker({'dateFormat': 'yyyy-mm-dd'})}",
-//'afterAjaxUpdate' => 'function(id, data){alert(data)}',
+'afterAjaxUpdate' => 'function(id, data){alert(data)}',
 //'afterAjaxUpdate'=>"function(){jQuery('#fecha_creacion').datepicker({'dateFormat': 'yyyy-mm-dd'})}",
 //    $('#Gestion_fecha_creacion').datepicker();
 'columns'=>array(
@@ -134,8 +134,15 @@ $this->widget('booster.widgets.TbGridView',array(
   //  $('#fecha_creacion').datepicker(jQuery.extend({showMonthAfterYear:true},jQuery.datepicker.regional['es'],{'dateFormat':'yyyy-mm-dd'}));
 //}
 //");
-//(#5)
-'afterAjaxUpdate' => 'function(id, data){alert(data)}',
+//(#5)'afterAjaxUpdate' => 'function reinstallDatePicker(id, data){alert(data)}',
+
+Yii::app()->clientScript->registerScript('re-install-date-picker', "
+function reinstallDatePicker(id, data) {
+
+  alert(data);
+}
+");
+
 
 
 ?>

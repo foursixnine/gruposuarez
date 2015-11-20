@@ -31,8 +31,14 @@ array('label'=>'Volver','url'=>array('admin')),
 'filter'=>$model,
 'columns'=>array(
                 'fecha_inicio',
-                'idUsuario.nombre',
-                 'idClienteGs.vendedor',
+                array(
+                    'name'=>'id_usuario',
+                    'header'=>'Tramitador',
+                    'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
+                    'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                ), 
+               
+                'idClienteGs.vendedor',
                 'idClienteGs.proyecto',
                 'idClienteGs.numero_de_lote',
 

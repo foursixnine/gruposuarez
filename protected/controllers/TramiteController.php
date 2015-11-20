@@ -179,29 +179,33 @@ public function actionListar()
 */
 public function actionAdmin()
 {
-    $model = new Tramite('search');
-    $tramitadora = new Tramite('search');
-    $cliente = new Cliente('clientestramites');
 
-    $model->unsetAttributes();  // clear any default values
-    $tramitadora->unsetAttributes();  // clear any default values
-    $cliente->unsetAttributes();  // clear any default values
-
-    if(isset($_GET['Cliente'])){
-                            $cliente->attributes=$_GET['Cliente'];
-                        // print_r($_GET['Customers']);
-    }
+            //Tramites Activos
+            $tramitadora = new Tramite('activos'); 
+            $tramitadora->unsetAttributes();
+ 
+            //Clientes en Tramite
+            $cliente = new Cliente('clientestramites');
+            $cliente->unsetAttributes();
             
-    if(isset($_GET['Tramite'])){            
-                            $tramitadora->attributes=$_GET['Tramite'];
+            if(isset($_GET['Cliente'])){
+                            $cliente->attributes=$_GET['Cliente'];
+                         //   $retiro->attributes=$_GET['Cliente'];
                         // print_r($_GET['Customers']);
-    }
+            }
 
-    $this->render('admin',array(
-            'model'=>$model,
+            if(isset($_GET['Tramite'])){
+                            $model->attributes=$_GET['Tramite'];
+                        // print_r($_GET['Customers']);
+            }       
+        
+                     
+                
+           $this->render('admin',array(
+      //      'model'=>$model,
             'tramitadora'=>$tramitadora,   
             'cliente'=>$cliente,
-    ));
+             ));
 }
 /**
 *
@@ -210,17 +214,19 @@ public function actionAdmin()
 public function actionContinuarTramites(){
             
             $model = new Tramite('search');
-            $tramitadora = new Tramite('search');
-            $tramitadora->unsetAttributes();  // clear any default values
-
+           // $tramitadora = new Tramite('search');
+           // $tramitadora->unsetAttributes();  // clear any default values
+            $model->unsetAttributes();  // clear any default values
             if(isset($_GET['Tramite']))
-            $tramitadora->attributes=$_GET['Tramite'];
+            $model->attributes=$_GET['Tramite'];
 
             $this->render('continuartramites',array(
                     'model'=>$model,
-                    'tramitadora'=>$tramitadora,   
+                    //'tramitadora'=>$tramitadora,   
                     
             ));
+
+
 
 }
 

@@ -44,8 +44,8 @@ array('label'=>'Volver','url'=>array('admin')),
                ), 
                array(
             'name' => 'fecha_paso',
-            //'filter' => $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-               'filter' => $this->widget('bootstrap.widgets.TbDatePicker', array(
+            'filter' => $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            //   'filter' => $this->widget('bootstrap.widgets.TbDatePicker', array(
                 'model'=>$model, 
                 'attribute'=>'fecha_paso', 
                 'language' => 'en',

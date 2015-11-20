@@ -360,8 +360,9 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+         $criteria->condition = 'status_plan_pago  != '."'RETIRO'".' ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+
                 $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);
 		//$criteria->compare('nombre_de_empresa',$this->nombre_de_empresa,true);
 		$criteria->compare('nombre',$this->nombre,true);
@@ -434,7 +435,7 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
- 		$criteria->condition = 'status_plan_pago != '."'RETIRO'".' AND (cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".')';
+ 		$criteria->condition = 'status_plan_pago != '."'RETIRO'".' AND (cartera_corriente > '."'1'".' OR cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".')';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
   		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
 
