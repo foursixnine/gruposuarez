@@ -38,7 +38,7 @@
                             ?>
                         </td>
 
-                        <td><?php echo $cliente->monto_abono; ?></td>
+                        <td><?php echo $cliente->total; ?></td>
                     </tr>
                     
                     <tr>

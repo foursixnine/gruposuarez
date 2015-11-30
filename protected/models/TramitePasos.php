@@ -48,16 +48,19 @@ class TramitePasos extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
+
+	public $fecha_paso_range_pasos = '';
+
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_tramite, id_cliente_gs, id_expediente_fisico, id_usuario, id_razones_estado, id_estado, id_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable', 'numerical', 'integerOnly'=>true),
-			array('fecha_pazysalvo, fecha_inicio, fecha_paso, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido', 'safe'),
+			array('id_tramite, id_cliente_gs, id_usuario, id_expediente_fisico, id_usuario, id_razones_estado, id_estado, id_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable', 'numerical', 'integerOnly'=>true),
+			array('fecha_pazysalvo, fecha_inicio, fecha_paso_range_pasos, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe', 'on'=>'search'),
+			array('id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, fecha_paso_range_pasos, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +80,7 @@ class TramitePasos extends CActiveRecord
 			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
 			'idTramite' => array(self::BELONGS_TO, 'Tramite', 'id_tramite'),
 			'idExpedienteFisico' => array(self::BELONGS_TO, 'ExpedienteFisico', 'id_expediente_fisico'),
+			'idUsuario' => array(self::BELONGS_TO, 'Usuarios', 'id_usuario'),
 			'idCrmProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_crm_proyecto'),
 		);
 	}
@@ -121,6 +125,18 @@ class TramitePasos extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
+ 	public static function parseDateRange($value, $createTime = false)
+    {
+        if (preg_match("/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/", $value, $match)) {
+            if ($createTime) {
+                return array(strtotime($match[1] . ' 00:00:00'), strtotime($match[2] . ' 23:59:59'));
+            } else {
+                return array($match[1], $match[2]);
+            }
+        }
+        return false;
+    }	
+
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -133,7 +149,7 @@ class TramitePasos extends CActiveRecord
 		$criteria->compare('fecha_pazysalvo',$this->fecha_pazysalvo,true);
 		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
 		$criteria->compare('id_usuario',$this->id_usuario);
-		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+		//$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
 		$criteria->compare('id_razones_estado',$this->id_razones_estado);
 		$criteria->compare('id_estado',$this->id_estado);
 		$criteria->compare('id_paso',$this->id_paso);
@@ -147,7 +163,16 @@ class TramitePasos extends CActiveRecord
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 
-
+  		$dateRange = self::parseDateRange($this->fecha_paso_range_pasos, true);
+   
+        if ($dateRange) {
+            list($startDate, $endDate) = $dateRange;
+            print_r(date('Y-m-d', $endDate));
+        	
+			$criteria->addBetweenCondition('fecha_inicio', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
+        } else {
+        	die;
+        }
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -165,11 +190,11 @@ class TramitePasos extends CActiveRecord
 		$criteria->compare('fecha_pazysalvo',$this->fecha_pazysalvo,true);
 		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
 		$criteria->compare('id_usuario',$this->id_usuario);
-		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+		//$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
 		$criteria->compare('id_razones_estado',$this->id_razones_estado);
 		$criteria->compare('id_estado',$this->id_estado);
 		$criteria->compare('id_paso',$this->id_paso);
-		$criteria->compare('fecha_paso',$this->fecha_paso,true);
+	//	$criteria->compare('fecha_paso',$this->fecha_paso,true);
 		$criteria->compare('id_banco',$this->id_banco);
 		$criteria->compare('id_responsable_ejecucion',$this->id_responsable_ejecucion);
 		$criteria->compare('id_tipo_responsable',$this->id_tipo_responsable);
@@ -228,11 +253,11 @@ class TramitePasos extends CActiveRecord
 		$criteria->compare('fecha_pazysalvo',$this->fecha_pazysalvo,true);
 		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
 		$criteria->compare('id_usuario',$this->id_usuario);
-		$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+	//	$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
 		$criteria->compare('id_razones_estado',$this->id_razones_estado);
 		$criteria->compare('id_estado',$this->id_estado);
 		$criteria->compare('id_paso',$this->id_paso);
-		$criteria->compare('fecha_paso',$this->fecha_paso,true);
+		//$criteria->compare('fecha_paso',$this->fecha_paso,true);
 		$criteria->compare('id_banco',$this->id_banco);
 		$criteria->compare('id_responsable_ejecucion',$this->id_responsable_ejecucion);
 		$criteria->compare('id_tipo_responsable',$this->id_tipo_responsable);
@@ -242,6 +267,14 @@ class TramitePasos extends CActiveRecord
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 
+		$dateRange = self::parseDateRange($this->fecha_paso_range_pasos, true);
+  
+        if ($dateRange) {
+            list($startDate, $endDate) = $dateRange;
+           
+			$criteria->addBetweenCondition('fecha_inicio', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
+        } 
+        
    		$data = new CActiveDataProvider(get_class($this), array(
                                 'criteria'=> $criteria,     
                                 'pagination' => array('pageSize' =>10000),

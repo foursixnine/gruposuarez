@@ -69,6 +69,8 @@ public function actions()
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+
+
 public function actionCreate($id){
             
 	$model = new Gestion;
@@ -228,7 +230,7 @@ public function actionCreate($id){
          
             if(isset($_GET['Gestion'])){
                             $model->attributes=$_GET['Gestion'];
-                        // print_r($_GET['Customers']);
+                       
             }		
 		
                      

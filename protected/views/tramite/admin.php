@@ -36,7 +36,7 @@ Yii::app()->clientScript->registerScript('search', "
 <?php
   $id = Yii::app()->user->id;
   $a = Yii::app()->user->name;
- if($a=='admin' or $a=='orodriguez'){
+ if($a=='admin' or $a=='lvelasco'){
    
 
 
@@ -172,15 +172,13 @@ $this->widget('booster.widgets.TbGridView',array(
 ?>
 
 <?php
+
+ 
  }else{
+ 
    
 ?>
 
-
-<?php
-
- }
-?>
 
 <br><br><br><br><br><br><br><br>
 <button type="button" class="btn btn-warning">INICIAR TRAMITES</button>
@@ -254,5 +252,12 @@ $this->widget('booster.widgets.TbGridView',array(
 )
 )
     );
+
+?>
+
+
+<?php
+
+ }
 
 ?>

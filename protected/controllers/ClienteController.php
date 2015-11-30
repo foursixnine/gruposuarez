@@ -67,6 +67,11 @@ public function actionIniciarTramite($id){
         $tramite = new Tramite;
         $tramite_pasos = new TramitePasos;
     
+        //Busco los datos del Cliente ("PROYECTO ID :(")
+         $cliente_datos = Cliente::model()->find('id_cliente_gs=:id_cliente_gs',
+                                    array(':id_cliente_gs'=>$id));
+
+
         //Guardo los Datos en Tramites una vez generado el Paz y Salvo   
         $date = date('Y-m-d');    
         $tramite->id_cliente_gs=$id;
@@ -76,6 +81,8 @@ public function actionIniciarTramite($id){
         $tramite->inicio=0;
         $tramite->fecha_inicio=$date;    
         $tramite->descripcion="Inicio Tramite";
+        $tramite->id_proyecto=$cliente_datos->id_proyecto;
+     
         $tramite->save();
         //Guardo los Datos en Tramites una vez generado el Paz y Salvo      
         if($tramite->save()){
@@ -86,6 +93,7 @@ public function actionIniciarTramite($id){
                                     $tramite_pasos->id_expediente_fisico=3;
                                     $tramite_pasos->fecha_inicio=$date;    
                                     $tramite_pasos->id_paso=1;    
+                                    $tramite_pasos->id_crm_proyecto=$cliente_datos->id_proyecto;
                                     $tramite_pasos->save();                        
         }
     

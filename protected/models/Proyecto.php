@@ -92,6 +92,11 @@ class Proyecto extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
+
+	    public static function getListCategorias()
+ {
+ return CHtml::listData(Proyecto::model()->findAll(),'id_crm_proyecto','titulo');
+ }
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.

@@ -31,6 +31,7 @@ class Gestion extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+	public $fecha_rango;
 	public function tableName()
 	{
 		return 'gestion';
@@ -105,6 +106,19 @@ class Gestion extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
+
+	public static $dateRangePickerOptions = array(
+                'locale'=>array(
+                                'firstDay'=>1,
+                                'applyLabel'=>'Aceptar',
+                                'cancelLabel'=>'Cancelar',
+                                'fromLabel'=>'Desde',
+                                'toLabel'=>'Hasta',
+                        ),
+                'showDropdowns'=>true,
+                'format'=>'YYYY-MM-DD',
+                'autoclose'=> true,
+        );
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -167,21 +181,32 @@ $criteria->addCondition('fecha_acuerdo <= DATE(NOW()) ');
 	public function excel()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
-
+		 $fechaIni=0;
+		 $fechaFin=0;
+		
 		$criteria=new CDbCriteria;
 
-		if(!empty($this->fecha_creacion))
-        {
-            $criteria->condition = "fecha_creacion >= '$this->fecha_creacion'";  // date is database date column field
-        }
+
 //$criteria->condition = 'status_plan_pago !=  '."'RETIRO'".'  AND status_de_lote =  '."'TRAMITE'".' ';
 
   //$criteria->condition = c.id_proyecto=p.id_crm_proyecto AND status_plan_pago != '."'RETIRO'".' AND (cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".'
+		if(isset($this->fecha_acuerdo) && $this->fecha_acuerdo != ''){
+    // parsear en $fechaIni y $fechaFin las dos fechas ... que vendrán en fecha_rango de la forma "dd/mm/yyyy - dd/mm/yyyy"
+    // esto te lo dejo a ti que no estoy muy orgulloso de mi funcion para parsear (es una chapuza...)...
+$fechaIni=substr($this->fecha_acuerdo, -10);
+$fechaFin=substr($this->fecha_acuerdo, 14,12);
+			     $criteria->addCondition("fecha_acuerdo >= '$fechaIni'");
+			     $criteria->addCondition("fecha_acuerdo <= '$fechaFin'");
+			    /* $criteria->params[":fecha_acuerdo"] = $fechaIni;
+			     $criteria->params[":fecha_acuerdo"] = $fechaFin;*/
+		}
+
+
 		$criteria->compare('id_gestion',$this->id_gestion);
 		$criteria->compare('contactado_llamada',$this->contactado_llamada);
 		$criteria->compare('llamada_voz',$this->llamada_voz);
 		$criteria->compare('id_acuerdo_cobros',$this->id_acuerdo_cobros);
-		$criteria->compare('fecha_acuerdo',$this->fecha_acuerdo,true);
+	//	$criteria->compare('fecha_acuerdo',$this->fecha_acuerdo,true);
 		$criteria->compare('id_gestion_llamadas',$this->id_gestion_llamadas);
 		$criteria->compare('observaciones',$this->observaciones,true);
 		$criteria->compare('id_cumplimiento',$this->id_cumplimiento);

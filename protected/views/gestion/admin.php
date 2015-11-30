@@ -1,4 +1,3 @@
-
 <?php
 $this->breadcrumbs=array(
 	'Gestión'=>array('index'),
@@ -26,6 +25,8 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 <br/>
 <br/><br/><br/>
+
+
 <br/><br/><br/><br/>
 <button type="button" class="btn btn-warning">ADMISTRAR GESTION</button>
 
@@ -38,8 +39,7 @@ $this->widget('booster.widgets.TbGridView',array(
 'dataProvider'=>$model->excel(),
 'filter'=>$model,
 
-//'afterAjaxUpdate'=>"function(){jQuery('#fecha_creacion').datepicker({'dateFormat': 'yyyy-mm-dd'})}",
-'afterAjaxUpdate' => 'function(id, data){alert(data)}',
+//'afterAjaxUpdate' => 'function(id, data){alert(data)}',
 //'afterAjaxUpdate'=>"function(){jQuery('#fecha_creacion').datepicker({'dateFormat': 'yyyy-mm-dd'})}",
 //    $('#Gestion_fecha_creacion').datepicker();
 'columns'=>array(
@@ -69,35 +69,49 @@ $this->widget('booster.widgets.TbGridView',array(
 			),
 			
 		//	'fecha_acuerdo',
-            array(
-            'name' => 'fecha_creacion',
-            'type' => 'date',
+      array('name'=>'fecha_acuerdo',
+        'header'=>'Fecha Entrada',
+      //  'type'=>'raw',
+       // 'value'=>'date("YYYY-mm-dd", strtotime($data->fecha_acuerdo))',
+        'filter'=>$this->widget('booster.widgets.TbDateRangePicker',array(
+                                'model'=>$model,
+                                'attribute'=>'fecha_acuerdo',
+                           /*     'htmlOptions'=>array('id_gestion'=>'dateRangePicker_'.$model->id_gestion,
+                                                'class'=>'form-control date-filter'
+                                ),*/
+                                'options'=>Gestion::$dateRangePickerOptions,
+                                ),
+                        true)
+                ),
+    //        array(
+      //      'name' => 'fecha_creacion',
+        //    'type' => 'date',
    
-            'filter' => $this->widget('bootstrap.widgets.TbDatePicker', array(
-                'model'=>$model, 
+        //    'filter' => $this->widget('bootstrap.widgets.TbDatePicker', array(
+          //      'model'=>$model, 
           
-                'attribute'=>'fecha_creacion', 
+            //    'attribute'=>'fecha_creacion', 
               //    'themeUrl' => Yii::app()->baseUrl . '/css/jui', 
              //  'i18nScriptFile' => 'jquery.ui.datepicker-ja.js', //(#2)
-                'htmlOptions' => array(
-                      'id' => 'Gestion_fecha_creacion',
-                      'size' => '10',
+              //  'htmlOptions' => array(
+                //      'id' => 'Gestion_fecha_creacion',
+                  //    'size' => '10',
                       //'style' => 'width:80px;vertical-align:top'
-                ),
-                 'options'=>array(
-                        'showAnim'=>'fold',
-                         'dateFormat'=>'yyyy-mm-dd',
+                //),
+                // 'options'=>array(
+                  //      'showAnim'=>'fold',
+                    //     'dateFormat'=>'yyyy-mm-dd',
                   
                     
-                        'format' => 'yyyy-mm-dd',
+                      //  'format' => 'yyyy-mm-dd',
                        /*  'afterAjaxUpdate'=>'function(){
                                         jQuery("#'.CHtml::activeId($model, 'fecha_creacion').'").datepicker({showButtonPanel:true, changeYear:true});
                                 }',*/
-        )
-            ), 
-            true), 
+       // )
+           // ), 
+            //true), 
             
-        ),
+     //   ),
 
 			
 
@@ -136,12 +150,7 @@ $this->widget('booster.widgets.TbGridView',array(
 //");
 //(#5)'afterAjaxUpdate' => 'function reinstallDatePicker(id, data){alert(data)}',
 
-Yii::app()->clientScript->registerScript('re-install-date-picker', "
-function reinstallDatePicker(id, data) {
 
-  alert(data);
-}
-");
 
 
 

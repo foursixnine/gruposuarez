@@ -203,7 +203,7 @@ public function actionTramite($id)
             ));
 
 
-                      
+                 
                         if($tramite_datosgenerales->save())
                         {
                          
@@ -387,7 +387,8 @@ public function actionTramite($id)
                                                 'firma_promotora'=>$model->firma_promotora,
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,                                                
-                                                'id_razones_estado' => $model->id_razones_estado
+                                                'id_razones_estado' => $model->id_razones_estado,
+                                                'id_crm_proyecto' => $tramite->id_proyecto
                                                                   ),
                                                                   'id_paso=1 and id_tramite ='.$id 
                                                             );
@@ -409,6 +410,7 @@ public function actionTramite($id)
                           $model->id_expediente_fisico=$tramite->id_expediente_fisico;
                           $model->id_usuario=$tramite->id_usuario;
                           $model->id_paso=2;
+
                           //Guardo el tramite    
                           $model->save();
                         
@@ -457,7 +459,9 @@ public function actionTramite($id)
                                                       'firma_promotora'=>$model->firma_promotora,
                                                       'firma_cliente'=>$model->firma_cliente,
                                                       'fecha_paso'   =>$hoy,     
-                                                      'id_razones_estado' => $model->id_razones_estado                                              
+                                                      'id_razones_estado' => $model->id_razones_estado,
+                                                      'id_crm_proyecto' => $tramite->id_proyecto
+                                                                                  
                                                                         ),                    
                                                                           'id_paso=2 and id_tramite ='.$id                                                                   
                                                                   );
@@ -519,8 +523,12 @@ public function actionTramite($id)
             
           
             }elseif($tramite->id_pasos==11){
-                                       //echo "HolA ES 11 FIIn";die;       
-                   $tramiteupdate = Tramite::model()->updateAll(array( 
+                                       //echo "HolA ES 11 FIIn";die;      
+                  if($tramite->plano=="" or $tramite->permiso_ocupacion=="" or $tramite->ganancia_capital==""){
+                        Yii::app()->user->setFlash('notice', "Recuerde Actualizar los DATOS DEL TRAMITE");
+                        //  Yii::app()->user->setFlash('success', "Recuerde Actualizar los datos del tramite para poder finalizar!");
+                  }else{                      
+                  $tramiteupdate = Tramite::model()->updateAll(array( 
                                         'id_pasos' => 11,                                                                                                              
                                         'fecha_paso'=>$hoy,
                                         'id_estado' => 4
@@ -528,7 +536,7 @@ public function actionTramite($id)
                                                               ),
                                                                 'id_tramite ='.$id
                                                         );     
-            $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                  $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
                                                 'id_pasos'    =>11,
                                                 'id_estado'   =>$model->id_estado,                                        
                                                 'fecha_solicitud'=>$model->fecha_solicitud,
@@ -542,9 +550,9 @@ public function actionTramite($id)
                                                                   ),
                                                                     'id_tramite ='.$id
                                                             );  
-            Yii::app()->user->setFlash('success', "Fin del Tramite!");
+            Yii::app()->user->setFlash('success', "TRAMITE LIQUIDADO!");
             $this->redirect(array('tramitePasos/vertramitesliquidados','id'=>$id));
-                            
+                 }           
             }else{
                 $tramiteupdate = Tramite::model()->updateAll(array( 
                                         'id_pasos' => $model->id_paso,                                                                                                              
@@ -561,8 +569,8 @@ public function actionTramite($id)
                                                 'firma_promotora'=>$model->firma_promotora,
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,
-                                                'id_razones_estado' => $model->id_razones_estado
-                                              
+                                                'id_razones_estado' => $model->id_razones_estado,
+                                                'id_crm_proyecto' => $tramite->id_proyecto
                                                                   ),
                                                                     'id_tramite ='.$id
                                                             );               
@@ -894,13 +902,33 @@ public function actionDetalleLiquidacion($id)
   /**Reporte***/
   public function actionReporte()
   {
-        $model = new TramitePasos('reporteexcel');
-    $model->unsetAttributes();  // clear any default values
-    if(isset($_GET['TramitePasos'])){
-      $model->attributes=$_GET['TramitePasos'];
-    }
-  
-      $this->render('reporte', array('model' => $model));   
+
+    $model = new TramitePasos();
+
+    $var_post = Yii::app()->getRequest()->getParam('TramitePasos');
+        if ($var_post) {
+            $model->attributes = $var_post;
+        }
+
+        $provider = $model->reporteexcel();
+        $count = $provider->getItemCount();
+            $minimo =  Yii::app()->db->createCommand()
+            ->select('MIN(fecha_inicio)')
+            ->from('tramite_pasos')
+            ->queryScalar();
+
+            $maximo =  Yii::app()->db->createCommand()
+            ->select('MIN(fecha_inicio)')
+            ->from('tramite_pasos')
+            ->queryScalar();
+       
+        $this->render('reporte', array(
+            'model' => $model,
+            'count' => $count,
+            'minimo' => $minimo,
+            'maximo' => $maximo,
+        ));
+
   }
 
 

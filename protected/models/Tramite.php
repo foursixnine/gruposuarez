@@ -1,4 +1,5 @@
- <?php
+<?php
+
 /**
  * This is the model class for table "tramite".
  *
@@ -29,6 +30,7 @@
  * @property integer $casa_entregada
  * @property string $num_formulario
  * @property string $transferencia_inmueble
+ * @property string $id_proyecto
  *
  * The followings are the available model relations:
  * @property Chat[] $chats
@@ -39,6 +41,7 @@
  * @property Paso $idPasos
  * @property ResponsableEjecucion $idResponsableEjecucion
  * @property Usuarios $idUsuario
+ * @property Proyecto $idProyecto
  */
 class Tramite extends CActiveRecord
 {
@@ -53,23 +56,27 @@ class Tramite extends CActiveRecord
     /**
      * @return array validation rules for model attributes.
      */
+    
+    public $fecha_paso_range = '';
+
     public function rules()
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
             array('id_cliente_gs, id_expediente_fisico, id_usuario, id_pasos, id_razones_estado, id_estado, id_responsable_ejecucion, inicio, casa_entregada', 'numerical', 'integerOnly'=>true),
-            array('descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, num_permiso_ocupacion, num_formulario, transferencia_inmueble', 'safe'),
+            array('descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso_range, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, num_permiso_ocupacion, num_formulario, transferencia_inmueble, id_proyecto', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, num_permiso_ocupacion, casa_entregada, num_formulario, transferencia_inmueble', 'safe', 'on'=>'search'),
+            array('fecha_paso,id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso_range, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, num_permiso_ocupacion, casa_entregada, num_formulario, transferencia_inmueble, id_proyecto', 'safe', 'on'=>'search'),
+       //     array( '', 'date' , 'format' => "Y-m-d"),
         );
     }
 
     /**
      * @return array relational rules.
      */
-    public function relations()
+	public function relations()
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
@@ -82,6 +89,7 @@ class Tramite extends CActiveRecord
             'idPasos' => array(self::BELONGS_TO, 'Paso', 'id_pasos'),
             'idResponsableEjecucion' => array(self::BELONGS_TO, 'ResponsableEjecucion', 'id_responsable_ejecucion'),
             'idUsuario' => array(self::BELONGS_TO, 'Usuarios', 'id_usuario'),
+            'idProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_proyecto'),
         );
     }
 
@@ -132,12 +140,25 @@ class Tramite extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
+	 public static function parseDateRange($value, $createTime = false)
+    {
+        if (preg_match("/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/", $value, $match)) {
+            if ($createTime) {
+                return array(strtotime($match[1] . ' 00:00:00'), strtotime($match[2] . ' 23:59:59'));
+            } else {
+                return array($match[1], $match[2]);
+            }
+        }
+        return false;
+    }
+
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-        $criteria->condition = 'inicio = 0 ';
+       // $criteria->condition = 'inicio = 0 ';
+
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('descripcion',$this->descripcion,true);
@@ -149,14 +170,31 @@ class Tramite extends CActiveRecord
 		$criteria->compare('fecha_fin',$this->fecha_fin,true);
 		$criteria->compare('id_razones_estado',$this->id_razones_estado);
 		$criteria->compare('id_estado',$this->id_estado);
-		$criteria->compare('fecha_paso',$this->fecha_paso,true);
+		//$criteria->compare('fecha_paso',$this->fecha_paso,true);
 		$criteria->compare('id_responsable_ejecucion',$this->id_responsable_ejecucion);
 		$criteria->compare('plano',$this->plano,true);
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
+		$criteria->compare('id_proyecto',$this->id_proyecto);
+
+		
 		$criteria->compare('inicio',$this->inicio);
+
         $criteria->order = 'id_tramite DESC';
+
+
+        $dateRange = self::parseDateRange($this->fecha_paso_range, true);
+   
+        if ($dateRange) {
+            list($startDate, $endDate) = $dateRange;
+            print_r(date('Y-m-d', $endDate));
+        	
+			$criteria->addBetweenCondition('fecha_paso', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
+        } else {
+        	
+        }
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -262,7 +300,7 @@ class Tramite extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-                $criteria->condition = 'inicio = 1 AND id_pasos=11';
+        $criteria->condition = 'inicio = 1 AND id_pasos=11';
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('descripcion',$this->descripcion,true);
@@ -281,8 +319,21 @@ class Tramite extends CActiveRecord
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
+		$criteria->compare('id_proyecto',$this->id_proyecto);
 		$criteria->compare('inicio',$this->inicio);
 
+
+
+        $dateRange = self::parseDateRange($this->fecha_paso_range, true);
+   
+        if ($dateRange) {
+            list($startDate, $endDate) = $dateRange;
+            print_r(date('Y-m-d', $endDate));
+        	
+			$criteria->addBetweenCondition('fecha_paso', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
+        } else {
+        	
+        }
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

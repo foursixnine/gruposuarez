@@ -33,7 +33,7 @@ if($data!==null){
         <th>PROYECTO</th>
         <th>NUMERO DE PROPIEDAD</th>  
         <th>PRECIO TOTAL VENTA</th>
-        <th>PRECIO MONTO LIQUIDACION</th>
+        <th>PRECIO HIPOTECA</th>
         <th>BANCO HIPOTECARIO</th>
         <th>N° DE PASO</th> 
         <th>NOMBRE DEL PASO</th> 
@@ -44,13 +44,14 @@ if($data!==null){
         <th>FECHA DE ESCRITURA</th>     
         <th>FECHA DE INSCRIPCION ESCRITURA</th>
         <th>N° DE ESCRITURA</th>
-        <th>N° FINCA INSCRITA</th>
+        <th>N° DE FINCA INSCRITA - UBICACIÓN</th>
         <th>TRANSFERENCIA INMUEBLE</th>
         <th>N° PERMISO DE OCUPACIÓN</th>
-          <th>N° DE FORMULARIO</th>        
-         <th>FECHA DE PERMISO DE OCUPACIÓN</th>        
-          <th>FECHA DE PERMISO DE CONSTRUCCION</th>  
-           <th>TRAMITADOR</th>  
+        <th>N° DE FORMULARIO</th>        
+        <th>FECHA DE PERMISO DE OCUPACIÓN</th>        
+        <th>FECHA DE PERMISO DE CONSTRUCCION</th>  
+        <th>TRAMITADOR</th>  
+        <th>FACTURA POR CONFECCIÓN DE PROTOCOLO</th>
     </tr>
     
     <?php foreach ($data as $value) {
@@ -89,6 +90,7 @@ if($data!==null){
                <td><?php echo $value['fecha_de_permiso_ocupacion'];?></td>
                <td><?php echo $value['fecha_de_permiso_contruccion'];?></td>
                <td>admin</td>
+               <td></td>
              
 
 

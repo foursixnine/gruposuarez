@@ -210,6 +210,7 @@ class Cliente extends CActiveRecord
                         1 => 'Yes',
                 );
         }
+    
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.

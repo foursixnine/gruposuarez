@@ -88,6 +88,8 @@ public function actionView($id)
     ));
 }
 
+
+
 /**
 * Creates a new model.
 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -233,18 +235,44 @@ public function actionContinuarTramites(){
 /**********************TRAMITES LIQUIDADOS*************************************/
 public function actionTramitesLiquidados(){
             
-            $model = new Tramite('search');
+        
+            $model = new Tramite();
             $tramitadora = new Tramite('tramitesliquidados');
             $tramitadora->unsetAttributes();  // clear any default values
 
             if(isset($_GET['Tramite']))
             $tramitadora->attributes=$_GET['Tramite'];
 
-            $this->render('tramitesliquidados',array(
+   /*         $this->render('tramitesliquidados',array(
                     'model'=>$model,
                     'tramitadora'=>$tramitadora,   
                     
-            ));
+            ));*/
+
+
+        $post = Yii::app()->getRequest()->getParam('Tramite');
+        if ($post) {
+            $model->attributes = $post;
+        }
+
+        $provider = $model->search();
+        $count = $provider->getItemCount();
+            $min=  Yii::app()->db->createCommand()
+            ->select('MIN(fecha_paso)')
+            ->from('tramite')
+            ->queryScalar();
+
+            $max=  Yii::app()->db->createCommand()
+            ->select('MIN(fecha_paso)')
+            ->from('tramite')
+            ->queryScalar();
+       
+        $this->render('tramitesliquidados', array(
+            'model' => $model,
+            'count' => $count,
+            'min' => $min,
+            'max' => $max,
+        ));
 
 }
 
