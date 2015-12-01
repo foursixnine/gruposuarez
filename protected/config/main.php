@@ -98,7 +98,7 @@ return array(
 			),
 		), 
                 //
-		// database settings are configured in database.php*/
+		// database settings areee configured in database.php*/
                 'db'=>array(
                         'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
                 ),
