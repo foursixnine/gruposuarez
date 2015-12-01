@@ -388,7 +388,8 @@ public function actionTramite($id)
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,                                                
                                                 'id_razones_estado' => $model->id_razones_estado,
-                                                'id_crm_proyecto' => $tramite->id_proyecto
+                                                'id_crm_proyecto' => $tramite->id_proyecto,
+                                                'id_banco' => $cliente->id_banco
                                                                   ),
                                                                   'id_paso=1 and id_tramite ='.$id 
                                                             );
@@ -460,7 +461,8 @@ public function actionTramite($id)
                                                       'firma_cliente'=>$model->firma_cliente,
                                                       'fecha_paso'   =>$hoy,     
                                                       'id_razones_estado' => $model->id_razones_estado,
-                                                      'id_crm_proyecto' => $tramite->id_proyecto
+                                                      'id_crm_proyecto' => $tramite->id_proyecto,
+                                                       'id_banco' => $cliente->id_banco
                                                                                   
                                                                         ),                    
                                                                           'id_paso=2 and id_tramite ='.$id                                                                   
@@ -544,6 +546,7 @@ public function actionTramite($id)
                                                 'firma_promotora'=>$model->firma_promotora,
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,
+                                                 'id_banco' => $cliente->id_banco,
                                                 'id_razones_estado' => $model->id_razones_estado,
                                                 'id_estado' => 4
                                               
@@ -569,6 +572,7 @@ public function actionTramite($id)
                                                 'firma_promotora'=>$model->firma_promotora,
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,
+                                                'id_banco' => $cliente->id_banco,
                                                 'id_razones_estado' => $model->id_razones_estado,
                                                 'id_crm_proyecto' => $tramite->id_proyecto
                                                                   ),
