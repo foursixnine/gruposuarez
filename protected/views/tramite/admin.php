@@ -72,7 +72,7 @@ $this->widget('booster.widgets.TbGridView',array(
                     'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),                   
                 ), */
       
-                   array(
+       /*            array(
                     'class' => 'bootstrap.widgets.TbEditableColumn',
                     'name' => 'confeccion_protocolo',                    
                     'editable' => 
@@ -89,7 +89,14 @@ $this->widget('booster.widgets.TbGridView',array(
            'multiple' => false
         ),
         )
-                    ), 
+                    ), */
+    array(
+                    'class' => 'bootstrap.widgets.TbToggleColumn',
+                    'toggleAction' => 'cliente/toggle',
+                    'name' => 'confeccion_protocolo',
+                    'header' => 'Permiso de Ocupacion',
+                    'filter'=>false,
+                ),
                   
 
                 array(

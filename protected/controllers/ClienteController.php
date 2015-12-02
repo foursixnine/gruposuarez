@@ -27,11 +27,11 @@ public function accessRules()
 {
     return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-            'actions'=>array('index','view','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones','actualizarprotocolo'),
+            'actions'=>array('index','view','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones','actualizarprotocolo','toggle'),
             'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('create','update','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones','actualizarprotocolo'),
+            'actions'=>array('create','update','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones','actualizarprotocolo','toggle'),
          //   'users'=>array('@'),
                'users'=>array('*'),
 
@@ -57,6 +57,16 @@ public function actionActualizarObservaciones()
     $es = new TbEditableSaver('Cliente');
     $es->update();
 }
+
+public function actions()
+    {
+    return array(
+    'toggle' => array(
+    'class'=>'bootstrap.actions.TbToggleAction',
+    'modelName' => 'Cliente',
+    )
+    );
+    }
 
 public function actionActualizarProtocolo()
     {
