@@ -52,7 +52,7 @@ $this->endWidget();
 <div class="row">
     <div class="span12">
         <p>
-            Filas Seleccionadas: <strong><?php echo $count; ?></strong>
+            Filas seleccionadas: <strong><?php echo $count; ?></strong>
         </p>
         <div class="alert alert-info">
             Resultados de los tramites entre las fechas <strong><?php echo $minimo; ?></strong> a <strong><?php echo $maximo; ?></strong>

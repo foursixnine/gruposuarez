@@ -27,11 +27,11 @@ public function accessRules()
 {
     return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-            'actions'=>array('index','view','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones'),
+            'actions'=>array('index','view','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones','actualizarprotocolo'),
             'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('create','update','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones'),
+            'actions'=>array('create','update','retiro','perfilcliente','generatepdf','detalle','excel','iniciartramite','actualizarobservaciones','actualizarprotocolo'),
          //   'users'=>array('@'),
                'users'=>array('*'),
 
@@ -52,6 +52,13 @@ public function accessRules()
 */
 //********* ACTUALIZAR OBSERVACIONES ************//
 public function actionActualizarObservaciones()
+    {
+    Yii::import('bootstrap.widgets.TbEditableSaver');
+    $es = new TbEditableSaver('Cliente');
+    $es->update();
+}
+
+public function actionActualizarProtocolo()
     {
     Yii::import('bootstrap.widgets.TbEditableSaver');
     $es = new TbEditableSaver('Cliente');

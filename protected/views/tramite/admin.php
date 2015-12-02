@@ -34,6 +34,13 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 
 <?php
+ $tags = array(
+      array('id' => 1, 'text' => 'SI'),
+      array('id' => 0, 'text' => 'NO'),
+    
+
+    );
+
   $id = Yii::app()->user->id;
   $a = Yii::app()->user->name;
  if($a=='admin' or $a=='lvelasco'){
@@ -58,13 +65,67 @@ $this->widget('booster.widgets.TbGridView',array(
                 'numero_de_lote',
                 'fecha_de_permiso_ocupacion',
                 'observacion_tramite',
-                array(
+               /* array(
                     'name'=>'id_proyecto',
                     'header'=>'Proyecto',
                     'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
                     'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),                   
-                ), 
+                ), */
+      
+                   array(
+                    'class' => 'bootstrap.widgets.TbEditableColumn',
+                    'name' => 'confeccion_protocolo',                    
+                    'editable' => 
+                        array(
 
+        'type'      => 'select2',
+        'model'     => $cliente,
+        'attribute' => 'confeccion_protocolo',
+        'url'       => $this->createUrl('/cliente/actualizarprotocolo'), 
+        'source'    => $tags,
+        'placement' => 'right',
+
+        'select2'   => array(
+           'multiple' => false
+        ),
+        )
+                    ), 
+                  
+
+                array(
+                    'class' => 'bootstrap.widgets.TbEditableColumn',
+                    'name' => 'id_rango',
+                    'htmlOptions'=>array('width'=>'150'),
+                    'editable' => array(
+                      'apply'=>'$data->confeccion_protocolo ==1 ? true : false',
+                        'type' => 'select',
+                        'source' =>  CHtml::listData(Rango::model()->findAll(), 'id_rango', 'descripcion'),      
+                        'url' => $this->createUrl('/cliente/actualizarprotocolo'), 
+                        'placement' => 'right',
+                    )
+                ),
+         /*array(
+                    'class' => 'bootstrap.widgets.TbEditableColumn',
+                    'name' => 'monto_liquidacion',    
+                            'editable' => array(
+                                //   'apply'=>'$data->confeccion_protocolo ==1',
+                                    'type' => 'text',
+                                   // 'apply'=>'($data->confeccion_protocolo == 1 ? true : false)',
+                                    //'apply' => '$data->confeccion_protocolo == 1',
+                                    'model'     => $cliente,
+                                    'attribute' => 'monto_liquidacion',
+                                    'url' => $this->createUrl('/cliente/actualizarprotocolo'), 
+
+
+      
+
+                            ),
+                    ),*/
+/*
+  array('name' => 'monto_liquidacion',
+        'value'=>'($data->monto_liquidacion != 0 ? "Iniciar Tramite" : "Falta Permiso")',
+              'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
+    ),*/
              
                 'buttons' => 
                 array(
@@ -108,6 +169,7 @@ $this->widget('booster.widgets.TbGridView',array(
                                 'source' =>  CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),      
                             )
                     ), 
+
                 'idClienteGs.nombre_de_empresa',
                 'idClienteGs.proyecto',
              
@@ -142,8 +204,10 @@ $this->widget('booster.widgets.TbGridView',array(
   array(
     'class'=>'CLinkColumn',
     'header'=>'Tramite',
-    'labelExpression'=>'($data->idClienteGs["pazysalvo"] != 0 ? "Iniciar Tramite" : "Falta Permiso")',
-    'urlExpression'=>'($data->idClienteGs["pazysalvo"]!=0) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
+    'labelExpression'=>'($data->permiso_ocupacion != 0 ? "Iniciar Tramite" : "Falta Permiso")',
+   // 'urlExpression'=>'($data->idClienteGs["pazysalvo"]!=0) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
+    'urlExpression'=>'($data->permiso_ocupacion !=0) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
+   
     'cssClassExpression'=>'($data->permiso_ocupacion==1 ? " challenged" : "")',  
     ),
 

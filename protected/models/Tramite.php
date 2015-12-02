@@ -31,6 +31,7 @@
  * @property string $num_formulario
  * @property string $transferencia_inmueble
  * @property string $id_proyecto
+ * @property integer $id_rango
  *
  * The followings are the available model relations:
  * @property Chat[] $chats
@@ -64,7 +65,7 @@ class Tramite extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('id_cliente_gs, id_expediente_fisico, id_usuario, id_pasos, id_razones_estado, id_estado, id_responsable_ejecucion, inicio, casa_entregada', 'numerical', 'integerOnly'=>true),
+            array('id_rango,id_cliente_gs, id_expediente_fisico, id_usuario, id_pasos, id_razones_estado, id_estado, id_responsable_ejecucion, inicio, casa_entregada', 'numerical', 'integerOnly'=>true),
             array('descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso_range, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, num_permiso_ocupacion, num_formulario, transferencia_inmueble, id_proyecto', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -90,6 +91,7 @@ class Tramite extends CActiveRecord
             'idResponsableEjecucion' => array(self::BELONGS_TO, 'ResponsableEjecucion', 'id_responsable_ejecucion'),
             'idUsuario' => array(self::BELONGS_TO, 'Usuarios', 'id_usuario'),
             'idProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_proyecto'),
+               'idRango' => array(self::BELONGS_TO, 'Rango', 'id_rango'),
         );
     }
 
