@@ -94,7 +94,7 @@ $this->widget('booster.widgets.TbGridView',array(
                     'class' => 'bootstrap.widgets.TbToggleColumn',
                     'toggleAction' => 'cliente/toggle',
                     'name' => 'confeccion_protocolo',
-                    'header' => 'Permiso de Ocupacion',
+                    'header' => 'Confección de Protocolo',
                     'filter'=>false,
                 ),
                   
