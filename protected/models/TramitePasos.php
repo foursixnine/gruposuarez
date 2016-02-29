@@ -185,6 +185,7 @@ class TramitePasos extends CActiveRecord
                
 		$criteria=new CDbCriteria;
         $criteria->compare('id_tramite',$id);
+        $criteria->condition = 'id_cliente_gs >=1507';
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
@@ -216,6 +217,7 @@ class TramitePasos extends CActiveRecord
                
 		$criteria=new CDbCriteria;
             //    $criteria->compare('id_tramite',$id);
+		$criteria->condition = 'id_cliente_gs >=1507';
         $criteria->condition = 'id_tramite = ."'.$id.'" ';
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
@@ -247,7 +249,7 @@ class TramitePasos extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+   $criteria->condition = 'id_cliente_gs >=1507';
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
