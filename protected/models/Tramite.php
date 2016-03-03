@@ -206,7 +206,7 @@ class Tramite extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-                $criteria->condition = 'inicio = 0 ';
+        $criteria->condition = 'inicio = 0 ';
         
 
              //$criteria->compare('idUsuario.id_proyecto',$this->id_cliente_gs,true);
@@ -233,12 +233,13 @@ class Tramite extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	    public function activostramitador($id)
+	
+	public function activostramitador($id)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-                $criteria->condition = 'inicio = 0 ';
+        $criteria->condition = 'inicio = 0 ';
         
 
              //$criteria->compare('idUsuario.id_proyecto',$this->id_cliente_gs,true);

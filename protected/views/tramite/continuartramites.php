@@ -30,12 +30,25 @@ array('label'=>'Volver','url'=>array('admin')),
 'filter'=>$model,
 'columns'=>array(
                 'fecha_inicio',
-                array(
+              /*  array(
                     'name'=>'id_usuario',
                     'header'=>'Tramitador',
                     'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
                     'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
-                ), 
+                ),*/
+                    array(
+                    'class' => 'bootstrap.widgets.TbEditableColumn',
+                    'name' => 'id_usuario',
+                    'editable' => 
+                        array(
+                            'type' => 'select',
+                            'model'     => $model,
+                            'attribute' => 'id_usuario',
+                         //    'text'      => 'Seleccione el Tramitador',
+                            'url' => $this->createUrl('actualizarcobradora'),
+                            'source' =>  CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),      
+                        )
+                ),  
                
                 'idClienteGs.vendedor',
                 'idClienteGs.proyecto',

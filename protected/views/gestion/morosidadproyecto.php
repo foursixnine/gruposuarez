@@ -33,12 +33,13 @@ $sumtv=0;
     
     <tr>
                 <th>PROYECTO</th>  
-                <th>TOTAL VENCIDO</th>
+                <th>CARTERA CORRIENTE</th> 
                 <th>CARTERA 30</th>
                 <th>CARTERA 60</th>
                 <th>CARTERA 90</th>        
                 <th>CARTERA 120</th>
-                <th>CARTERA CORRIENTE</th>  
+                <th>TOTAL VENCIDO</th>
+                
     </tr>
     
     <?php foreach ($proyectomorosos as $value) {
@@ -50,13 +51,14 @@ $sumtv=0;
                 $sumtv+=$value['suma'];
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
-                <td><?php echo $value['titulo'];?></td>
-                <td><?php echo $value['suma'];?></td> 
+                <td><?php echo $value['proyecto'];?></td>
+                <td><?php echo $value['cartera_corriente'];?></td>
+            
                 <td><?php echo $value['treinta']; ?></td>
                 <td><?php echo $value['sesenta']; ?></td>
                 <td><?php echo $value['noventa']; ?></td>
                 <td><?php echo $value['cientoveinte'];?></td>
-                <td><?php echo $value['cartera_corriente'];?></td>
+                <td><?php echo $value['suma'];?></td> 
                 
             </tr>
             

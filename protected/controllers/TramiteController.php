@@ -185,11 +185,15 @@ public function actionAdmin()
             //Tramites Activos
             $tramitadora = new Tramite('activos'); 
             $tramitadora->unsetAttributes();
- 
+            $nameape=Yii::app()->user->nombre;
+
             //Clientes en Tramite
             $cliente = new Cliente('clientestramites');
             $cliente->unsetAttributes();
             
+            $tramitador_clientes = $cliente->findall('agente_tramite=:agente_tramite',
+                              array(':agente_tramite'=>$nameape)); 
+
             if(isset($_GET['Cliente'])){
                             $cliente->attributes=$_GET['Cliente'];
                          //   $retiro->attributes=$_GET['Cliente'];
@@ -204,7 +208,7 @@ public function actionAdmin()
                      
                 
            $this->render('admin',array(
-      //      'model'=>$model,
+            'tramitador_clientes'=>$tramitador_clientes,
             'tramitadora'=>$tramitadora,   
             'cliente'=>$cliente,
              ));

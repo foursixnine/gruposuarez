@@ -301,10 +301,10 @@ public function actionCreate($id){
 
         //MorosidadProyecto
         $proyectomorosos =  Yii::app()->db->createCommand()
-                                ->select('p.titulo, SUM(TOTAL_VENCIDO) as suma, SUM(CARTERA_30_DIAS) as treinta, SUM(CARTERA_60_DIAS) as sesenta, 
+                                ->select('proyecto, SUM(TOTAL_VENCIDO) as suma, SUM(CARTERA_30_DIAS) as treinta, SUM(CARTERA_60_DIAS) as sesenta, 
 										SUM(CARTERA_90_DIAS) as noventa, SUM(CARTERA_120_DIAS) as cientoveinte,SUM(CARTERA_CORRIENTE) as cartera_corriente')
-                                ->from('cliente c, proyecto p ')
-                                ->where('c.id_proyecto=p.id_crm_proyecto AND status_plan_pago != '."'RETIRO'".' AND (cartera_corriente > '."'1'".' OR cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".') GROUP BY p.titulo')
+                                ->from('cliente c')
+                                ->where('status_plan_pago != '."'RETIRO'".' AND status_de_lote != '."'LIQUIDADO'".' AND (cartera_corriente > '."'1'".' OR cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".') GROUP BY proyecto')
                                 ->queryAll(true);
 
         Yii::app()->request->sendFile('MorosidadProyecto.xls',

@@ -219,10 +219,9 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
- 		$criteria->condition = 'status_plan_pago  != '."'RETIRO'".' AND status_de_lote =  '."'COBRO'".' ';
+ 		$criteria->condition = 'status_plan_pago  != '."'RETIRO'".' AND status_de_lote =  '."'COBRO'".' AND status_de_lote !=  '."'LIQUIDADO'".' ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
   		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
-
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('apellido',$this->apellido,true);
 		$criteria->compare('status',$this->status,true);
@@ -293,12 +292,12 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-                $criteria->condition = 'CARTERA_120_DIAS <= 0 AND status_de_lote  = '."'COBRO'".' AND status_plan_pago  != '."'RETIRO'".' ';
+        $criteria->condition = 'CARTERA_120_DIAS <= 0 AND status_de_lote  = '."'COBRO'".' AND status_plan_pago  != '."'RETIRO'".' AND status_de_lote !=  '."'LIQUIDADO'".'  ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
-                $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
+        $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('apellido',$this->apellido,true);
-                $criteria->compare('cedula',$this->cedula,true);
+        $criteria->compare('cedula',$this->cedula,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('proyecto',$this->proyecto,true);
 		$criteria->compare('numero_de_lote',$this->numero_de_lote,true);
@@ -323,8 +322,9 @@ class Cliente extends CActiveRecord
       
         ));
 	}
-        
-        public function search120()
+
+    //Busca todos aquelllos Clientes con una Cartera Mayor a 120 días y que sean Diferentes de Retiro
+    public function search120()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -358,13 +358,14 @@ class Cliente extends CActiveRecord
       
         ));
 	}
-        
-        public function noventadias()
+    
+    //Noventa Dias Cliente    
+    public function noventadias()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-         $criteria->condition = 'status_plan_pago  != '."'RETIRO'".' ';
+         $criteria->condition = 'status_plan_pago  != '."'RETIRO'".' AND status_de_lote !=  '."'LIQUIDADO'".'  ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 
                 $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);
@@ -397,9 +398,10 @@ class Cliente extends CActiveRecord
 		));
  
 	}
-        ///////////////////////////PAZ Y SALVO////////////////////////////////////
+    
+    ///////////////////////////PAZ Y SALVO////////////////////////////////////
         
-        public function clientestramites()
+    public function clientestramites()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
                
@@ -414,7 +416,7 @@ class Cliente extends CActiveRecord
 		$criteria->compare('proyecto',$this->proyecto,true);
 		$criteria->compare('observacion_tramite',$this->observacion_tramite,true);
 		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
-
+		$criteria->compare('agente_tramite',$this->agente_tramite,true);
 		
 		
 		$criteria->compare('id_cliente',$this->id_cliente,true);
@@ -434,6 +436,43 @@ class Cliente extends CActiveRecord
         ));
 	}
 
+    //Busca solo los Clientes asignados a un Tramitador en particular
+    public function clientescontramitador($nombretramitador)
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+               
+		$criteria=new CDbCriteria;
+      
+        $criteria->condition = 'pazysalvo = 0 AND status_plan_pago !=  '."'RETIRO'".' AND status_de_lote =  '."'TRAMITE'".' ';
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+		$criteria->compare('agente_tramite',$nombretramitador);
+		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);
+		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('apellido',$this->apellido,true);
+		$criteria->compare('status',$this->status,true);
+		$criteria->compare('proyecto',$this->proyecto,true);
+		$criteria->compare('observacion_tramite',$this->observacion_tramite,true);
+		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
+		$criteria->compare('confeccion_protocolo',$this->confeccion_protocolo,true);
+		$criteria->compare('pazysalvo',$this->pazysalvo,true);
+		$criteria->compare('id_cliente',$this->id_cliente,true);
+		$criteria->compare('id_proyecto',$this->id_proyecto,true);
+
+
+		$criteria->order = 'proyecto, numero_de_lote DESC';
+                $criteria->limit = 20;
+                $criteria->offset = 0;
+                return new CActiveDataProvider($this, array(
+                                'criteria'=> $criteria,     
+                                'pagination' => array('pageSize' => 5),
+
+                'totalItemCount'=>'50',
+                 
+      
+        ));
+	}
+
+	//Para la generación del Reporte en Excel
 	public function clientesexcel()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.

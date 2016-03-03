@@ -845,7 +845,7 @@ public function actionDetalleLiquidacion($id)
     echo "</pre>";  
     die;*/
         
-      Yii::app()->request->sendFile('ReportePasos.xls',
+      Yii::app()->request->sendFile('Liquidaciones.xls',
                                 $this->renderPartial('reportepasos',array(
                                     'reportepasos'=>$reportepasos,
                                 ),true)
@@ -895,7 +895,7 @@ public function actionDetalleLiquidacion($id)
         }
 
 
-      Yii::app()->request->sendFile('tramitereporte.xls',
+      Yii::app()->request->sendFile('ReportePasos.xls',
                                 $this->renderPartial('excelreporte',array(
                                     'data'=>$data,
                                 ),true)        
