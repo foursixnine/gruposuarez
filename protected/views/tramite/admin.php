@@ -43,10 +43,8 @@ Yii::app()->clientScript->registerScript('search', "
 
  $id = Yii::app()->user->id;
  $a=Yii::app()->user->nombre;
- if($a=='admin' or $tramitador_clientes=="Lourdes Velasco" or $tramitador_clientes==""){
+ if($a=='admin' or $a=="Lourdes Velasco" or $tramitador_clientes==""){
    
-
-
 ?>
 
 <br/>
@@ -65,6 +63,7 @@ $this->widget('booster.widgets.TbGridView',array(
                 'numero_de_lote',
                 'fecha_de_permiso_ocupacion',
                 'observacion_tramite',
+                'agente_tramite',
                 array(
                     'class' => 'bootstrap.widgets.TbToggleColumn',
                     'toggleAction' => 'cliente/toggle',
@@ -133,25 +132,12 @@ $this->widget('booster.widgets.TbGridView',array(
                 'idClienteGs.numero_de_lote',
                 'idClienteGs.fecha_de_permiso_ocupacion',
                 'idClienteGs.agente_tramite',
-          /*      array(
-                    'name'=>'id_usuario',
-                    'header'=>'Tramitador',
-                    'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
-                    'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+              /*  array(
+                    'name'=>'id_proyecto',
+                    'header'=>'Proyecto',
+                    'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
+                    'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
                 ), */
-             /*  array(
-                    'class' => 'bootstrap.widgets.TbEditableColumn',
-                    'name' => 'id_usuario',
-                    'editable' => 
-                        array(
-                            'type' => 'select',
-                            'model'     => $tramitadora,
-                            'attribute' => 'id_usuario',
-                         //    'text'      => 'Seleccione el Tramitador',
-                            'url' => $this->createUrl('actualizarcobradora'),
-                            'source' =>  CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),      
-                        )
-                ),     */
                 array(
                     'class' => 'bootstrap.widgets.TbToggleColumn',
                     'toggleAction' => 'tramite/toggle',

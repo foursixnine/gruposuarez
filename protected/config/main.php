@@ -73,7 +73,7 @@ return array(
                        // 'class' => 'application.modules.cruge.components.CrugeWebUser', 
                         'loginUrl'=>array('site/login'),
 		),
-	        /*  'urlManager'=>array(
+	          'urlManager'=>array(
 			'urlFormat'=>'path',
                         'showScriptName'=>false,
                         'caseSensitive'=>false,//true
@@ -82,8 +82,8 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
-		),*/
-    'urlManager'=>array(
+		),
+  /*  'urlManager'=>array(
 			//'class'=>'application.components.MyCUrlManager',
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
@@ -96,7 +96,7 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 				#'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
-		), 
+		), */
                 //
 		// database settings areee configured in database.php*/
                 'db'=>array(
@@ -129,20 +129,20 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
-                'authManager'=>array(
+             /*   'authManager'=>array(
                     'class'=>'CDbAuthManager',
                     'connectionID'=>'db',
                     'itemTable'=>'AuthItem', // Tabla que contiene los elementos de autorizacion
                     'itemChildTable'=>'AuthItemChild', // Tabla que contiene los elementos padre-hij
                     'assignmentTable'=>'AuthAssignment', // Tabla que contiene la signacion usuario-autorizacion
-                ),
-                /*'authManager'=>array(
+                ),*/
+                'authManager'=>array(
                     'class'=>'CDbAuthManager',
                     'connectionID'=>'db',                   
                     'itemTable'=>'AuthItem', // Tabla que contiene los elementos de autorizacion
                     'itemChildTable'=>'AuthItemChild', // Tabla que contiene los elementos padre-hij
                     'assignmentTable'=>'AuthAssignment', // Tabla que contiene la signacion usuario-autorizacion
-                ),*/
+                ),
                 //Poder ver los log del sistema
 		'log'=>array(
 			'class'=>'CLogRouter',

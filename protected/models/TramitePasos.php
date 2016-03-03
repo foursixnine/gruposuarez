@@ -82,7 +82,7 @@ class TramitePasos extends CActiveRecord
 			'idExpedienteFisico' => array(self::BELONGS_TO, 'ExpedienteFisico', 'id_expediente_fisico'),
 			'idUsuario' => array(self::BELONGS_TO, 'Usuarios', 'id_usuario'),
 			'idCrmProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_crm_proyecto'),
-			 'idBanco' => array(self::BELONGS_TO, 'Banco', 'id_banco'),
+			'idBanco' => array(self::BELONGS_TO, 'Banco', 'id_banco'),
 		);
 	}
 
