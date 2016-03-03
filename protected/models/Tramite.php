@@ -56,6 +56,9 @@ class Tramite extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
+	
+	public $fecha_paso_range = '';
+
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
@@ -134,6 +137,19 @@ class Tramite extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
+	
+	public static function parseDateRange($value, $createTime = false)
+    {
+        if (preg_match("/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/", $value, $match)) {
+            if ($createTime) {
+                return array(strtotime($match[1] . ' 00:00:00'), strtotime($match[2] . ' 23:59:59'));
+            } else {
+                return array($match[1], $match[2]);
+            }
+        }
+        return false;
+    }
+
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -168,6 +184,22 @@ class Tramite extends CActiveRecord
 		$criteria->compare('id_rango',$this->id_rango);
 		$criteria->compare('num_formulario',$this->num_formulario,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
+
+		$criteria->compare('inicio',$this->inicio);
+
+        $criteria->order = 'id_tramite DESC';
+
+
+        $dateRange = self::parseDateRange($this->fecha_paso_range, true);
+   
+        if ($dateRange) {
+            list($startDate, $endDate) = $dateRange;
+            print_r(date('Y-m-d', $endDate));
+        	
+			$criteria->addBetweenCondition('fecha_paso', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
+        } else {
+        	
+        }
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
