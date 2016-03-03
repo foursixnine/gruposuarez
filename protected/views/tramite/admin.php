@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScript('search', "
 
  $id = Yii::app()->user->id;
  $a=Yii::app()->user->nombre;
- if($a=='admin' or $tramitador_clientes==""){
+ if($a=='admin' or $tramitador_clientes=="Lourdes Velasco" or $tramitador_clientes==""){
    
 
 
@@ -132,13 +132,14 @@ $this->widget('booster.widgets.TbGridView',array(
              
                 'idClienteGs.numero_de_lote',
                 'idClienteGs.fecha_de_permiso_ocupacion',
+                'idClienteGs.agente_tramite',
           /*      array(
                     'name'=>'id_usuario',
                     'header'=>'Tramitador',
                     'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
                     'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
                 ), */
-                array(
+             /*  array(
                     'class' => 'bootstrap.widgets.TbEditableColumn',
                     'name' => 'id_usuario',
                     'editable' => 
@@ -150,7 +151,7 @@ $this->widget('booster.widgets.TbGridView',array(
                             'url' => $this->createUrl('actualizarcobradora'),
                             'source' =>  CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),      
                         )
-                ),     
+                ),     */
                 array(
                     'class' => 'bootstrap.widgets.TbToggleColumn',
                     'toggleAction' => 'tramite/toggle',

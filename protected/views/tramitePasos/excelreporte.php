@@ -89,8 +89,8 @@ if($data!==null){
                <td><?php echo $value['num_formulario'];?></td>
                <td><?php echo $value['fecha_de_permiso_ocupacion'];?></td>
                <td><?php echo $value['fecha_de_permiso_contruccion'];?></td>
-               <td>admin</td>
-               <td></td>
+               <td><?php echo $value['agente_tramite'];?></td>
+               <td><?php echo $value['confeccion_protocolo'];?></td>
              
 
 
