@@ -201,7 +201,7 @@ public function actionAdmin()
             }
 
             if(isset($_GET['Tramite'])){
-                            $model->attributes=$_GET['Tramite'];
+                            $tramitadora->attributes=$_GET['Tramite'];
                         // print_r($_GET['Customers']);
             }       
         

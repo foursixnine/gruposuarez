@@ -127,17 +127,17 @@ $this->widget('booster.widgets.TbGridView',array(
                     ), 
 
                 'idClienteGs.nombre_de_empresa',
-                'idClienteGs.proyecto',
+               // 'idClienteGs.proyecto',
              
                 'idClienteGs.numero_de_lote',
                 'idClienteGs.fecha_de_permiso_ocupacion',
                 'idClienteGs.agente_tramite',
-              /*  array(
+                array(
                     'name'=>'id_proyecto',
                     'header'=>'Proyecto',
                     'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
                     'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
-                ), */
+                ), 
                 array(
                     'class' => 'bootstrap.widgets.TbToggleColumn',
                     'toggleAction' => 'tramite/toggle',
