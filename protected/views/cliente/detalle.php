@@ -61,14 +61,21 @@ $this->widget('booster.widgets.TbGridView',array(
 'buttons' => 
    array(
             'class'=>'CButtonColumn',
-                        'template' => '{iniciar_gestion} ',
+                        'template' => '{iniciar_gestion}{ver} ',
                         'buttons' => array(
                              'iniciar_gestion' => array(
                                     'label'=>'Iniciar Gestion',
                                     'url'=>'Yii::app()->createUrl("/gestion/create/",array("id"=>$data["id_cliente"]))',
                                     
-                       ) )
-            ), 
+                       ),
+
+                            'ver' => array(
+                                    'label'=>'Agregar Observación',
+                                    'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
+                                    'url'=>'Yii::app()->createUrl("gestionllamadas/create", array("id"=>$data["id_cliente"]))',
+                        ),
+        )
+    ), 
 ),
 )); 
 

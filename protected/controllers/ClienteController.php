@@ -489,9 +489,9 @@ return $model;
 }
 
 public function actionDetalle(){
-    $model=new Cliente ('search');
+    $model = new Cliente ('search');
     $model->unsetAttributes();  // clear any default values
-    //var_dump($model); die;
+  
     if(isset($_GET['Cliente'])){
 			$model->attributes=$_GET['Cliente'];
         }
