@@ -72,7 +72,7 @@ $this->widget('booster.widgets.TbGridView',array(
                             'ver' => array(
                                     'label'=>'Agregar Observación',
                                     'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
-                                    'url'=>'Yii::app()->createUrl("gestionllamadas/create", array("id"=>$data["id_cliente"]))',
+                                    'url'=>'Yii::app()->createUrl("gestionSeguimiento/create", array("id"=>$data["id_cliente"]))',
                         ),
         )
     ), 

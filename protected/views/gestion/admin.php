@@ -128,7 +128,7 @@ $this->widget('booster.widgets.TbGridView',array(
         ),
                 'update' => array
         (
-            'label'=>'Actualizar Cliente',
+            'label'=>'Actualizar Gestión',
             'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
             'url'=>'Yii::app()->createUrl("gestion/update", array("id"=>$data->id_gestion))',
         ),
