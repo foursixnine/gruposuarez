@@ -533,7 +533,8 @@ public function actionTramite($id)
                   $tramiteupdate = Tramite::model()->updateAll(array( 
                                         'id_pasos' => 11,                                                                                                              
                                         'fecha_paso'=>$hoy,
-                                        'id_estado' => 4
+                                        'id_estado' => 4,
+                                        'id_proyecto' =>$cliente->id_proyecto
 
                                                               ),
                                                                 'id_tramite ='.$id
@@ -546,9 +547,10 @@ public function actionTramite($id)
                                                 'firma_promotora'=>$model->firma_promotora,
                                                 'firma_cliente'=>$model->firma_cliente,
                                                 'fecha_paso'   =>$hoy,
-                                                 'id_banco' => $cliente->id_banco,
+                                                'id_banco' => $cliente->id_banco,
                                                 'id_razones_estado' => $model->id_razones_estado,
-                                                'id_estado' => 4
+                                                'id_estado' => 4,
+                                                'id_crm_proyecto' =>$cliente->id_proyecto
                                               
                                                                   ),
                                                                     'id_tramite ='.$id

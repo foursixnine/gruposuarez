@@ -65,18 +65,14 @@ $this->endWidget();
                     'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
                     'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
                 ), 
+                'idClienteGs.numero_de_lote',
                 array(
                     'name'=>'id_proyecto',
                     'header'=>'Proyecto',
                     'value'=> 'CHtml::encode($data->idProyecto["titulo"])',
                     'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
                 ), 
-    	        array(
-                    'name'=>'id_pasos',
-                    'header'=>'Paso',
-                    'value'=> 'CHtml::encode($data->idPasos["descripcion"])',
-                    'filter'=>CHtml::listData(Paso::model()->findAll(), 'id_paso', 'descripcion'),
-                ), 
+    	        'idPasos.descripcion', 
             
                 array(
                     'header' => 'Porcentaje',
