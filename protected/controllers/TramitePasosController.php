@@ -93,6 +93,7 @@ public function actionPasoAnterior($id)
         $tramiteupdate = Tramite::model()->updateAll(array( 
                                                 'id_pasos'    =>$paso_anterior,   
                                                 'fecha_paso' =>null,
+                                                'inicio'=>1,
                                                                   ),
                                                                     'id_tramite ='.$id
                                                             );
@@ -285,6 +286,7 @@ public function actionTramite($id)
                               //Busco mi tramite
                               $tramite_two = TramitePasos::model()->find('id_tramite=:id_tramite and
                                             id_paso=:id_paso',
+                                           
                                         array(':id_tramite'=>$id,
                                              ':id_paso'=>2,
                                             ));
@@ -333,6 +335,7 @@ public function actionTramite($id)
                                                   'id_pasos'    =>$tramite->id_pasos,
                                                   'id_estado'   =>$model->id_estado,                                        
                                                   'fecha_inicio'   =>$hoy,
+                                               //   'inicio'       =>1,
                                                   //'fecha_paso'   =>"",
                                                   'id_razones_estado' => $model->id_razones_estado
                                                 
@@ -511,6 +514,7 @@ public function actionTramite($id)
                                         $tramiteupdate = Tramite::model()->updateAll(array( 
                                                 'id_pasos' => 3,                                                                       
                                                 'fecha_paso'=>null,
+                                                 'inicio'=>1,
                                                 //'id_razones_estado' => null
                                                                       ),
                                                                         'id_tramite ='.$id
@@ -534,6 +538,7 @@ public function actionTramite($id)
                                         'id_pasos' => 11,                                                                                                              
                                         'fecha_paso'=>$hoy,
                                         'id_estado' => 4,
+                                        'inicio'       =>1,
                                         'id_proyecto' =>$cliente->id_proyecto
 
                                                               ),
@@ -562,6 +567,7 @@ public function actionTramite($id)
                 $tramiteupdate = Tramite::model()->updateAll(array( 
                                         'id_pasos' => $model->id_paso,                                                                                                              
                                         'fecha_paso'=>$hoy,
+                                        'inicio'=>1,
 
                                                               ),
                                                                 'id_tramite ='.$id
@@ -603,7 +609,7 @@ public function actionTramite($id)
                                         'id_pasos' => $model->id_paso,                                                                       
                                        // 'id_estado'   =>$model->id_estado,
                                          //$model->fecha_paso=
-
+                                        'inicio'=>1,
                                         'fecha_paso'=>null,
                                         'id_razones_estado' => null
 

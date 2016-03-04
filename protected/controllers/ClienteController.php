@@ -79,7 +79,7 @@ public function actionActualizarProtocolo()
 public function actionIniciarTramite($id){
         //Buscamos las ultimas Gestiones Realizadas
         $model= new Tramite();
-                
+        echo $id_usuario = Yii::app()->user->id; 
         //Creo Nuevos Modelos
         $tramite = new Tramite;
         $tramite_pasos = new TramitePasos;
@@ -96,6 +96,7 @@ public function actionIniciarTramite($id){
         $tramite->id_expediente_fisico=3;
         $tramite->id_pasos=1;
         $tramite->inicio=0;
+        $tramite->id_usuario=$id_usuario;
         $tramite->fecha_inicio=$date;    
         $tramite->descripcion="Inicio Tramite";
         $tramite->id_proyecto=$cliente_datos->id_proyecto;

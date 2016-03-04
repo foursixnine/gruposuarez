@@ -28,7 +28,7 @@
         <br/>
         <?php echo $form->datePickerGroup($tramite,'fecha_entrega',array('widgetOptions'=>array('options'=>array('format' => 'yyyy-mm-dd'),'htmlOptions'=>array('class'=>'span5','style' => 'width:4px;')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>')); ?>
         <br/>      
-        <?php echo $form->textFieldGroup($tramite,'ganancia_capital',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
+        <?php //echo $form->textFieldGroup($tramite,'ganancia_capital',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>           
         <br/>
         <?php echo $form->datePickerGroup($tramite,'fecha_escritura',array('widgetOptions'=>array('options'=>array('format' => 'yyyy-mm-dd'),'htmlOptions'=>array('class'=>'span5','style' => 'width:4px;')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>')); ?>
         <br/>
