@@ -188,7 +188,7 @@ public function actionTramite($id)
       
        
           $tramite_datosgenerales->attributes=$_POST['Tramite'];
-       
+      
             $x = Tramite::model()->updateByPk($id,array(
                
                                                 'plano'             =>$tramite_datosgenerales->plano,   
@@ -205,9 +205,9 @@ public function actionTramite($id)
 
 
                  
-                        if($tramite_datosgenerales->save())
+                        if($x)
                         {
-                         
+                          //var_dump($id);die;
                                Yii::app()->clientScript->registerScript(1, 'alert("Registros Almacenados Correctamente")');
           $this->redirect(array('tramite',
                                   'id'=>$id));
@@ -261,7 +261,7 @@ public function actionTramite($id)
               //SI PASO ES EL IGUAL A 1  
               if($_POST['TramitePasos']['id_paso']==1){  
                  
-                  $tramiteupdate = Tramite::model()->updateAll(array( 
+                  $tramiteupdate = Tramite::model()->updateByPk(array( 
                                                       'id_pasos'     =>$tramite->id_pasos,
                                                       'id_estado'    =>$model->id_estado,                                        
                                                       'fecha_inicio' =>$hoy,
@@ -275,6 +275,7 @@ public function actionTramite($id)
                   //Guardamos el Tramite de la Actividad
                   $tramite_actividad->id_paso=1;
                   $tramite_actividad->id_tramite=$id;
+                  
                   $tramite_actividad->save();  
                   //Redigirimos la pagina a TRAMITE
                   $this->redirect(array('tramite','id'=>$id));
