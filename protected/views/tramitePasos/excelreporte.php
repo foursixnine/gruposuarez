@@ -39,7 +39,7 @@ if($data!==null){
         <th>NOMBRE DEL PASO</th> 
         <th>FECHA DE ULTIMA MODIFICACION</th>        
         <th>N° PLANO</th>        
-        <th>FECHA DE ENTREGA DEL LOTE</th>        
+        <th>FECHA DE ENTREGA</th>        
         <th>GANANCIA DE CAPITAL</th>        
         <th>FECHA DE ESCRITURA</th>     
         <th>FECHA DE INSCRIPCION ESCRITURA</th>
@@ -51,7 +51,7 @@ if($data!==null){
         <th>FECHA DE PERMISO DE OCUPACIÓN</th>        
         <th>FECHA DE PERMISO DE CONSTRUCCION</th>  
         <th>TRAMITADOR</th>  
-        <th>FACTURA POR CONFECCIÓN DE PROTOCOLO</th>
+        <th>CONFECCIÓN DE PROTOCOLO</th>
     </tr>
     
     <?php foreach ($data as $value) {

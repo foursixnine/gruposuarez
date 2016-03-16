@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados'),
+        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte'),
         'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados'),
+        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte'),
         //'users'=>array('@'),
          'users'=>array('*'),
     ),
@@ -280,6 +280,87 @@ public function actionTramitesLiquidados(){
 
 }
 
+  /**Reporte***/
+  public function actionReporteTramite()
+  {
+
+    $model = new Tramite();
+
+    $var_post = Yii::app()->getRequest()->getParam('Tramite');
+        if ($var_post) {
+            $model->attributes = $var_post;
+        }
+
+        $provider = $model->reporteexcel();
+        $count = $provider->getItemCount();
+            $minimo =  Yii::app()->db->createCommand()
+            ->select('MIN(fecha_inicio)')
+            ->from('tramite')
+            ->queryScalar();
+
+            $maximo =  Yii::app()->db->createCommand()
+            ->select('MIN(fecha_inicio)')
+            ->from('tramite')
+            ->queryScalar();
+       
+        $this->render('reportetramite', array(
+            'model' => $model,
+            'count' => $count,
+            'minimo' => $minimo,
+            'maximo' => $maximo,
+        ));
+
+  }
+
+     public function actionExcelReporte() {
+
+    
+    $issueDataProvider = $_SESSION['Tramite'];
+    $cliente = new Cliente();
+    $i = 0;
+      
+        $i++;
+        
+        foreach($issueDataProvider->getData(true) as $queryData)
+        {          
+              $data[$i]['nombre_de_empresa'] = $queryData->idClienteGs->nombre_de_empresa;
+              $data[$i]['proyecto'] = $queryData->idClienteGs->proyecto;
+              $data[$i]['numero_de_lote'] =$queryData->idClienteGs->numero_de_lote;
+              $data[$i]['total_venta'] =  $queryData->idClienteGs->total_venta;
+              $data[$i]['monto_liquidacion'] =  $queryData->idClienteGs->monto_liquidacion;
+              $data[$i]['banco_acreedor'] =  $queryData->idClienteGs->banco_acreedor;
+              $data[$i]['fecha_paso'] =  $queryData->fecha_paso;
+              $data[$i]['plano'] =  $queryData->plano;
+              $data[$i]['fecha_entrega'] = $queryData->fecha_entrega; 
+              $data[$i]['ganancia_capital'] = $queryData->ganancia_capital;   
+              $data[$i]['fecha_escritura'] = $queryData->fecha_escritura;   
+              $data[$i]['fecha_inscripcion_escritura'] = $queryData->fecha_inscripcion_escritura;   
+              $data[$i]['num_escritura'] = $queryData->num_escritura;    
+              $data[$i]['num_finca_inscrita'] = $queryData->num_finca_inscrita;   
+              $data[$i]['transferencia_inmueble'] = $queryData->transferencia_inmueble;    
+              $data[$i]['num_permiso_ocupacion'] = $queryData->num_permiso_ocupacion;  
+              $data[$i]['fecha_de_permiso_ocupacion'] = $queryData->idClienteGs->fecha_de_permiso_ocupacion;  
+              $data[$i]['id_pasos'] = $queryData->idPasos->descripcion; 
+              $data[$i]['id_expediente_fisico'] = $queryData->idExpedienteFisico->descripcion; 
+              $data[$i]['num_formulario'] = $queryData->num_formulario;
+              $data[$i]['id_tipo_responsable'] = $queryData->idPasos->abrev;  
+              $data[$i]['fecha_de_permiso_contruccion'] =$queryData->idClienteGs->fecha_de_permiso_contruccion;
+              $data[$i]['vendedor'] =$queryData->idClienteGs->vendedor;
+              $data[$i]['confeccion_protocolo']=$queryData->idClienteGs->confeccion_protocolo;
+              $data[$i]['agente_tramite'] = $queryData->idClienteGs->agente_tramite;
+
+
+            $i++;
+        }
+
+
+      Yii::app()->request->sendFile('ReportePasos.xls',
+                                $this->renderPartial('excelreporte',array(
+                                    'data'=>$data,
+                                ),true)        
+        );
+
+  }
 /**
 * Returns the data model based on the primary key given in the GET variable.
 * If the data model is not found, an HTTP exception will be raised.

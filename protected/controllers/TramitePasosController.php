@@ -83,8 +83,8 @@ public function actionView($id)
 public function actionPasoAnterior($id)
 {
         //Buscamos el ultimo tramite registrado
-        $model= new TramitePasos();
-        $tramite= new Tramite();
+        $model = new TramitePasos();
+        $tramite = new Tramite();
         
         $tramite = $tramite->find('id_tramite=:id_tramite',
                               array(':id_tramite'=>$id)); 
@@ -140,7 +140,7 @@ public function actionTramite($id)
     $tramite_cliente =  Tramite::model()->find('id_tramite=:id_tramite',
                                array(':id_tramite'=>$id));
 
-    $cliente= Cliente::model()->find('id_cliente_gs=:id_cliente_gs',
+    $cliente = Cliente::model()->find('id_cliente_gs=:id_cliente_gs',
                                array(':id_cliente_gs'=>$tramite_cliente->id_cliente_gs));
     
     //Campos Adicionales///
@@ -267,7 +267,8 @@ public function actionTramite($id)
                                                       'fecha_inicio' =>$hoy,
                                                       'fecha_paso'   =>null,
                                                       'inicio'       =>1,
-                                                      'id_razones_estado' => $model->id_razones_estado                                            
+                                                      'id_razones_estado' => $model->id_razones_estado,
+                                                      'id_cliente' => $cliente->id_cliente                                           
                                                                         ),
                                                                 'id_tramite ='.$id
                                                        );
@@ -349,7 +350,8 @@ public function actionTramite($id)
                                       'fecha_inicio'   =>$hoy,
                                       'fecha_paso'   =>null,
                                       'inicio'   =>1,
-                                      'id_razones_estado' => $model->id_razones_estado                                            
+                                      'id_razones_estado' => $model->id_razones_estado,
+                                      'id_cliente' => $cliente->id_cliente                                             
                                                         ),
                                                           'id_tramite ='.$id
                                                   );  
@@ -379,7 +381,8 @@ public function actionTramite($id)
                                                 'fecha_inicio'   =>$hoy,
                                                 'fecha_paso'   =>null,
                                                 'inicio'   =>1,                                        
-                                                'id_razones_estado' => $model->id_razones_estado                                            
+                                                'id_razones_estado' => $model->id_razones_estado,
+                                                'id_cliente' => $cliente->id_cliente                                             
                                                                   ),
                                                                     'id_tramite ='.$id
                                                             );        

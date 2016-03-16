@@ -44,6 +44,8 @@ Yii::app()->clientScript->registerScript('search', "
         <button type="button" class="btn btn-warning">MOROSIDAD <br/>POR PROYECTO</button>
             
     </a> 
+
+    
 </div>
 <br/>
 

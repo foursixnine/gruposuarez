@@ -83,7 +83,7 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		), */
-      'urlManager'=>array(
+     'urlManager'=>array(
 			//'class'=>'application.components.MyCUrlManager',
 			'urlFormat'=>'path',
 			'showScriptName'=>false,

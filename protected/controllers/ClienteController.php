@@ -99,6 +99,7 @@ public function actionIniciarTramite($id){
         $tramite->id_usuario=$id_usuario;
         $tramite->fecha_inicio=$date;    
         $tramite->descripcion="Inicio Tramite";
+        $tramite->id_cliente=$cliente_datos->id_cliente; 
         $tramite->id_proyecto=$cliente_datos->id_proyecto;
      
         $tramite->save();
