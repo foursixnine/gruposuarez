@@ -11,7 +11,7 @@ class Controller extends CController
 	 */
 	public $layout='//layouts/column1';
 	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
+	 * @var array context menu items. This  property will be assigned to {@link CMenu::items}.
 	 */
 	public $menu=array();
 	/**
