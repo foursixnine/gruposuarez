@@ -26,7 +26,7 @@ array('label'=>'Volver','url'=>array('../gruposuarez')),
 </style>
 
 <br/>
-   <button type="button" class="btn btn-warning">TRAMITES</button>
+   <button type="button" class="btn btn-warning">TRAMITES </button>
 <br/>
 <br/>
 
