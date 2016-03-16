@@ -20,7 +20,7 @@ array('label'=>'Volver','url'=>array('tramite/admin')),
 <br/><br/>
 <button type="button" class="btn btn-warning">Paso
 <span class="badge"><?php echo $model->idPaso['id_paso']; ?></span>
- <?php echo $model->idPaso['descripcion']; ?></button>
+ <?php echo $model->idPaso['descripcion']; ?></button>   
 
 <br/><br/><br/>
 
