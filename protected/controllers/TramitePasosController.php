@@ -852,10 +852,10 @@ public function actionDetalleLiquidacion($id)
       group by t.id_paso, mes, crmproyecto, nommes, p.titulo, pa.descripcion 
       order by mes')
       ->queryAll(true);
-   echo "<pre>";
+ /*  echo "<pre>";
     print_r($reportepasos); // or var_dump($data);
     echo "</pre>";  
-    die;
+    die;*/
         
       Yii::app()->request->sendFile('Liquidaciones.xls',
                                 $this->renderPartial('reportepasos',array(
