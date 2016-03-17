@@ -262,12 +262,12 @@ public function actionTramitesLiquidados(){
         $provider = $model->search();
         $count = $provider->getItemCount();
             $min=  Yii::app()->db->createCommand()
-            ->select('MIN(fecha_paso)')
+            ->select('MIN(fecha_inicio)')
             ->from('tramite')
             ->queryScalar();
 
             $max=  Yii::app()->db->createCommand()
-            ->select('MIN(fecha_paso)')
+            ->select('MIN(fecha_inicio)')
             ->from('tramite')
             ->queryScalar();
        

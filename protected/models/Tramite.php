@@ -59,17 +59,17 @@ class Tramite extends CActiveRecord
 	 * @return array validation rules for model attributes.
 	 */
 	public $fecha_paso_range_pasos = '';
-	
+	public $fecha_paso_range = '';
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
 			array('id_cliente_gs, id_expediente_fisico, id_usuario, id_pasos, id_razones_estado, id_estado, id_responsable_ejecucion, permiso_ocupacion, inicio, casa_entregada, id_rango', 'numerical', 'integerOnly'=>true),
-			array('descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso, plano, fecha_entrega, ganancia_capital, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, num_formulario, id_proyecto, id_cliente', 'safe'),
+			array('fecha_paso_range,descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso, plano, fecha_entrega, ganancia_capital, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, num_formulario, id_proyecto, id_cliente', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, casa_entregada, id_rango, num_formulario, id_proyecto, id_cliente', 'safe', 'on'=>'search'),
+			array('fecha_paso_range,id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, casa_entregada, id_rango, num_formulario, id_proyecto, id_cliente', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -202,7 +202,7 @@ class Tramite extends CActiveRecord
             list($startDate, $endDate) = $dateRange;
             print_r(date('Y-m-d', $endDate));
         	
-			$criteria->addBetweenCondition('fecha_paso', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
+			$criteria->addBetweenCondition('fecha_inicio', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
         } else {
         	
         }
@@ -344,7 +344,7 @@ class Tramite extends CActiveRecord
             list($startDate, $endDate) = $dateRange;
             print_r(date('Y-m-d', $endDate));
         	
-			$criteria->addBetweenCondition('fecha_paso', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
+			$criteria->addBetweenCondition('fecha_inicio', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
         } else {
         	
         }

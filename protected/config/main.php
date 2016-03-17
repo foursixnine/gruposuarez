@@ -102,7 +102,7 @@ return array(
                 'db'=>array(
                         'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
                 ),
-                //Segunda Conexion
+                //Segunda Conexion  
                 'dbconix'=>array(
 						'class' => 'CDbConnection',
 						//'connectionString' => 'mysql:host=186.74.216.58;dbname=enx_suarez',
