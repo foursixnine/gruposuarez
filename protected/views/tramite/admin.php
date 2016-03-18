@@ -127,9 +127,8 @@ $this->widget('booster.widgets.TbGridView',array(
                     ), 
 
                 'idClienteGs.nombre_de_empresa',
-               // 'idClienteGs.proyecto',
-             
-                'idClienteGs.numero_de_lote',
+                'numero_de_lote',
+        
                 'idClienteGs.fecha_de_permiso_ocupacion',
                 'idClienteGs.agente_tramite',
                 array(

@@ -101,6 +101,8 @@ public function actionIniciarTramite($id){
         $tramite->descripcion="Inicio Tramite";
         $tramite->id_cliente=$cliente_datos->id_cliente; 
         $tramite->id_proyecto=$cliente_datos->id_proyecto;
+        $tramite->numero_de_lote=$cliente_datos->numero_de_lote;
+        $tramite->id_banco=$cliente_datos->id_banco;
      
         $tramite->save();
         //Guardo los Datos en Tramites una vez generado el Paz y Salvo      

@@ -33,16 +33,20 @@
  * @property string $num_formulario
  * @property string $id_proyecto
  * @property string $id_cliente
+ * @property string $numero_de_lote
+ * @property integer $id_banco
  *
  * The followings are the available model relations:
  * @property Chat[] $chats
+ * @property TramitePasos[] $tramitePasoses
+ * @property Cliente $idClienteGs
  * @property Estado $idEstado
  * @property ExpedienteFisico $idExpedienteFisico
  * @property Paso $idPasos
  * @property Rango $idRango
  * @property ResponsableEjecucion $idResponsableEjecucion
  * @property Usuarios $idUsuario
- * @property Cliente $idClienteGs
+ * @property Banco $idBanco
  * @property Proyecto $idProyecto
  */
 class Tramite extends CActiveRecord
@@ -60,16 +64,17 @@ class Tramite extends CActiveRecord
 	 */
 	public $fecha_paso_range_pasos = '';
 	public $fecha_paso_range = '';
+
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_cliente_gs, id_expediente_fisico, id_usuario, id_pasos, id_razones_estado, id_estado, id_responsable_ejecucion, permiso_ocupacion, inicio, casa_entregada, id_rango', 'numerical', 'integerOnly'=>true),
-			array('fecha_paso_range,descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso, plano, fecha_entrega, ganancia_capital, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, num_formulario, id_proyecto, id_cliente', 'safe'),
+			array('id_cliente_gs, id_expediente_fisico, id_usuario, id_pasos, id_razones_estado, id_estado, id_responsable_ejecucion, permiso_ocupacion, inicio, casa_entregada, id_rango, id_banco', 'numerical', 'integerOnly'=>true),
+			array('fecha_paso_range,descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso, plano, fecha_entrega, ganancia_capital, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, num_formulario, id_proyecto, id_cliente, numero_de_lote', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('fecha_paso_range,id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, casa_entregada, id_rango, num_formulario, id_proyecto, id_cliente', 'safe', 'on'=>'search'),
+			array('fecha_paso_range,id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, casa_entregada, id_rango, num_formulario, id_proyecto, id_cliente, numero_de_lote, id_banco', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,20 +87,18 @@ class Tramite extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'chats' => array(self::HAS_MANY, 'Chat', 'id_tramite'),
+			'tramitePasoses' => array(self::HAS_MANY, 'TramitePasos', 'id_tramite'),
+			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
 			'idEstado' => array(self::BELONGS_TO, 'Estado', 'id_estado'),
 			'idExpedienteFisico' => array(self::BELONGS_TO, 'ExpedienteFisico', 'id_expediente_fisico'),
 			'idPasos' => array(self::BELONGS_TO, 'Paso', 'id_pasos'),
 			'idRango' => array(self::BELONGS_TO, 'Rango', 'id_rango'),
 			'idResponsableEjecucion' => array(self::BELONGS_TO, 'ResponsableEjecucion', 'id_responsable_ejecucion'),
 			'idUsuario' => array(self::BELONGS_TO, 'Usuarios', 'id_usuario'),
-			'idClienteGs' => array(self::BELONGS_TO, 'Cliente', 'id_cliente_gs'),
+			'idBanco' => array(self::BELONGS_TO, 'Banco', 'id_banco'),
 			'idProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_proyecto'),
 		);
 	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -143,19 +146,6 @@ class Tramite extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	
-	public static function parseDateRange($value, $createTime = false)
-    {
-        if (preg_match("/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/", $value, $match)) {
-            if ($createTime) {
-                return array(strtotime($match[1] . ' 00:00:00'), strtotime($match[2] . ' 23:59:59'));
-            } else {
-                return array($match[1], $match[2]);
-            }
-        }
-        return false;
-    }
-
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -190,6 +180,9 @@ class Tramite extends CActiveRecord
 		$criteria->compare('id_rango',$this->id_rango);
 		$criteria->compare('num_formulario',$this->num_formulario,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
+		$criteria->compare('id_cliente',$this->id_cliente,true);
+		$criteria->compare('numero_de_lote',$this->numero_de_lote,true);
+		$criteria->compare('id_banco',$this->id_banco);
 
 		$criteria->compare('inicio',$this->inicio);
 
@@ -212,6 +205,23 @@ class Tramite extends CActiveRecord
 		));
 	}
 
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return Tramite the static model class
+	 */
+	public static function parseDateRange($value, $createTime = false)
+    {
+        if (preg_match("/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/", $value, $match)) {
+            if ($createTime) {
+                return array(strtotime($match[1] . ' 00:00:00'), strtotime($match[2] . ' 23:59:59'));
+            } else {
+                return array($match[1], $match[2]);
+            }
+        }
+        return false;
+    }
        public function activos()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -235,6 +245,8 @@ class Tramite extends CActiveRecord
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
+		
+		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
 		$criteria->compare('inicio',$this->inicio);
         $criteria->order = 'id_tramite DESC';
@@ -271,8 +283,9 @@ class Tramite extends CActiveRecord
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
+		$criteria->compare('numero_de_lote',$this->numero_de_lote);
 		$criteria->compare('inicio',$this->inicio);
-			$criteria->compare('id_proyecto',$this->id_proyecto,true);
+		$criteria->compare('id_proyecto',$this->id_proyecto,true);
         $criteria->order = 'id_tramite DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -303,7 +316,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
 		$criteria->compare('inicio',$this->inicio);
-       $criteria->order = 'id_tramite DESC';
+        $criteria->order = 'id_tramite DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -398,16 +411,7 @@ class Tramite extends CActiveRecord
 
     
         return $data;
-
-    
-
 	}
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return Tramite the static model class
-	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
