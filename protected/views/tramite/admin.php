@@ -103,7 +103,7 @@ $this->widget('booster.widgets.TbGridView',array(
 ?>
 
 
-<button type="button" class="btn btn-warning">INICIAR TRAMITES</button>
+<button type="button" class="btn btn-warning">INICIAR TRAMITES </button>
 
 <?php 
 $this->widget('booster.widgets.TbGridView',array(
