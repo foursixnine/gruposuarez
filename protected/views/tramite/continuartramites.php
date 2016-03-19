@@ -67,7 +67,7 @@ array('label'=>'Volver','url'=>array('admin')),
                
                 'idClienteGs.vendedor',
                 'idClienteGs.proyecto',
-                'idClienteGs.numero_de_lote',
+                'numero_de_lote',
 
     
     	        array(
