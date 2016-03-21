@@ -65,8 +65,8 @@ if($data!==null){
                 <td><?php echo $value['proyecto']; ?></td>
                 <td><?php echo $value['numero_de_lote']; ?></td>
     
-                 <td>$<?php echo number_format($value['total_venta'], 2, ',', ' ');?></td>
-                <td>$<?php echo number_format($value['monto_liquidacion'], 2, ',', ' ');?></td>
+                 <td>$<?php $value['total_venta'];?></td>
+                <td>$<?php $value['monto_liquidacion'];?></td>
                 <td><?php if($value['banco_acreedor']=="S/DESCRIPCION"){
                             echo "DE CONTADO"; 
                 }else{
