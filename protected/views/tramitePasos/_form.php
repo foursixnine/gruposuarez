@@ -32,7 +32,7 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
  ));
 
 
-     echo 'Hola estas en el paso # '. $tramite->id_pasos .' APURATE!!!!';
+     //echo 'Hola estas en el paso # '. $tramite->id_pasos .' APURATE!!!!';
 
     $this->endWidget('zii.widgets.jui.CJuiDialog');
 
@@ -43,6 +43,7 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
   ?>
 <br/>
 <?php
+
 $new=0;
 foreach ($pasos as $nompaso) {
     if($nompaso['id_paso']==$tramite->id_pasos){
@@ -57,12 +58,12 @@ foreach ($pasos as $nompaso) {
 <?php 
  
 if($tramite->fecha_paso==""){
-       $paso_now=$tramite->idPasos['id_paso'];
+     $tramite->idPasos['id_paso'];
   ?>
 
 <button type="button" class="btn btn-warning">Paso
-<span class="badge"><?php echo $tramite->idPasos['id_paso']; ?></span>
- <?php echo $tramite->idPasos['descripcion']; ?></button>
+<span class="badge"><?php  $tramite->idPasos['id_paso']; ?></span>
+ <?php  $tramite->idPasos['descripcion']; ?></button>
 <?php 
   }else{
 
@@ -71,8 +72,8 @@ if($tramite->fecha_paso==""){
 ?>
 
 <button type="button" class="btn btn-warning">Paso
-<span class="badge"><?php echo $nompaso["id_paso"]; ?></span>
- <?php echo  $paso_now=$nompaso["id_paso"]; 
+<span class="badge"><?php  $nompaso["id_paso"]; ?></span>
+ <?php   $paso_now=$nompaso["id_paso"]; 
    $paso_now=$nompaso["id_paso"];?></button>
 <?php    
   }
@@ -80,23 +81,23 @@ if($tramite->fecha_paso==""){
 }
 ?>
 <br/>
+<?php //$tramite->idPasos['descripcion'];?>
 
-
-<?php /*
+<?php 
   $paso_now=0;
 if($tramite->fecha_paso==""){
-        echo "<h2>Paso Actual ".''. $tramite->idPasos["id_paso"] .'<br/>'. $tramite->idPasos["descripcion"] .'</h2>';
+      //  echo "<h2> ".''. $tramite->idPasos["id_paso"] .'<br/>'. $tramite->idPasos["descripcion"] .'</h2>';
         //die;
         $paso_now=$tramite->idPasos["id_paso"];
 }else{
         foreach ($pasos as $nompaso) {
             if($nompaso['id_paso']==$new_tramite){
               //  echo $nompaso['descripcion'];
-                echo "<h1 class='titulo'>Proximo Paso  Num - ".''. $nompaso["id_paso"] .'<br/> <button type="button" class="btn btn-warning">'. $nompaso['descripcion'] ."</button></h1>";
+               // "<h1 class='titulo'>".''. $nompaso["id_paso"] .'<br/> <button type="button" class="btn btn-warning">'. $nompaso['descripcion'] ."</button></h1>";
    $paso_now=$nompaso["id_paso"];
             }
         }
-}*/
+}
 ?>
 
 <script>
@@ -117,7 +118,7 @@ $(function(){
     $("#mielemento").css("display", "none");
     //$('select#TramitePasos_id_tipo_responsable').hide();
     $('select#TramitePasos_id_responsable_ejecucion').change(function () { 
-        alert("1");
+      //  alert("1");
            $valor=(document.getElementById('TramitePasos_id_responsable_ejecucion').value);
            if($valor==1){
                document.getElementById("TramitePasos_id_tipo_responsable").disabled=true; 
@@ -154,7 +155,8 @@ $(function(){
 });
 
 </script>
-<h1><?php //echo $tramite->id_pasos; ?></h1>     
+<span class="badge"><?php echo $tramite->idPasos['id_paso']; ?></span>    
+<h1><?php echo $tramite->idPasos['descripcion']; ?></h1> 
  <fieldset>
  
 
