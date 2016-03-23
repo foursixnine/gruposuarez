@@ -263,7 +263,7 @@ public function actionTramite($id)
                
                           //Actualizo la Tabla Tramite
                 $tramiteupdate = Tramite::model()->updateAll(array( 
-                                              //  'id_pasos'    =>$tramite->id_pasos,
+                                                'id_pasos'    =>1,
                                                 'id_estado'   =>$model->id_estado,                                        
                                                 'fecha_inicio'   =>$hoy,
                                                 'fecha_paso'   =>$hoy,
@@ -334,16 +334,18 @@ public function actionTramite($id)
               }else{
                         
                           //Es 3 o UN PASO MAYOR
+                       // var_dump($tramite->id_pasos);die;
                           $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                                  'id_pasos'    =>$tramite->id_pasos,
+                                              //    'id_pasos'    =>$tramite->id_pasos,
                                                   'id_estado'   =>$model->id_estado,                                        
                                                   'fecha_inicio'   =>$hoy,
-                                               //   'inicio'       =>1,
+                                                  'inicio'       =>1,
                                                   //'fecha_paso'   =>"",
                                                   'id_razones_estado' => $model->id_razones_estado
                                                 
                                                                     ),
-                                                                      'id_tramite ='.$id
+                                                                    'id_paso='.$tramite->id_pasos .' and id_tramite ='.$id 
+                                                                      
                                                               );
                           $tramiteupdate = Tramite::model()->updateAll(array( 
                            //    $tramiteupdate = Tramite::model()->updateByPk(array( 
@@ -462,7 +464,7 @@ public function actionTramite($id)
                                                                     'id_tramite ='.$id
                                                             );      
                           $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                                     // 'id_paso'    =>$model->id_paso,    
+                                                    //  'id_paso'    =>$model->id_paso,    
                                                       'id_estado'   =>$model->id_estado,                                        
                                                       'fecha_solicitud'=>$model->fecha_solicitud,
                                                       'fecha_recibido'=>$model->fecha_recibido,
