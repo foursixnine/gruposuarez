@@ -345,8 +345,8 @@ public function actionTramite($id)
                                                                     ),
                                                                       'id_tramite ='.$id
                                                               );
-                          //$tramiteupdate = Tramite::model()->updateAll(array( 
-                               $tramiteupdate = Tramite::model()->updateByPk(array( 
+                          $tramiteupdate = Tramite::model()->updateAll(array( 
+                           //    $tramiteupdate = Tramite::model()->updateByPk(array( 
                                       'id_pasos'    =>$tramite->id_pasos,
                                       'id_estado'   =>$model->id_estado,                                                                             
                                       'fecha_paso'   =>$hoy,
@@ -356,6 +356,7 @@ public function actionTramite($id)
                                                         ),
                                                           'id_tramite ='.$id
                                                   );  
+//$tramiteupdate = Tramite::model()->updateByPk($$id, new CDbCriteria(array('condition'=>'author_id = :author_id', 'params'=>array('author_id'=>$myId))));
 
                           $tramite_actividad->id_paso=$tramite->id_pasos;
                           $tramite_actividad->id_tramite=$id;

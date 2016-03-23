@@ -283,7 +283,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
-		$criteria->compare('numero_de_lote',$this->numero_de_lote);
+			$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
 		$criteria->compare('inicio',$this->inicio);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
         $criteria->order = 'id_tramite DESC';

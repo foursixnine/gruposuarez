@@ -188,9 +188,10 @@ $this->widget('booster.widgets.TbGridView',array(
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<button type="button" class="btn btn-warning">CLIENTE EN TRAMITES</button>
+<button type="button" class="btn btn-warning"></button>
 
 <?php
+/*
 $this->widget('booster.widgets.TbGridView',array(
 'id'=>'clientetramite',
 'dataProvider'=>$cliente->clientescontramitador($a),
@@ -238,6 +239,7 @@ $this->widget('booster.widgets.TbGridView',array(
 )
 )
     );
+*/
 ?>
 
 <br><br><br><br><br>
