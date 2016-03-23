@@ -166,7 +166,7 @@ public function actionTramite($id)
     
     $tramite = Tramite::model()->find('id_tramite=:id_tramite',
                                array(':id_tramite'=>$id)); 
-    
+   
     $tramitepasos = new TramitePasos('search');
     
     //Uncomment the following line if AJAX validation is needed
@@ -257,22 +257,23 @@ public function actionTramite($id)
          //*********************************************************************************************************
 
           if(isset($_POST['actualizar'])){
-              
+               
               //SI PASO ES EL IGUAL A 1  
               if($_POST['TramitePasos']['id_paso']==1){  
-                
-                  $tramiteupdate = Tramite::model()->updateByPk(array( 
-                                                      'id_pasos'     =>$tramite->id_pasos,
-                                                      'id_estado'    =>$model->id_estado,                                        
-                                                      'fecha_inicio' =>$hoy,
-                                                      'fecha_paso'   =>$hoy,
-                                                      'inicio'       =>1,
-                                                      'id_razones_estado' => $model->id_razones_estado,
-                                                   //   'id_cliente' => $cliente->id_cliente                                           
-                                                                        ),
-                                                                'id_tramite ='.$id
-                                                       );
-                              var_dump($tramiteupdate);die();                   
+               
+                          //Actualizo la Tabla Tramite
+                $tramiteupdate = Tramite::model()->updateAll(array( 
+                                              //  'id_pasos'    =>$tramite->id_pasos,
+                                                'id_estado'   =>$model->id_estado,                                        
+                                                'fecha_inicio'   =>$hoy,
+                                                'fecha_paso'   =>$hoy,
+                                                'inicio'   =>1,                                        
+                                                'id_razones_estado' => $model->id_razones_estado,
+                                                'id_cliente' => $cliente->id_cliente                                             
+                                                                  ),
+                                                                    'id_tramite ='.$id
+                                                            );
+                 // var_dump($tramiteupdate);die;            
                   //Guardamos el Tramite de la Actividad
                   $tramite_actividad->id_paso=1;
                   $tramite_actividad->id_tramite=$id;

@@ -51,7 +51,7 @@ if($data!==null){
         <th>FECHA DE PERMISO DE OCUPACIÓN</th>        
         <th>FECHA DE PERMISO DE CONSTRUCCION</th>  
         <th>TRAMITADOR</th>  
-        <th>CONFECCIÓN DE PROTOCOLO</th>
+        
     </tr>
     
     <?php foreach ($data as $value) {
@@ -63,10 +63,11 @@ if($data!==null){
                 <td><?php echo $value['id_expediente_fisico']; ?></td>
                 <td><?php echo $value['vendedor']; ?></td>
                 <td><?php echo $value['proyecto']; ?></td>
+                
                 <td><?php echo $value['numero_de_lote']; ?></td>
     
-                 <td>$<?php $value['total_venta'];?></td>
-                <td>$<?php $value['monto_liquidacion'];?></td>
+                 <td>$<?php echo $value['total_venta'];?></td>
+                <td>$<?php echo $value['monto_liquidacion'];?></td>
                 <td><?php if($value['banco_acreedor']=="S/DESCRIPCION"){
                             echo "DE CONTADO"; 
                 }else{
@@ -90,7 +91,7 @@ if($data!==null){
                <td><?php echo $value['fecha_de_permiso_ocupacion'];?></td>
                <td><?php echo $value['fecha_de_permiso_contruccion'];?></td>
                <td><?php echo $value['agente_tramite'];?></td>
-               <td><?php echo $value['confeccion_protocolo'];?></td>
+               
              
 
 

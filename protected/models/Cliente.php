@@ -457,10 +457,11 @@ class Cliente extends CActiveRecord
 		$criteria->compare('pazysalvo',$this->pazysalvo,true);
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
+		//	$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
 
 
 		$criteria->order = 'proyecto, numero_de_lote DESC';
-                $criteria->limit = 20;
+                $criteria->limit = 30;
                 $criteria->offset = 0;
                 return new CActiveDataProvider($this, array(
                                 'criteria'=> $criteria,     

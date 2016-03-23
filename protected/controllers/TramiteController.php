@@ -354,7 +354,7 @@ public function actionTramitesLiquidados(){
         }
 
 
-      Yii::app()->request->sendFile('ReportePasos.xls',
+      Yii::app()->request->sendFile('ReporteTramite.xls',
                                 $this->renderPartial('excelreporte',array(
                                     'data'=>$data,
                                 ),true)        
