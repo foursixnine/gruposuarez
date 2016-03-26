@@ -23,6 +23,7 @@
  * @property string $fecha_solicitud
  * @property string $fecha_recibido
  * @property string $id_crm_proyecto
+ * @property string $fecha_actualizacion
  *
  * The followings are the available model relations:
  * @property Estado $idEstado
@@ -57,10 +58,10 @@ class TramitePasos extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_tramite, id_cliente_gs, id_usuario, id_expediente_fisico, id_usuario, id_razones_estado, id_estado, id_paso, id_banco, id_responsable_ejecucion, id_tipo_responsable', 'numerical', 'integerOnly'=>true),
-			array('fecha_pazysalvo, fecha_inicio, fecha_paso_range_pasos, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe'),
+			array('fecha_actualizacion, fecha_pazysalvo, fecha_inicio, fecha_paso_range_pasos, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, fecha_paso_range_pasos, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe', 'on'=>'search'),
+			array('fecha_actualizacion, id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, fecha_paso_range_pasos, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -249,7 +250,7 @@ class TramitePasos extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-   $criteria->condition = 'id_cliente_gs >=1507 and id_expediente_fisico=3';
+        $criteria->condition = 'id_cliente_gs >=1507 and id_expediente_fisico=3 and id_paso!=11';
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);

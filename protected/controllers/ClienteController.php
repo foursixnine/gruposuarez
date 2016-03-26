@@ -79,47 +79,61 @@ public function actionActualizarProtocolo()
 public function actionIniciarTramite($id){
         //Buscamos las ultimas Gestiones Realizadas
         $model= new Tramite();
-        echo $id_usuario = Yii::app()->user->id; 
+        $id_usuario = Yii::app()->user->id; 
         //Creo Nuevos Modelos
         $tramite = new Tramite;
         $tramite_pasos = new TramitePasos;
-    
-        //Busco los datos del Cliente ("PROYECTO ID :(")
+        
+        //Busco los datos del Cliente 
          $cliente_datos = Cliente::model()->find('id_cliente_gs=:id_cliente_gs',
                                     array(':id_cliente_gs'=>$id));
 
+        //Agente Tramitador
+        $agente_tramite = $cliente_datos->agente_tramite;
+        //Busco el Tramitor
+        $tramitador = new Usuarios(); 
+        $at = $tramitador->find('nombre=:nombre',
+                              array(':nombre'=>$agente_tramite));
+        
+        if($agente_tramite==""){
+                Yii::app()->user->setFlash('notice', "No sé puede iniciar el Tramite. Debe asignarle un tramitador (CRM)!");
+                $this->redirect(array('tramite/admin'));
+        }else{
+                //Guardo los Datos en Tramites una vez generado el Paz y Salvo   
+                $date = date('Y-m-d');    
+                $tramite->id_cliente_gs=$id;
+                $tramite->fecha_pazysalvo=$date;
+                $tramite->id_expediente_fisico=3;
+                $tramite->id_pasos=1;
+                $tramite->inicio=0;
+                $tramite->id_usuario=$at->id_usuario;
+                $tramite->fecha_inicio=$date;    
+                $tramite->descripcion="Inicio Tramite";
+                $tramite->id_cliente=$cliente_datos->id_cliente; 
+                $tramite->id_proyecto=$cliente_datos->id_proyecto;
+                $tramite->numero_de_lote=$cliente_datos->numero_de_lote;
+                $tramite->id_banco=$cliente_datos->id_banco;
+             
+                $tramite->save();
+                //Guardo los Datos en Tramites una vez generado el Paz y Salvo      
+                if($tramite->save()){
+                                            /* inicia para guardar en la otra tabla TRAMITE PASOS*/
+                                            $tramite_pasos->id_tramite=$tramite->id_tramite;
+                                            $tramite_pasos->id_cliente_gs = $id;
+                                            $tramite_pasos->fecha_pazysalvo=$date;
+                                            $tramite_pasos->id_expediente_fisico=3;
+                                            $tramite_pasos->id_usuario=$at->id_usuario;
+                                            $tramite_pasos->fecha_inicio=$date;    
+                                            $tramite_pasos->id_paso=1;    
+                                            $tramite_pasos->id_crm_proyecto=$cliente_datos->id_proyecto;
+                                            $tramite_pasos->save();                        
+                }
+            
+                $clienteupdate = Cliente::model()->updateByPk($id,array('pazysalvo' => 1));
+                $this->redirect(array('tramite/admin'));
 
-        //Guardo los Datos en Tramites una vez generado el Paz y Salvo   
-        $date = date('Y-m-d');    
-        $tramite->id_cliente_gs=$id;
-        $tramite->fecha_pazysalvo=$date;
-        $tramite->id_expediente_fisico=3;
-        $tramite->id_pasos=1;
-        $tramite->inicio=0;
-        $tramite->id_usuario=$id_usuario;
-        $tramite->fecha_inicio=$date;    
-        $tramite->descripcion="Inicio Tramite";
-        $tramite->id_cliente=$cliente_datos->id_cliente; 
-        $tramite->id_proyecto=$cliente_datos->id_proyecto;
-        $tramite->numero_de_lote=$cliente_datos->numero_de_lote;
-        $tramite->id_banco=$cliente_datos->id_banco;
-     
-        $tramite->save();
-        //Guardo los Datos en Tramites una vez generado el Paz y Salvo      
-        if($tramite->save()){
-                                    /* inicia para guardar en la otra tabla TRAMITE PASOS*/
-                                    $tramite_pasos->id_tramite=$tramite->id_tramite;
-                                    $tramite_pasos->id_cliente_gs = $id;
-                                    $tramite_pasos->fecha_pazysalvo=$date;
-                                    $tramite_pasos->id_expediente_fisico=3;
-                                    $tramite_pasos->fecha_inicio=$date;    
-                                    $tramite_pasos->id_paso=1;    
-                                    $tramite_pasos->id_crm_proyecto=$cliente_datos->id_proyecto;
-                                    $tramite_pasos->save();                        
         }
-    
-        $clienteupdate = Cliente::model()->updateByPk($id,array('pazysalvo' => 1));
-        $this->redirect(array('tramite/admin'));
+
 }
  
     
