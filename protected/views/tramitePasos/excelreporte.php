@@ -53,9 +53,15 @@ if($data!==null){
         <th>TRAMITADOR</th>  
     </tr>
     
-    <?php foreach ($data as $value) {
-   
+    <?php 
+  foreach ($tramite as $key) {
+    foreach ($data as $value) {
+                   if($key["id_tramite"]==$value['id_tramite'] AND $key["id_pasos"]!=11){
+                   
+     
+
         
+      
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
                 <td><?php echo $value['nombre_de_empresa'];?></td>
@@ -90,8 +96,15 @@ if($data!==null){
                <td><?php echo $value['fecha_de_permiso_contruccion'];?></td>
                <td><?php echo $value['agente_tramite'];?></td>       
             </tr>
-    <?php } ?>  
+    <?php }
+    
+}
+ }
+     ?>  
 </table>
     
-<?php }?>
+<?php
+
+}
+ ?>
 

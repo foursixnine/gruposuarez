@@ -264,11 +264,13 @@ public function actionTramitesLiquidados(){
             $min=  Yii::app()->db->createCommand()
             ->select('MIN(fecha_inicio)')
             ->from('tramite')
+            ->where('id_pasos=11')
             ->queryScalar();
 
             $max=  Yii::app()->db->createCommand()
-            ->select('MIN(fecha_inicio)')
+            ->select('MAX(fecha_inicio)')
             ->from('tramite')
+            ->where('id_pasos=11')
             ->queryScalar();
        
         $this->render('tramitesliquidados', array(
@@ -296,11 +298,13 @@ public function actionTramitesLiquidados(){
             $minimo =  Yii::app()->db->createCommand()
             ->select('MIN(fecha_inicio)')
             ->from('tramite')
+            ->where('id_pasos!=11')
             ->queryScalar();
 
             $maximo =  Yii::app()->db->createCommand()
-            ->select('MIN(fecha_inicio)')
+            ->select('MAX(fecha_inicio)')
             ->from('tramite')
+            ->where('id_pasos!=11')
             ->queryScalar();
        
         $this->render('reportetramite', array(

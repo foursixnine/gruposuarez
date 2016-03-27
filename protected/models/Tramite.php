@@ -283,7 +283,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
-			$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
+	    $criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
 		$criteria->compare('inicio',$this->inicio);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
         $criteria->order = 'id_tramite DESC';
@@ -297,7 +297,7 @@ class Tramite extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-        $criteria->condition = 'inicio = 1 AND id_pasos!=11';
+        $criteria->condition = 'inicio = 1';
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('descripcion',$this->descripcion,true);
@@ -315,7 +315,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('ganancia_capital',$this->ganancia_capital,true);
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
-		$criteria->compare('numero_de_lote',$this->numero_de_lote); 
+		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
 		$criteria->compare('inicio',$this->inicio);
         $criteria->order = 'id_tramite DESC';
 		return new CActiveDataProvider($this, array(
@@ -349,7 +349,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
 		$criteria->compare('id_proyecto',$this->id_proyecto);
 		$criteria->compare('inicio',$this->inicio);
-
+	    $criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
 
 
         $dateRange = self::parseDateRange($this->fecha_paso_range, true);
@@ -372,7 +372,7 @@ class Tramite extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-        $criteria->condition = 'id_pasos!=11 AND id_cliente_gs >=1507 AND id_expediente_fisico=3';
+        $criteria->condition = 'id_cliente_gs >=1507 AND id_expediente_fisico=3';
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('descripcion',$this->descripcion,true);
@@ -393,6 +393,8 @@ class Tramite extends CActiveRecord
 		$criteria->compare('permiso_ocupacion',$this->permiso_ocupacion);
 		$criteria->compare('id_proyecto',$this->id_proyecto);
 		$criteria->compare('inicio',$this->inicio);
+		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
+
      
 
 		$dateRange = self::parseDateRange($this->fecha_paso_range_pasos, true);

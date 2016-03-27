@@ -77,7 +77,7 @@ $this->endWidget();
                     'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_crm_proyecto', 'titulo'),
          ), 
     //  'idClienteGs.proyecto',
-        'idClienteGs.numero_de_lote',
+        'numero_de_lote',
     
     
         'idClienteGs.nombre_de_empresa',

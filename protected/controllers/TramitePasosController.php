@@ -892,7 +892,8 @@ public function actionDetalleLiquidacion($id)
     $issueDataProvider = $_SESSION['TramitePasos'];
     $cliente = new Cliente();
     $i = 0;
-      
+      // var_dump($chat_mostrar);die;
+    $tramite = Tramite::model()->findall();  
         $i++;
         
         foreach($issueDataProvider->getData(true) as $queryData)
@@ -904,6 +905,7 @@ public function actionDetalleLiquidacion($id)
               $data[$i]['monto_liquidacion'] =  $queryData->idClienteGs->monto_liquidacion;
               $data[$i]['banco_acreedor'] =  $queryData->idClienteGs->banco_acreedor;
               $data[$i]['fecha_paso'] =  $queryData->fecha_paso;
+              $data[$i]['id_tramite'] =  $queryData->id_tramite;
               $data[$i]['plano'] =  $queryData->idTramite->plano;
               $data[$i]['fecha_entrega'] = $queryData->idTramite->fecha_entrega; 
               $data[$i]['ganancia_capital'] = $queryData->idTramite->ganancia_capital;   
@@ -931,6 +933,7 @@ public function actionDetalleLiquidacion($id)
       Yii::app()->request->sendFile('ReportePasos.xls',
                                 $this->renderPartial('excelreporte',array(
                                     'data'=>$data,
+                                    'tramite'=>$tramite
                                 ),true)        
         );
 

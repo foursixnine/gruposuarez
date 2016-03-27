@@ -250,6 +250,7 @@ class TramitePasos extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+	//	$criteria->with = array('tramite');
         $criteria->condition = 'id_cliente_gs >=1507 and id_expediente_fisico=3 and id_paso!=11';
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
