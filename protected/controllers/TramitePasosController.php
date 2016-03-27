@@ -862,7 +862,7 @@ public function actionDetalleLiquidacion($id)
 
   public function actionReportePasos(){
 
-        $reportepasos = Yii::app()->db->createCommand()
+       /* $reportepasos = Yii::app()->db->createCommand()
       ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, SUM(DISTINCT c.total_venta) as totalventa, m.descripcion as nommes,p.titulo, pa.descripcion, p.id_crm_proyecto as crmproyecto,
          COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
       ->from('tramite_pasos t, cliente c, proyecto p, meses m,paso pa')
@@ -870,6 +870,16 @@ public function actionDetalleLiquidacion($id)
           m.id_meses=date_part('. "'month'".', t.fecha_paso) and pa.id_paso=t.id_paso and 
            c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs  and t.id_paso=11
       group by t.id_paso, mes, crmproyecto, nommes, p.titulo, pa.descripcion 
+      order by mes')
+      ->queryAll(true);*/
+
+      $reportepasos = Yii::app()->db->createCommand()
+      ->select('c.monto_liquidacion as totalliquidado, c.total_venta as totalventa, c.nombre_de_empresa,c.numero_de_lote as lote, c.id_proyecto as crmproyecto,
+              c.proyecto as titulo, t.id_pasos, date_part('. "'month'".', t.fecha_inicio) as mes')
+      ->from('tramite t, cliente c')
+      ->where('t.id_pasos=11 and 
+           c.id_cliente_gs=t.id_cliente_gs 
+      group by t.id_pasos, mes, crmproyecto, c.proyecto,totalliquidado, totalventa,lote, c.nombre_de_empresa 
       order by mes')
       ->queryAll(true);
  /*  echo "<pre>";
