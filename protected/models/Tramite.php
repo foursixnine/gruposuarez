@@ -19,6 +19,7 @@
  * @property integer $id_responsable_ejecucion
  * @property string $plano
  * @property string $fecha_entrega
+ * @property string $fecha_actualizacion 
  * @property string $ganancia_capital
  * @property integer $permiso_ocupacion
  * @property integer $inicio
@@ -71,10 +72,10 @@ class Tramite extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_cliente_gs, id_expediente_fisico, id_usuario, id_pasos, id_razones_estado, id_estado, id_responsable_ejecucion, permiso_ocupacion, inicio, casa_entregada, id_rango, id_banco', 'numerical', 'integerOnly'=>true),
-			array('fecha_paso_range,descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso, plano, fecha_entrega, ganancia_capital, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, num_formulario, id_proyecto, id_cliente, numero_de_lote', 'safe'),
+			array('fecha_actualizacion,fecha_paso_range,descripcion, fecha_pazysalvo, fecha_inicio, fecha_fin, fecha_paso, plano, fecha_entrega, ganancia_capital, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, num_formulario, id_proyecto, id_cliente, numero_de_lote', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('fecha_paso_range,id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, casa_entregada, id_rango, num_formulario, id_proyecto, id_cliente, numero_de_lote, id_banco', 'safe', 'on'=>'search'),
+			array('fecha_paso_range,fecha_actualizacion,id_tramite, id_cliente_gs, descripcion, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_pasos, fecha_fin, id_razones_estado, id_estado, fecha_paso, id_responsable_ejecucion, plano, fecha_entrega, ganancia_capital, permiso_ocupacion, inicio, fecha_escritura, fecha_inscripcion_escritura, num_escritura, num_finca_inscrita, transferencia_inmueble, num_permiso_ocupacion, casa_entregada, id_rango, num_formulario, id_proyecto, id_cliente, numero_de_lote, id_banco', 'safe', 'on'=>'search'),
 		);
 	}
 

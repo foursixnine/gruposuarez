@@ -389,7 +389,8 @@ public function actionTramite($id)
                                             'id_razones_estado'        => $model->id_razones_estado,
                                             'id_cliente'               =>$cliente->id_cliente,  
                                             'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
-                                            'id_estado'                =>$model->id_estado,                                                                             
+                                            'id_estado'                =>$model->id_estado,    
+                                            'fecha_actualizacion'      =>$hoy,                                                                         
                                             ));
       
                           //Actualizo la Tabla Tramite Paso
@@ -402,7 +403,8 @@ public function actionTramite($id)
                                                       'fecha_paso'   =>$hoy,                                                
                                                       'id_razones_estado' => $model->id_razones_estado,
                                                       'id_crm_proyecto' => $tramite->id_proyecto,
-                                                      'id_banco' => $cliente->id_banco
+                                                      'id_banco' => $cliente->id_banco,
+                                                      'fecha_actualizacion'      =>$hoy,        
                                                                         ),
                                                                         'id_paso=1 and id_tramite ='.$id 
                                                                   );
@@ -466,7 +468,8 @@ public function actionTramite($id)
                                               'id_razones_estado'        =>$model->id_razones_estado,
                                               'id_cliente'               =>$cliente->id_cliente,  
                                               'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
-                                              'id_estado'                =>$model->id_estado,                                                                             
+                                              'id_estado'                =>$model->id_estado,   
+                                              'fecha_actualizacion'      =>$hoy,                                                                                  
                                         ));
 
                                         $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
@@ -479,7 +482,8 @@ public function actionTramite($id)
                                                       'fecha_paso'   =>$hoy,     
                                                       'id_razones_estado' => $model->id_razones_estado,
                                                       'id_crm_proyecto' => $tramite->id_proyecto,
-                                                      'id_banco' => $cliente->id_banco
+                                                      'id_banco' => $cliente->id_banco,
+                                                      'fecha_actualizacion'      =>$hoy,        
                                                                                   
                                                                         ),                    
                                                                           'id_paso=2 and id_tramite ='.$id                                                                   
@@ -580,7 +584,7 @@ public function actionTramite($id)
                                                 'id_razones_estado' => $model->id_razones_estado,
                                                 'id_estado' => 4,
                                                 'id_crm_proyecto' =>$cliente->id_proyecto,
-                                                 'fecha_actualizacion'      =>$hoy,
+                                                'fecha_actualizacion'      =>$hoy,
                                             
                                                             )); 
             Yii::app()->user->setFlash('success', "TRAMITE LIQUIDADO!");
@@ -591,7 +595,7 @@ public function actionTramite($id)
                                         'id_pasos' => $model->id_paso,                                                                                                              
                                         'fecha_paso'=>$hoy,
                                         'inicio'=>1,
-
+                                        'fecha_actualizacion'      =>$hoy,        
                                                               ),
                                                                 'id_tramite ='.$id
                                                         ); 
@@ -605,7 +609,8 @@ public function actionTramite($id)
                                                 'fecha_paso'   =>$hoy,
                                                 'id_banco' => $cliente->id_banco,
                                                 'id_razones_estado' => $model->id_razones_estado,
-                                                'id_crm_proyecto' => $tramite->id_proyecto
+                                                'id_crm_proyecto' => $tramite->id_proyecto,
+                                                'fecha_actualizacion'      =>$hoy
                                                                   ),
                                                                     'id_tramite ='.$id
                                                             );               
@@ -635,6 +640,7 @@ public function actionTramite($id)
                                          //$model->fecha_paso=
                                         'inicio'=>1,
                                         'fecha_paso'=>null,
+                                        'fecha_actualizacion'      =>$hoy,        
                                         'id_razones_estado' => null
 
                                                               ),
