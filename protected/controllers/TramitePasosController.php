@@ -606,8 +606,7 @@ public function actionTramite($id)
                                                               ),
                                                                 'id_tramite ='.$id
                                                         ); 
-                  //Buscar el ID del TRAMITE PASO
-                //var_dump($model->id_paso);die;
+
                   $id_tpm3 =  TramitePasos::model()->find(
                                        'id_tramite=:id_tramite AND 
                                         id_paso=:id_paso',
@@ -616,7 +615,7 @@ public function actionTramite($id)
                                             ));
 
                   //ACTUALIZAMOS EL TRAMITE PASO
-               /*   $tramite_pasos_update = TramitePasos::model()->updateByPk($id_tpm3->id_tramite_pasos,array(  
+                  $tramite_pasos_update = TramitePasos::model()->updateByPk($id_tpm3->id_tramite_pasos,array(  
                                                 'id_estado'   =>$model->id_estado,                                        
                                                 'fecha_solicitud'=>$model->fecha_solicitud,
                                                 'fecha_recibido'=>$model->fecha_recibido,
@@ -629,8 +628,8 @@ public function actionTramite($id)
                                                 'id_crm_proyecto' =>$cliente->id_proyecto,
                                                 'fecha_actualizacion'      =>$hoy,
                                             
-                                                            )); */
-                $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
+                                                            )); 
+            /*    $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
                                                 'id_pasos'    =>$tramite->id_pasos,
                                                 'id_estado'   =>$model->id_estado,                                        
                                                 'fecha_solicitud'=>$model->fecha_solicitud,
@@ -644,7 +643,7 @@ public function actionTramite($id)
                                                 'fecha_actualizacion'      =>$hoy
                                                                   ),
                                                                     'id_tramite ='.$id
-                                                            );              
+                                                            );        */       
                                                            
       
             $model->fecha_inicio=$hoy;  
