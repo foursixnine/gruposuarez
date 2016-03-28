@@ -66,13 +66,7 @@ if($user!=""){
                 array('label'=>'Administración de Pasos', 'url'=>array('/duracionPasos/')),
 							)
                                 ),
-                                array('label'=>'TABLEROS', 'url'=>array('/tableros/')),
-				array('label'=>'ADMINISTRACION', 'url'=>array('/usuarios/inicio'),
-							'items'=>array(
-								array('label'=>'Usuarios', 'url'=>array('/usuarios/create')),							
-                                                                array('label'=>'Duracion Pasos', 'url'=>array('/duracionPasos/index')),
-							)
-                                ),
+                             
                           
 				
                             
