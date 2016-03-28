@@ -492,7 +492,7 @@ public function actionTramite($id)
                           $model->id_expediente_fisico=$tramite->id_expediente_fisico;
                           $model->id_usuario=$tramite->id_usuario;
                           $model->id_crm_proyecto = $tramite->idClienteGs->id_proyecto;
-                          $model->fecha_actualizacion=$hoy;;
+                          $model->fecha_actualizacion=$hoy;
                           $model->id_paso=3;
                         //  $tramite_actividad->id_paso=$tramite->id_pasos;
                          // $tramite_actividad->id_tramite=$id;
