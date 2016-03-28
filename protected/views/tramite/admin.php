@@ -149,7 +149,7 @@ $this->widget('booster.widgets.TbGridView',array(
     'header'=>'Tramite',
     'labelExpression'=>'($data->permiso_ocupacion == 1 ? "Iniciar Tramite" : "Iniciar sin Permiso")',
    // 'urlExpression'=>'($data->idClienteGs["pazysalvo"]!=0) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : "#"',
-    'urlExpression'=>'($data->permiso_ocupacion ==1) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : Yii::app()->createUrl("tramitePasos/traaamite",array("id"=>$data["id_tramite"]))',
+    'urlExpression'=>'($data->permiso_ocupacion ==1) ? Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"])) : Yii::app()->createUrl("tramitePasos/tramite",array("id"=>$data["id_tramite"]))',
    
     'cssClassExpression'=>'($data->permiso_ocupacion==1 ? " challenged" : "")',  
     ),

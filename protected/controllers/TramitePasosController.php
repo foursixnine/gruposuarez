@@ -472,22 +472,30 @@ public function actionTramite($id)
                                               'fecha_actualizacion'      =>$hoy,                                                                                  
                                         ));
 
-                                        $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
-                                                    //  'id_paso'    =>$model->id_paso,    
-                                                      'id_estado'   =>$model->id_estado,                                        
-                                                      'fecha_solicitud'=>$model->fecha_solicitud,
-                                                      'fecha_recibido'=>$model->fecha_recibido,
-                                                      'firma_promotora'=>$model->firma_promotora,
-                                                      'firma_cliente'=>$model->firma_cliente,
-                                                      'fecha_paso'   =>$hoy,     
-                                                      'id_razones_estado' => $model->id_razones_estado,
-                                                      'id_crm_proyecto' => $tramite->id_proyecto,
-                                                      'id_banco' => $cliente->id_banco,
-                                                      'fecha_actualizacion'      =>$hoy,        
-                                                                                  
-                                                                        ),                    
-                                                                          'id_paso=2 and id_tramite ='.$id                                                                   
-                                                                  );
+                                          //Buscar el ID del TRAMITE PASO
+                                        $id_tp2 =  TramitePasos::model()->find(
+                                                       'id_tramite=:id_tramite AND 
+                                                        id_paso=:id_paso',
+                                                  array(':id_tramite'=>$id,
+                                                        ':id_paso'=>2,
+                                                        ));
+
+                                      //ACTUALIZAMOS EL TRAMITE PASO
+                                      $tramite_pasos_update = TramitePasos::model()->updateByPk($id_tp2->id_tramite_pasos,array(  
+                                                'id_estado'   =>$model->id_estado,                                        
+                                                'fecha_solicitud'=>$model->fecha_solicitud,
+                                                'fecha_recibido'=>$model->fecha_recibido,
+                                                'firma_promotora'=>$model->firma_promotora,
+                                                'firma_cliente'=>$model->firma_cliente,
+                                                'fecha_paso'   =>$hoy,
+                                                'id_banco' => $cliente->id_banco,
+                                                'id_razones_estado' => $model->id_razones_estado,
+                                                'id_estado' => 4,
+                                                'id_crm_proyecto' =>$cliente->id_proyecto,
+                                                'fecha_actualizacion'      =>$hoy,
+                                            
+                                                            )); 
+
                           //SI PASO 2 AUN NO EXISTE EN MI TABLA TRAMITE_PASOS => INGRESO Y PASO AL PASO 3.                        
                           $model->fecha_inicio=$tramite->fecha_inicio;  
                           $model->id_tramite=$id; 
