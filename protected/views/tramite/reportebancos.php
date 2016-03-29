@@ -29,6 +29,7 @@ if($reportebancos!==null){
     <tr>
                 <th>N° PASO</th>  
                 <th>ABRV PASO</th> 
+                <th>PASO</th> 
                 <th>BANCO</th>
                 <th>TOTAL BANCO</th>
                 <th>TOTAL PASOS</th>
