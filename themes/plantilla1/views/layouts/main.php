@@ -47,6 +47,7 @@ if($user!=""){
 								array('label'=>'Listado', 'url'=>array('/metas/index')),
 							)
                                 ),
+        
   //                              array('label'=>'REMUNERACION', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
               array('label'=>'REMUNERACIÓN', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora'),
               'items'=>array(
@@ -55,7 +56,7 @@ if($user!=""){
                                                             
                             )
                                 ),
-    
+             
 
 
               array('label'=>'TRAMITES', 'url'=>array('/tramite/index'),
@@ -69,7 +70,13 @@ if($user!=""){
                              
                           
 				
-                            
+                             array('label'=>'TABLEROS', 'url'=>array('/tableros/')),
+                  array('label'=>'ADMINISTRACION', 'url'=>array('/usuarios/inicio'),
+              'items'=>array(
+                array('label'=>'Usuarios', 'url'=>array('/usuarios/create')),             
+                                                                array('label'=>'Duracion Pasos', 'url'=>array('/duracionPasos/index')),
+              )
+                                ),
                                // array('label'=>'Usuarios', 'url'=>array('/usuarios/index')),
 				array('label'=>'INICIAR SESIÓN', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'CERRAR SESION ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

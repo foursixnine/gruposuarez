@@ -555,7 +555,7 @@ public function actionTramite($id)
             
           
             }elseif($tramite->id_pasos==11){
-                                       //echo "HolA ES 11 FIIn";die;      
+                                       //11 Es el FIN DEL TRAMITE   
             
                   if($tramite->plano=="" or $tramite->ganancia_capital==""){
                         Yii::app()->user->setFlash('notice', "Recuerde Actualizar los DATOS DEL TRAMITE");                      
@@ -563,7 +563,7 @@ public function actionTramite($id)
                   //Actualizo mi table TRAMITE 
                   $tramiteupdate = Tramite::model()->updateByPk($id,array( 
                             'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
-                            'id_estado'                =>4,                                                                             
+                            'id_estado'                =>$model->id_estado,                                                                              
                             'id_razones_estado' => $model->id_razones_estado, 
                             'fecha_paso'=>$hoy,
                             'fecha_fin'=>$hoy,    
