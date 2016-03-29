@@ -36,7 +36,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 $this->widget('bootstrap.widgets.TbDateRangePicker', array(
     'model' => $model,
-    'attribute' => 'fecha_paso_range_pasos',
+    'attribute' => 'fecha_paso_range',
     'options' => array(
         'format' => 'YYYY-MM-DD',
     ),

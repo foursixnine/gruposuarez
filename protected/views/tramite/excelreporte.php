@@ -37,7 +37,9 @@ if($data!==null){
         <th>BANCO HIPOTECARIO</th>
         <th>N° DE PASO</th> 
         <th>NOMBRE DEL PASO</th> 
-        <th>FECHA DE ULTIMA MODIFICACION</th>        
+        <th>FECHA DE INICIO DEL TRAMITE</th> 
+        <th>FECHA DE ULTIMA MODIFICACION</th> 
+        <th>FECHA DE CIERRE PASO</th>        
         <th>N° PLANO</th>        
         <th>FECHA DE ENTREGA</th>        
         <th>GANANCIA DE CAPITAL</th>        
@@ -76,8 +78,10 @@ if($data!==null){
 
                     ?></td>    
                <td><?php echo $value['id_tipo_responsable'];?></td>      
-               <td><?php echo $value['id_pasos'];?></td>           
-               <td><?php echo $value['fecha_paso'];?></td>
+               <td><?php echo $value['id_pasos'];?></td>  
+               <td><?php echo $value['fecha_inicio'];?></td> 
+               <td><?php echo $value['fecha_actualizacion'];?></td>  
+               <td><?php echo $value['fecha_paso'];?></td>      
                <td><?php echo $value['plano'];?></td>
                <td><?php echo $value['fecha_entrega'];?></td>
                <td><?php echo $value['ganancia_capital'];?></td>

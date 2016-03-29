@@ -950,6 +950,8 @@ public function actionDetalleLiquidacion($id)
               $data[$i]['total_venta'] =  $queryData->idClienteGs->total_venta;
               $data[$i]['monto_liquidacion'] =  $queryData->idClienteGs->monto_liquidacion;
               $data[$i]['banco_acreedor'] =  $queryData->idClienteGs->banco_acreedor;
+              $data[$i]['fecha_inicio'] =  $queryData->fecha_inicio;
+              $data[$i]['fecha_actualizacion'] =  $queryData->fecha_actualizacion;
               $data[$i]['fecha_paso'] =  $queryData->fecha_paso;
               $data[$i]['id_tramite'] =  $queryData->id_tramite;
               $data[$i]['plano'] =  $queryData->idTramite->plano;

@@ -397,7 +397,7 @@ class Tramite extends CActiveRecord
 		$criteria->compare('numero_de_lote',$this->numero_de_lote); 
      
 
-		$dateRange = self::parseDateRange($this->fecha_paso_range_pasos, true);
+		$dateRange = self::parseDateRange($this->fecha_paso_range, true);
   
         if ($dateRange) {
             list($startDate, $endDate) = $dateRange;
