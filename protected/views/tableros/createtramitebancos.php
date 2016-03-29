@@ -72,25 +72,7 @@ array('label'=>'Volver','url'=>'index'),
 </div>
 
     <div class="form-group">
-           <?php
-           echo $form->labelEx($model, 'A&ntilde;o');
-           $this->widget(
-            'booster.widgets.TbSelect2',
-                         array(
-                            'model'=>$model,
-                            'attribute'=>'anno',
-                            'data'=>array(
-                              1=>'2015',
-                                                           ),
-            'htmlOptions' => array(
-                   'allowClear'=>true,
-            //        'placeholder' => "A&ntilde;o",
-                        'style'=>'width:80px',    
-            
-                ),
-                             )
-); 
-?>
+       
 
 </div> 
       <br/>     <br/>     
@@ -107,7 +89,7 @@ array('label'=>'Volver','url'=>'index'),
 <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
 
-<div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto">
+<div id="containertablero" style="min-width: 900px; height: 500px;margin: 0 auto">
 
 <?php
 
@@ -121,17 +103,12 @@ $this->pageTitle=Yii::app()->name . ' - '.Yii::t('app','Highcharts');
 <?php
 
 $this->Widget('ext.highcharts.HighchartsWidget', array(
-   'scripts' => array(
-      'highcharts-more',   // enables supplementary chart types (gauge, arearange, columnrange, etc.)
-      'modules/exporting', // adds Exporting button/menu to chart
-   //  'themes/light'        // applies global 'grid' theme to all charts
-    //  'themes/white'
-    ),
+ 
     'options' => array(
       'chart' => array(
                     'type'=>'bar',
            'style'=> array(
-         'fontFamily'=> 'Dosis, sans-serif',
+         'fontFamily'=> 'Dosis',
       )
       ),
         

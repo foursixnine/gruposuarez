@@ -28,7 +28,7 @@ array('label'=>'Volver','url'=>array('../gruposuarez')),
 <br/>
    <button type="button" class="btn btn-warning">TRAMITES </button>
 <br/>
-<br/>
+
 
  <div class="cajademo">   
 
@@ -45,21 +45,43 @@ array('label'=>'Volver','url'=>array('../gruposuarez')),
         <button type="button" class="btn btn-warning">CONTINUAR <br/>TRAMITE</button>
     </a>
   <br/>
-      <!-- Tableros -->
+   
+</div>
+
+<br/>
+   <button type="button" class="btn btn-warning">REPORTES TRAMITES</button>
+<br/>
+
+
+ <div class="cajademo">   
+
+     <!-- Tableros -->
     <a href="<?php echo Yii::app()->createUrl('tramitePasos/reporte'); ?>">
         <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
         <button type="button" class="btn btn-warning">REPORTE <br/>TRAMITE</button>
     </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;
+
           <!-- Tableros -->
     <a href="<?php echo Yii::app()->createUrl('tramite/reportetramite'); ?>">
         <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
         <button type="button" class="btn btn-warning">ESTATUS<br/>ACTUAL</button>
     </a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <!-- Tableros -->
     <a href="<?php echo Yii::app()->createUrl('tramitePasos/reportepasos'); ?>">
         <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
         <button type="button" class="btn btn-warning">REPORTE<br/>LIQUIDACIONES</button>
     </a>
+
+
+       <!-- Tableros -->
+<a href="<?php echo Yii::app()->createUrl('tramite/reportebancos'); ?>">
+        <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
+        <button type="button" class="btn btn-warning">REPORTE<br/>BANCOS</button>
+    </a>
+
+  
+
 </div>

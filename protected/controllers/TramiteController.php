@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte'),
+        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos'),
         'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte'),
+        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos'),
         //'users'=>array('@'),
          'users'=>array('*'),
     ),
@@ -316,6 +316,31 @@ public function actionTramitesLiquidados(){
 
   }
 
+  public function actionReporteBancos(){
+
+
+      $reportebancos = Yii::app()->db->createCommand()
+      ->select('t.id_pasos as pasos, 
+            pa.descripcion as nompaso, pa.abrev,
+            b.descripcion, c.id_banco, 
+            COUNT(c.id_banco) as totalbanco,
+            COUNT(t.id_pasos) as totalpaso,
+            SUM(monto_liquidacion) as montoliquidacion,
+            SUM(total_venta) as totalventa')
+      ->from('tramite t, paso pa,cliente c,banco b')
+      ->where('pa.id_paso = t.id_pasos AND c.id_cliente_gs = t.id_cliente_gs
+               AND b.id_banco = c.id_banco  GROUP BY 
+               t.id_pasos,  b.descripcion,  c.id_banco, pa.descripcion, pa.abrev
+              order by pasos')
+      ->queryAll(true);
+
+      Yii::app()->request->sendFile('TramitesporBancos.xls',
+                                $this->renderPartial('reportebancos',array(
+                                    'reportebancos'=>$reportebancos,
+                                ),true)
+                
+       );
+  }
      public function actionExcelReporte() {
 
     

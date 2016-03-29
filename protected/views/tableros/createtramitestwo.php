@@ -81,7 +81,8 @@ array('label'=>'Volver','url'=>'index'),
                             'model'=>$model,
                             'attribute'=>'anno',
                             'data'=>array(
-                              1=>'2015',
+                              1=>'2016',
+                              2=>'2015',
                                                            ),
             'htmlOptions' => array(
                    'allowClear'=>true,
