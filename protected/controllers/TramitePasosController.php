@@ -602,7 +602,7 @@ public function actionTramite($id)
                   //Actualizo mi table TRAMITE 
                   $tramiteupdate = Tramite::model()->updateByPk($id,array( 
                             'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
-                            'id_estado'                =>$model->id_estado,                                                                              
+                            'id_estado'                =>4,                                                                              
                             'id_razones_estado' => $model->id_razones_estado, 
                             'fecha_paso'=>$hoy,
                             'fecha_fin'=>$hoy,    
@@ -628,7 +628,7 @@ public function actionTramite($id)
                                                 'fecha_paso'   =>$hoy,
                                                 'id_banco' => $cliente->id_banco,
                                                 'id_razones_estado' => $model->id_razones_estado,
-                                                'id_estado' => $model->id_estado,
+                                                'id_estado' => 4,
                                                 'id_crm_proyecto' =>$cliente->id_proyecto,
                                                 'fecha_actualizacion'      =>$hoy,
                                             
