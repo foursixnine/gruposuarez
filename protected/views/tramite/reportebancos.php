@@ -16,7 +16,7 @@ if($reportebancos!==null){
         
        
 
-<td colspan="5"  align="center">
+<td colspan="6"  align="center">
     <br/>
 <div style='background-color:#CCC'><STRONG>REPORTE DE BANCOS</STRONG></div>
     <BR>
@@ -25,7 +25,7 @@ if($reportebancos!==null){
          </td>
     </tr>
      
-        total  Monto de Precio de Venta total
+        
 
     <tr>
                 <th>Banco</th>  
@@ -44,8 +44,8 @@ if($reportebancos!==null){
                 <td><?php echo $value['abrev'];?>
                 <td><?php echo $value['nompaso'];?></td> 
                 <td><?php echo $value['totalpaso'];?></td> 
-                <td>$<?php echo number_format($value['montoliquidacion'], 2, ',', ' '); ?></td>
-                <td>$<?php echo number_format($value['totalventa'], 2, ',', ' '); ?></td>
+                <td>$<?php echo $value['montoliquidacion']; ?></td>
+                <td>$<?php echo $value['totalventa']; ?></td>
             </tr>
             
     <?php } ?>  

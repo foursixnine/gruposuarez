@@ -261,28 +261,51 @@ public function actionTramite($id)
               //SI PASO ES EL IGUAL A 1  
               if($_POST['TramitePasos']['id_paso']==1){  
                
-                          //Actualizo la Tabla Tramite
+                //1.1 Actualizo la Tabla Tramite
                 $tramiteupdate = Tramite::model()->updateAll(array( 
                                                 'id_pasos'    =>1,
                                                 'id_estado'   =>$model->id_estado,              
-                                                'fecha_inicio'   =>$hoy,
-                                                'fecha_paso'   =>$hoy,
+                                                //'fecha_inicio'   =>$hoy,
+                                                //'fecha_paso'   =>$hoy,
+                                                'fecha_actualizacion' =>$hoy,
                                                 'inicio'   =>1,                                        
                                                 'id_razones_estado' => $model->id_razones_estado,
                                                 'id_cliente' => $cliente->id_cliente                                             
                                                                   ),
                                                                     'id_tramite ='.$id
                                                             );
-                 // var_dump($tramiteupdate);die;            
-                  //Guardamos el Tramite de la Actividad
+                  //1.2 Actualizo mi TRAMITE_PASOS CON PASO 1 (UNO)
+
+
+
+
+                          //1.2.1 Buscar el ID del TRAMITE PASO
+                          $id_tp_one =  TramitePasos::model()->find(
+                                               'id_tramite=:id_tramite AND 
+                                                id_paso=:id_paso',
+                                              array(':id_tramite'=>$id,
+                                                    ':id_paso'=>1,
+                                                    ));
+
+                          //1.2.2 ACTUALIZAMOS EL TRAMITE PASO
+                          $tramite_pasos_update = TramitePasos::model()->updateByPk($id_tp_one->id_tramite_pasos,array(  
+                                                  'id_pasos'                 =>1,
+                                                  'id_estado'                =>$model->id_estado,   
+                                                  'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
+                                                  'id_razones_estado'        => $model->id_razones_estado,
+                                                  'id_tipo_responsable'      =>$model->id_tipo_responsable,
+                                                  'fecha_actualizacion'      =>$hoy,
+                                                  'id_crm_proyecto' => $cliente->id_proyecto      
+                                                                    ));                             
+                  //1.3 Guardamos el Tramite de la Actividad
                   $tramite_actividad->id_paso=1;
                   $tramite_actividad->id_tramite=$id;
                   
                   $tramite_actividad->save();  
-                  //Redigirimos la pagina a TRAMITE
+                  //1.4 Redigirimos la pagina a TRAMITE
                   $this->redirect(array('tramite','id'=>$id));
 
-              //SI TRAMITE PASO ES IGUAL A DOS
+              //2.1 SI TRAMITE PASO ES IGUAL A DOS
               }elseif($_POST['TramitePasos']['id_paso']==2){
                 
                               //Busco si existe el tramite con el "PASO 2" ingreso o actualizo
@@ -299,7 +322,6 @@ public function actionTramite($id)
                                 $tramite_pasos_update = TramitePasos::model()->updateAll(array( 
                                                     'id_pasos'                 =>$tramite->id_pasos,
                                                     'id_estado'                =>$model->id_estado,   
-
                                                     'fecha_inicio'             =>$hoy,
                                                     'id_razones_estado'        => $model->id_razones_estado,
                                                     'fecha_actualizacion'      =>$hoy,
@@ -353,13 +375,15 @@ public function actionTramite($id)
                                                   'id_razones_estado'        => $model->id_razones_estado,
                                                   'id_tipo_responsable'      =>$model->id_tipo_responsable,
                                                   'fecha_actualizacion'      =>$hoy,
+                                                  //'fecha_actualizacion'      =>$hoy,
                                                   'id_crm_proyecto' => $cliente->id_proyecto      
                                                                     ));
 
                           //Actualizo mi table TRAMITE 
                           $tramiteupdate = Tramite::model()->updateByPk($id,array( 
                                 'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
-                                'id_estado'                =>$model->id_estado,                                                                             
+                                'id_estado'                =>$model->id_estado,
+                                'inicio'   =>1,                                                                        
                                 'id_razones_estado' => $model->id_razones_estado,         
                                             ));
 
@@ -387,7 +411,7 @@ public function actionTramite($id)
                                             'id_pasos'                 =>2,
                                             'id_estado'                =>$model->id_estado,
                                              'inicio'   =>1,                                    
-                                            'fecha_inicio'             =>$hoy,
+                                           // 'fecha_inicio'             =>$hoy,
                                             'id_razones_estado'        => $model->id_razones_estado,
                                             'id_cliente'               =>$cliente->id_cliente,  
                                             'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
@@ -467,7 +491,7 @@ public function actionTramite($id)
                                         $tramiteupdate = Tramite::model()->updateByPk($id,array( 
                                               'id_pasos'                 =>3,
                                               'id_estado'                =>$model->id_estado,                                        
-                                              'fecha_inicio'             =>$hoy,
+                                            //  'fecha_inicio'             =>$hoy,
                                               'id_razones_estado'        =>$model->id_razones_estado,
                                               'id_cliente'               =>$cliente->id_cliente,  
                                               'id_responsable_ejecucion' =>$model->id_responsable_ejecucion,  
@@ -921,7 +945,7 @@ public function actionDetalleLiquidacion($id)
       group by t.id_pasos, mes, crmproyecto, c.proyecto,totalliquidado, totalventa,lote, c.nombre_de_empresa 
       order by mes')
       ->queryAll(true);
- /*  echo "<pre>";
+   /*echo "<pre>";
     print_r($reportepasos); // or var_dump($data);
     echo "</pre>";  
     die;*/
