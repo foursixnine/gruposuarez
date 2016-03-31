@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'Create TramitePasos','url'=>array('create','id'=>$model->id_tramite)),
-array('label'=>'Manage TramitePasos','url'=>array('admin')),
+array('label'=>'Create Tramite Pasos','url'=>array('create','id'=>$model->id_tramite)),
+array('label'=>'Manage Tramite Pasos','url'=>array('admin')),
 );
 ?>
 

@@ -1,8 +1,8 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Tramite Pasoses'=>array('index'),
-	'Manage',
+	'Tramite Pasos'=>array('tramite/index'),
+	'Reporte',
 );
 
 $this->menu=array(

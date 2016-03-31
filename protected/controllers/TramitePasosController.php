@@ -949,13 +949,13 @@ public function actionDetalleLiquidacion($id)
       ->queryAll(true);*/
 
       $reportepasos = Yii::app()->db->createCommand()
-      ->select('c.monto_liquidacion as totalliquidado, c.total_venta as totalventa, c.nombre_de_empresa,c.numero_de_lote as lote, c.id_proyecto as crmproyecto,
+      ->select('c.monto_liquidacion as totalliquidado, c.total_venta as totalventa, c.nombre_de_empresa,c.numero_de_lote as lote, c.id_proyecto as crmproyecto,t.fecha_paso as fechaliquidacion,
               c.proyecto as titulo, t.id_pasos, date_part('. "'month'".', t.fecha_inicio) as mes')
       ->from('tramite t, cliente c')
       ->where('t.id_pasos=11 and 
            c.id_cliente_gs=t.id_cliente_gs 
-      group by t.id_pasos, mes, crmproyecto, c.proyecto,totalliquidado, totalventa,lote, c.nombre_de_empresa 
-      order by mes')
+      group by t.id_pasos, mes, crmproyecto, c.proyecto,totalliquidado, totalventa,lote, c.nombre_de_empresa, fechaliquidacion 
+      order by mes,  titulo, fechaliquidacion')
       ->queryAll(true);
    /*echo "<pre>";
     print_r($reportepasos); // or var_dump($data);
