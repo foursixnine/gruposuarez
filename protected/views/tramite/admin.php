@@ -161,9 +161,9 @@ $this->widget('booster.widgets.TbGridView',array(
                       'editable' => 
                           array(
                               'type' => 'textarea',
-                              'model'     => $cliente,
-                              'attribute' => 'idClienteGs.observacion_tramite',                           
-                              'url' => $this->createUrl('/cliente/actualizarobservaciones'),
+                              'model'     => $tramitadora,
+                              'attribute' => 'descripcion',                           
+                              'url' => $this->createUrl('actualizarobservaciones'),
                                'placement' => 'right',  
                                'emptytext' => 'Ninguna Observación...',                          
                           )
@@ -293,9 +293,9 @@ $this->widget('booster.widgets.TbGridView',array(
                     'editable' => 
                         array(
                             'type' => 'textarea',
-                            'model'     => $cliente,
-                            'attribute' => 'idClienteGs.observacion_tramite',                           
-                            'url' => $this->createUrl('/cliente/actualizarobservaciones'),
+                            'model'     => $tramitadora,
+                            'attribute' => 'descripcion',                           
+                            'url' => $this->createUrl('actualizarobservaciones'),
                              'placement' => 'right',  
                              'emptytext' => 'Ninguna Observación...',                          
                           )

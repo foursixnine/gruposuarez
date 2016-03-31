@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos'),
+        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones'),
         'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos'),
+        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones'),
         //'users'=>array('@'),
          'users'=>array('*'),
     ),
@@ -88,7 +88,12 @@ public function actionView($id)
     ));
 }
 
-
+public function actionActualizarObservaciones()
+    {
+    Yii::import('bootstrap.widgets.TbEditableSaver');
+    $es = new TbEditableSaver('Tramite');
+    $es->update();
+}
 
 /**
 * Creates a new model.
@@ -385,7 +390,7 @@ public function actionTramitesLiquidados(){
         }
 
 
-      Yii::app()->request->sendFile('ReporteTramite.xls',
+      Yii::app()->request->sendFile('ReporteStatusActual.xls',
                                 $this->renderPartial('excelreporte',array(
                                     'data'=>$data,
                                 ),true)        
