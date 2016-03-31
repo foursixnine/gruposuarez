@@ -65,7 +65,7 @@ $this->endWidget();
                     'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
                     'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
                 ), 
-                'idClienteGs.numero_de_lote',
+                'numero_de_lote',
                 array(
                     'name'=>'id_proyecto',
                     'header'=>'Proyecto',
