@@ -188,7 +188,18 @@ public function actionTramite($id)
       
        
           $tramite_datosgenerales->attributes=$_POST['Tramite'];
-      
+       //   var_dump($_POST['Tramite']['fecha_escritura']);die;
+          if($_POST['Tramite']['fecha_entrega'] == ""){ 
+                  $tramite_datosgenerales->fecha_entrega=null;
+                }
+          if(($_POST['Tramite']['fecha_inscripcion_escritura'] == "") or ($tramite_datosgenerales->fecha_inscripcion_escritura == "")){ 
+                $tramite_datosgenerales->fecha_inscripcion_escritura=null;
+                $_POST['Tramite']['fecha_inscripcion_escritura']=null;
+              }
+              if(($_POST['Tramite']['fecha_escritura']) == "" or ($tramite_datosgenerales->fecha_escritura=="")){
+                  $tramite_datosgenerales->fecha_escritura=null;
+                  $_POST['Tramite']['fecha_escritura']=null;
+              }
             $x = Tramite::model()->updateByPk($id,array(
                
                                                 'plano'             =>$tramite_datosgenerales->plano,   
@@ -246,7 +257,8 @@ public function actionTramite($id)
         if($model->firma_cliente == ""){ $model->firma_cliente=null; } 
         if($model->firma_promotora == ""){ $model->firma_promotora=null;} 
         if($model->fecha_solicitud == ""){ $model->fecha_solicitud=null;} 
-        if($model->fecha_recibido == ""){ $model->fecha_recibido=null;} 
+        if($model->fecha_recibido == ""){ $model->fecha_recibido=null;}
+
 
         
          //*********************************************************************************************************
