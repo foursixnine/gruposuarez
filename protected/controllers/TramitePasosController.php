@@ -952,15 +952,12 @@ public function actionDetalleLiquidacion($id)
       ->select('c.monto_liquidacion as totalliquidado, c.total_venta as totalventa, c.nombre_de_empresa,c.numero_de_lote as lote, c.id_proyecto as crmproyecto,t.fecha_paso as fechaliquidacion,
               c.proyecto as titulo, t.id_pasos, date_part('. "'month'".', t.fecha_fin) as mes')
       ->from('tramite t, cliente c')
-      ->where('t.id_pasos=11 and 
+      ->where('t.id_pasos=11 AND fecha_fin IS NOT NULL AND 
            c.id_cliente_gs=t.id_cliente_gs 
       group by t.id_pasos, mes, crmproyecto, c.proyecto,totalliquidado, totalventa,lote, c.nombre_de_empresa, fechaliquidacion 
       order by mes,  titulo, fechaliquidacion')
       ->queryAll(true);
-   /*echo "<pre>";
-    print_r($reportepasos); // or var_dump($data);
-    echo "</pre>";  
-    die;*/
+   
         
       Yii::app()->request->sendFile('ReporteLiquidaciones.xls',
                                 $this->renderPartial('reportepasos',array(
