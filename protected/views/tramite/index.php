@@ -64,7 +64,7 @@ array('label'=>'Volver','url'=>array('../gruposuarez')),
           <!-- Tableros -->
     <a href="<?php echo Yii::app()->createUrl('tramite/reportetramite'); ?>">
         <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
-        <button type="button" class="btn btn-warning">ESTATUS<br/>ACTUAL</button>
+        <button type="button" class="btn btn-warning">REPORTE <br/>ESTATUS<br/>ACTUAL</button>
     </a>
           <!-- Tableros -->
     <a href="<?php echo Yii::app()->createUrl('tramitePasos/reportepasos'); ?>">
