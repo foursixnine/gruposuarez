@@ -89,8 +89,8 @@ if($reportepasos!==null){
                 </td> 
                 <td><?php echo $value['fechafin'];?></td>
                 <td><?php echo $value['lote'];?></td> 
-                <td>$<?php echo $value['totalventa']; ?></td>
-                <td>$<?php echo $value['totalliquidado']; ?></td>
+                <td>$<?php echo number_format($value['totalventa'], 2, '.', ''); ?></td>
+                <td>$<?php echo number_format($value['totalliquidado'], 2, '.', ''); ?></td>
             </tr>
             
     <?php } ?>  
