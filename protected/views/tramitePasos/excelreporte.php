@@ -27,11 +27,12 @@ if($data!==null){
      
     
     <tr>
-        <th>NOMBRE DEL CLIENTE</th>
-        <th>EXPEDIENTE FISICO</th>
-        <th>VENDEDOR</th>
         <th>PROYECTO</th>
-        <th>NUMERO DE PROPIEDAD</th>  
+        <th>NUMERO DE PROPIEDAD</th>
+        <th>EXPEDIENTE FISICO</th>
+        <th>TRAMITADOR</th> 
+        <th>VENDEDOR</th>
+        <th>NOMBRE DEL CLIENTE</th>  
         <th>PRECIO TOTAL VENTA</th>
         <th>PRECIO HIPOTECA</th>
         <th>BANCO HIPOTECARIO</th>
@@ -52,13 +53,13 @@ if($data!==null){
         <th>N° DE FORMULARIO</th>        
         <th>FECHA DE PERMISO DE OCUPACIÓN</th>        
         <th>FECHA DE PERMISO DE CONSTRUCCION</th>  
-        <th>TRAMITADOR</th>  
+ 
     </tr>
     
     <?php 
-  foreach ($tramite as $key) {
+ // foreach ($tramite as $key) {
     foreach ($data as $value) {
-                   if($key["id_tramite"]==$value['id_tramite'] AND $key["id_pasos"]!=11){
+               //    if($key["id_tramite"]==$value['id_tramite'] AND $key["id_pasos"]!=11){
                    
      
 
@@ -66,11 +67,16 @@ if($data!==null){
       
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
-                <td><?php echo $value['nombre_de_empresa'];?></td>
-                <td><?php echo $value['id_expediente_fisico']; ?></td>
-                <td><?php echo $value['vendedor']; ?></td>
                 <td><?php echo $value['proyecto']; ?></td>
                 <td><?php echo $value['numero_de_lote']; ?></td>
+                <td><?php echo $value['id_expediente_fisico']; ?></td>
+                <td><?php echo $value['agente_tramite'];?></td> 
+                
+                <td><?php echo $value['vendedor']; ?></td>
+                <td><?php echo $value['nombre_de_empresa'];?></td>
+                
+               
+                
     
                  <td>$<?php echo $value['total_venta'];?></td>
                 <td>$<?php echo $value['monto_liquidacion'];?></td>
@@ -98,17 +104,10 @@ if($data!==null){
                <td><?php echo $value['num_formulario'];?></td>
                <td><?php echo $value['fecha_de_permiso_ocupacion'];?></td>
                <td><?php echo $value['fecha_de_permiso_contruccion'];?></td>
-               <td><?php echo $value['agente_tramite'];?></td>       
+                 
             </tr>
-    <?php }
-    
-}
- }
-     ?>  
+    <?php } ?>  
 </table>
     
-<?php
-
-}
- ?>
+<?php }?>
 

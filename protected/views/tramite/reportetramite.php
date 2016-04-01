@@ -1,8 +1,8 @@
 
 <?php
 $this->breadcrumbs=array(
-    'Tramite Pasoses'=>array('index'),
-    'Manage',
+    'Tramites'=>array('index'),
+    'Reporte Estatus Actual',
 );
 
 $this->menu=array(
@@ -62,7 +62,7 @@ $this->endWidget();
 
 <br/>
 <br/><br/>
-<button type="button" class="btn btn-warning">REPORTE DE TRAMITES </button>
+<button type="button" class="btn btn-warning">REPORTE ESTATUS ACTUAL</button>
 
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'tramite-pasos-grid',
