@@ -950,7 +950,7 @@ public function actionDetalleLiquidacion($id)
 
       $reportepasos = Yii::app()->db->createCommand()
       ->select('c.monto_liquidacion as totalliquidado, c.total_venta as totalventa, c.nombre_de_empresa,c.numero_de_lote as lote, c.id_proyecto as crmproyecto,t.fecha_paso as fechaliquidacion,
-              c.proyecto as titulo, t.id_pasos, date_part('. "'month'".', t.fecha_inicio) as mes')
+              c.proyecto as titulo, t.id_pasos, date_part('. "'month'".', t.fecha_fin) as mes')
       ->from('tramite t, cliente c')
       ->where('t.id_pasos=11 and 
            c.id_cliente_gs=t.id_cliente_gs 
@@ -962,7 +962,7 @@ public function actionDetalleLiquidacion($id)
     echo "</pre>";  
     die;*/
         
-      Yii::app()->request->sendFile('Liquidaciones.xls',
+      Yii::app()->request->sendFile('ReporteLiquidaciones.xls',
                                 $this->renderPartial('reportepasos',array(
                                     'reportepasos'=>$reportepasos,
                                 ),true)
