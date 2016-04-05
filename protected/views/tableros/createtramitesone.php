@@ -291,7 +291,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
                                     ),
                     'min' => 1,
                     'max' => 30
-            ),array( // Secondary yAxis
+            ),array( // Secondary yAxmis
             'title' => array(
                 'text' => 'Monto Liquidado',
                 'style' => array(
