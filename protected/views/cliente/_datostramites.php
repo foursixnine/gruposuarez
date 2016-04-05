@@ -88,6 +88,8 @@ $this->widget(
                             $expediente=$tramite->id_expediente_fisico;                    
                                 echo $model->id_expediente_fisico=$expediente;
                               //  var_dump("Aqui-->". $expediente);die;
+                            }else{
+                                $model->id_expediente_fisico=1;
                             }
                             ?>
                                 
@@ -103,7 +105,7 @@ $this->widget(
                                         'data' => CHtml::listData(ExpedienteFisico::model()->findAll(), 'id_expediente_fisico', 'descripcion'),
                                         'options' => array(
                                         'placeholder' => "RAZONES DE ESTADO",
-                                        'value' =>3,
+                                        
                                     ),
                                     'htmlOptions'=>array(
                                        'style'=>'width:80px',
