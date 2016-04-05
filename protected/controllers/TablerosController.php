@@ -1220,7 +1220,7 @@ public function actionAnillos($model)
 //*******************************************************
 //*******************************************************
 //**************************TRAMITES*********************
-//*******************************************************
+//*************************************************  ******
 /////////////////////////////////////////////////////////
 
 
@@ -1387,7 +1387,7 @@ public function actionCreateTramitesTwo()
     $dataSeries2 = array();
     $dataCategories2 = array();  
 
-    //Query donde obtengo los datos necesarios medmiante un query
+    //Query donde obtengo los datos nec esarios medmiante un query
     $paso = Yii::app()->db->createCommand()
     ->select('t.id_pasos, 
             pa.descripcion, pa.abrev,
