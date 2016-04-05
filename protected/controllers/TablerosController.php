@@ -1239,13 +1239,13 @@ public function actionCreateTramitesOne()
    $totalpaso2= array();
 $totalventa=array();
     $paso = Yii::app()->db->createCommand()
-    ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, m.descripcion as nommes,
-       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes')
-    ->from('tramite_pasos t, cliente c, proyecto p, meses m')
+    ->select('SUM(c.monto_liquidacion) as total_liquidado, m.descripcion as nommes,
+       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_pasos, date_part('. "'month'".', t.fecha_fin) as mes')
+    ->from('tramite t, cliente c, proyecto p, meses m')
     ->where(' p.id_crm_proyecto=c.id_proyecto and 
-        m.id_meses=date_part('. "'month'".', t.fecha_paso) and
-         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11 and c.id_banco!=16 
-    group by t.id_paso, mes, nommes
+        m.id_meses=date_part('. "'month'".', t.fecha_fin) and
+         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_pasos=11 and c.id_banco!=16 
+    group by t.id_pasos, mes, nommes
     order by mes')
     ->queryAll(true);
    $mes_paso = array();
@@ -1258,13 +1258,13 @@ array_push($totalpaso, $key['totalpaso']);
 }
 
     $paso2 = Yii::app()->db->createCommand()
-    ->select('SUM(DISTINCT c.total_venta) as total_venta, m.descripcion as nommes,
-       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, p.id_crm_proyecto as crmproyecto')
-    ->from('tramite_pasos t, cliente c, proyecto p, meses m')
+    ->select('SUM(c.total_venta) as total_venta, m.descripcion as nommes,
+       COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_pasos, date_part('. "'month'".', t.fecha_fin) as mes, p.id_crm_proyecto as crmproyecto')
+    ->from('tramite t, cliente c, proyecto p, meses m')
     ->where(' p.id_crm_proyecto=c.id_proyecto and 
-        m.id_meses=date_part('. "'month'".', t.fecha_paso) and
-         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11 and c.id_banco=16
-    group by t.id_paso, mes, crmproyecto, nommes
+        m.id_meses=date_part('. "'month'".', t.fecha_fin) and
+         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_pasos=11 and c.id_banco=16
+    group by t.id_pasos, mes, crmproyecto, nommes
     order by mes')
     ->queryAll(true);
    $mes_paso2 = array();
@@ -1314,13 +1314,13 @@ array_push($totalpaso2, $key['totalpaso']);
                             
       
                         $paso = Yii::app()->db->createCommand()
-                        ->select('SUM(DISTINCT c.monto_liquidacion) as total_liquidado, 
+                        ->select('SUM(c.monto_liquidacion) as total_liquidado, 
                         COUNT(DISTINCT t.id_tramite) as totalpaso, 
-                        t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, 
+                        t.id_pasos, date_part('. "'month'".', t.fecha_fin) as mes, 
                         p.id_crm_proyecto as crmproyecto, m.descripcion as nommes')
-                        ->from('tramite_pasos t, cliente c, proyecto p, meses m')
-                        ->where('m.id_meses = date_part('. "'month'".', t.fecha_paso) AND c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_banco!=16 and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
-                        group by t.id_paso, mes, crmproyecto, nommes
+                        ->from('tramite t, cliente c, proyecto p, meses m')
+                        ->where('m.id_meses = date_part('. "'month'".', t.fecha_fin) AND c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_cliente_gs=t.id_cliente_gs and t.id_pasos=11
+                        group by t.id_pasos, mes, crmproyecto, nommes
                         order by mes')
                         ->queryAll(true);
                         $mes_paso = array();
@@ -1333,12 +1333,12 @@ array_push($totalpaso2, $key['totalpaso']);
                     }
 
                         $paso2 = Yii::app()->db->createCommand()
-                        ->select('SUM(DISTINCT c.total_venta) as total_venta, 
-                        COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_paso, date_part('. "'month'".', t.fecha_paso) as mes, 
+                        ->select('SUM(c.total_venta) as total_venta, 
+                        COUNT(DISTINCT t.id_tramite) as totalpaso, t.id_pasos, date_part('. "'month'".', t.fecha_fin) as mes, 
                         p.id_crm_proyecto as crmproyecto,  m.descripcion as nommes')
-                        ->from('tramite_pasos t, cliente c, proyecto p, meses m')
-                        ->where('m.id_meses = date_part('. "'month'".', t.fecha_paso) AND c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_banco=16 and c.id_cliente_gs=t.id_cliente_gs and t.id_paso=11
-                        group by t.id_paso, mes, crmproyecto, nommes
+                        ->from('tramite t, cliente c, proyecto p, meses m')
+                        ->where('m.id_meses = date_part('. "'month'".', t.fecha_fin) AND c.id_proyecto=p.id_crm_proyecto '.$queryproyecto.' '.$queryusuario.' '.$queryumes.' and c.id_banco=16 and c.id_cliente_gs=t.id_cliente_gs and t.id_pasos=11
+                        group by t.id_pasos, mes, crmproyecto, nommes
                         order by mes')
                         ->queryAll(true);
                         $mes_paso2 = array();
@@ -1393,10 +1393,10 @@ public function actionCreateTramitesTwo()
             pa.descripcion, pa.abrev,
             p.comentario, c.id_proyecto, 
             SUM(c.monto_liquidacion) as total,
-            COUNT(c.id_proyecto) as crmproyecto, 
-            COUNT(t.id_pasos) as totalpaso')
+            COUNT(DISTINCT c.id_proyecto) as crmproyecto, 
+            COUNT(DISTINCT t.id_pasos) as totalpaso')
     ->from('tramite t')
-    ->join('paso pa', 'pa.id_paso = t.id_pasos and t.id_pasos!=11 and t.id_pasos!=0')
+    ->join('paso pa', 'pa.id_paso = t.id_pasos and t.id_pasos!=11 AND t.fecha_fin IS NULL AND t.id_pasos!=0')
     ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
     ->join('proyecto p', 'p.id_crm_proyecto = c.id_proyecto GROUP BY 
             t.id_pasos,  p.comentario,  c.id_proyecto, pa.descripcion, pa.abrev
@@ -1506,13 +1506,13 @@ public function actionCreateTramitesTwo()
                             ->select('t.id_pasos, 
                                     pa.descripcion, pa.abrev,  p.comentario,
                                     p.titulo, c.id_proyecto, 
-                                    COUNT(c.id_proyecto) as crmproyecto, 
+                                    COUNT(DISTINCT c.id_proyecto) as crmproyecto, 
                                      SUM(c.monto_liquidacion) as total,
-                                    COUNT(t.id_pasos) as totalpaso')
+                                    COUNT(DISTINCT t.id_pasos) as totalpaso')
                             ->from('tramite t')
                             ->join('paso pa', 'pa.id_paso = t.id_pasos ')
                             ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
-                            ->join('proyecto p', 't.id_pasos!=11 and t.id_pasos!=0 and p.id_crm_proyecto = c.id_proyecto '.$queryproyecto.' '.$queryusuario.' GROUP BY 
+                            ->join('proyecto p', 't.id_pasos!=11 and t.id_pasos!=0 AND t.fecha_fin IS NULL and p.id_crm_proyecto = c.id_proyecto '.$queryproyecto.' '.$queryusuario.' GROUP BY 
                                     t.id_pasos,  p.titulo,  c.id_proyecto, p.comentario,pa.descripcion, pa.abrev
                                     order by t.id_pasos')      
                             ->queryAll(true);

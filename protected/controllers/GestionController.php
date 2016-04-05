@@ -359,6 +359,7 @@ public function actionCreate($id){
 			$data[$i]['id_proyecto'] = $queryData->id_proyecto;
 			$data[$i]['proyecto'] = $queryData->proyecto;
 			$data[$i]['numero_de_lote'] = $queryData->numero_de_lote;
+			$data[$i]['status_de_lote'] = $queryData->status_de_lote;
 			$data[$i]['cartera_corriente'] = $queryData->cartera_corriente;
 			$data[$i]['cartera_30_dias'] = $queryData->cartera_30_dias;
 			$data[$i]['cartera_60_dias'] = $queryData->cartera_60_dias;

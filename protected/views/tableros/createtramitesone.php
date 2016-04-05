@@ -170,7 +170,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
                           )
                       ),
                       'title' => array(
-                            'text' => 'Cantidad de Casas de Contado',
+                            'text' => 'Cantidad de Casas',
                             'style' => array(
                                               'color' => 'Highcharts.getOptions().colors[1]'
                                             )

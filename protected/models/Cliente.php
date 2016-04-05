@@ -365,7 +365,7 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-         $criteria->condition = 'status_plan_pago = '."'COBROS'".' AND status_plan_pago  != '."'RETIRO'".' AND status_de_lote !=  '."'LIQUIDADO'".'  ';
+         $criteria->condition = 'status_plan_pago = '."'COBROS'".' OR status_plan_pago  != '."'RETIRO'".' AND status_de_lote !=  '."'LIQUIDADO'".'  ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 
                 $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);
@@ -479,10 +479,17 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
- 		$criteria->condition = 'status_plan_pago != '."'RETIRO'".' AND (cartera_corriente > '."'1'".' OR cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".')';
+ 		/*$criteria->condition = 'status_plan_pago != '."'RETIRO'".' AND (cartera_corriente > '."'1'".' OR cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".')';*/
+ 		$criteria->condition = 'status_plan_pago != '."'RETIRO'".' AND (status_de_lote='."'TRAMITE'".' OR status_de_lote='."'COBRO'".')
+		 AND (
+		 (cartera_corriente > 0 OR cartera_corriente < 0 )  OR  
+		 (cartera_30_dias > 0 OR cartera_30_dias < 0 ) OR 
+		 (cartera_60_dias > 0 OR cartera_60_dias < 0 ) OR
+		 (cartera_90_dias > 0 OR cartera_90_dias < 0 ) OR 
+		 (cartera_120_dias > 0 OR cartera_120_dias < 0 ) OR  
+		 (total_vencido > 0 OR total_vencido < 0) )'; 
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
   		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
-
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('apellido',$this->apellido,true);
 		$criteria->compare('status',$this->status,true);
@@ -490,8 +497,7 @@ class Cliente extends CActiveRecord
 		$criteria->compare('numero_de_lote',$this->numero_de_lote,true);
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto,true);
-
-
+        $criteria->compare('status_de_lote',$this->status_de_lote,true);
 		$criteria->compare('cartera_corriente',$this->cartera_corriente,true);
 		$criteria->compare('cartera_30_dias',$this->cartera_30_dias,true);
 		$criteria->compare('cartera_60_dias',$this->cartera_60_dias,true);
@@ -499,7 +505,7 @@ class Cliente extends CActiveRecord
 		$criteria->compare('cartera_120_dias',$this->cartera_120_dias,true);
 		$criteria->compare('total_vencido',$this->total_vencido,true);
 
-        $criteria->order = 'CARTERA_90_DIAS DESC';
+        $criteria->order = 'proyecto,CARTERA_90_DIAS DESC';
 		
 
 

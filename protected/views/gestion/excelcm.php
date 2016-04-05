@@ -21,9 +21,9 @@ $sumtv=0;
         
        
 
-<td colspan="11"  align="center">
+<td colspan="12"  align="center">
     <br/>
-<div style='background-color:#CCC'><STRONG>REPORTE DE GESTION</STRONG></div>
+<div style='background-color:#CCC'><STRONG>REPORTE DE CLIENTE MOROSIDAD</STRONG></div>
     <BR>
    
   <p><h2>GRUPO SUAREZ</h2></p>
@@ -36,6 +36,7 @@ $sumtv=0;
         <th>CORREO</th>
         <th>ID PROYECTO</th>
         <th>PROYECTO</th>  
+        <th>STATUS DE LOTE</th> 
         <th>NUM DE PROPIEDAD</th>
         <th>CARTERA CORRIENTE</th>
         <th>CARTERA 30</th>
@@ -85,6 +86,7 @@ $sumtv=0;
                 <td><?php echo $value['correo'];?></td> 
                 <td><?php echo $value['id_proyecto']; ?></td>
                 <td><?php echo $value['proyecto']; ?></td>
+                <td><?php echo $value['status_de_lote']; ?></td>
                 <td><?php echo $value['numero_de_lote']; ?></td>
                 <td><?php echo $value['cartera_corriente'];?></td>
                 <td><?php echo $value['cartera_30_dias'];?></td>
@@ -98,33 +100,33 @@ $sumtv=0;
     <?php } ?>  
 
             <tr>
-                <td colspan="10" align="right"><b>CARTERA CORRIENTE</b></td>
+                <td colspan="11" align="right"><b>CARTERA CORRIENTE</b></td>
                 <td><?php echo $sumc; ?></td>
             </tr>
 
 
             <tr>
-                <td colspan="10" align="right"><b>CARTERA 30</b></td>
+                <td colspan="11" align="right"><b>CARTERA 30</b></td>
                 <td><?php echo $sum30; ?></td>
             </tr>
 
 
             <tr>
-                <td colspan="10" align="right"><b>CARTERA 6O</b></td>
+                <td colspan="11" align="right"><b>CARTERA 6O</b></td>
                 <td><?php echo $sum60; ?></td>
             </tr>
 
             <tr>
-                <td colspan="10" align="right"><b>CARTERA 9O</b></td>
+                <td colspan="11" align="right"><b>CARTERA 9O</b></td>
                 <td><?php echo $sum90; ?></td>
             </tr>  
 
             <tr>
-                <td colspan="10" align="right"><b>CARTERA 12O</b></td>
+                <td colspan="11" align="right"><b>CARTERA 12O</b></td>
                 <td><?php echo $sum120; ?></td>
             </tr> 
             <tr>
-                <td colspan="10" align="right"><b>TOTAL VENCIDO</b></td>
+                <td colspan="11" align="right"><b>TOTAL VENCIDO</b></td>
                 <td><?php echo $sumtv; ?></td>
             </tr>
             </table>
