@@ -113,6 +113,18 @@ array('label'=>'Volver','url'=>'index'),
 <h1><?php //echo Yii::t('app','Highcharts').' Column DrillDown'; ?></h1>
  
 <?php
+ //print "<pre>";
+//    
+////    var_export ($paso);
+ //   var_export ($dataCategories);
+  //  var_export ($dataSeries);
+//    var_export ($maxPaso);
+//    var_export ($minPaso);
+////    var_export ($pasosAvailable);
+//    
+//    
+  // print "</pre>";
+   // die();
 
 
 $this->Widget('ext.highcharts.HighchartsWidget', array(
@@ -130,7 +142,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
       'title' => array('text' => 'Pasos y Proyectos'
           ),
       'xAxis' => array(
-         'categories' => $dataSeries
+         'categories' =>$dataSeries
       ),
 
 
@@ -203,7 +215,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
       'title' => array('text' => 'Cantidad'
           ),
       'xAxis' => array(
-         'categories' => $dataSeries2
+         'categories' =>$dataSeries2
       ),
 
 

@@ -6,11 +6,7 @@ $this->breadcrumbs=array(
 	'Tableros Operativos'=>array('index'),
 	'Gestion',
 );
-
-
 ?>
-        
-
 <h1>Tablero de Gesti&oacute;n</h1>
  
 
@@ -65,7 +61,6 @@ $this->breadcrumbs=array(
                       'options' => array(
                         'placeholder' => "COBRADOR",
                         'allowClear'=>true,
-                    /*    'minimumInputLength'=>2,*/
                       ),
                       'htmlOptions'=>array(
                         'style'=>'width:380px',
@@ -82,27 +77,7 @@ $this->breadcrumbs=array(
     ?>
     <?php 
  echo CHtml::link('Ver todos los Proyectos',array('/tableros/createanillos/'));
-/*
-  $this->widget('booster.widgets.TbButton', array(
-    'label'=>'Actualizar',
-    'buttonType'=>'primary',
-    'icon'=>'repeat white',
-    'htmlOptions'=>array(
-      'id'=>'update-grid-button',
-      'class'=>'pull-right',
-    )
-  )); 
-  
-      $this->widget('booster.widgets.TbButton',array(
-    'label'=>'Actualizar',
-    'buttonType'=>'success',
-    'icon'=>'repeat white',
-     'htmlOptions' => array(
-       //  'id'=>'update-grid-button',
-         'class'=>'pull-right',
-      //   'submit'=>Yii::app()->createUrl('tableros/createanillos')),
-            'url'=>Yii::app()->createUrl('tableros/createanillos')),
-    ));*/
+
   ?>
 </div>
 

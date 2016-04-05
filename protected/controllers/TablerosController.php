@@ -83,7 +83,12 @@ public function actionCreateAnillos()
     $model =new Tableros;
     $proyecto="";
     $totalsi="";
-  
+
+    $totalsi=  Yii::app()->db->createCommand()
+        ->select('COUNT(contactado_llamada)')
+        ->from('gestion')
+        //->where('fecha_acuerdo BETWEEN '. "'".$fecha_inicio."'".' and '. "'". $fecha_fin."'")
+    ->queryScalar(); 
     if(isset($_POST['Tableros'])){
        //var_dump($_POST['Tableros']);die;
     
@@ -108,7 +113,8 @@ public function actionCreateAnillos()
                     $totalsi=  Yii::app()->db->createCommand()
                     ->select('COUNT(contactado_llamada)')
                     ->from('gestion')
-                    ->where('id_crm_proyecto='."'".$proyecto."'".' OR id_usuario = '.$usuario.''
+                    ->where('id_crm_proyecto='."'".$proyecto."'"
+                            .' OR id_usuario = '.$usuario.''
                             . ' and '
                             . 'fecha_acuerdo BETWEEN '. "'".$fecha_inicio."'".' and '. "'". $fecha_fin."'")
                     ->queryScalar();
@@ -1374,6 +1380,7 @@ array_push($totalpaso2, $key['totalpaso']);
 public function actionCreateTramitesTwo()
 {
    
+    //Definicion de Variables
     $model =new Tableros;
     $proyecto="";
     $totalsi="";
@@ -1387,34 +1394,31 @@ public function actionCreateTramitesTwo()
     $dataSeries2 = array();
     $dataCategories2 = array();  
 
-    //Query donde obtengo los datos nec esarios medmiante un query
+    //Query donde obtengo los datos necesarios para armar el Tablero
     $paso = Yii::app()->db->createCommand()
     ->select('t.id_pasos, 
             pa.descripcion, pa.abrev,
-            p.comentario, c.id_proyecto, 
+            c.id_proyecto, c.proyecto as comentario,
             SUM(c.monto_liquidacion) as total,
-            COUNT(DISTINCT c.id_proyecto) as crmproyecto, 
-            COUNT(DISTINCT t.id_pasos) as totalpaso')
+            COUNT(t.id_proyecto) as crmproyecto, 
+            COUNT(t.id_pasos) as totalpaso')
     ->from('tramite t')
-    ->join('paso pa', 'pa.id_paso = t.id_pasos and t.id_pasos!=11 AND t.fecha_fin IS NULL AND t.id_pasos!=0')
-    ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs')            
-    ->join('proyecto p', 'p.id_crm_proyecto = c.id_proyecto GROUP BY 
-            t.id_pasos,  p.comentario,  c.id_proyecto, pa.descripcion, pa.abrev
+    ->join('paso pa', 'pa.id_paso = t.id_pasos and inicio=1  and t.id_pasos!=11 AND t.fecha_fin IS NULL AND t.id_pasos!=0')
+    ->join('cliente c', 'c.id_cliente_gs = t.id_cliente_gs AND c.id_proyecto = t.id_proyecto GROUP BY 
+            t.id_pasos,  comentario,  c.id_proyecto, pa.descripcion, pa.abrev
             order by t.id_pasos')      
     ->queryAll(true);
    
-    
+
     /** Obtengo mis pasos*/
 
     //$pasosAvailable = Paso::model()->FindAll(array('order'=>'id_paso'));
 
-    $pasosAvailable  = Paso::model()->findAll('id_paso > 0 AND id_paso < 11 order by id_paso');
+    $pasosAvailable  = Paso::model()->findAll('id_paso >= 0 AND id_paso < 12 order by id_paso');
 
      //Obtengo el Maximo y el Minimo
     $maxPaso = Yii::app()->db->createCommand()->select('max(id_paso) as maxIdPasos')->from('paso')->queryScalar();
-    $minPaso = Yii::app()->db->createCommand()->select('min(id_paso) as maxIdPasos')->from('paso')->queryScalar();
-
-
+    $minPaso = Yii::app()->db->createCommand()->select('min(id_paso) as minIdPasos')->from('paso')->queryScalar();
 
    /* Extrayendo los nombres de las series*/
    foreach ($pasosAvailable as $thisPaso){
@@ -1429,8 +1433,8 @@ public function actionCreateTramitesTwo()
     foreach ($paso as $thisPaso){
         
         if (!isset($dataCategories[$thisPaso["comentario"]])) {
-            $dataCategories[$thisPaso["comentario"]] = array_fill($minPaso, 10, null);
-            $dataCategories2[$thisPaso["comentario"]] = array_fill($minPaso, 10, null);
+            $dataCategories[$thisPaso["comentario"]] = array_fill($minPaso, $maxPaso+1, null);
+            $dataCategories2[$thisPaso["comentario"]] = array_fill($minPaso, $maxPaso+1, null);
         }
         
         $dataCategories[$thisPaso["comentario"]][$thisPaso["id_pasos"]] = $thisPaso["totalpaso"];
