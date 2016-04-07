@@ -83,40 +83,41 @@ public function actionCreateAnillos()
     $model =new Tableros;
     $proyecto="";
     $totalsi="";
-
-    $totalsi=  Yii::app()->db->createCommand()
+$query="";
+    $totalsit=  Yii::app()->db->createCommand()
         ->select('COUNT(contactado_llamada)')
         ->from('gestion')
-        //->where('fecha_acuerdo BETWEEN '. "'".$fecha_inicio."'".' and '. "'". $fecha_fin."'")
-    ->queryScalar(); 
+        ->queryScalar(); 
     if(isset($_POST['Tableros'])){
-       //var_dump($_POST['Tableros']);die;
-    
+      
+               $model->attributes=$_POST['Tableros'];
+              
+               //Variables
                $proyecto = $_POST['Tableros']['id_crm_proyecto'];
                $fecha_inicio = $_POST['Tableros']['fecha_inicio'];
                $fecha_fin = $_POST['Tableros']['fecha_fin'];
                $usuario = $_POST['Tableros']['id_usuario'];
+              // var_dump($usuario);die;
                if($fecha_inicio=="" or $fecha_fin==""){
                           $fecha_inicio='2013-01-01';
                           $fecha_fin='2021-01-01';
                 }
-                if($usuario=="" ){
-                          $usuario=0;
-                         
+                if(($usuario=="") OR ($model->id_usuario=="")){
+                          $usuario=null;
+                          $model->id_usuario=null;  
+                          $usuario=$model->id_usuario;   
+                            $query="OR id_usuario =null)"; 
+
+           //   var_dump($query);die;                                        
+                }else{
+                          $query="( OR id_usuario = '.$usuario.'')";   
                 }
-              //var_dump($fecha_fin);die;
-             $model->attributes=$_POST['Tableros'];
-                 //var_dump(  $model->attributes);die; $proyecto= $model->id_crm_proyecto;
-      
-            
-                   
+
+   
                     $totalsi=  Yii::app()->db->createCommand()
                     ->select('COUNT(contactado_llamada)')
                     ->from('gestion')
-                    ->where('id_crm_proyecto='."'".$proyecto."'"
-                            .' OR id_usuario = '.$usuario.''
-                            . ' and '
-                            . 'fecha_acuerdo BETWEEN '. "'".$fecha_inicio."'".' and '. "'". $fecha_fin."'")
+                    ->where('(id_crm_proyecto='."'".$proyecto."'".' '.$query.' and fecha_acuerdo BETWEEN '. "'".$fecha_inicio."'".' and '. "'". $fecha_fin."'")
                     ->queryScalar();
                       
 
@@ -130,6 +131,7 @@ public function actionCreateAnillos()
         'model'=>$model,
         'proyecto'=>$proyecto,
         'totalsi'=>$totalsi,
+        'totalsit'=>$totalsit,
         
     ));
     

@@ -6,10 +6,6 @@
 <div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto">
 
 <?php
-
-
-$this->pageTitle=Yii::app()->name . ' - '.Yii::t('app','Highcharts');
-?><?php
     $this->Widget('ext.highcharts.HighchartsWidget', array(
     'options' =>array(
         'chart'=>array(
@@ -48,8 +44,8 @@ $this->pageTitle=Yii::app()->name . ' - '.Yii::t('app','Highcharts');
             'name'=> 'Browser share',
             'innerSize'=>'50%',
             'data'=>array(
-                 ['Llamadas', $totalsi],
-                 ['Correos', 0],
+                 array('Llamadas', $totalsi),
+                 array('Correos', 0),
               /*  array('Firefox',   10.38),
                 array('IE',       56.33),
                 array('Chrome', 24.03),

@@ -1,63 +1,9 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
-
-<script>
-var pArray= <?php echo json_encode($proyecto); ?>;
-var countsiArray= <?php echo json_encode($totalsi); ?>;
-//alert (countsiArray);
-</script>
-
-<div id="containertablero" style="min-width: 855px; height: 400px;margin: 0 auto"></div>
-
-<script>
-
-    $this->Widget('ext.highcharts.HighchartsWidget', array(
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
-        title: {
-            text: 'GESTION DE COBROS<br>',
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 50
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>Llamadas {point.y}</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: false,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: pArray,
-            innerSize: '50%',
-            data: [
-            ['Llamadas', countsiArray],
-            ['Correos', 0],
-         
-                
-            ]
-        }]
-    });
-);
-
-</script>
-
+<?php var_dump($totalsi);
+//die;
+?>
+<div id="containertablero2" style="min-width: 855px; height: 400px;margin: 0 auto">
 
 <?php
     $this->Widget('ext.highcharts.HighchartsWidget', array(
@@ -68,7 +14,7 @@ var countsiArray= <?php echo json_encode($totalsi); ?>;
             'plotShadow'=> false
         ),
         'title'=>array(
-            'text'=> 'Browser<br>shares<br>2015',
+            'text'=> 'GESTION </br>DE </br>COBROS</br>',
             'align'=> 'center',
             'verticalAlign'=> 'middle',
             'y'=> 40
@@ -98,12 +44,11 @@ var countsiArray= <?php echo json_encode($totalsi); ?>;
             'name'=> 'Browser share',
             'innerSize'=>'50%',
             'data'=>array(
-                array('Firefox',   10.38),
-                array('IE',       56.33),
-                array('Chrome', 24.03),
-                array('Safari',    4.77),
-                array('Opera',     0.91),
-               /* array(
+                 'data'=>array(
+                  array('hgh', $totalsi),
+                  array('Correos', 0),
+                   array('Correos', 30),
+                  /*(
                     'name'=>'Proprietary or Undetectable',
                     'y'=>0.2,
                     'dataLabels'=> array(
@@ -114,7 +59,7 @@ var countsiArray= <?php echo json_encode($totalsi); ?>;
         )
     )
 )
-)
+))
     );
 
 
