@@ -310,17 +310,17 @@ public function actionRetiro(){
 
 public function actionPerfilcliente($id){
     
-    $var=true;
+    
     $gestion = new Gestion();
-    $gestionseguimiento = new GestionSeguimiento();
-
-    $gestionseguimiento->unsetAttributes();  // clear any default values
-    if(isset($_GET['GestionSeguimiento'])){
+  
+   // $gestionseguimiento->unsetAttributes();  // clear any default values
+   /* if(isset($_GET['GestionSeguimiento'])){
         $gestionseguimiento->attributes=$_GET['GestionSeguimiento'];
-        $var=true;
+      //  $var=true;
 
-    }
+    }*/
     $model = new Tramite();
+    $gestionseguimiento = new GestionSeguimiento();
     //Datos del Cliente
     $cliente = Cliente::model()->find('id_cliente=:id_cliente',
                                array(':id_cliente'=>$id));
@@ -329,13 +329,20 @@ public function actionPerfilcliente($id){
     $gestion_old = Gestion::model()->findAll('id_cliente=:id_cliente',
                               array(':id_cliente'=>$id)); 
 
+   //Buscamos las ultimas Gestiones Realizadas
+    $gestion = Gestion::model()->find('id_cliente=:id_cliente',
+                              array(':id_cliente'=>$id)); 
+    $id_gestion=$gestion->id_gestion;
     //Buscamos para si existe algun tramite
     $tramite = Tramite::model()->find('id_cliente_gs=:id_cliente_gs',
                       array(':id_cliente_gs'=>$cliente->id_cliente_gs)); 
 
+    //Buscamos para si existe algun tramite
+    /*$gestionseguimiento = GestionSeguimiento::model()->findAll('id_gestion=:id_gestion', array(':id_gestion'=>$gestion->id_gestion));
+    //var_dump($gestionseguimiento);die;
    // $id_gestion = $gestion_old->id_gestion;
 
-
+*/
 
     if(empty($tramite)){
     $tramite="";    
@@ -362,7 +369,7 @@ public function actionPerfilcliente($id){
                           'tramite'=>$tramite,
                           'model'=>$model,
                           'gestionseguimiento'=>$gestionseguimiento,
-                          'var'=>$var,
+                          'id_gestion'=>$id_gestion,
                         //  'id_gestion'=>$id_gestion
 
 ));

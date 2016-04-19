@@ -76,14 +76,15 @@ class GestionSeguimiento extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function seguimientogestion($id)
+	public function seguimientogestion($id_gestion)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id_gestion_seguimiento',$this->id_gestion_seguimiento);
-		$criteria->compare('id_gestion',$id);
+		//$criteria->compare('agente_tramite',$nombretramitador);
+		$criteria->compare('id_gestion',$id_gestion);
 		$criteria->compare('fecha_gestion_seguimiento',$this->fecha_gestion_seguimiento,true);
 		$criteria->compare('observaciones',$this->observaciones,true);
 

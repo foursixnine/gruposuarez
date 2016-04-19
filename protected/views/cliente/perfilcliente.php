@@ -63,7 +63,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
                                                array('cliente' => $cliente,
                                                     'gestion_old'=>$gestion_old,
                                                     'gestionseguimiento'=>$gestionseguimiento,
-                                                    'var'=>$var,
+                                                    'id_gestion'=>$id_gestion,
                                                 //     'id_gestion'=>$id_gestion
                                                                         ),true),
         ), 
