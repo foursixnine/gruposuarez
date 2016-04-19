@@ -76,6 +76,21 @@ class GestionSeguimiento extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
+	public function seguimientogestion($id)
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id_gestion_seguimiento',$this->id_gestion_seguimiento);
+		$criteria->compare('id_gestion',$id);
+		$criteria->compare('fecha_gestion_seguimiento',$this->fecha_gestion_seguimiento,true);
+		$criteria->compare('observaciones',$this->observaciones,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -91,7 +106,6 @@ class GestionSeguimiento extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

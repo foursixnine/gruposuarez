@@ -16,7 +16,13 @@ $this->menu=array(
 <script>
 
 $(function(){
-  $('#demo').on('hide.bs.collapse', function () {
+
+
+
+
+
+  $('#tab1').on('hide.bs.collapse', function () {
+    alert("h");
     $('#button').html('<span class="glyphicon glyphicon-collapse-down"></span> Show');
   })
   $('#demo').on('show.bs.collapse', function () {
@@ -27,11 +33,14 @@ $(function(){
 
 <br/>
 <?php
-
+//var_dump($var);die;
 $this->widget('bootstrap.widgets.TbTabs', array(
+  'type' => 'pills', // 'tabs' or 'pills'
+        'justified' => true,
+        //  'stacked' => true,
     'tabs'=>array(
         array(
-            'id'=>'tab1',
+         //   'id'=>'tab1',
             'active'=>true,
             'justified' => true,
             //'itemOptions' => array('class' => ' <span </span>'),
@@ -39,29 +48,34 @@ $this->widget('bootstrap.widgets.TbTabs', array(
             'content'=>$this->renderPartial("_datosgenerales", array('cliente' => $cliente),true),               
         ),
         array(
-            'id'=>'tab2',
+          //  'id'=>'tab2',
             'active'=>false,
             'justified' => true,
             'label'=>'DATOS CONTACTO',
             'content'=>$this->renderPartial("_datoscontacto", array('cliente' => $cliente),true),
         ),
         array(
-            'id'=>'tab3',
+          //  'id'=>'tab3',
             'active'=>false,
             'justified' => true,
             'label'=>'ULTIMA GESTION',
-                 'content'=>$this->renderPartial("_datosgestion", array('cliente' => $cliente,
-                                                                        'gestion_old'=>$gestion_old,),true),
+                 'content'=>$this->renderPartial("_datosgestion", 
+                                               array('cliente' => $cliente,
+                                                    'gestion_old'=>$gestion_old,
+                                                    'gestionseguimiento'=>$gestionseguimiento,
+                                                    'var'=>$var,
+                                                //     'id_gestion'=>$id_gestion
+                                                                        ),true),
         ), 
         array(
-            'id'=>'tab4',
+         //   'id'=>'tab4',
             'active'=>false,
             'justified' => true,
             'label'=>'COBROS',
                  'content'=>$this->renderPartial("_datoscobros", array('cliente' => $cliente),true),
         ),        
         array(
-            'id'=>'tab5',
+           // 'id'=>'tab5',
             'active'=>false,
             'justified' => true,
             'label'=>'TRAMITES',
@@ -70,6 +84,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
                                            'tramite' => $tramite,
                                            'model'=>$model,
         ),true),
+
 
         ),   
     ),

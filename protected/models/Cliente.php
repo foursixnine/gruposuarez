@@ -518,6 +518,44 @@ class Cliente extends CActiveRecord
 
         return $data;
 	}
+
+	  //Busca solo los Clientes asignados a un Tramitador en particular
+    public function clientesretirados()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+               
+		$criteria=new CDbCriteria;
+      
+        $criteria->condition = 'status_plan_pago =  '."'RETIRO'".'';
+		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
+		$criteria->compare('agente_tramite',$this->agente_tramite,true);
+		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);
+		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('apellido',$this->apellido,true);
+		$criteria->compare('status',$this->status,true);
+		$criteria->compare('proyecto',$this->proyecto,true);
+		$criteria->compare('observacion_tramite',$this->observacion_tramite,true);
+		$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
+		$criteria->compare('confeccion_protocolo',$this->confeccion_protocolo,true);
+		$criteria->compare('pazysalvo',$this->pazysalvo,true);
+		$criteria->compare('id_cliente',$this->id_cliente,true);
+		$criteria->compare('id_proyecto',$this->id_proyecto,true);
+		
+		//	$criteria->compare('upper(t.numero_de_lote)',strtoupper($this->numero_de_lote),true);
+
+
+		$criteria->order = 'proyecto, numero_de_lote DESC';
+                $criteria->limit = 30;
+                $criteria->offset = 0;
+                return new CActiveDataProvider($this, array(
+                                'criteria'=> $criteria,     
+                                'pagination' => array('pageSize' => 5),
+
+                'totalItemCount'=>'50',
+                 
+      
+        ));
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

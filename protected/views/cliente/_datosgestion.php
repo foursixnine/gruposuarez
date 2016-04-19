@@ -37,6 +37,41 @@
         ?>  
     </div>
     </div>
+
+      <?php $this->widget('booster.widgets.TbGridView',array(
+          'id'=>'gestion-seguimiento-grid',
+          'dataProvider'=>$gestionseguimiento->seguimientogestion(86),
+        //  'filter'=>$gestionseguimiento,
+          'columns'=>array(
+              'id_gestion',
+            //   id_gestion
+              'fecha_gestion_seguimiento',
+              'observaciones',
+         
+      ),
+      )); 
+
+   /*   $this->widget(
+'bootstrap.widgets.TbDetailView',
+array(
+'type'=>'bordered condensed',
+'data' => array(
+'id' =>array('view', 'id'=>$gestionseguimiento->id_gestion_seguimiento),
+'Shop Name' => $gestionseguimiento->observaciones,
+'Category' => $gestionseguimiento->fecha_gestion_seguimiento,
+),
+'attributes' => array(
+array('name' => 'Shop Name', 'label' => 'Shop name'),
+array('name' => 'Category', 'label' => 'Category'),
+array('label' => 'ID', 'value' => CHtml::link(CHtml::encode($gestionseguimiento->id_gestion_seguimiento), 
+  array('view', 'id'=>$gestionseguimiento->id_gestion_seguimiento))),
+),
+)
+);*/
+
+?>
 </div>
+
+<?php $var=false;?>
 
 

@@ -27,11 +27,11 @@ class GestionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','gestioncobros','toggle','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto'),
+				'actions'=>array('index','view','gestioncobros','toggle','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto','clientesretirados'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gestioncobros','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto'),
+				'actions'=>array('create','update','gestioncobros','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto','clientesretirados'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -382,7 +382,17 @@ public function actionCreate($id){
         );
 
 	}
-	
+	public function actionClientesRetirados(){
+    $clientesretirados = new Cliente ('clientesretirados');
+    $clientesretirados->unsetAttributes();  // clear any default values
+  
+    if(isset($_GET['Cliente'])){
+			$clientesretirados->attributes=$_GET['Cliente'];
+        }
+    $this->render('clientesretirados',array(
+     'clientesretirados'=>$clientesretirados,
+	));
+	}
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

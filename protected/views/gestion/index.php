@@ -7,6 +7,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 array('label'=>'Listar Gestion','url'=>array('admin')),
 array('label'=>'Detalle de Cliente','url'=>array('cliente/detalle')),
+array('label'=>'Detalle de Clientes Retirados','url'=>array('gestion/clientesretirados')),
 array('label'=>'Reporte de Cobros','url'=>array('gestion/indexreportes')),
 );
 
@@ -22,7 +23,7 @@ array('label'=>'Reporte de Cobros','url'=>array('gestion/indexreportes')),
     <a href="<?php echo Yii::app()->createUrl('cliente/detalle'); ?>">
   
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/gestioncobros.png' ?> " />
-        <button type="button" class="btn btn-warning">INICIAR GESTION DE COBROS</button>
+        <button type="button" class="btn btn-warning">INICIAR GESTION DE ALQUILERES</button>
      
     </a>      
     <!-- Tramites -->

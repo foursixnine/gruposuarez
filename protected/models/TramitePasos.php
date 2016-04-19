@@ -51,6 +51,8 @@ class TramitePasos extends CActiveRecord
 	 */
 
 	public $fecha_paso_range_pasos = '';
+	public $date_first; //Agregar esta variable
+    public $date_last; //Agregar esta variable
 
 	public function rules()
 	{
@@ -61,7 +63,7 @@ class TramitePasos extends CActiveRecord
 			array('fecha_actualizacion, fecha_pazysalvo, fecha_inicio, fecha_paso_range_pasos, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('fecha_actualizacion, id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, fecha_paso_range_pasos, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe', 'on'=>'search'),
+			array('date_first, date_last,fecha_actualizacion, id_tramite_pasos, id_tramite, id_cliente_gs, fecha_pazysalvo, id_expediente_fisico, id_usuario, fecha_inicio, id_razones_estado, id_estado, id_paso, fecha_paso, fecha_paso_range_pasos, id_banco, id_responsable_ejecucion, id_tipo_responsable, firma_cliente, firma_promotora, fecha_solicitud, fecha_recibido, id_crm_proyecto', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -138,7 +140,18 @@ class TramitePasos extends CActiveRecord
         }
         return false;
     }	
-
+    public static $dateRangePickerOptions = array(
+                'locale'=>array(
+                                'firstDay'=>1,
+                                'applyLabel'=>'Aceptar',
+                                'cancelLabel'=>'Cancelar',
+                                'fromLabel'=>'Desde',
+                                'toLabel'=>'Hasta',
+                        ),
+                'showDropdowns'=>true,
+                'format'=>'YYYY-MM-DD',
+                'autoclose'=> true,
+        );
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -169,15 +182,22 @@ class TramitePasos extends CActiveRecord
    
         if ($dateRange) {
             list($startDate, $endDate) = $dateRange;
-            print_r(date('Y-m-d', $endDate));
+            //print_r(date('Y-m-d', $endDate));
         	
 			$criteria->addBetweenCondition('fecha_inicio', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
         } else {
         	die;
         }
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+	    $data = new CActiveDataProvider(get_class($this), array(
+                                'criteria'=> $criteria,     
+                                'pagination' => array('pageSize' =>10000),
+
+                'totalItemCount'=>'5000',   ));
+        $_SESSION['TramitePasos']=$data; // get all data and filtered data :)
+
+    
+        return $data;
+
 	}
 
         public function tramitesanteriores($id)
@@ -247,21 +267,20 @@ class TramitePasos extends CActiveRecord
 
 	public function reporteexcel()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+
 		$criteria=new CDbCriteria;
-	//	$criteria->with = array('tramite');
-        $criteria->condition = 'id_cliente_gs >=1507 and id_expediente_fisico=3';
+
 		$criteria->compare('id_tramite_pasos',$this->id_tramite_pasos);
 		$criteria->compare('id_tramite',$this->id_tramite);
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('fecha_pazysalvo',$this->fecha_pazysalvo,true);
 		$criteria->compare('id_expediente_fisico',$this->id_expediente_fisico);
 		$criteria->compare('id_usuario',$this->id_usuario);
-	//	$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
+		//$criteria->compare('fecha_inicio',$this->fecha_inicio,true);
 		$criteria->compare('id_razones_estado',$this->id_razones_estado);
 		$criteria->compare('id_estado',$this->id_estado);
 		$criteria->compare('id_paso',$this->id_paso);
-		//$criteria->compare('fecha_paso',$this->fecha_paso,true);
+		$criteria->compare('fecha_paso',$this->fecha_paso,true);
 		$criteria->compare('id_banco',$this->id_banco);
 		$criteria->compare('id_responsable_ejecucion',$this->id_responsable_ejecucion);
 		$criteria->compare('id_tipo_responsable',$this->id_tipo_responsable);
@@ -271,26 +290,24 @@ class TramitePasos extends CActiveRecord
 		$criteria->compare('fecha_recibido',$this->fecha_recibido,true);
 		$criteria->compare('id_crm_proyecto',$this->id_crm_proyecto,true);
 
-		$dateRange = self::parseDateRange($this->fecha_paso_range_pasos, true);
-  
+        $dateRange = self::parseDateRange($this->fecha_paso_range_pasos, true);
+   
         if ($dateRange) {
             list($startDate, $endDate) = $dateRange;
-           
+            //print_r(date('Y-m-d', $endDate));
+        	
 			$criteria->addBetweenCondition('fecha_inicio', date('Y-m-d', $startDate), date('Y-m-d', $endDate));        
-        } 
-        
-   		$data = new CActiveDataProvider(get_class($this), array(
+        }
+	    $data = new CActiveDataProvider(get_class($this), array(
                                 'criteria'=> $criteria,     
                                 'pagination' => array('pageSize' =>10000),
 
                 'totalItemCount'=>'5000',   ));
         $_SESSION['TramitePasos']=$data; // get all data and filtered data :)
 
-    
+    //var_dump($data);
         return $data;
-
-    
-
+		
 	}
 
 	/**

@@ -978,13 +978,17 @@ public function actionDetalleLiquidacion($id)
 
     
     $issueDataProvider = $_SESSION['TramitePasos'];
-    $cliente = new Cliente();
+//$data=array();
+//var_dump("hola");
+//var_dump($issueDataProvider);
+
+  /*  $cliente = new Cliente();
     $i = 0;
       // var_dump($chat_mostrar);die;
     $tramite = Tramite::model()->findall();  
-        $i++;
+        $i++;*/
         
-        foreach($issueDataProvider->getData(true) as $queryData)
+     /*   foreach($issueDataProvider->getData(true) as $queryData)
         {          
               $data[$i]['nombre_de_empresa'] = $queryData->idClienteGs->nombre_de_empresa;
               $data[$i]['proyecto'] = $queryData->idClienteGs->proyecto;
@@ -1018,12 +1022,12 @@ public function actionDetalleLiquidacion($id)
 
             $i++;
         }
-
+*/
 
       Yii::app()->request->sendFile('ReportePasosaPaso.xls',
                                 $this->renderPartial('excelreporte',array(
-                                    'data'=>$data,
-                                    'tramite'=>$tramite
+                       //             'data'=>$data,
+                                    'issueDataProvider'=>$issueDataProvider
                                 ),true)        
         );
 
@@ -1033,6 +1037,7 @@ public function actionDetalleLiquidacion($id)
   public function actionReporte()
   {
 
+  
     $model = new TramitePasos();
 
     $var_post = Yii::app()->getRequest()->getParam('TramitePasos');
@@ -1041,24 +1046,24 @@ public function actionDetalleLiquidacion($id)
         }
 
         $provider = $model->reporteexcel();
-        $count = $provider->getItemCount();
+    /*    $count = $provider->getItemCount();
             $minimo =  Yii::app()->db->createCommand()
             ->select('MIN(fecha_inicio)')
-            ->from('tramite_pasos')
-            ->where('id_paso!=11')
+            ->from('tramite')
+            ->where('id_pasos!=11')
             ->queryScalar();
 
             $maximo =  Yii::app()->db->createCommand()
             ->select('MAX(fecha_inicio)')
-            ->from('tramite_pasos')
-            ->where('id_paso!=11')
+            ->from('tramite')
+            ->where('id_pasos!=11')
             ->queryScalar();
-       
+       */
         $this->render('reporte', array(
             'model' => $model,
-            'count' => $count,
+         /*   'count' => $count,
             'minimo' => $minimo,
-            'maximo' => $maximo,
+            'maximo' => $maximo,*/
         ));
 
   }

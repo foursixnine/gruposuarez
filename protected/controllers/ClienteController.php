@@ -310,13 +310,18 @@ public function actionRetiro(){
 
 public function actionPerfilcliente($id){
     
-   
+    $var=true;
     $gestion = new Gestion();
+    $gestionseguimiento = new GestionSeguimiento();
 
+    $gestionseguimiento->unsetAttributes();  // clear any default values
+    if(isset($_GET['GestionSeguimiento'])){
+        $gestionseguimiento->attributes=$_GET['GestionSeguimiento'];
+        $var=true;
 
- //   $model->unsetAttributes();  // clear any default values
-    
-
+    }
+    $model = new Tramite();
+    //Datos del Cliente
     $cliente = Cliente::model()->find('id_cliente=:id_cliente',
                                array(':id_cliente'=>$id));
   
@@ -327,16 +332,18 @@ public function actionPerfilcliente($id){
     //Buscamos para si existe algun tramite
     $tramite = Tramite::model()->find('id_cliente_gs=:id_cliente_gs',
                       array(':id_cliente_gs'=>$cliente->id_cliente_gs)); 
-//var_dump("Aqui-->". $tramite->id_expediente_fisico);die;
 
-    $model = new Tramite();
+   // $id_gestion = $gestion_old->id_gestion;
+
+
 
     if(empty($tramite)){
     $tramite="";    
     }
-     
+   
     if(isset($_POST['Tramite']))
     {
+        $var=false;
         $model->attributes=$_POST['Tramite'];
        //  print_r($_POST['Tramite']);die;
         $tramiteupdate = Tramite::model()->updateAll(array( 
@@ -354,6 +361,9 @@ public function actionPerfilcliente($id){
                           'gestion_old'=>$gestion_old,
                           'tramite'=>$tramite,
                           'model'=>$model,
+                          'gestionseguimiento'=>$gestionseguimiento,
+                          'var'=>$var,
+                        //  'id_gestion'=>$id_gestion
 
 ));
     

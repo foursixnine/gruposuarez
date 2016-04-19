@@ -29,47 +29,31 @@ return false;
 <br/><br/>
 
 <button type="button" class="btn btn-warning">RANGOS DE FECHAS</button>
-<?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'type' => 'horizontal',
-));
 
-$this->widget('bootstrap.widgets.TbDateRangePicker', array(
-    'model' => $model,
-    'attribute' => 'fecha_paso_range_pasos',
-    'options' => array(
-        'format' => 'YYYY-MM-DD',
-    ),
-));
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'buttonType' => 'submit',
-    'label' => 'Ir'
-));
-
-$this->endWidget();
-?>
-<div class="row">
-    <div class="span12">
-        <p>
-            Filas seleccionadas: <strong><?php echo $count; ?></strong>
-        </p>
-        <div class="alert alert-info">
-            Resultados de los tramites entre las fechas <strong><?php echo $minimo; ?></strong> a <strong><?php echo $maximo; ?></strong>
-        </div>
-    </div>
-</div>
 
 <br/>
 <br/><br/>
-<button type="button" class="btn btn-warning">REPORTE PASO A PASO </button>
+<button type="button" class="btn btn-warning">REPORTE PASO A PASO</button>
 
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'tramite-pasos-grid',
 'dataProvider'=>$model->reporteexcel(),
 'filter'=>$model,
 'columns'=>array(
-
+        array('name'=>'fecha_paso_range_pasos',
+        'header'=>'Fecha Entrada',
+        'type'=>'raw',
+        'value'=>'date("Y-m-d", strtotime($data->fecha_inicio))',
+        'filter'=>$this->widget('booster.widgets.TbDateRangePicker',array(
+                                'model'=>$model,
+                                'attribute'=>'fecha_paso_range_pasos',
+                          /*      'htmlOptions'=>array('id'=>'dateRangePicker_'.$model->id_tramite_pasos,
+                                                'class'=>'form-control date-filter'
+                                ),*/
+                                'options'=>TramitePasos::$dateRangePickerOptions,
+                                ),
+                        true).
+                '</div>'),
 		array(
                     'name'=>'id_crm_proyecto',
                     'header'=>'Proyecto',
@@ -91,9 +75,6 @@ $this->endWidget();
                     'filter'=>CHtml::listData(Banco::model()->findAll(), 'id_banco', 'descripcion'),
          ), 
 		'idTramite.num_escritura',	
-		'idTramite.num_finca_inscrita',
-		'idTramite.transferencia_inmueble',
-		'idTramite.num_permiso_ocupacion',
 		'idTramite.num_formulario',	
 		array(
 			'name'=>'id_paso',
@@ -107,6 +88,13 @@ $this->endWidget();
                     'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
                     'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
          ),
+      /*      array(
+ 'name'=>'fecha_inicio',
+ 'filter'=>$nose,
+ 'value'=>'$data->fecha_inicio'
+ ),*/
+
+
 				
 ),
 )); 

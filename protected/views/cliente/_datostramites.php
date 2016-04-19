@@ -26,6 +26,7 @@ return false;
 });
 ");
 ?>
+
 <?php echo $form->errorSummary($model); ?>
  <?php
    
@@ -188,3 +189,4 @@ $this->widget(
 </div>
 
 <?php $this->endWidget(); ?>
+
