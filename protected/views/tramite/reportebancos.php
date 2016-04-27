@@ -32,8 +32,8 @@ if($reportebancos!==null){
                 <th>Nº de Paso</th> 
                 <th>Nombre del Paso</th> 
                 <th>Cantidad Total de Tramites</th>
-                <th>Monto de Liquidacion</th>  
-                <th>Monto de Precio de Venta</th> 
+                <th>Monto de Liquidacion ($)</th>  
+                <th>Monto de Precio de Venta ($)</th> 
     </tr>
     
     <?php foreach ($reportebancos as $value) {
@@ -44,8 +44,8 @@ if($reportebancos!==null){
                 <td><?php echo $value['abrev'];?>
                 <td><?php echo $value['nompaso'];?></td> 
                 <td><?php echo $value['totalpaso'];?></td> 
-                <td>$<?php echo $value['montoliquidacion']; ?></td>
-                <td>$<?php echo $value['totalventa']; ?></td>
+                <td><?php echo $value['montoliquidacion']; ?></td>
+                <td><?php echo $value['totalventa']; ?></td>
             </tr>
             
     <?php } ?>  

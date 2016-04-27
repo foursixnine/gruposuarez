@@ -13,9 +13,9 @@ public $layout='//layouts/column2';
 */
 public function filters()
 {
-return array(
-'accessControl', // perform access control for CRUD operations
-);
+    return array(
+       'accessControl', // perform access control for CRUD operations
+    );
 }
 
 /**
@@ -332,7 +332,13 @@ public function actionPerfilcliente($id){
    //Buscamos las ultimas Gestiones Realizadas
     $gestion = Gestion::model()->find('id_cliente=:id_cliente',
                               array(':id_cliente'=>$id)); 
-    $id_gestion=$gestion->id_gestion;
+    if(empty($gestion)){
+    $gestion=null;    
+   // var_dump("d");die;
+    }else{
+        $id_gestion=$gestion->id_gestion;
+    }
+    
     //Buscamos para si existe algun tramite
     $tramite = Tramite::model()->find('id_cliente_gs=:id_cliente_gs',
                       array(':id_cliente_gs'=>$cliente->id_cliente_gs)); 
@@ -344,6 +350,10 @@ public function actionPerfilcliente($id){
 
 */
 
+    if(empty($id_gestion)){
+    $id_gestion="";    
+    }    
+    
     if(empty($tramite)){
     $tramite="";    
     }
@@ -370,7 +380,7 @@ public function actionPerfilcliente($id){
                           'model'=>$model,
                           'gestionseguimiento'=>$gestionseguimiento,
                           'id_gestion'=>$id_gestion,
-                        //  'id_gestion'=>$id_gestion
+                          'gestion'=>$gestion,
 
 ));
     

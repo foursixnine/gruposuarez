@@ -27,9 +27,7 @@ return false;
 <br/>
 
 <br/><br/>
-
-<button type="button" class="btn btn-warning">RANGOS DE FECHAS</button>
-
+TramitePasos_fecha_paso_range_pasos
 
 <br/>
 <br/><br/>
@@ -39,6 +37,7 @@ return false;
 'id'=>'tramite-pasos-grid',
 'dataProvider'=>$model->reporteexcel(),
 'filter'=>$model,
+//'afterAjaxUpdate' => 'reinstallDatePicker',
 'columns'=>array(
         array('name'=>'fecha_paso_range_pasos',
         'header'=>'Fecha Entrada',
@@ -47,13 +46,18 @@ return false;
         'filter'=>$this->widget('booster.widgets.TbDateRangePicker',array(
                                 'model'=>$model,
                                 'attribute'=>'fecha_paso_range_pasos',
-                          /*      'htmlOptions'=>array('id'=>'dateRangePicker_'.$model->id_tramite_pasos,
+                              //     'attribute'=>'due_date', 
+                             //   'language' => 'ja',
+                              /*  'htmlOptions'=>array(
+                                                //'id'=>'dateRangePicker_'.$model->id_tramite_pasos,
+                                                'id'=>'dateRangePicker_fecha_paso_range_pasos',
                                                 'class'=>'form-control date-filter'
                                 ),*/
                                 'options'=>TramitePasos::$dateRangePickerOptions,
                                 ),
                         true).
                 '</div>'),
+
 		array(
                     'name'=>'id_crm_proyecto',
                     'header'=>'Proyecto',
@@ -98,6 +102,13 @@ return false;
 				
 ),
 )); 
-            
+
+      /*
+Yii::app()->clientScript->registerScript('for-date-picker',"
+function reInstallDatepicker(id, data){
+       $('#dateRangePicker_fecha_paso_range_pasos').datepicker({'dateFormat':'yy-mm-dd'});
+    }
+");
+*/
 ?>
 

@@ -28,12 +28,15 @@ public function accessRules()
         return array(
         array('allow',  // allow all users to perform 'index' and 'view' actions
             'actions'=>array('index','view','pasoanterior','vertramitesliquidados','reporte','excelreporte','reportepasos'),
-            'users'=>array('*'),
+           'users'=>array('*'),
+          //  'roles'=>array('admin','ReportesTramites','Administrador'),
+                // 'roles'=>array('ReportesTramites'),
         ),
         array('allow', // allow authenticated user to perform 'create' and 'update' actions
             'actions'=>array('tramite','update','pasoanterior','detalleliquidacion','vertramitesliquidados','reporte','excelreporte','reportepasos'),
          //   'users'=>array('@'),
              'users'=>array('*'),
+            //'roles'=>array('Administrador'),
         ),
         array('allow', // allow admin user to perform 'admin' and 'delete' actions
             'actions'=>array('admin','delete'),

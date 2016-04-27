@@ -23,13 +23,13 @@ array('label'=>'Reporte de Cobros','url'=>array('gestion/indexreportes')),
     <a href="<?php echo Yii::app()->createUrl('cliente/detalle'); ?>">
   
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/gestioncobros.png' ?> " />
-        <button type="button" class="btn btn-warning">INICIAR GESTION DE ALQUILERES</button>
+        <button type="button" class="btn btn-warning">INICIAR GESTION DE <br/>COBROS</button>
      
     </a>      
     <!-- Tramites -->
     <a href="<?php echo Yii::app()->createUrl('cliente/admin'); ?>">
         <img width="120px" height="120px" src="<?php echo Yii:: app()->baseUrl.'/images/perfil.png' ?> "  />
-        <button type="button" class="btn btn-warning">PERFIL CLIENTE</button>
+        <button type="button" class="btn btn-warning">PERFIL <br/>CLIENTE</button>
             
     </a>
 </div>

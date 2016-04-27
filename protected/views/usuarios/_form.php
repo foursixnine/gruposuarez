@@ -14,14 +14,14 @@
 	<?php echo $form->textFieldGroup($model,'cedula',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
 	<?php //echo $form->textFieldGroup($model,'id_rol',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
-	<?php
+      <?php
                     $this->widget(
                       'booster.widgets.TbSelect2', array(
                       'model' => $model,
                       'attribute' => 'id_rol',
-                      'data' => CHtml::listData(Roles::model()->findAll(), 'id_rol', 'descripcion'),
+                      'data' => CHtml::listData(Roles::model()->findAll(), 'id_rol', 'descrip_roles'),
                       'options' => array(
-                      'placeholder' => "ROLES",
+                      'placeholder' => "PERMISOS",
                        /* 'allowClear'=>true,
                         'minimumInputLength'=>2,*/
                       ),
@@ -29,7 +29,7 @@
                         'style'=>'width:380px',
                       ),
                     ));
-    ?>
+        ?>
 
 	<?php echo $form->textFieldGroup($model,'username',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 

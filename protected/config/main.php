@@ -61,7 +61,7 @@ return array(
                 'bootstrap'=>array(
                     'class'=>'bootstrap.components.Booster',
                     'coreCss' => true,
-                    'responsiveCss' => true, //Esto para que tengamos un dise�o responsive, adaptable a cualquier dispositivo!
+                    'responsiveCss' => true, //Esto para que tengamos un disenno responsive, adaptable a cualquier dispositivo!
 
                 ),
 

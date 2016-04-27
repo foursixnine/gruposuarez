@@ -29,13 +29,13 @@ public function accessRules()
     array('allow',  // allow all users to perform 'index' and 'view' actions
         'actions'=>array('index','view','listarusuarioremuneracion','email','inicio'),
       //  'users'=>array('*'),
-        'roles'=>array('admin'),
+        'roles'=>array('admin','Administrador'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
       //  'actions'=>array('create','update','listarusuarioremuneracion','email','inicio'),
     	  'actions'=>array('update','create','view'),
      //   'users'=>array('*'),
-          'roles'=>array('analista_cobros','jefe_cobros','admin'),
+          'roles'=>array('analista_cobros','jefe_cobros','admin','Administrador'),
     ),
     array('allow', // allow admin user to perform 'admin' and 'delete' actions
         'actions'=>array('admin','delete'),

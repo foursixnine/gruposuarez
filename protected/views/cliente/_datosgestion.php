@@ -6,7 +6,7 @@
             <p>DATOS ULTIMAS GESTIONES<span class="glyphicon glyphicon-list-alt"></span></p> 
         </a>
           <?php 
-
+if($gestion!=""){
           foreach ($gestion_old as $key=>$row) {
           ?>
          <table class="list-group-item">
@@ -33,12 +33,15 @@
                             
                         </tr></table>
         <?php }
-
+}
         ?>  
     </div>
     </div>
+<?php
 
-      <?php $this->widget('booster.widgets.TbGridView',array(
+if($gestionseguimiento!="" AND $id_gestion!=""){   
+
+          $this->widget('booster.widgets.TbGridView',array(
           'id'=>'gestion-seguimiento-grid',
           'dataProvider'=>$gestionseguimiento->seguimientogestion(86),
         //  'filter'=>$gestionseguimiento,
@@ -50,7 +53,7 @@
          
       ),
       )); 
-
+}
    
 
 ?>

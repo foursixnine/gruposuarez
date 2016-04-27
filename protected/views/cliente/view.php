@@ -5,15 +5,16 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List Cliente','url'=>array('index')),
-array('label'=>'Create Cliente','url'=>array('create')),
-array('label'=>'Update Cliente','url'=>array('update','id'=>$model->id_cliente_gs)),
-array('label'=>'Delete Cliente','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_cliente_gs),'confirm'=>'Are you sure you want to delete this item?')),
-array('label'=>'Manage Cliente','url'=>array('admin')),
+array('label'=>'Listar Cliente','url'=>array('index')),
+
+array('label'=>'Administrar Cliente','url'=>array('admin')),
 );
 ?>
 
-<h1>View Cliente #<?php echo $model->id_cliente_gs; ?></h1>
+<button type="button" class="btn btn-warning">DETALLE CLIENTE
+#<?php echo $model->id_cliente; ?>
+</button>
+
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,

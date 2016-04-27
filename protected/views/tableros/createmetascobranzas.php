@@ -165,7 +165,7 @@ array('label'=>'Volver','url'=>'../index'),
 		));  
     ?>
     <?php 
- echo CHtml::link('Ver todos los Proyectos',array('/tableros/createmetascobranza/'));
+ echo CHtml::link('Ver todos los Proyectos',array('/tableros/createmetascobranzas/'));
 /*
   $this->widget('booster.widgets.TbButton', array(
     'label'=>'Actualizar',

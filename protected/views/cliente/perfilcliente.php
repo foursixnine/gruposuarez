@@ -64,6 +64,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
                                                     'gestion_old'=>$gestion_old,
                                                     'gestionseguimiento'=>$gestionseguimiento,
                                                     'id_gestion'=>$id_gestion,
+                                                    'gestion'=>$gestion,
                                                 //     'id_gestion'=>$id_gestion
                                                                         ),true),
         ), 

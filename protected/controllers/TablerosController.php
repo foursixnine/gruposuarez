@@ -754,7 +754,7 @@ $diciembrepggcobrador=0;
                          $eneproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-01-01'".' and '. "'2015-01-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-01-01'".' and '. "'2016-01-31'")
                                  ->queryScalar();
 
 
@@ -764,14 +764,14 @@ $diciembrepggcobrador=0;
                          $febproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-02-01'".' and '. "'2015-02-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-02-01'".' and '. "'2016-02-31'")
                                  ->queryScalar();
                      
                     
                          $marproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-03-01'".' and '. "'2015-03-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-03-01'".' and '. "'2016-03-31'")
                                  ->queryScalar();
 
                    
@@ -780,7 +780,7 @@ $diciembrepggcobrador=0;
                          $abrilproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-04-01'".' and '. "'2015-04-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-04-01'".' and '. "'2016-04-31'")
                                  ->queryScalar();
 
   
@@ -788,7 +788,7 @@ $diciembrepggcobrador=0;
                          $mayoproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-05-01'".' and '. "'2015-05-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-05-01'".' and '. "'2016-05-31'")
                                  ->queryScalar();
 
                      
@@ -797,21 +797,21 @@ $diciembrepggcobrador=0;
                          $junproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-06-01'".' and '. "'2015-06-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-06-01'".' and '. "'2016-06-31'")
                                  ->queryScalar();
 
          
                          $julproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-07-01'".' and '. "'2015-07-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-07-01'".' and '. "'2016-07-31'")
                                  ->queryScalar();
 
         
                          $agosproycobrador = Yii::app()->dbconix->createCommand()
                          ->select('sum(p.monto)')
                                  ->from('payments p, quotes_details qd')
-                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2015-08-01'".' and '. "'2015-08-31'")
+                                 ->where(' p.Abono_Reff=qd.Bill and fecha BETWEEN '. "'2016-08-01'".' and '. "'2016-08-31'")
                                  ->queryScalar();
 
          
@@ -1132,7 +1132,7 @@ $diciembrepggcobrador=0;
         
    
     
-    $this->render('createmetascobranza',array(
+    $this->render('createmetascobranzas',array(
             'model'=>$model,
             'proyecto'=>$proyecto,
             'totalmetaspg'=>$totalmetaspg,
