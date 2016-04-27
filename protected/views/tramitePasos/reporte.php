@@ -86,11 +86,23 @@ TramitePasos_fecha_paso_range_pasos
 			'value'=> 'CHtml::encode($data->idPaso["abrev"])',
 			'filter'=>CHtml::listData(Paso::model()->findAll(), 'id_paso', 'abrev'),
 		),
+/*    array(
+       'model'=>$model,
+  'attribute'=>'id_usuario',
+    'data'=>array(
+    0=>'Nol',
+    1=>'Satu',
+    2=>'Dua',
+  ),*/ 
+
+
+      
 			array(
-                    'name'=>'id_usuario',
-                    'header'=>'Tramitador',
-                    'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
-                    'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+            'name'=>'id_usuario',
+            'header'=>'Tramitador',
+            'value'=> 'CHtml::encode($data->idUsuario["nombre"])',
+           // 'filter'=>CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+    'filter' => CHtml::listData(Usuarios::model()->findall("id_usuario IN (10,11,14)"), 'id_usuario', 'nombre'), 
          ),
       /*      array(
  'name'=>'fecha_inicio',
