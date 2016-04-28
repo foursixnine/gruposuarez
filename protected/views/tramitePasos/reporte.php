@@ -27,7 +27,7 @@ return false;
 <br/>
 
 <br/><br/>
-TramitePasos_fecha_paso_range_pasos
+
 
 <br/>
 <br/><br/>
@@ -37,7 +37,7 @@ TramitePasos_fecha_paso_range_pasos
 'id'=>'tramite-pasos-grid',
 'dataProvider'=>$model->reporteexcel(),
 'filter'=>$model,
-//'afterAjaxUpdate' => 'reinstallDatePicker',
+//'afterAjaxUpdate' => 'reinstallDatePicker', // (#1)
 'columns'=>array(
         array('name'=>'fecha_paso_range_pasos',
         'header'=>'Fecha Entrada',

@@ -141,6 +141,7 @@ class TramitePasos extends CActiveRecord
         return false;
     }	
     public static $dateRangePickerOptions = array(
+    	       // 'language' => 'ja',
                 'locale'=>array(
                                 'firstDay'=>1,
                                 'applyLabel'=>'Aceptar',
@@ -150,7 +151,7 @@ class TramitePasos extends CActiveRecord
                         ),
                 'showDropdowns'=>true,
                 'format'=>'YYYY-MM-DD',
-                'autoclose'=> true,
+                'autoclose'=> false,
         );
 	public function search()
 	{
