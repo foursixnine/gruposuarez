@@ -27,14 +27,15 @@ public function accessRules()
 {
     return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','listarusuarioremuneracion','email','inicio'),
+     //   'actions'=>array('index','view','listarusuarioremuneracion','email','inicio'),
+    	 'actions'=>array('cambioclave','verclave'),
       //  'users'=>array('*'),
         //'roles'=>array('admin','Administrador'),
-           'users'=>array('admin'),
+           'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
       //  'actions'=>array('create','update','listarusuarioremuneracion','email','inicio'),
-    	  'actions'=>array('update','create','view'),
+    	  'actions'=>array('index','view','listarusuarioremuneracion','email','inicio','update','create','view'),
      //   'users'=>array('*'),
        //   'roles'=>array('analista_cobros','jefe_cobros','admin','Administrador'),
     	     'users'=>array('admin'),
@@ -63,6 +64,14 @@ public function actionView($id)
     ));
 }
 
+public function actionVerClave($id)
+{
+
+  
+    $this->render('verclave',array(
+        'model'=>$this->loadModel($id),
+    ));
+}
 /**
 * Creates a new model.
 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -120,6 +129,26 @@ if(isset($_POST['Usuarios']))
 	));
 }
 
+public function actionCambioClave($id)
+{
+$model=$this->loadModel($id);
+
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
+
+if(isset($_POST['Usuarios']))
+{
+	$model->attributes=$_POST['Usuarios'];
+				$model->password=$model->hashPassword($_POST['Usuarios']['password'],$session=$model->generateSalt());
+				$model->session=$session;
+	if($model->save())
+		$this->redirect(array('verclave','id'=>$model->id_usuario));
+	}
+
+	$this->render('cambioclave',array(
+		'model'=>$model,
+	));
+}
 /**
 * Deletes a particular model.
 * If deletion is successful, the browser will be redirected to the 'admin' page.

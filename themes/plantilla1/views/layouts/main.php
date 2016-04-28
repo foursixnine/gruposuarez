@@ -70,8 +70,11 @@ if($user!=""){
                              
                           
 				
-                             array('label'=>'TABLEROS', 'url'=>array('/tableros/')),
-                  array('label'=>'ADMINISTRACION', 'url'=>array('/usuarios/inicio'),
+              array('label'=>'TABLEROS', 'url'=>array('/tableros/')),
+
+              array('label'=>'CAMBIO CLAVE', 'url'=>array('/usuarios/cambioclave/'.Yii::app()->user->id.'')),
+
+              array('label'=>'ADMINIST.', 'url'=>array('/usuarios/inicio'),
               'items'=>array(
                 array('label'=>'Usuarios', 'url'=>array('/usuarios/create')),             
                                                                 array('label'=>'Duracion Pasos', 'url'=>array('/duracionPasos/index')),

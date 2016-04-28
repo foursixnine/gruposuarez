@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
 
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
-
+<!--
 <h2 class="titulo">COBROS</h2>
 
 <div class="well">
@@ -38,7 +38,7 @@ $this->breadcrumbs=array(
 </div>
 
 
-
+-->
 <h2 class="titulo">TRAMITES</h2>
 <div class="well">
 
