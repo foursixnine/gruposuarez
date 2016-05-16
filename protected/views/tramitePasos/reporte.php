@@ -23,6 +23,11 @@ return false;
 });
 ");
 ?>
+<?php
+Yii::app()->clientScript->registerCoreScript('jquery');
+Yii::app()->clientScript->registerCoreScript('jquery.ui');
+
+//Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl .'/js/jquery.ui.datepicker.js'); ?>
 <br/>
 <br/>
 
@@ -37,6 +42,7 @@ return false;
 'id'=>'tramite-pasos-grid',
 'dataProvider'=>$model->reporteexcel(),
 'filter'=>$model,
+'afterAjaxUpdate' => 'reinstallDatePicker', // (#1)
 //'afterAjaxUpdate' => 'reinstallDatePicker', // (#1)
 'columns'=>array(
         array('name'=>'fecha_paso_range_pasos',
@@ -53,10 +59,20 @@ return false;
                                                 'id'=>'dateRangePicker_fecha_paso_range_pasos',
                                                 'class'=>'form-control date-filter'
                                 ),*/
-                                'options'=>TramitePasos::$dateRangePickerOptions,
+                               // 'options'=>TramitePasos::$dateRangePickerOptions,
+                                         'options' => array(  // (#3)
+                  'showOn' => 'focus', 
+                  'format'=>'YYYY-MM-DD',
+                 // 'dateFormat' => 'yy-mm-dd',
+                  'showOtherMonths' => true,
+                  'selectOtherMonths' => true,
+                  'changeMonth' => true,
+                  'changeYear' => true,
+                  'showButtonPanel' => true,
+          )
                                 ),
-                        true).
-                '</div>'),
+                                true),
+                ),
 
 		array(
                     'name'=>'id_crm_proyecto',
@@ -115,12 +131,17 @@ return false;
 ),
 )); 
 
-      /*
-Yii::app()->clientScript->registerScript('for-date-picker',"
-function reInstallDatepicker(id, data){
-       $('#dateRangePicker_fecha_paso_range_pasos').datepicker({'dateFormat':'yy-mm-dd'});
-    }
+// (#5)
+Yii::app()->clientScript->registerScript('re-install-date-picker', "
+function reinstallDatePicker(id, data) {
+    $('#TramitePasos_fecha_paso_range_pasos').datepicker(jQuery.extend({showMonthAfterYear:false, changeYear:true},jQuery.datepicker.regional['es'],{'dateFormat':'yy-mm-dd'}));
+}
 ");
-*/
+
+/*Yii::app()->clientScript->registerScript('re-install-date-picker', "
+function reinstallDatePicker(id, data) {
+    $('TramitePasos_fecha_paso_range_pasos').datepicker(jQuery.extend({showMonthAfterYear:false},jQuery.datepicker.regional['ja'],{'dateFormat':'yyyy-mm-dd'}));
+}
+");*/
 ?>
 

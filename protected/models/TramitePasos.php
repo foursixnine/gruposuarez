@@ -141,8 +141,9 @@ class TramitePasos extends CActiveRecord
         return false;
     }	
     public static $dateRangePickerOptions = array(
-    	       // 'language' => 'ja',
+    	        'language' => 'ja',
                 'locale'=>array(
+                	            'showOn' => 'focus', 
                                 'firstDay'=>1,
                                 'applyLabel'=>'Aceptar',
                                 'cancelLabel'=>'Cancelar',
