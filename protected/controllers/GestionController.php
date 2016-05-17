@@ -306,7 +306,7 @@ public function actionCreate($id){
                                 ->from('cliente c')
                                 ->where('status_de_lote != '."'RETIRO'".' AND status_plan_pago != '."'RETIRO'".' AND (status_de_lote='."'TRAMITE'".' OR status_de_lote='."'COBRO'".')
 		 AND (
-			 (cartera_corriente > 0 OR cartera_corriente < 0 )  AND  
+			 (cartera_corriente > 0 OR cartera_corriente < 0 )  OR  
 		 (cartera_30_dias > 0.05 ) OR 
 		 (cartera_60_dias > 0.05 ) OR
 		 (cartera_90_dias > 0.05) OR 
