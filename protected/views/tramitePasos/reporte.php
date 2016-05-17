@@ -131,7 +131,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui');
 ),
 )); 
 
-// (#5)
+//(#5)
 Yii::app()->clientScript->registerScript('re-install-date-picker', "
 function reinstallDatePicker(id, data) {
     $('#TramitePasos_fecha_paso_range_pasos').datepicker(jQuery.extend({showMonthAfterYear:false, changeYear:true},jQuery.datepicker.regional['es'],{'dateFormat':'yy-mm-dd'}));
