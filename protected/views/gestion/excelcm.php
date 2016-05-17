@@ -81,11 +81,11 @@ $sumtv=0;
                 $sum120+=$value['cartera_120_dias'];
                 $sumtv+=$value['total_vencido'];*/
                 $sumc+=$value['cartera_corriente'];
-                $sum30+=$value['treinta'];
-                $sum60+=$value['sesenta'];
-                $sum90+=$value['noventa'];
-                $sum120+=$value['cientoveinte'];
-                $sumtv+=$value['suma'];
+                $sum30+=$value['cartera_30_dias'];
+                $sum60+=$value['cartera_60_dias'];
+                $sum90+=$value['cartera_90_dias'];
+                $sum120+=$value['cartera_120_dias'];
+                $sumtv+=$value['total_vencido'];
      ?>
             <tr <?php echo ($x++)%2==0?"style='background-color:#CCC'":"";?>>
                 <td><?php echo $value['nombre_de_empresa'];?></td>
