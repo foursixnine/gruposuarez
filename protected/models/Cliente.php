@@ -482,7 +482,7 @@ class Cliente extends CActiveRecord
  		/*$criteria->condition = 'status_plan_pago != '."'RETIRO'".' AND (cartera_corriente > '."'1'".' OR cartera_30_dias > '."'1'".' OR cartera_60_dias >'."'1'".' OR cartera_90_dias > '."'1'".' OR cartera_120_dias > '."'1'".' OR total_vencido > '."'1'".')';*/
  		$criteria->condition = 'status_de_lote != '."'RETIRO'".' AND  status_plan_pago != '."'RETIRO'".' AND (status_de_lote='."'TRAMITE'".' OR status_de_lote='."'COBRO'".')
 		 AND (
-		 (cartera_corriente > 0 OR cartera_corriente < 0 )  OR  
+		 (cartera_corriente > 0 OR cartera_corriente < 0 )  AND  
 		 (cartera_30_dias > 0.05 ) OR 
 		 (cartera_60_dias > 0.05 ) OR
 		 (cartera_90_dias > 0.05) OR 
