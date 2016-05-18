@@ -346,9 +346,9 @@ $proyectomorosos =  Yii::app()->db->createCommand()
 										SUM(CARTERA_90_DIAS) as noventa, SUM(CARTERA_120_DIAS) as cientoveinte,SUM(CARTERA_CORRIENTE) as cartera_corriente')
                                 ->from('cliente c')
                                 ->where('status_de_lote != '."'RETIRO'".' AND status_plan_pago != '."'RETIRO'".' AND (status_de_lote='."'TRAMITE'".' OR status_de_lote='."'COBRO'".')
-		 AND  (total_vencido >= 0 AND total_vencido > 0.05) 
+		 AND  (total_vencido = 0.00 OR total_vencido > 0.05) 
 		 AND (
-			 (cartera_corriente > 0 )  AND  
+			 (cartera_corriente > 0.00  OR cartera_corriente < 0 )  AND  
 		 (cartera_30_dias > 0 ) OR 
 		 (cartera_60_dias > 0 ) OR
 		 (cartera_90_dias > 0) OR 
