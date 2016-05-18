@@ -27,11 +27,11 @@ class GestionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','gestioncobros','toggle','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto','clientesretirados','reporteretirados'),
+				'actions'=>array('index','view','gestioncobros','toggle','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto','clientesretirados','reporteclientesretirado'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gestioncobros','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto','clientesretirados','reporteretirados'),
+				'actions'=>array('create','update','gestioncobros','excel','indexreportes','morocidadcliente','excelcm','morosidadproyecto','clientesretirados','reporteclientesretirados'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -282,27 +282,30 @@ public function actionCreate($id){
 
 	}
 
-	public function actionReporteretirados()
+	public function actionReporteclientesretirados()
 	{
-   $reportetobservaciones = Yii::app()->db->createCommand()
-      ->select('t.id_pasos as pasos, t.numero_de_lote, c.nombre_de_empresa,
-                pa.descripcion as nompaso, pa.abrev,
-                ta.observaciones')
-      ->from('tramite t, tramite_actividad ta, paso pa,cliente c')
-      ->where('pa.id_paso = ta.id_paso AND
-               t.id_pasos = ta.id_paso AND
-               t.id_cliente_gs = c.id_cliente_gs AND 
-               t.id_tramite = ta.id_tramite 
-                GROUP BY 
-               t.id_pasos, nompaso, ta.observaciones, pa.abrev,t.numero_de_lote,c.nombre_de_empresa
-              order by pasos')
+   $reporteclientesretirados = Yii::app()->db->createCommand()
+      ->select('c.nombre_de_empresa,
+				c.proyecto,
+				c.numero_de_lote,
+				c.total_venta,
+				c.monto_liquidacion,
+				c.banco_acreedor, 
+				c.fecha_de_permiso_ocupacion, 
+				c.fecha_de_permiso_contruccion,
+				c.vendedor,
+				c.confeccion_protocolo,
+				c.agente_tramite')
+      ->from('cliente c')
+      ->where('c.status_plan_pago ='."'RETIRO'".' OR
+               c.status_de_lote ='."'RETIRO'".'       
+              order by c.nombre_de_empresa')
       ->queryAll(true);
 
 
-
-      Yii::app()->request->sendFile('TramitesObservaciones.xls',
-                                $this->renderPartial('reportetobservaciones',array(
-                                    'reportetobservaciones'=>$reportetobservaciones,
+      Yii::app()->request->sendFile('Reporteclientesretirados.xls',
+                                $this->renderPartial('reporteclientesretirados',array(
+                                    'reporteclientesretirados'=>$reporteclientesretirados,
                                 ),true)
                 
        );
