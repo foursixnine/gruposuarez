@@ -328,7 +328,7 @@ public function actionCreate($id){
 
 
         //MorosidadProyecto
-        $proyectomorosos =  Yii::app()->db->createCommand()
+        /*$proyectomorosos =  Yii::app()->db->createCommand()
                                 ->select('proyecto, SUM(TOTAL_VENCIDO) as suma, SUM(CARTERA_30_DIAS) as treinta, SUM(CARTERA_60_DIAS) as sesenta, 
 										SUM(CARTERA_90_DIAS) as noventa, SUM(CARTERA_120_DIAS) as cientoveinte,SUM(CARTERA_CORRIENTE) as cartera_corriente')
                                 ->from('cliente c')
@@ -340,6 +340,19 @@ public function actionCreate($id){
 		 (cartera_90_dias > 0.05) OR 
 		 (cartera_120_dias > 0.05 ) OR  
 		 (total_vencido >  0.05) ) GROUP BY proyecto')
+                                ->queryAll(true);*/
+$proyectomorosos =  Yii::app()->db->createCommand()
+                                ->select('proyecto, SUM(TOTAL_VENCIDO) as suma, SUM(CARTERA_30_DIAS) as treinta, SUM(CARTERA_60_DIAS) as sesenta, 
+										SUM(CARTERA_90_DIAS) as noventa, SUM(CARTERA_120_DIAS) as cientoveinte,SUM(CARTERA_CORRIENTE) as cartera_corriente')
+                                ->from('cliente c')
+                                ->where('status_de_lote != '."'RETIRO'".' AND status_plan_pago != '."'RETIRO'".' AND (status_de_lote='."'TRAMITE'".' OR status_de_lote='."'COBRO'".')
+		 AND  (total_vencido >= 0 AND total_vencido > 0.05) 
+		 AND (
+			 (cartera_corriente > 0 )  AND  
+		 (cartera_30_dias > 0 ) OR 
+		 (cartera_60_dias > 0 ) OR
+		 (cartera_90_dias > 0) OR 
+		 (cartera_120_dias > 0 )  ) GROUP BY proyecto')
                                 ->queryAll(true);
 
         Yii::app()->request->sendFile('MorosidadProyecto.xls',
