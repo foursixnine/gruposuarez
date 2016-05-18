@@ -71,14 +71,16 @@ array('label'=>'Volver','url'=>array('../gruposuarez')),
         <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
         <button type="button" class="btn btn-warning">REPORTE<br/>LIQUIDACIONES</button>
     </a>
-
-
-       <!-- Tableros -->
-<a href="<?php echo Yii::app()->createUrl('tramite/reportebancos'); ?>">
+    <!-- Tableros -->
+    <a href="<?php echo Yii::app()->createUrl('tramite/reportebancos'); ?>">
         <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
         <button type="button" class="btn btn-warning">REPORTE<br/>BANCOS</button>
     </a>
-
+    <!-- Tableros -->
+    <a href="<?php echo Yii::app()->createUrl('tramite/reportetobservaciones'); ?>">
+        <img width="110px" height="110px" src="<?php echo Yii:: app()->baseUrl.'/images/tramites.png' ?> "  />
+        <button type="button" class="btn btn-warning">REPORTE<br/>TRAMITES<br/>OBSERVACIONES</button>
+    </a>
   
 
 </div>

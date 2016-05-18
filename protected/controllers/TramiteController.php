@@ -27,16 +27,16 @@ public function accessRules()
 {
 return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones'),
+        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones','reportetobservacionesreportetobservaciones'),
         'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones'),
+        'actions'=>array('create','update','actualizarcobradora','actualizar','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones','reportetobservaciones'),
         //'users'=>array('@'),
          'users'=>array('*'),
     ),
     array('allow', // allow admin user to perform 'admin' and 'delete' actions
-        'actions'=>array('admin','delete','actualizarcobradora'),
+        'actions'=>array('admin','delete','actualizarcobradora','reportetobservaciones'),
         'users'=>array('admin', 'gilarreta','aquintero','lvelasco','mguerra','orodriguez'),
        //  'users'=>array('*'),
     ),
@@ -322,8 +322,6 @@ public function actionTramitesLiquidados(){
   }
 
   public function actionReporteBancos(){
-
-
       $reportebancos = Yii::app()->db->createCommand()
       ->select('t.id_pasos as pasos, 
             pa.descripcion as nompaso, pa.abrev,
@@ -346,7 +344,32 @@ public function actionTramitesLiquidados(){
                 
        );
   }
-     public function actionExcelReporte() {
+
+  public function actionReportetobservaciones(){
+
+      $reportetobservaciones = Yii::app()->db->createCommand()
+      ->select('t.id_pasos as pasos, t.numero_de_lote, c.nombre_de_empresa,
+                pa.descripcion as nompaso, pa.abrev,
+                ta.observaciones')
+      ->from('tramite t, tramite_actividad ta, paso pa,cliente c')
+      ->where('pa.id_paso = ta.id_paso AND
+               t.id_pasos = ta.id_paso AND
+               t.id_cliente_gs = c.id_cliente_gs AND 
+               t.id_tramite = ta.id_tramite 
+                GROUP BY 
+               t.id_pasos, nompaso, ta.observaciones, pa.abrev,t.numero_de_lote,c.nombre_de_empresa
+              order by pasos')
+      ->queryAll(true);
+
+      Yii::app()->request->sendFile('TramitesObservaciones.xls',
+                                $this->renderPartial('reportetobservaciones',array(
+                                    'reportetobservaciones'=>$reportetobservaciones,
+                                ),true)
+                
+       );
+  }
+
+  public function actionExcelReporte() {
 
     
     $issueDataProvider = $_SESSION['Tramite'];

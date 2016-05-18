@@ -526,7 +526,7 @@ class Cliente extends CActiveRecord
                
 		$criteria=new CDbCriteria;
       
-        $criteria->condition = 'status_de_lote != '."'RETIRO'".' AND status_plan_pago =  '."'RETIRO'".'';
+        $criteria->condition = 'status_de_lote != '."'RETIRO'".' OR status_plan_pago =  '."'RETIRO'".'';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
 		$criteria->compare('agente_tramite',$this->agente_tramite,true);
 		$criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);

@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 	$this->menu=array(
 	//array('label'=>'Tramites Anteriores','url'=>array('admin')),
         array('label'=>'Tramites Anteriores','url'=>array('admin','id'=>$tramite->id_tramite)),
+        array('label'=>'Tramites Observaciones','url'=>array('admin','id'=>$tramite->id_tramite)),
         //array('label'=>'Volver al Paso Anteriror','url'=>array('pasoanterior','id'=>$tramite->id_tramite)),
 	);
 

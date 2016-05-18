@@ -30,15 +30,13 @@ array('label'=>'Volver','url'=>'index'),
                       'options' => array(
                         'placeholder' => "PROYECTO",
                              'allowClear'=>true,
-                       /* 'allowClear'=>true,
-                        'minimumInputLength'=>2,*/
                       ),
                       'htmlOptions'=>array(
                         'style'=>'width:380px',
                       ),
                     ));
         ?>
-        <br/>       
+               
            
       
         <br/>
@@ -51,7 +49,8 @@ array('label'=>'Volver','url'=>'index'),
                       'booster.widgets.TbSelect2', array(
                       'model' => $model,
                       'attribute' => 'id_usuario',
-                      'data' => CHtml::listData(Usuarios::model()->findAll(), 'id_usuario', 'nombre'),
+                      'data' => CHtml::listData(Usuarios::model()->findAll("id_usuario IN (10,11,14)"), 'id_usuario', 'nombre'),
+                   
                       'options' => array(
                         'placeholder' => "TRAMITADORA",
                        'allowClear'=>true,
@@ -116,7 +115,7 @@ array('label'=>'Volver','url'=>'index'),
                              )
 ); 
 ?>
-           <br/>
+        
 <div class="form-actions">
 	<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
@@ -151,7 +150,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
     ),
     'options' => array(
       'title' => array(
-            'text' => 'Casas Liquidadas a Credito'
+            'text' => 'Casas Liquidadas'
       ),
       'subtitle' => array(
           'text' => 'Pasos en Liquidación'
@@ -245,9 +244,8 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
 </div>
 
 
-<br/>
 
-
+<!--
 <div id="containertablero2" style="min-width: 855px; height: 400px;margin: 0 auto">
 
 
@@ -255,7 +253,7 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
 
 /*********ORIGINAL*****************///////
 
-
+/*
 
 $this->Widget('ext.highcharts.HighchartsWidget', array(
     'scripts' => array(
@@ -353,7 +351,8 @@ $this->Widget('ext.highcharts.HighchartsWidget', array(
     )
   ));
       
-      
+      */
       
 ?>
 </div>
+-->

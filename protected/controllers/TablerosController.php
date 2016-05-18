@@ -1252,7 +1252,7 @@ $totalventa=array();
     ->from('tramite t, cliente c, proyecto p, meses m')
     ->where(' p.id_crm_proyecto=c.id_proyecto and 
         m.id_meses=date_part('. "'month'".', t.fecha_fin) and
-         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_pasos=11 and c.id_banco!=16 
+         c.id_proyecto=p.id_crm_proyecto and c.id_cliente_gs=t.id_cliente_gs and t.id_pasos=11 
     group by t.id_pasos, mes, nommes
     order by mes')
     ->queryAll(true);
