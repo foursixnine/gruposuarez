@@ -44,6 +44,7 @@ $sumtv=0;
         <th>CARTERA 90</th>        
         <th>CARTERA 120</th>
         <th>TOTAL VENCIDO</th>
+      
         
 
 
@@ -134,6 +135,10 @@ $sumtv=0;
             <tr>
                 <td colspan="11" align="right"><b>TOTAL VENCIDO</b></td>
                 <td><?php echo $sumtv; ?></td>
+            </tr>
+                <tr>
+                <td colspan="11" align="right"><b>TOTAL CARTERA</b></td>
+                <td><?php echo $sumtv+$sum120+$sum90+$sum60+$sum30+$sumc; ?></td>
             </tr>
             </table>
     

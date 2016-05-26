@@ -16,7 +16,7 @@ if($reportetobservaciones!==null){
         
        
 
-<td colspan="5"  align="center">
+<td colspan="7"  align="center">
     <br/>
 <div style='background-color:#CCC'><STRONG>REPORTE DE TRAMITES ACTIVIDADES</STRONG></div>
     <BR>
@@ -33,6 +33,8 @@ if($reportetobservaciones!==null){
                 <th>Nombre del Paso</th>  
                 <th>Nº de Paso</th> 
                 <th>Observaciones</th> 
+                <th>Tramitador</th> 
+                <th>Vendedor</th> 
     </tr>
     
     <?php foreach ($reportetobservaciones as $value) {
@@ -43,7 +45,9 @@ if($reportetobservaciones!==null){
                 <td><?php echo $value['nombre_de_empresa'];?>
                 <td><?php echo $value['nompaso'];?></td> 
                 <td><?php echo $value['abrev'];?></td> 
-                <td><?php echo $value['observaciones']; ?></td>              
+                <td><?php echo $value['observaciones']; ?></td>
+                <td><?php echo $value['vendedor']; ?></td>
+                <td><?php echo $value['tramitador']; ?></td>              
             </tr>
             
     <?php } ?>  

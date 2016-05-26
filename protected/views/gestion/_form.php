@@ -158,24 +158,23 @@ $(function(){
         );*/
      ?>
     <br />
-    <b><?php echo $form->labelEx($model, 'Acuerdo');?></b>
+    <b><?php //echo $form->labelEx($model, 'Acuerdo');?></b>
         <br />
         <!-- Auto Completar Acuerdo de Cobros -->     
         <?php
-                    $this->widget(
+                   /* $this->widget(
                       'booster.widgets.TbSelect2', array(
                       'model' => $model,
                       'attribute' => 'id_acuerdo_cobros',
                       'data' => CHtml::listData(AcuerdoCobros::model()->findAll(), 'id_acuerdo_cobros', 'descripcion'),
                       'options' => array(
                       'placeholder' => "ACUERDO",
-                       /* 'allowClear'=>true,
-                        'minimumInputLength'=>2,*/
+   
                       ),
                       'htmlOptions'=>array(
                         'style'=>'width:380px',
                       ),
-                    ));
+                    ));*/
         ?>
         <br/>
         

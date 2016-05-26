@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 array('label'=>'Volver','url'=>array('gestion/index')),
-array('label'=>'Exportar','url'=>array('gestion/reporteclientesretirados')),
+array('label'=>'Exportar a Excel','url'=>array('gestion/reporteclientesretirados')),
 //array('label'=>'Manage Clientes','url'=>array('admin')),
 );
 

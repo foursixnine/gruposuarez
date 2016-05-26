@@ -64,11 +64,11 @@ $sumtv=0;
             
     <?php } ?>  
 
-            <tr>
-                <td colspan="6" align="right"><b>TOTAL VENCIDO</b></td>
-                <td><?php echo $sumtv; ?></td>
+        
+   <tr>
+                <td colspan="6" align="right"><b>TOTAL CORRIENTE</b></td>
+                <td><?php echo $sumc; ?></td>
             </tr>
-
 
             <tr>
                 <td colspan="6" align="right"><b>CARTERA 30</b></td>
@@ -91,11 +91,16 @@ $sumtv=0;
                 <td><?php echo $sum120; ?></td>
             </tr>
 
-            <tr>
-                <td colspan="6" align="right"><b>TOTAL CORRIENTE</b></td>
-                <td><?php echo $sumc; ?></td>
-            </tr> 
+          
 
+                <tr>
+                <td colspan="6" align="right"><b>TOTAL VENCIDO</b></td>
+                <td><?php echo $sumtv; ?></td>
+            </tr>
+            <tr>
+                <td colspan="11" align="right"><b>TOTAL CARTERA</b></td>
+                <td><?php echo $sumtv+$sum120+$sum90+$sum60+$sum30+$sumc; ?></td>
+            </tr>
             </table>
     
 <?php }?>

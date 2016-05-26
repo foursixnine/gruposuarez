@@ -292,7 +292,7 @@ class Cliente extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-        $criteria->condition = 'CARTERA_120_DIAS <= 0 AND status_de_lote  = '."'COBRO'".' AND status_plan_pago  != '."'RETIRO'".' AND status_de_lote !=  '."'LIQUIDADO'".'  ';
+        $criteria->condition = 'numero_de_lote!='."'100L1'".' AND CARTERA_120_DIAS <= 0 AND status_de_lote  = '."'COBRO'".' AND status_plan_pago  != '."'RETIRO'".' AND status_de_lote !=  '."'LIQUIDADO'".'  ';
 		$criteria->compare('id_cliente_gs',$this->id_cliente_gs);
         $criteria->compare('upper(t.nombre_de_empresa)',strtoupper($this->nombre_de_empresa),true);		
 		$criteria->compare('nombre',$this->nombre,true);
@@ -488,7 +488,7 @@ class Cliente extends CActiveRecord
 		 (cartera_90_dias > 0.05) OR 
 		 (cartera_120_dias > 0.05 ) OR  
 		 (total_vencido >  0.05) )'; */
-		 $criteria->condition = 'status_de_lote != '."'RETIRO'".' AND  status_plan_pago != '."'RETIRO'".' AND (status_de_lote='."'TRAMITE'".' OR status_de_lote='."'COBRO'".') AND
+		 $criteria->condition = 'numero_de_lote!='."'100L1'".' AND status_de_lote != '."'RETIRO'".' AND  status_plan_pago != '."'RETIRO'".' AND (status_de_lote='."'TRAMITE'".' OR status_de_lote='."'COBRO'".') AND
 		  (total_vencido = 0.00 OR total_vencido > 0.05) 
 		 AND (
 		 (cartera_corriente > 0 OR cartera_corriente < 0 )  OR  

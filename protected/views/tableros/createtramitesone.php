@@ -105,6 +105,8 @@ array('label'=>'Volver','url'=>'index'),
                             'attribute'=>'anno',
                             'data'=>array(
                               1=>'2016',
+                              /* 2=>'2015',
+                                3=>'2013',*/
                                                            ),
             'htmlOptions' => array(
                    'allowClear'=>true,

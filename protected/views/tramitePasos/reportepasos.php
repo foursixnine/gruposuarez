@@ -34,7 +34,9 @@ if($reportepasos!==null){
                 <th>FECHA LIQUIDACION</th>
                 <th>N° de LOTE</th>  
                 <th>PRECIO TOTAL DE VENTA</th>  
-                <th>PRECIO MONTO LIQUIDACION</th>  
+                <th>PRECIO MONTO LIQUIDACION</th>
+                <th>VENDEDOR</th>
+                <th>TRAMITADOR</th>
     </tr>
        
 
@@ -91,6 +93,8 @@ if($reportepasos!==null){
                 <td><?php echo $value['lote'];?></td> 
                 <td>$<?php echo number_format($value['totalventa'], 2, '.', ''); ?></td>
                 <td>$<?php echo number_format($value['totalliquidado'], 2, '.', ''); ?></td>
+                <td><?php echo $value['vendedor'];?></td> 
+                <td><?php echo $value['tramitador'];?></td> 
             </tr>
             
     <?php } ?>  

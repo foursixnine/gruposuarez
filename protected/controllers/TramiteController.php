@@ -27,7 +27,7 @@ public function accessRules()
 {
 return array(
     array('allow',  // allow all users to perform 'index' and 'view' actions
-        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones','reportetobservacionesreportetobservaciones'),
+        'actions'=>array('index','view','actualizarcobradora','actualizar','toggle','listar','continuartramites','tramitesliquidados','reportetramite','excelreporte','reportebancos','actualizarobservaciones','reportetobservaciones'),
         'users'=>array('*'),
     ),
     array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -346,18 +346,21 @@ public function actionTramitesLiquidados(){
   }
 
   public function actionReportetobservaciones(){
-
+       $null="";
       $reportetobservaciones = Yii::app()->db->createCommand()
       ->select('t.id_pasos as pasos, t.numero_de_lote, c.nombre_de_empresa,
-                pa.descripcion as nompaso, pa.abrev,
+                pa.descripcion as nompaso, pa.abrev,c.vendedor as vendedor, 
+                c.agente_tramite as tramitador,
                 ta.observaciones')
       ->from('tramite t, tramite_actividad ta, paso pa,cliente c')
       ->where('pa.id_paso = ta.id_paso AND
                t.id_pasos = ta.id_paso AND
                t.id_cliente_gs = c.id_cliente_gs AND 
-               t.id_tramite = ta.id_tramite 
-                GROUP BY 
-               t.id_pasos, nompaso, ta.observaciones, pa.abrev,t.numero_de_lote,c.nombre_de_empresa
+               t.id_tramite = ta.id_tramite AND 
+               ta.observaciones !='."''".'
+               GROUP BY 
+               t.id_pasos, nompaso, ta.observaciones, pa.abrev,tramitador,vendedor,
+               t.numero_de_lote,c.nombre_de_empresa
               order by pasos')
       ->queryAll(true);
 
